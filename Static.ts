@@ -3,8 +3,9 @@ export const WELCOME_MESSAGE_SECOND = "오늘은 어떤 맥주를 마셔볼까�
 export const POPULAR_BEER_TITLE = "🔥 인기맥주 TOP10 🔥 ";
 export const RECOMMENDED_BEER_TITLE_1 = "🍻 ";
 export const RECOMMENDED_BEER_TITLE_2 = " 님께 추천해요 🍻";
-
+export const BEERLOT_TITLE = "🍺BEER LOT🍺";
 export const orangeBright = "#FEA801";
+export const SEARCH_BAR_PLACEHOLDER = "맥주 이름, 종류, 향 등을 검색해보세요!";
 
 export const textMain = "#000000";
 

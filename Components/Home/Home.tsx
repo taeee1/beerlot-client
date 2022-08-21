@@ -1,10 +1,10 @@
+import { useState } from "react";
+import styled from "styled-components";
 import { POPULAR_BEER_TITLE } from "../../Static";
 import Card from "./Card";
-import SearchBar from "./SearchBar";
-import WelcomeText from "./WelcomeText";
-import styled from "styled-components";
+import SearchBarHome from "./SearchBarHome";
 import TwoByTwoCard from "./TwoByTwoCard";
-import { useState } from "react";
+import WelcomeText from "./WelcomeText";
 
 const HomeComponent = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -48,7 +48,7 @@ const HomeComponent = () => {
       )}
 
       <WelcomeText nickname={userNickname} isLoggedIn={isLoggedIn} />
-      <SearchBar />
+      <SearchBarHome />
       {isLoggedIn ? (
         <>
           <Card title={POPULAR_BEER_TITLE} />

@@ -14,10 +14,10 @@ const WelcomeText: React.FC<WelcomeTextProps> = ({ nickname, isLoggedIn }) => {
       <TextContainer>
         <p>{WELCOME_MESSAGE_FIRST}</p>
         {isLoggedIn && (
-          <>
+          <NickanameContainer>
             <Nickname>{nickname}</Nickname>
-            <p>님!</p>
-          </>
+            <p> 님!</p>
+          </NickanameContainer>
         )}
       </TextContainer>
       <TextContainer>
@@ -42,6 +42,11 @@ const TextContainer = styled.div`
 
 const Nickname = styled.p`
   color: #fea801;
+`;
+
+const NickanameContainer = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const WelcomeTextContainer = styled.div`

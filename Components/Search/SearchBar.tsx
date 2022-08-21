@@ -1,5 +1,6 @@
-import React from "react";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
+import styled from "styled-components";
+import { SEARCH_BAR_PLACEHOLDER } from "../../Static";
 
 const SearchBar = () => {
   const items = [
@@ -24,6 +25,7 @@ const SearchBar = () => {
       name: "Java",
     },
   ];
+
   // const handleOnSearch = (string, results) => {
   //    onSearch will have as the first callback parameter
   //    the string searched and for the second the results.
@@ -35,14 +37,11 @@ const SearchBar = () => {
   //   console.log(result);
   // };
 
-  // const handleOnSelect = (item) => {
-  //  the item selected
-  //   console.log(item);
+  // const handleOnSelect = () => {
+  //   <Link href="/search" />;
   // };
 
-  // const handleOnFocus = () => {
-  //   console.log("Focused");
-  // };
+  const handleOnFocus = () => {};
 
   // const formatResult = (item) => {
   //   return (
@@ -51,22 +50,35 @@ const SearchBar = () => {
   // };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <div>
-          <ReactSearchAutocomplete
-            items={items}
-            // onSearch={handleOnSearch}
-            // onHover={handleOnHover}
-            // onSelect={handleOnSelect}
-            // onFocus={handleOnFocus}
-            autoFocus
-            // formatResult={formatResult}
-          />
-        </div>
-      </header>
-    </div>
+    <>
+      <SearchBarContainer>
+        <ReactSearchAutocomplete
+          placeholder={SEARCH_BAR_PLACEHOLDER}
+          items={items}
+          onFocus={handleOnFocus}
+          autoFocus
+        />
+      </SearchBarContainer>
+    </>
   );
 };
+
+const SearchBarContainer = styled.div`
+  margin-top: 10px;
+
+  .wrapper {
+    background: #52d5f2;
+  }
+  svg {
+    fill: #fdf9ea;
+  }
+
+  input::placeholder {
+    font-family: "Roboto";
+    font-weight: 700;
+    font-size: 12px;
+    color: rgba(253, 249, 234, 0.9);
+  }
+`;
 
 export default SearchBar;
