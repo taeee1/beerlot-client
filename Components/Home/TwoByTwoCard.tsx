@@ -57,6 +57,7 @@ export const CardContainer = styled.div`
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+  justify-content: space-between;
 `;
 
 export const Container = styled.div`

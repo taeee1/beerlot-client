@@ -67,6 +67,7 @@ export const CardContainer = styled.div<{ color: string }>`
   border-radius: 11px;
   display: flex;
   flex-direction: column;
+
   gap: 5px;
 `;
 
@@ -75,8 +76,8 @@ export const CardContainer = styled.div<{ color: string }>`
 }
 export const CardImage = styled.img<{ isTwoByTwo: boolean }>`
   border-radius: 7px;
-  width: ${(isTwoByTwo) => (isTwoByTwo ? `38vw` : `33vw`)};
-  height: ${(isTwoByTwo) => (isTwoByTwo ? `38vw` : `33vw`)};
+  width: ${(isTwoByTwo) => (isTwoByTwo ? `37vw` : `30vw`)};
+  height: ${(isTwoByTwo) => (isTwoByTwo ? `37vw` : `30vw`)};
 `;
 
 // 상세 내용 스타일링 추가 하기
