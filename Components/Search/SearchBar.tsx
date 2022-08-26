@@ -1,34 +1,40 @@
+import { useRouter } from "next/router";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import styled from "styled-components";
 import { SEARCH_BAR_PLACEHOLDER } from "../../Static";
 
+interface itemType {
+  id: number;
+  name: string;
+}
+
 const SearchBar = () => {
+  const router = useRouter();
   const items = [
     {
       id: 0,
-      name: "Yeonwoo",
+      name: "츄로스 랜드",
     },
     {
       id: 1,
-      name: "Youjin",
+      name: "칠성사이다 제로",
     },
     {
       id: 2,
-      name: "Taehee",
+      name: "펩시 제로",
     },
     {
       id: 3,
-      name: "PHP",
+      name: "맛소금",
     },
     {
       id: 4,
-      name: "Java",
+      name: "오예스 미니",
     },
+    { id: 5, name: "제로" },
   ];
 
   // const handleOnSearch = (string, results) => {
-  //    onSearch will have as the first callback parameter
-  //    the string searched and for the second the results.
   //   console.log(string, results);
   // };
 
@@ -37,11 +43,10 @@ const SearchBar = () => {
   //   console.log(result);
   // };
 
-  // const handleOnSelect = () => {
-  //   <Link href="/search" />;
-  // };
-
-  const handleOnFocus = () => {};
+  //TODO: url을 id로 하는 게 라우팅 하는 게 최선일 지 생각해보기
+  const handleOnSelect = (selectedItem: itemType) => {
+    router.push(`/result/${selectedItem.name}`);
+  };
 
   // const formatResult = (item) => {
   //   return (
@@ -55,7 +60,7 @@ const SearchBar = () => {
         <ReactSearchAutocomplete
           placeholder={SEARCH_BAR_PLACEHOLDER}
           items={items}
-          onFocus={handleOnFocus}
+          onSelect={handleOnSelect}
           autoFocus
         />
       </SearchBarContainer>

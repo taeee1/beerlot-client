@@ -70,6 +70,9 @@ export const CardContainer = styled.div<{ color: string }>`
   gap: 5px;
 `;
 
+{
+  /* TODO: 이렇게 width잡으면 안 좋음 375미만에서 깨짐 */
+}
 export const CardImage = styled.img<{ isTwoByTwo: boolean }>`
   border-radius: 7px;
   width: ${(isTwoByTwo) => (isTwoByTwo ? `38vw` : `33vw`)};

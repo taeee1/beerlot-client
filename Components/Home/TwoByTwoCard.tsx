@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import {
+  beerItemType,
   CardType,
   MOCK_CARD_LIST,
   POPULAR_BEER_TITLE,
@@ -10,9 +11,10 @@ import CardItem from "./CardItem";
 
 interface TwoByTwoCardProps {
   title: string;
+  itemList: beerItemType[];
 }
 
-const TwoByTwoCard: React.FC<TwoByTwoCardProps> = ({ title }) => {
+const TwoByTwoCard: React.FC<TwoByTwoCardProps> = ({ title, itemList }) => {
   const cardType =
     title === POPULAR_BEER_TITLE ? CardType.POPULAR : CardType.RECOMMEND;
 
@@ -29,7 +31,7 @@ const TwoByTwoCard: React.FC<TwoByTwoCardProps> = ({ title }) => {
         </TitleContainer>
       )}
       <CardContainer>
-        {MOCK_CARD_LIST.map((item) => {
+        {itemList.map((item) => {
           return (
             <CardItem
               isTwoByTwo

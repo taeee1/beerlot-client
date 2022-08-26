@@ -11,7 +11,7 @@ const Title = () => {
 
   return (
     <TitleContainer onClick={handleClick}>
-      <BackIcon></BackIcon>
+      <BackIcon />
       <TitleText>{BEERLOT_TITLE}</TitleText>
     </TitleContainer>
   );

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { POPULAR_BEER_TITLE } from "../../Static";
+import { MOCK_CARD_LIST, POPULAR_BEER_TITLE } from "../../Static";
 import CardList from "./CardList";
 import SearchBarHome from "./SearchBarHome";
 import TwoByTwoCard from "./TwoByTwoCard";
@@ -55,7 +55,7 @@ const HomeComponent = () => {
           <CardList title={userNickname} />
         </>
       ) : (
-        <TwoByTwoCard title={POPULAR_BEER_TITLE} />
+        <TwoByTwoCard title={POPULAR_BEER_TITLE} itemList={MOCK_CARD_LIST} />
       )}
     </Container>
   );
