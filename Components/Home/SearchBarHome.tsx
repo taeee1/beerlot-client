@@ -9,7 +9,7 @@ const SearchBarHome = () => {
   const router = useRouter();
 
   const handleOnFocus = () => {
-    router.push("/search");
+    router.push(`/search`);
   };
 
   return (
@@ -18,7 +18,6 @@ const SearchBarHome = () => {
         placeholder={SEARCH_BAR_PLACEHOLDER}
         items={items}
         onFocus={handleOnFocus}
-        autoFocus
       />
     </SearchBarContainer>
   );

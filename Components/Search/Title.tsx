@@ -1,10 +1,16 @@
+import { useRouter } from "next/router";
 import React from "react";
 import styled from "styled-components";
 import { BEERLOT_TITLE } from "../../Static";
 
 const Title = () => {
+  const router = useRouter();
+  const handleClick = () => {
+    router.push(`/`);
+  };
+
   return (
-    <TitleContainer>
+    <TitleContainer onClick={handleClick}>
       <BackIcon></BackIcon>
       <TitleText>{BEERLOT_TITLE}</TitleText>
     </TitleContainer>

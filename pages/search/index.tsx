@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import SearchBar from "../Components/Search/SearchBar";
-import SearchResult from "../Components/Search/SearchResult";
-import Title from "../Components/Search/Title";
+import SearchBar from "../../Components/Search/SearchBar";
+import SearchResult from "../../Components/Search/SearchResult";
+import Title from "../../Components/Search/Title";
 
 const search = () => {
   return (
