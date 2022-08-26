@@ -12,7 +12,7 @@ interface CardProps {
   title: string;
 }
 
-const Card: React.FC<CardProps> = ({ title }) => {
+const CardList: React.FC<CardProps> = ({ title }) => {
   const cardType =
     title === POPULAR_BEER_TITLE ? CardType.POPULAR : CardType.RECOMMEND;
 
@@ -31,6 +31,7 @@ const Card: React.FC<CardProps> = ({ title }) => {
         {MOCK_CARD_LIST.map((item) => {
           return (
             <CardItem
+              isTwoByTwo={false}
               cardType={cardType}
               key={item.id}
               beerName={item.beerName}
@@ -76,4 +77,4 @@ export const RecommendTitle = styled.p`
   color: #fea801;
 `;
 
-export default Card;
+export default CardList;

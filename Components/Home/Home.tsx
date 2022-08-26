@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { POPULAR_BEER_TITLE } from "../../Static";
-import Card from "./Card";
+import CardList from "./CardList";
 import SearchBarHome from "./SearchBarHome";
 import TwoByTwoCard from "./TwoByTwoCard";
 import WelcomeText from "./WelcomeText";
@@ -51,11 +51,11 @@ const HomeComponent = () => {
       <SearchBarHome />
       {isLoggedIn ? (
         <>
-          <Card title={POPULAR_BEER_TITLE} />
-          <Card title={userNickname} />
+          <CardList title={POPULAR_BEER_TITLE} />
+          <CardList title={userNickname} />
         </>
       ) : (
-        <TwoByTwoCard />
+        <TwoByTwoCard title={POPULAR_BEER_TITLE} />
       )}
     </Container>
   );

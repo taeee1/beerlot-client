@@ -4,6 +4,7 @@ import { CardType } from "../../Static";
 import styled from "styled-components";
 
 interface CardItemProps {
+  isTwoByTwo: boolean;
   beerName: string;
   img_src: string;
   sort: string;
@@ -17,12 +18,13 @@ const CardItem: React.FC<CardItemProps> = ({
   sort,
   country,
   cardType,
+  isTwoByTwo,
 }) => {
   const color = cardType === CardType.POPULAR ? "#ff6b00" : "#FEA801";
 
   return (
     <CardContainer color={color}>
-      <CardImage src={img_src} alt={beerName} />
+      <CardImage src={img_src} alt={beerName} isTwoByTwo={isTwoByTwo} />
       <CardTextContainer>
         <NameP>{beerName}</NameP>
       </CardTextContainer>
@@ -68,10 +70,10 @@ export const CardContainer = styled.div<{ color: string }>`
   gap: 5px;
 `;
 
-export const CardImage = styled.img`
+export const CardImage = styled.img<{ isTwoByTwo: boolean }>`
   border-radius: 7px;
-  width: 33vw;
-  height: 33vw;
+  width: ${(isTwoByTwo) => (isTwoByTwo ? `38vw` : `33vw`)};
+  height: ${(isTwoByTwo) => (isTwoByTwo ? `38vw` : `33vw`)};
 `;
 
 // 상세 내용 스타일링 추가 하기
