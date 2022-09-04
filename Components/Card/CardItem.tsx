@@ -80,7 +80,6 @@ export const CardImage = styled.img<{ isTwoByTwo: boolean }>`
   height: ${(isTwoByTwo) => (isTwoByTwo ? `37vw` : `30vw`)};
 `;
 
-// 상세 내용 스타일링 추가 하기
 export const CardTextContainer = styled.div`
   display: flex;
   align-items: center;
