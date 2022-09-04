@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import CardItem from "../../Components/Card/CardItem";
 import { CardContainer } from "../../Components/Card/CardList/TwoByTwoCardList";
+import SearchFilterList from "../../Components/Result/Filter/SearchFilterList/SearchFilterList";
 import { CardType, MOCK_CARD_LIST } from "../../Static";
 
 const SearchResultList = () => {
@@ -17,6 +18,7 @@ const SearchResultList = () => {
   return (
     <Container>
       <p>현재 검색된 맥주는 {id} </p>
+      <SearchFilterList />
       <CardContainer>
         {filteredItemList.map((item) => {
           return (
