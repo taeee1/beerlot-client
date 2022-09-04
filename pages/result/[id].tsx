@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
-import TwoByTwoCardList from "../../Components/Card/CardList/TwoByTwoCardList";
-import { beerItemType, MOCK_CARD_LIST, POPULAR_BEER_TITLE } from "../../Static";
 import styled from "styled-components";
+import CardItem from "../../Components/Card/CardItem";
+import { CardContainer } from "../../Components/Card/CardList/TwoByTwoCardList";
+import { CardType, MOCK_CARD_LIST } from "../../Static";
 
-// TODO: 혼자 hierarchy가 안맞음. 한번 더 래핑해야 함.
 const SearchResultList = () => {
   const router = useRouter();
   const { id } = router.query;
@@ -14,14 +14,24 @@ const SearchResultList = () => {
     return item.beerName.includes(id[0]);
   });
 
-  //   console.log(index);
   return (
     <Container>
       <p>현재 검색된 맥주는 {id} </p>
-      <TwoByTwoCardList
-        title={POPULAR_BEER_TITLE}
-        itemList={filteredItemList}
-      />
+      <CardContainer>
+        {filteredItemList.map((item) => {
+          return (
+            <CardItem
+              isTwoByTwo
+              cardType={CardType.POPULAR}
+              key={item.id}
+              beerName={item.beerName}
+              img_src={item.img_src}
+              sort={item.sort}
+              country={item.country}
+            />
+          );
+        })}
+      </CardContainer>
     </Container>
   );
 };
