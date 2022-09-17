@@ -12,6 +12,7 @@
     "@chakra-ui/react": "^2.3.2",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
+    "@svgr/webpack": "^6.3.1",
     "@types/styled-components": "^5.1.26",
     "babel-plugin-styled-components": "^2.0.7",
     "framer-motion": "^7.3.5",

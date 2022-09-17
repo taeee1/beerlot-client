@@ -1,6 +1,14 @@
 import { extendTheme } from "@chakra-ui/react";
 
 export const theme = extendTheme({
+  components: {
+    Button: {
+      baseStyle: {
+        p: 0,
+        m: 0,
+      },
+    },
+  },
   styles: {
     global: {
       body: {
@@ -8,7 +16,6 @@ export const theme = extendTheme({
       },
     },
   },
-
   colors: {
     White: {
       100: "#FFFFFF",
@@ -18,11 +25,16 @@ export const theme = extendTheme({
     Orange: {
       100: "#FEA801",
       200: "#FF6B00",
+      300: "rgba(255, 107, 0, 0.3)",
+    },
+    orange: {
+      600: "#FF6B00",
     },
     Blue: {
       100: "#52D5F2",
     },
     Yellow: {
+      50: "rgba(255, 229, 128, 0.3)",
       100: "rgba(255, 229, 128, 0.8)",
       200: "#FAD12B",
     },
@@ -41,31 +53,31 @@ export const theme = extendTheme({
     h2: {
       fontFmily: "Roboto",
       fontWeight: "500",
-      fontSize: "16x",
+      fontSize: "16px",
       letterSpacing: "0.01px",
     },
     h2_bold: {
       fontFmily: "Roboto",
       fontWeight: "700",
-      fontSize: "16x",
+      fontSize: "16px",
       letterSpacing: "0.01px",
     },
     h3: {
       fontFmily: "Roboto",
       fontWeight: "500",
-      fontSize: "12x",
+      fontSize: "12px",
       letterSpacing: "0.01px",
     },
     h3_bold: {
       fontFmily: "Roboto",
       fontWeight: "700",
-      fontSize: "12x",
+      fontSize: "12px",
       letterSpacing: "0.01px",
     },
     body: {
       fontFmily: "Roboto",
       fontWeight: "400",
-      fontSize: "15x",
+      fontSize: "15px",
       letterSpacing: "0.01px",
     },
   },
