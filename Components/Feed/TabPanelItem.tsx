@@ -1,0 +1,98 @@
+import { Avatar, Box, Flex, Text } from "@chakra-ui/react";
+import Image from "next/image";
+import StarRating from "../Utils/StarRating";
+import ThumbsUpButton from "../Utils/ThumbsUpButton";
+
+interface FollowingTabPanelItemProps {
+  isRow: boolean;
+  nickname: string;
+  postingTime: string;
+  beerName: string;
+  ratingNumber: number;
+  imageSrc?: string;
+  postText: string;
+  thumbsUpNumber: number;
+}
+
+const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
+  isRow,
+  nickname,
+  postingTime,
+  beerName,
+  ratingNumber,
+  imageSrc,
+  postText,
+  thumbsUpNumber,
+}) => {
+  return (
+    <Box p={"12px"} bg="white">
+      <Box
+        display="flex"
+        flexDirection={isRow ? "row" : "column"}
+        justifyContent={isRow ? "space-between" : "flex-start"}
+        gap={isRow ? "4px" : "0px"}
+      >
+        <Box>
+          <Box
+            flexGrow={1}
+            className="userInfo"
+            gap={"4px"}
+            display={"flex"}
+            flexDirection="row"
+            alignItems="end"
+            my={"2px"}
+          >
+            <Avatar w={"26px"} h={"26px"} />
+            <Text textStyle="h2_bold">{nickname}</Text>
+            <Text textStyle="h3" color="Gray.200">
+              |
+            </Text>
+            <Text textStyle="h3" color="Gray.200">
+              {/* TODO: time 분기 처리 */}
+              {postingTime}
+            </Text>
+          </Box>
+          <Box className="beerInfo" my={"2px"}>
+            <Text textStyle="h3_bold">{beerName}</Text>
+          </Box>
+          <Box className="ratingInfo" my={"2px"}>
+            <Text fontSize={"17px"}>{ratingNumber}점</Text>
+          </Box>
+          {isRow && (
+            <Box display="flex" my={"2px"} flexDirection="row">
+              <Text textStyle="h3" as="span">
+                {postText.slice(0, 35)}
+                <Text as="span">{postText.length > 35 && "..."}</Text>
+                <Text as="span" color="Gray.50">
+                  {postText.length > 35 && "더 보기"}
+                </Text>
+              </Text>
+            </Box>
+          )}
+        </Box>
+        <Box flexShrink={0} borderRadius={"6px"}>
+          {imageSrc && (
+            <Image
+              width={isRow ? 100 : 330}
+              height={isRow ? 100 : 330}
+              alt="beer photo"
+              src={`/image/${imageSrc}`}
+            />
+          )}
+        </Box>
+
+        {!isRow && (
+          <Box display="flex" alignItems="baseline" my={"2px"}>
+            <Text textStyle="h3">{postText}</Text>
+          </Box>
+        )}
+      </Box>
+
+      <Flex justifyContent="end">
+        <ThumbsUpButton thumbsUpNumber={thumbsUpNumber} />
+      </Flex>
+    </Box>
+  );
+};
+
+export default FollowingTabPanelItem;

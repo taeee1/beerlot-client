@@ -2,8 +2,8 @@ import { Flex } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
 import FollowingTabPanelItem from "./TabPanelItem";
 
-const FollowingTabPanelList = () => {
-  const FOLLOWING_FEED_MOCK = [
+const AllTabPanelList = () => {
+  const ALL_FEED_MOCK = [
     {
       id: uuidv4(),
       nickname: "김누누",
@@ -50,11 +50,11 @@ const FollowingTabPanelList = () => {
 
   return (
     <Flex flexDirection="column" gap={"10px"}>
-      {FOLLOWING_FEED_MOCK.map((feed) => {
+      {ALL_FEED_MOCK.map((feed) => {
         return (
           <FollowingTabPanelItem
             key={feed.id}
-            isRow={false}
+            isRow
             nickname={feed.nickname}
             postingTime={feed.postingTime}
             beerName={feed.beerName}
@@ -69,4 +69,4 @@ const FollowingTabPanelList = () => {
   );
 };
 
-export default FollowingTabPanelList;
+export default AllTabPanelList;

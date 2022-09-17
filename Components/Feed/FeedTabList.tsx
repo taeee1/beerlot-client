@@ -7,8 +7,8 @@ import {
   TabPanel,
   Divider,
 } from "@chakra-ui/react";
-import FollowingTabPanel from "./FollowingTabPanel";
-import AllTabPanel from "./AllTabPanel";
+import FollowingTabPanelList from "./FollowingTabPanel";
+import AllTabPanelList from "./AllTabPanelList";
 
 const FeedTabList = () => {
   return (
@@ -25,10 +25,10 @@ const FeedTabList = () => {
 
       <TabPanels bg="Yellow.50">
         <TabPanel>
-          <FollowingTabPanel />
+          <FollowingTabPanelList />
         </TabPanel>
         <TabPanel>
-          <AllTabPanel />
+          <AllTabPanelList />
         </TabPanel>
       </TabPanels>
     </Tabs>

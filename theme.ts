@@ -39,6 +39,7 @@ export const theme = extendTheme({
       200: "#FAD12B",
     },
     Gray: {
+      50: "#DDDDDD",
       100: "rgba(97, 100, 107, 0.5)",
       200: "#61646B",
     },
