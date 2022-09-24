@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import styled from "styled-components";
 import { SEARCH_BAR_PLACEHOLDER } from "../../Static";
 
@@ -56,14 +55,7 @@ const SearchBar = () => {
 
   return (
     <>
-      <SearchBarContainer>
-        <ReactSearchAutocomplete
-          placeholder={SEARCH_BAR_PLACEHOLDER}
-          items={items}
-          onSelect={handleOnSelect}
-          autoFocus
-        />
-      </SearchBarContainer>
+      <SearchBarContainer></SearchBarContainer>
     </>
   );
 };
