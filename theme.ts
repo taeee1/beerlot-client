@@ -42,6 +42,7 @@ export const theme = extendTheme({
       50: "#DDDDDD",
       100: "rgba(97, 100, 107, 0.5)",
       200: "#61646B",
+      300: "#61646B",
     },
   },
   textStyles: {
