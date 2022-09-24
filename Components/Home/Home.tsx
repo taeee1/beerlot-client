@@ -48,4 +48,6 @@ export default HomeComponent;
 
 export const Container = styled.div`
   padding: 24px;
+  background: white;
+  max-width: 450px;
 `;
