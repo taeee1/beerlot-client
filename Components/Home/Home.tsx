@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { MOCK_CARD_LIST, POPULAR_BEER_TITLE } from "../../Static";
 import TempLogin from "../Auth/TempLogin";
 import CarouselCardList from "../Card/CardList/CarouselCardList";
-import SearchBarHome from "./SearchBarHome";
 import TwoByTwoCardList from "../Card/CardList/TwoByTwoCardList";
+import SearchInputHome from "./SearchInputHome";
 import WelcomeText from "./WelcomeText";
 
 const HomeComponent = () => {
@@ -28,7 +28,7 @@ const HomeComponent = () => {
         userNickname={userNickname}
       />
       <WelcomeText nickname={userNickname} isLoggedIn={isLoggedIn} />
-      <SearchBarHome />
+      <SearchInputHome />
       {isLoggedIn ? (
         <>
           <CarouselCardList title={POPULAR_BEER_TITLE} />

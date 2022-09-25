@@ -1,14 +1,23 @@
 import {
+  Box,
+  Button,
+  Circle,
+  Divider,
   Flex,
   FormControl,
   FormHelperText,
   FormLabel,
   Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
   Text,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { SearchGlass, WhiteCross } from "../../public/svg";
 import { SEARCH_BAR_PLACEHOLDER } from "../../Static";
+import SearchInput from "./SearchInput";
 
 const SearchBarAutocomplete = () => {
   const [value, setValue] = useState("");
@@ -18,6 +27,9 @@ const SearchBarAutocomplete = () => {
   const handleClick = (e: React.MouseEvent) => {
     const selectedName = e.currentTarget.textContent;
     router.push(`/result/${selectedName}`);
+  };
+  const clearInput = () => {
+    setValue("");
   };
   const items = [
     {
@@ -44,23 +56,22 @@ const SearchBarAutocomplete = () => {
   ];
 
   return (
-    <Flex pt="48" justify="center" align="center" w="full" direction="column">
-      <FormControl id="email" w="60">
-        <Input
-          placeholder={SEARCH_BAR_PLACEHOLDER}
-          size="sm"
-          value={value}
-          onChange={handleChange}
-          autoFocus
-        />
-      </FormControl>
+    <Flex w="full" direction="column" borderRadius="20px" gap="10px" mt="14px">
+      <SearchInput
+        value={value}
+        handleChange={handleChange}
+        clearInput={clearInput}
+      />
+
       <Flex flexDirection="column">
         {items.map((beerInfo) => {
           if (beerInfo.name.includes(value)) {
             return (
-              <Text key={beerInfo.id} onClick={handleClick}>
-                {beerInfo.name}
-              </Text>
+              <Box borderBottom="1px solid #DDDDDD" py="20px" px="15px">
+                <Text textStyle="h2" key={beerInfo.id} onClick={handleClick}>
+                  {beerInfo.name}
+                </Text>
+              </Box>
             );
           }
           return;
