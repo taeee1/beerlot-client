@@ -44,7 +44,7 @@ const SearchBarAutocomplete = () => {
                 <Box
                   borderBottom="1px solid"
                   borderColor="Gray.50"
-                  py="20px"
+                  py="10px"
                   px="15px"
                   key={beerItems.id}
                 >

@@ -10,7 +10,11 @@ import React from "react";
 import { SearchGlass, WhiteCross } from "../../public/svg";
 import { SEARCH_BAR_PLACEHOLDER } from "../../Static";
 
-const SearchInputHome = () => {
+interface SearchInputHomeProps {
+  placeholder?: string;
+}
+
+const SearchInputHome: React.FC<SearchInputHomeProps> = ({ placeholder }) => {
   const router = useRouter();
   const handleFocus = () => {
     router.push(`/search`);
@@ -20,10 +24,10 @@ const SearchInputHome = () => {
     <InputGroup display="flex" alignItems="center" justifyContent="center">
       <Input
         onFocus={handleFocus}
-        py="20px"
+        py="10px"
         px="20px"
         bg="Blue.100"
-        placeholder={SEARCH_BAR_PLACEHOLDER}
+        placeholder={placeholder ?? SEARCH_BAR_PLACEHOLDER}
         size="sm"
         borderRadius="20px"
         textColor="white"
