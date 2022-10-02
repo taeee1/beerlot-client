@@ -67,7 +67,7 @@ export const CardContainer = styled.div<{ color: string }>`
   border-radius: 11px;
   display: flex;
   flex-direction: column;
-
+  flex: 0 0 auto;
   gap: 5px;
 `;
 
