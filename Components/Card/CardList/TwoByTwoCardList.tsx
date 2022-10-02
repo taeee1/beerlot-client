@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { beerItemType, CardType, POPULAR_BEER_TITLE } from "../../../Static";
+import { BeerResultType } from "../../../types";
 import CardItem from "../CardItem";
 import CardTitle from "../CardTitle";
 
 interface TwoByTwoCardListProps {
   title: string;
-  itemList: beerItemType[];
+  itemList: BeerResultType[];
 }
 
 const TwoByTwoCardList: React.FC<TwoByTwoCardListProps> = ({
@@ -20,16 +21,16 @@ const TwoByTwoCardList: React.FC<TwoByTwoCardListProps> = ({
     <Container>
       <CardTitle title={title} />
       <CardContainer>
-        {itemList.map((item) => {
+        {itemList.map((item, idx) => {
           return (
             <CardItem
               isTwoByTwo
               cardType={cardType}
-              key={item.id}
-              beerName={item.beerName}
-              img_src={item.img_src}
-              sort={item.sort}
-              country={item.country}
+              key={idx} // 수정해야함.
+              beerName={item.name_ko}
+              img_src={item.image_url}
+              sort={item.category.name_ko}
+              country={item.country.code}
             />
           );
         })}

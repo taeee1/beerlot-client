@@ -1,13 +1,40 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, useToast, UseToastOptions } from "@chakra-ui/react";
+import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { theme } from "../theme";
+import { useState } from "react";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const toast = useToast();
+  const handleToast = (options: UseToastOptions) => {
+    const defaultOptions: UseToastOptions = {
+      status: "info",
+      duration: 5000,
+      isClosable: true,
+    };
+
+    toast({
+      ...defaultOptions,
+      ...options,
+    });
+  };
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {},
+        },
+      })
+  );
   return (
-    <ChakraProvider theme={theme}>
-      <Component {...pageProps} />
-    </ChakraProvider>
+    <QueryClientProvider client={queryClient}>
+      <Hydrate state={pageProps.dehydratedState}>
+        <ChakraProvider theme={theme}>
+          <Component {...pageProps} />
+        </ChakraProvider>
+      </Hydrate>
+    </QueryClientProvider>
   );
 }
 
