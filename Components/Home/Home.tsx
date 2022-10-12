@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { getAllBeers } from "../../server/api";
 import { POPULAR_BEER_TITLE } from "../../Static";
 import { BeerResultType } from "../../types";
-import TempLogin from "../Auth/TempLogin";
+import TempLogin from "../Auth/Login/TempLogin";
 import CarouselCardList from "../Card/CardList/CarouselCardList";
 import TwoByTwoCardList from "../Card/CardList/TwoByTwoCardList";
 import SearchInputHome from "./SearchInputHome";

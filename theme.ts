@@ -22,9 +22,10 @@ export const theme = extendTheme({
       200: "#FDF9EA",
     },
     Black: "#000000",
+    // 색깔 확인할 것
     Orange: {
-      100: "#FEA801",
-      200: "#FF6B00",
+      100: "#FF6B00",
+      200: "#FEA801",
       300: "rgba(255, 107, 0, 0.3)",
     },
     orange: {
@@ -39,49 +40,53 @@ export const theme = extendTheme({
       200: "#FAD12B",
     },
     Gray: {
-      50: "#DDDDDD",
       100: "rgba(97, 100, 107, 0.5)",
       101: "#F6F6F6",
-      200: "#61646B",
+      200: "#DDDDDD",
       300: "#61646B",
     },
   },
   textStyles: {
     h1: {
-      fontFmily: "Roboto",
+      fontFmily: "roboto",
       fontWeight: "700",
       fontSize: "22px",
       letterSpacing: "0.01px",
+      lineHeight: "24px",
+      color: "Black",
     },
     h2: {
-      fontFmily: "Roboto",
+      fontFmily: "roboto",
       fontWeight: "500",
       fontSize: "16px",
       letterSpacing: "0.01px",
     },
     h2_bold: {
-      fontFmily: "Roboto",
+      fontFmily: "roboto",
       fontWeight: "700",
       fontSize: "16px",
       letterSpacing: "0.01px",
     },
     h3: {
-      fontFmily: "Roboto",
+      fontFmily: "roboto",
       fontWeight: "500",
       fontSize: "12px",
       letterSpacing: "0.01px",
     },
     h3_bold: {
-      fontFmily: "Roboto",
+      fontFmily: "roboto",
       fontWeight: "700",
       fontSize: "12px",
       letterSpacing: "0.01px",
     },
     body: {
-      fontFmily: "Roboto",
+      fontFmily: "roboto",
       fontWeight: "400",
       fontSize: "15px",
       letterSpacing: "0.01px",
     },
+  },
+  fonts: {
+    roboto: `'Roboto', cursive`,
   },
 });

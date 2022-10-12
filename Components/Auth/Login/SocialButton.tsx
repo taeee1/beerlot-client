@@ -1,6 +1,5 @@
-import { Button, Center } from "@chakra-ui/react";
-import React from "react";
-import { Facebook, Google, Kakao, Naver, None } from "../../public/svg";
+import { Button } from "@chakra-ui/react";
+import { Facebook, Google, Kakao, Naver, None } from "../../../public/svg";
 
 const SocialButton = () => {
   return (

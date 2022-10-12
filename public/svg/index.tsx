@@ -11,3 +11,4 @@ export { default as BottomArrow } from "./bottom-arrow.svg";
 export { default as RightArrow } from "./right-arrow.svg";
 export { default as WhiteFilter } from "./white-filter.svg";
 export { default as EmptyFilter } from "./empty-filter.svg";
+export { default as LeftArrow } from "./left-arrow.svg";
