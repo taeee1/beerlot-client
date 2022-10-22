@@ -2,9 +2,13 @@ import { Box } from "@chakra-ui/react";
 import React from "react";
 import { LeftArrow } from "../../public/svg";
 
-const BackButton = () => {
+interface BackButtonProps {
+  onClick?: () => void;
+}
+
+const BackButton: React.FC<BackButtonProps> = ({ onClick }) => {
   return (
-    <Box pos="absolute" top="47px" left="21px">
+    <Box pos="absolute" top="47px" left="21px" onClick={onClick}>
       <LeftArrow />
     </Box>
   );

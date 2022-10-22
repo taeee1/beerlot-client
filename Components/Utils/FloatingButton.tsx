@@ -22,10 +22,10 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
   const router = useRouter();
   return (
     <Button
-      onClick={() => router.push(`/signup/${href}`)}
+      onClick={() => router.push(href)}
       disabled={disabled}
       boxShadow={boxShadow}
-      pos="absolute"
+      pos="fixed"
       bottom="35px"
       left="38px"
       right="35px"
