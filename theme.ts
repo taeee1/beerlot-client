@@ -27,9 +27,13 @@ export const theme = extendTheme({
       100: "#FF6B00",
       200: "#FEA801",
       300: "rgba(255, 107, 0, 0.3)",
+      400: "#FFDABF", // orange.100이여야 함.
     },
     orange: {
       600: "#FF6B00",
+    },
+    blue: {
+      600: "#FEA801",
     },
     Blue: {
       100: "#52D5F2",
