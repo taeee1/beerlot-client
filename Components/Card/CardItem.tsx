@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { CardType } from "../../Static";
 
 import styled from "styled-components";
+import LikeButton from "../Utils/OrangeLikeButton";
 
 interface CardItemProps {
   isTwoByTwo: boolean;
@@ -21,20 +22,42 @@ const CardItem: React.FC<CardItemProps> = ({
   isTwoByTwo,
 }) => {
   const color = cardType === CardType.POPULAR ? "#ff6b00" : "#FEA801";
+  const [isClicked, setIsClicked] = useState(false);
+  const handleClick = (state: boolean) => {
+    setIsClicked(state);
+  };
+
+  const iconProps = {
+    position: "absolute",
+    top: "12px",
+    right: "12px",
+    w: "27px",
+    h: "29px",
+    filter: isClicked ? "none" : "drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5))",
+    color: isClicked ? "Orange.100" : "#ffffff",
+  };
 
   return (
-    <CardContainer color={color}>
-      <CardImage src={img_src} alt={beerName} isTwoByTwo={isTwoByTwo} />
-      <CardTextContainer>
-        <NameP>{beerName}</NameP>
-      </CardTextContainer>
-      <CardTextContainer>
-        <p>{country}</p>
-        <SortContainer color={color}>
-          <SortP>{sort}</SortP>
-        </SortContainer>
-      </CardTextContainer>
-    </CardContainer>
+    <>
+      <CardContainer color={color}>
+        <LikeButton
+          isClicked={isClicked}
+          onClick={handleClick}
+          iconProps={iconProps}
+        />
+        <CardImage src={img_src} alt={beerName} isTwoByTwo={isTwoByTwo} />
+
+        <CardTextContainer>
+          <NameP>{beerName}</NameP>
+        </CardTextContainer>
+        <CardTextContainer>
+          <p>{country}</p>
+          <SortContainer color={color}>
+            <SortP>{sort}</SortP>
+          </SortContainer>
+        </CardTextContainer>
+      </CardContainer>
+    </>
   );
 };
 
@@ -63,6 +86,7 @@ export const SortP = styled.p`
 //TODO: 색상 지정
 export const CardContainer = styled.div<{ color: string }>`
   padding: 8px;
+  position: relative;
   border: ${({ color }) => `${color} solid 1px`};
   border-radius: 11px;
   display: flex;
