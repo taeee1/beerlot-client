@@ -1,5 +1,6 @@
-import { Avatar, Box, Flex, Text } from "@chakra-ui/react";
+import { Avatar, Box, Center, Flex, IconButton, Text } from "@chakra-ui/react";
 import Image from "next/image";
+import { EditNote, TrashBin } from "../../public/svg";
 import StarRating from "../Utils/StarRating";
 import ThumbsUpButton from "../Utils/ThumbsUpButton";
 
@@ -12,6 +13,7 @@ interface FollowingTabPanelItemProps {
   imageSrc?: string;
   postText: string;
   thumbsUpNumber: number;
+  isEditable: boolean;
 }
 
 const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
@@ -23,6 +25,7 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
   imageSrc,
   postText,
   thumbsUpNumber,
+  isEditable,
 }) => {
   return (
     <Box p={"12px"} bg="white">
@@ -52,9 +55,12 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
               {postingTime}
             </Text>
           </Box>
-          <Box className="beerInfo" my={"2px"}>
-            <Text textStyle="h3_bold">{beerName}</Text>
-          </Box>
+          {!isEditable && (
+            <Box className="beerInfo" my={"2px"}>
+              <Text textStyle="h3_bold">{beerName}</Text>
+            </Box>
+          )}
+
           <Box className="ratingInfo" my={"2px"}>
             <Text fontSize={"17px"}>{ratingNumber}점</Text>
           </Box>
@@ -88,9 +94,27 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
         )}
       </Box>
 
-      <Flex justifyContent="end">
-        <ThumbsUpButton thumbsUpNumber={thumbsUpNumber} />
-      </Flex>
+      {isEditable ? (
+        <Flex justifyContent="space-between" alignItems="center">
+          <Center gap="6px">
+            <IconButton
+              aria-label="Delete Icon"
+              size="16px"
+              icon={<TrashBin />}
+            />
+            <IconButton
+              aria-label="Edit Icon"
+              size="16px"
+              icon={<EditNote />}
+            />
+          </Center>
+          <ThumbsUpButton thumbsUpNumber={thumbsUpNumber} />
+        </Flex>
+      ) : (
+        <Flex justifyContent="end">
+          <ThumbsUpButton thumbsUpNumber={thumbsUpNumber} />
+        </Flex>
+      )}
     </Box>
   );
 };

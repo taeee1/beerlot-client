@@ -62,6 +62,7 @@ const AllTabPanelList = () => {
             imageSrc={feed.imageSrc}
             postText={feed.postText}
             thumbsUpNumber={feed.thumbsUpNumber}
+            isEditable={false}
           />
         );
       })}

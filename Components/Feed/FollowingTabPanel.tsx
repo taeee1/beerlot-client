@@ -62,6 +62,7 @@ const FollowingTabPanelList = () => {
             imageSrc={feed.imageSrc}
             postText={feed.postText}
             thumbsUpNumber={feed.thumbsUpNumber}
+            isEditable={false}
           />
         );
       })}

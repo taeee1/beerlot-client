@@ -19,3 +19,5 @@ export { default as WhiteHeart } from "./white-heart.svg";
 export { default as OrangeHeart } from "./orange-heart.svg";
 export { default as AlertBell } from "./alert-bell.svg";
 export { default as SettingGear } from "./setting-gear.svg";
+export { default as TrashBin } from "./trash-bin.svg";
+export { default as EditNote } from "./edit-note.svg";
