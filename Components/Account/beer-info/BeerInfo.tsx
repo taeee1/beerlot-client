@@ -1,13 +1,13 @@
-import React from "react";
 import {
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
   Divider,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
   Text,
 } from "@chakra-ui/react";
+import React from "react";
 import BeerReviews from "./BeerReviews";
 import LikedBeers from "./LikedBeers";
 
