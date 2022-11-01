@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { getAllBeers } from "../../../server/api";
-import { likedBeerState } from "../../../src/recoil";
+import { likedBeerState } from "../../../src/store";
 import { CardType } from "../../../Static";
 import { BeerResultType } from "../../../types";
 import CardItem from "../../Card/CardItem";

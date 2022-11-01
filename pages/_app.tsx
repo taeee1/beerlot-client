@@ -1,10 +1,11 @@
-import "../styles/globals.css";
-import type { AppProps } from "next/app";
 import { ChakraProvider, useToast, UseToastOptions } from "@chakra-ui/react";
+import type { AppProps } from "next/app";
+import { useState } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
-import { theme } from "../theme";
-import { Suspense, useState } from "react";
 import { RecoilRoot } from "recoil";
+import "../styles/globals.css";
+import { theme } from "../theme";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const toast = useToast();
@@ -32,11 +33,11 @@ function MyApp({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
         <RecoilRoot>
-          <Suspense fallback={<div>loading...</div>}>
-            <ChakraProvider theme={theme}>
+          <ChakraProvider theme={theme}>
+            <ErrorBoundary fallback={<div>error</div>}>
               <Component {...pageProps} />
-            </ChakraProvider>
-          </Suspense>
+            </ErrorBoundary>
+          </ChakraProvider>
         </RecoilRoot>
       </Hydrate>
     </QueryClientProvider>

@@ -1,6 +1,6 @@
-import { Text, Button, Box, Flex, Circle } from "@chakra-ui/react";
+import { Box, Circle, Flex } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import CardItem from "../../Components/Card/CardItem";
 import { CardContainer } from "../../Components/Card/CardList/TwoByTwoCardList";
