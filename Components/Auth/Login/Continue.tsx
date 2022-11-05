@@ -7,7 +7,7 @@ const ContinueButton = () => {
     router.back();
   };
   return (
-    <Text as="u" onClick={handleClick} color="Gray.200" textStyle="h3">
+    <Text as="u" onClick={handleClick} color="gray.300" textStyle="h3">
       로그인 없이 계속하기
     </Text>
   );

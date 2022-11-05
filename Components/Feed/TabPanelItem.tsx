@@ -47,10 +47,10 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
           >
             <Avatar w={"26px"} h={"26px"} />
             <Text textStyle="h2_bold">{nickname}</Text>
-            <Text textStyle="h3" color="Gray.200">
+            <Text textStyle="h3" color="gray.300">
               |
             </Text>
-            <Text textStyle="h3" color="Gray.200">
+            <Text textStyle="h3" color="gray.300">
               {/* TODO: time 분기 처리 */}
               {postingTime}
             </Text>
@@ -69,7 +69,7 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
               <Text textStyle="h3" as="span">
                 {postText.slice(0, 35)}
                 <Text as="span">{postText.length > 35 && "..."}</Text>
-                <Text as="span" color="Gray.50">
+                <Text as="span" color="gray.200">
                   {postText.length > 35 && "더 보기"}
                 </Text>
               </Text>

@@ -25,7 +25,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
       <Input
         py="20px"
         px="20px"
-        bg="Blue.100"
+        bg="blue.100"
         placeholder={SEARCH_BAR_PLACEHOLDER}
         size="sm"
         value={value}
@@ -39,8 +39,8 @@ const SearchInput: React.FC<SearchInputProps> = ({
       <InputLeftElement h="full">
         <SearchGlass />
       </InputLeftElement>
-      <InputRightElement h="full" as="circle" bg="Blue.200">
-        <Circle size="17px" bg="Blue.200" onClick={clearInput} id="circle">
+      <InputRightElement h="full" as="circle" bg="blue.200">
+        <Circle size="17px" bg="blue.200" onClick={clearInput} id="circle">
           <WhiteCross />
         </Circle>
       </InputRightElement>

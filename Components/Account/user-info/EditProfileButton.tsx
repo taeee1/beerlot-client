@@ -12,9 +12,9 @@ const EditProfileButton = () => {
     <Button
       w="100%"
       p="4px"
-      bg="Orange.200"
+      bg="orange.200"
       borderRadius="5px"
-      textColor="White.100"
+      textColor="white.100"
       onClick={handleClick}
     >
       <Text textStyle="h3">프로필 편집</Text>

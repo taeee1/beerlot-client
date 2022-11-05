@@ -43,5 +43,5 @@ export const Container = styled.p<{ isSelected: boolean }>`
   font-size: 12px;
 
   color: ${({ isSelected }) =>
-    isSelected ? "black" : "rgba(97, 100, 107, 0.5)"};
+    isSelected ? "black.100" : "rgba(97, 100, 107, 0.5)"};
 `;

@@ -29,7 +29,7 @@ const SearchResultList = () => {
       <Flex gap="10px" alignItems="center" onClick={handleClick} mb="24px">
         <SearchInputHome />
 
-        <Circle size="31px" bg="Blue.100">
+        <Circle size="31px" bg="blue.100">
           {isFilterListOpen ? <WhiteFilter /> : <EmptyFilter />}
         </Circle>
       </Flex>

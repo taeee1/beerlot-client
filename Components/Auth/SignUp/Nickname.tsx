@@ -49,8 +49,8 @@ const Nickname = () => {
         disabled={!isFullfilled}
         text="다음으로"
         href={`/signup/beers`}
-        bgColor={isFullfilled ? "Orange.200" : "Gray.200"}
-        textColor={isFullfilled ? "White.100" : "Black"}
+        bgColor={isFullfilled ? "orange.200" : "gray.200"}
+        textColor={isFullfilled ? "white.100" : "black.100"}
         boxShadow={isFullfilled ? "0px 8px 16px rgba(0, 0, 0, 0.3)" : "none"}
       />
 
@@ -72,7 +72,7 @@ const Nickname = () => {
           <Checkbox
             icon={allChecked ? <CheckedBox /> : <UncheckedBox />}
             w="100%"
-            bg="Gray.100"
+            bg="gray.100"
             borderRadius="5px"
             py="8px"
             px="6px"
@@ -81,7 +81,7 @@ const Nickname = () => {
               setCheckedItems([e.target.checked, e.target.checked])
             }
           >
-            <Text textStyle="h3_bold" textColor="Black">
+            <Text textStyle="h3_bold" textColor="black.100">
               전체 동의
             </Text>
           </Checkbox>
@@ -97,7 +97,7 @@ const Nickname = () => {
               setCheckedItems([e.target.checked, checkedItems[1]])
             }
           >
-            <Text textStyle="h3" textColor="Black">
+            <Text textStyle="h3" textColor="black.100">
               (필수) 비어랏 이용약관 동의
             </Text>
           </Checkbox>
@@ -112,7 +112,7 @@ const Nickname = () => {
               setCheckedItems([checkedItems[0], e.target.checked])
             }
           >
-            <Text textStyle="h3" textColor="Black">
+            <Text textStyle="h3" textColor="black.100">
               (필수) 개인정보 수집 및 이용 동의
             </Text>
           </Checkbox>

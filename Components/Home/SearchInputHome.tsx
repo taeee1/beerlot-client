@@ -26,7 +26,7 @@ const SearchInputHome: React.FC<SearchInputHomeProps> = ({ placeholder }) => {
         onFocus={handleFocus}
         py="10px"
         px="20px"
-        bg="Blue.100"
+        bg="blue.100"
         placeholder={placeholder ?? SEARCH_BAR_PLACEHOLDER}
         size="sm"
         borderRadius="20px"
@@ -37,7 +37,7 @@ const SearchInputHome: React.FC<SearchInputHomeProps> = ({ placeholder }) => {
       <InputLeftElement h="full">
         <SearchGlass />
       </InputLeftElement>
-      <InputRightElement h="full" as="circle" bg="Blue.200">
+      <InputRightElement h="full" as="circle" bg="blue.200">
         <WhiteCross />
       </InputRightElement>
     </InputGroup>

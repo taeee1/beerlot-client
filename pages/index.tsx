@@ -8,7 +8,7 @@ const Home: NextPage = () => {
     <>
       <Box
         h="full"
-        bg="Gray.100"
+        bg="gray.100"
         display="flex"
         justifyContent="center"
         alignItems="center"

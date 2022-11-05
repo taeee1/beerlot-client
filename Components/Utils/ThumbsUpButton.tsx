@@ -10,9 +10,9 @@ const ThumbsUpButton: React.FC<ThumbsUpButtonProps> = ({ thumbsUpNumber }) => {
   return (
     <Button
       _focus={{
-        color: "Orange.100",
+        color: "orange.200",
         bg: "white",
-        borderColor: "Orange.100",
+        borderColor: "orange.200",
       }}
       h={"auto"}
       w={"auto"}
@@ -24,7 +24,7 @@ const ThumbsUpButton: React.FC<ThumbsUpButtonProps> = ({ thumbsUpNumber }) => {
       _hover={{ bg: "white" }}
     >
       {/* TODO : selected 될 때 orange 처리, gray (hover?) 없애기 */}
-      <ThumbsUpIcon color="Orange.100" />
+      <ThumbsUpIcon color="orange.200" />
 
       <Text textStyle="h3" ml={"4px"}>
         {thumbsUpNumber}

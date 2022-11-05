@@ -21,7 +21,7 @@ const CardItem: React.FC<CardItemProps> = ({
   cardType,
   isTwoByTwo,
 }) => {
-  const color = cardType === CardType.POPULAR ? "#ff6b00" : "#FEA801";
+  const color = cardType === CardType.POPULAR ? "orange.300" : "orange.200";
   const [isClicked, setIsClicked] = useState(false);
   const handleClick = (state: boolean) => {
     setIsClicked(state);
@@ -34,7 +34,7 @@ const CardItem: React.FC<CardItemProps> = ({
     w: "27px",
     h: "29px",
     filter: isClicked ? "none" : "drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5))",
-    color: isClicked ? "Orange.100" : "#ffffff",
+    color: isClicked ? "orange.300" : "#ffffff",
   };
 
   return (

@@ -13,19 +13,19 @@ import LikedBeers from "./LikedBeers";
 
 const BeerInfo = () => {
   return (
-    <Tabs colorScheme="blue">
+    <Tabs colorScheme="orange">
       <TabList px={"18px"}>
-        <Tab flexGrow="1" color="Orange.400">
+        <Tab flexGrow="1" color="orange.100">
           <Text>평가한 맥주</Text>
         </Tab>
-        <Tab flexGrow="1" color="Orange.400">
+        <Tab flexGrow="1" color="orange.100">
           <Text>좋아요한 맥주</Text>
         </Tab>
       </TabList>
       <Divider />
 
       <TabPanels>
-        <TabPanel bg="Yellow.50">
+        <TabPanel bg="yellow.100">
           <BeerReviews />
         </TabPanel>
         <TabPanel>

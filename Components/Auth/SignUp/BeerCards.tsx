@@ -24,14 +24,14 @@ const BeerCards: React.FC<BeerCardsProps> = ({ nickName }) => {
         disabled={!isFullfilled}
         text="완료!"
         href="/"
-        bgColor={isFullfilled ? "Orange.200" : "Gray.200"}
-        textColor={isFullfilled ? "White.100" : "Black"}
+        bgColor={isFullfilled ? "orange.200" : "gray.200"}
+        textColor={isFullfilled ? "white.100" : "black.100"}
         boxShadow={isFullfilled ? "0px 8px 16px rgba(0, 0, 0, 0.3)" : "none"}
       />
       <VStack gap={"25px"} p={0} pb={"25px"} alignItems="start">
         <VStack pt={"64px"} textStyle="h1" gap="5px" alignItems="start">
           <Box p={0}>
-            <Text as="span" textColor="Orange.200">
+            <Text as="span" textColor="orange.200">
               {nickName}
             </Text>
             <Text as="span">님의 최애맥주</Text>
@@ -40,7 +40,7 @@ const BeerCards: React.FC<BeerCardsProps> = ({ nickName }) => {
             <Text> N개를 골라주세요!</Text>
           </Box>
           <Box>
-            <Text fontSize="12px" textColor="Gray.300">
+            <Text fontSize="12px" textColor="gray.300">
               고른 맥주를 바탕으로 취향 분석 후, 맥주를 추천해드릴게요 :)
             </Text>
           </Box>

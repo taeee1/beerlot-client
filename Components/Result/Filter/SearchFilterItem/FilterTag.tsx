@@ -12,7 +12,7 @@ const FilterTag: React.FC<FilterTagProps> = ({ title, arrowDirection }) => {
     <Button
       h="auto"
       borderRadius="15px"
-      bg="Yellow.200"
+      bg="yellow.200"
       py={1}
       px="5px"
       gap="7px"

@@ -68,7 +68,7 @@ const EditTemplate = () => {
             src={MOCK_IMAGE_SRC}
             boxSize="100px"
           />
-          <Text textStyle="h3_bold" textColor="Orange.200">
+          <Text textStyle="h3_bold" textColor="orange.200">
             프로필 사진 바꾸기
           </Text>
         </VStack>

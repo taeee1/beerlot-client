@@ -12,8 +12,8 @@ const CompleteCircles: React.FC<CompleteCirclesProps> = ({
 }) => {
   return (
     <Flex justifyContent="center" w="100%" gap="10px">
-      <Circle size="8px" bg={isNicknameDone ? "Orange.200" : "Gray.200"} />
-      <Circle size="8px" bg={isBeersDone ? "Orange.200" : "Gray.200"} />
+      <Circle size="8px" bg={isNicknameDone ? "orange.200" : "gray.200"} />
+      <Circle size="8px" bg={isBeersDone ? "orange.200" : "gray.200"} />
     </Flex>
   );
 };

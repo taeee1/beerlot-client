@@ -9,7 +9,7 @@ const Search = () => {
     <Box
       id="bg-dim"
       h="100vh"
-      bg="Gray.100"
+      bg="gray.100" // 뭔지 모르겠음.
       display="flex"
       justifyContent="center"
       alignItems="center"

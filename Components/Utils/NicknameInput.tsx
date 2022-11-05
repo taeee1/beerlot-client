@@ -23,7 +23,7 @@ const NicknameInput: React.FC<NicknameInputProps> = ({
       <Text
         textStyle="h3"
         textColor={
-          isValid === null ? "Gray.300" : isValid ? "Orange.200" : "Red.100"
+          isValid === null ? "gray.300" : isValid ? "orange.200" : "red.100"
         }
       >
         {title}
@@ -37,7 +37,7 @@ const NicknameInput: React.FC<NicknameInputProps> = ({
         borderBottom="1px"
         errorBorderColor="none"
         borderBottomColor={
-          isValid === null ? "Gray.200" : isValid ? "Orange.200" : "Red.100"
+          isValid === null ? "gray.200" : isValid ? "orange.200" : "red.100"
         }
         border="none"
         focusBorderColor="none"
@@ -45,13 +45,13 @@ const NicknameInput: React.FC<NicknameInputProps> = ({
         placeholder={placeholder}
         _placeholder={{
           color:
-            isValid === null ? "Gray.300" : isValid ? "Orange.200" : "Red.100",
+            isValid === null ? "gray.300" : isValid ? "orange.200" : "red.100",
         }}
       />
       <Text
         textStyle="h3"
         textColor={
-          isValid === null ? "Gray.300" : isValid ? "Orange.200" : "Red.100"
+          isValid === null ? "gray.300" : isValid ? "orange.200" : "red.100"
         }
       >
         {guideText}
