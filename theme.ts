@@ -11,10 +11,18 @@ export const theme = extendTheme({
   },
   styles: {
     global: {
+      p: {
+        mt: "0px !important",
+      },
       body: {
+        pb: "65px",
+        h: "calc(100vh)",
         bg: "#ffffff",
         height: "100vh",
         font: "roboto",
+      },
+      "#__next": {
+        h: "100%",
       },
     },
   },
