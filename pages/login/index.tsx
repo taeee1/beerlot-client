@@ -1,9 +1,9 @@
 import { Center } from "@chakra-ui/react";
-import ContinueButton from "../../Components/Auth/Login/Continue";
-import MarketingText from "../../Components/Auth/Login/MarketingText";
-import SocialButton from "../../Components/Auth/Login/SocialButton";
+import ContinueButton from "../../src/auth/sign-in/Continue";
+import MarketingText from "../../src/auth/sign-in/MarketingText";
+import SocialButton from "../../src/auth/sign-in/SocialButton";
 
-import Title from "../../Components/Auth/Login/Title";
+import Title from "../../src/auth/sign-in/Title";
 
 const LoginTemplate = () => {
   return (

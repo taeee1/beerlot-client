@@ -2,13 +2,13 @@ import { Box, Circle, Flex } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
-import CardItem from "../../Components/Card/CardItem";
-import { CardContainer } from "../../Components/Card/CardList/TwoByTwoCardList";
-import SearchInputHome from "../../Components/Home/SearchInputHome";
-import EmptyFilteredResult from "../../Components/Result/EmptyFilteredResult";
-import SearchFilterList from "../../Components/Result/Filter/SearchFilterList/SearchFilterList";
+import CardItem from "../../src/card/CardItem";
+import { CardContainer } from "../../src/card/card-list/TwoByTwoCardList";
+import SearchInputHome from "../../src/home/SearchInputHome";
+import EmptyFilteredResult from "../../src/result/EmptyFilteredResult";
+import SearchFilterList from "../../src/result/filter/search-filter-list/SearchFilterList";
 import { EmptyFilter, WhiteFilter } from "../../public/svg";
-import { CardType, MOCK_CARD_LIST } from "../../Static";
+import { CardType, MOCK_CARD_LIST } from "../../interface/static";
 
 const SearchResultList = () => {
   const router = useRouter();

@@ -1,5 +1,5 @@
 import React from "react";
-import Beers from "../../Components/Auth/SignUp/Beers";
+import Beers from "../../src/auth/sign-up/Beers";
 
 const beers = () => {
   return <Beers />;

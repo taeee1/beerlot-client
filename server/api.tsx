@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BeerResultType } from "../types";
+import { BeerResultType } from "../interface/types";
 
 export const getAllBeers = async (index: number) => {
   const result: BeerResultType = await axios

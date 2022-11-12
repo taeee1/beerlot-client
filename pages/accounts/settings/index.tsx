@@ -1,4 +1,4 @@
-import { SettingsTemplate } from "../../../Components/Account/settings/SettingTemplate";
+import { SettingsTemplate } from "../../../src/account/settings/SettingTemplate";
 
 const SettingsPage = () => {
   return (

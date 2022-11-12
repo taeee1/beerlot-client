@@ -9,24 +9,11 @@ import { useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { RecoilRoot } from "recoil";
-import { BottomNav } from "../Components/Utils/BottomNav";
+import { BottomNav } from "../common/BottomNav";
 import "../styles/globals.css";
-import { theme } from "../theme";
+import { theme } from "../styles/theme";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const toast = useToast();
-  const handleToast = (options: UseToastOptions) => {
-    const defaultOptions: UseToastOptions = {
-      status: "info",
-      duration: 5000,
-      isClosable: true,
-    };
-
-    toast({
-      ...defaultOptions,
-      ...options,
-    });
-  };
   const [queryClient] = useState(
     () =>
       new QueryClient({

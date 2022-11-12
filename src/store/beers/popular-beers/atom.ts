@@ -1,6 +1,6 @@
 import axios from "axios";
 import { selector } from "recoil";
-import { BeerResultType } from "../../../../types";
+import { BeerResultType } from "../../../../interface/types";
 
 export const popularBeerState = selector<BeerResultType>({
   key: "popularBeerStateReadOnly",

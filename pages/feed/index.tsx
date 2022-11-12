@@ -1,5 +1,5 @@
-import FeedTabList from "../../Components/Feed/FeedTabList";
-import Title from "../../Components/Search/Title";
+import FeedTabList from "../../src/feed/FeedTabList";
+import Title from "../../src/search/Title";
 
 const Feed = () => {
   return (

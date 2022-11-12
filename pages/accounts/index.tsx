@@ -1,4 +1,4 @@
-import AccountsTemplate from "../../Components/Account/AccountsTemplate";
+import AccountsTemplate from "../../src/account/AccountsTemplate";
 
 const AccountPage = () => {
   return (

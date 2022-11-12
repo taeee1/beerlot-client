@@ -1,4 +1,4 @@
-import Search from "../../Components/Search/Search";
+import Search from "../../src/search/Search";
 
 const index = () => {
   return <Search />;

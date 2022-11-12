@@ -1,4 +1,4 @@
-import EditTemplate from "../../../Components/Account/user-info/edit/EditTemplate";
+import EditTemplate from "../../../src/account/user-info/edit/EditTemplate";
 
 const EditPage = () => {
   return (
