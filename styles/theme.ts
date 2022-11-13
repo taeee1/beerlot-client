@@ -14,6 +14,9 @@ export const theme = extendTheme({
       p: {
         mt: "0px !important",
       },
+      div: {
+        mt: "0px !important",
+      },
       body: {
         pb: "65px",
         h: "calc(100vh)",

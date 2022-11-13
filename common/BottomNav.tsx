@@ -1,12 +1,6 @@
-import { HStack, VStack, Text, Icon } from "@chakra-ui/react";
-import {
-  NavAccount,
-  NavFeed,
-  NavSearch,
-  NavHome,
-} from "./custom-icons/customIcons";
-import React from "react";
+import { HStack, Text, VStack } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import React from "react";
 import {
   NavAccountsPath,
   NavFeedPath,
@@ -40,16 +34,14 @@ export const BottomNav = () => {
 
   return (
     <HStack
+      w="full"
       py="10px"
       px="42px"
       pos="fixed"
       bg="white.100"
       borderTop="0.3px solid"
       borderTopColor="gray.300"
-      height="65px"
       bottom="0px"
-      left="0px"
-      right="0px"
     >
       {navMenu.map((item) => {
         const { title, displayName, icon, url } = item;
@@ -58,7 +50,7 @@ export const BottomNav = () => {
           <VStack
             key={title}
             flexGrow={1}
-            gap="1.5px"
+            gap="1px"
             onClick={() => handleClick(url)}
           >
             {icon(curColor)}
