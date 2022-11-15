@@ -1,4 +1,5 @@
 import {
+  Box,
   Circle,
   Input,
   InputGroup,
@@ -35,14 +36,15 @@ const SearchInput: React.FC<SearchInputProps> = ({
         textColor="white"
         _placeholder={{ color: "inherit" }}
         focusBorderColor="inherit"
+        _hover={{}}
       />
       <InputLeftElement h="full">
         <SearchGlass />
       </InputLeftElement>
-      <InputRightElement h="full" as="circle" bg="blue.200">
-        <Circle size="17px" bg="blue.200" onClick={clearInput} id="circle">
+      <InputRightElement h="full" onClick={clearInput} borderRadius="50%">
+        <Box w="17px" h="17px" id="circle" borderRadius="50%" color="blue.200">
           <WhiteCross />
-        </Circle>
+        </Box>
       </InputRightElement>
     </InputGroup>
   );

@@ -37,9 +37,6 @@ const SearchInputHome: React.FC<SearchInputHomeProps> = ({ placeholder }) => {
       <InputLeftElement h="full">
         <SearchGlass />
       </InputLeftElement>
-      <InputRightElement h="full" as="circle" bg="blue.200">
-        <WhiteCross />
-      </InputRightElement>
     </InputGroup>
   );
 };
