@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { getAllBeers } from "../../../server/api";
-import { likedBeerState } from "../../store";
 import { CardType } from "../../../interface/static";
 import { BeerResultType } from "../../../interface/types";
+import { getAllBeers } from "../../../server/api";
 import CardItem from "../../card/CardItem";
-import TwoByTwoCardList from "../../card/card-list/TwoByTwoCardList";
+import { likedBeerState } from "../../store/atom";
 
 const LikedBeers = () => {
   const [allBeers, setAllBeers] = useState<BeerResultType[]>([]);

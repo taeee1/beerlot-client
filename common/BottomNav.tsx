@@ -1,6 +1,8 @@
 import { HStack, Text, VStack } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React from "react";
+import { useRecoilState } from "recoil";
+import { userInfoState } from "../src/store/atom";
 import {
   NavAccountsPath,
   NavFeedPath,
@@ -10,6 +12,7 @@ import {
 
 export const BottomNav = () => {
   const router = useRouter();
+  const [userInfo] = useRecoilState(userInfoState);
 
   const navMenu = [
     { title: "home", displayName: "홈", icon: NavHomePath, url: "/" },
@@ -24,7 +27,7 @@ export const BottomNav = () => {
       title: "account",
       displayName: "마이",
       icon: NavAccountsPath,
-      url: "/accounts",
+      url: userInfo ? "/accounts" : "/login",
     },
   ];
 
