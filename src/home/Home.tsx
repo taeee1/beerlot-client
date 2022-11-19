@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Loadable, useRecoilValue, useRecoilValueLoadable } from "recoil";
+import React, { useState } from "react";
+import { Loadable, useRecoilValueLoadable } from "recoil";
 import styled from "styled-components";
+import { RightBellHeader } from "../../common/custom-icons/headers/RightBell";
 import { POPULAR_BEER_TITLE } from "../../interface/static";
 import { BeerResultType, RecoilState } from "../../interface/types";
-import TempLogin from "../auth/sign-in/TempLogin";
 import CarouselCardList from "../card/card-list/CarouselCardList";
 import TwoByTwoCardList from "../card/card-list/TwoByTwoCardList";
 import { popularBeerState } from "../store/selector";
@@ -65,12 +65,7 @@ const HomeComponent = () => {
 
   return (
     <Container>
-      <TempLogin
-        handleLogin={handleLogin}
-        handleUserName={handleUserName}
-        isLoggedIn={isLoggedIn}
-        userNickname={userNickname}
-      />
+      <RightBellHeader />
       <WelcomeText nickname={userNickname} isLoggedIn={isLoggedIn} />
       <SearchInputHome />
       {isLoggedIn ? (
@@ -94,6 +89,10 @@ export default HomeComponent;
 
 export const Container = styled.div`
   padding: 24px;
+  padding-top: 64px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
   background: white;
   max-width: 450px;
 `;
