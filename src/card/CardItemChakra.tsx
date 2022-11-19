@@ -1,9 +1,12 @@
 import { Flex, Text, VStack } from "@chakra-ui/react";
-import React, { useState } from "react";
+import axios, { AxiosResponse } from "axios";
+import React, { useEffect, useState } from "react";
+import { useMutation } from "react-query";
 import styled from "styled-components";
 import LikeButton from "../../common/OrangeLikeButton";
 
 interface CardItemProps {
+  beerId: number;
   isTwoByTwo: boolean;
   beerName: string;
   img_src: string;
@@ -14,6 +17,7 @@ interface CardItemProps {
 
 const CardItemChakra: React.FC<CardItemProps> = ({
   beerName,
+  beerId,
   img_src,
   sort,
   country,
@@ -21,8 +25,18 @@ const CardItemChakra: React.FC<CardItemProps> = ({
   borderColor,
 }) => {
   const [isLiked, setIsLiked] = useState(false);
+
+  const likeBeer = useMutation((beerId: number) =>
+    axios.post(`/api/v1/beers/${beerId}/likes`)
+  );
+
+  const dislikeBeer = useMutation((beerId: number) =>
+    axios.delete(`/api/v1/beers/${beerId}/likes`)
+  );
+
   const handleClick = (state: boolean) => {
     setIsLiked(state);
+    isLiked ? dislikeBeer.mutate(beerId) : likeBeer.mutate(beerId); // 데이터 저장
   };
 
   const iconProps = {

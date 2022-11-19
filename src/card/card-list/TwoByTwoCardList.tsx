@@ -29,6 +29,7 @@ const TwoByTwoCardList: React.FC<TwoByTwoCardListProps> = ({
         {itemList.map((item, idx) => {
           return (
             <CardItemChakra
+              beerId={item.id}
               isTwoByTwo
               borderColor={
                 cardType === CardType.POPULAR ? "orange.300" : "orange.200"
