@@ -1,10 +1,10 @@
+import { TitleRightBellHeader } from "../../common/custom-icons/headers/TitleRightBell";
 import FeedTabList from "../../src/feed/FeedTabList";
-import Title from "../../src/search/Title";
 
 const Feed = () => {
   return (
     <>
-      <Title />
+      <TitleRightBellHeader />
       <FeedTabList />
     </>
   );

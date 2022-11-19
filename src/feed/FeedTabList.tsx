@@ -12,7 +12,7 @@ import AllTabPanelList from "./AllTabPanelList";
 
 const FeedTabList = () => {
   return (
-    <Tabs colorScheme="orange">
+    <Tabs colorScheme="orange" pt="64px">
       <TabList px={"18px"}>
         <Tab flexGrow="1" color="orange.100">
           팔로잉
