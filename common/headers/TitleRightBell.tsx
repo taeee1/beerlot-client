@@ -1,9 +1,9 @@
 import { Box, Flex } from "@chakra-ui/react";
 import React from "react";
-import BackButton from "../../BackButton";
+import { AlertBellPath } from "../custom-icons/customPath";
 import BeerlotTitle from "./BeerlotTitle";
 
-export const LeftBackTItle = () => {
+export const TitleRightBellHeader = () => {
   return (
     <Flex
       position="absolute"
@@ -11,15 +11,15 @@ export const LeftBackTItle = () => {
       right="0px"
       left="0px"
       pt="30px"
-      pb="30px"
-      px="35px"
+      pb="10px"
+      px="20px"
       justifyContent="space-between"
       alignItems="center"
       dropShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
     >
-      <BackButton />
+      <Box w="24px" h="24px" />
       <BeerlotTitle />
-      <Box w="12px" />
+      {AlertBellPath()}
     </Flex>
   );
 };

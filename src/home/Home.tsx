@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Loadable, useRecoilValueLoadable } from "recoil";
 import styled from "styled-components";
-import { RightBellHeader } from "../../common/custom-icons/headers/RightBell";
+import { RightBellHeader } from "../../common/headers/RightBell";
 import { POPULAR_BEER_TITLE } from "../../interface/static";
 import { BeerResultType, RecoilState } from "../../interface/types";
 import CarouselCardList from "../card/card-list/CarouselCardList";

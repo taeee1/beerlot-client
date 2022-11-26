@@ -1,6 +1,6 @@
 import { Box, VStack } from "@chakra-ui/react";
 import styled from "styled-components";
-import { LeftBackTItle } from "../../common/custom-icons/headers/LeftBackTItle";
+import { LeftBackTItle } from "../../common/headers/LeftBackTitle";
 import SearchBarAutocomplete from "./SearchBarAutocomplete";
 
 const SearchTemplate = () => {

@@ -1,7 +1,7 @@
 import { Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React from "react";
-import { BEERLOT_TITLE } from "../../../interface/static";
+import { BEERLOT_TITLE } from "../../interface/static";
 
 const BeerlotTitle = () => {
   const router = useRouter();

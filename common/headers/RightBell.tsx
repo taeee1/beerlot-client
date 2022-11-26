@@ -1,6 +1,6 @@
 import { Flex } from "@chakra-ui/react";
 import React from "react";
-import { AlertBellPath } from "../customPath";
+import { AlertBellPath } from "../custom-icons/customPath";
 
 export const RightBellHeader = () => {
   return (
