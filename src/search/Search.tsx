@@ -1,11 +1,9 @@
-import React from "react";
-import { Box, HStack, VStack } from "@chakra-ui/react";
+import { Box, VStack } from "@chakra-ui/react";
 import styled from "styled-components";
-import Title from "./Title";
-import SearchBarAutocomplete from "./SearchBarAutocomplete";
 import { LeftBackTItle } from "../../common/custom-icons/headers/LeftBackTItle";
+import SearchBarAutocomplete from "./SearchBarAutocomplete";
 
-const Search = () => {
+const SearchTemplate = () => {
   return (
     <VStack pt="70px">
       <LeftBackTItle />
@@ -35,4 +33,4 @@ export const Container = styled.div`
   max-width: 550px;
 `;
 
-export default Search;
+export default SearchTemplate;

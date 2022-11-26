@@ -1,7 +1,7 @@
-import Search from "../../src/search/Search";
+import SearchTemplate from "../../src/search/Search";
 
 const index = () => {
-  return <Search />;
+  return <SearchTemplate />;
 };
 
 export default index;

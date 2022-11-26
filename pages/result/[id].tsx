@@ -11,6 +11,7 @@ import { EmptyFilter, WhiteFilter } from "../../public/svg";
 import { CardType, MOCK_CARD_LIST } from "../../interface/static";
 
 const SearchResultList = () => {
+  const [isFilterListOpen, setIsFilterListOpen] = useState<boolean>(true);
   const router = useRouter();
   const { id } = router.query;
   const filteredItemList = MOCK_CARD_LIST.filter((item) => {
@@ -19,7 +20,7 @@ const SearchResultList = () => {
     }
     return item.beerName.includes(id[0]);
   });
-  const [isFilterListOpen, setIsFilterListOpen] = useState<boolean>(true);
+
   const handleClick = () => {
     setIsFilterListOpen(!isFilterListOpen);
   };

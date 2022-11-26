@@ -6,31 +6,40 @@ import {
   InputLeftElement,
   InputRightElement,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useRef } from "react";
 import { SearchGlass, WhiteCross } from "../../public/svg";
 import { SEARCH_BAR_PLACEHOLDER } from "../../interface/static";
 
 interface SearchInputProps {
-  value: string;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  clearInput: () => void;
+  onKeyPress: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  clearValue: () => void;
 }
 
 const SearchInput: React.FC<SearchInputProps> = ({
-  value,
-  handleChange,
-  clearInput,
+  onChange,
+  onKeyPress,
+  clearValue,
 }) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const clearInput = () => {
+    if (inputRef.current) {
+      inputRef.current.value = "";
+      clearValue();
+    }
+  };
+
   return (
     <InputGroup display="flex" alignItems="center" justifyContent="center">
       <Input
+        ref={inputRef}
+        onKeyPress={onKeyPress}
         py="20px"
         px="20px"
         bg="blue.100"
         placeholder={SEARCH_BAR_PLACEHOLDER}
         size="sm"
-        value={value}
-        onChange={handleChange}
+        onChange={onChange}
         autoFocus
         borderRadius="20px"
         textColor="white"

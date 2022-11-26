@@ -1,3 +1,5 @@
+export type AllKeyboardEvent = React.KeyboardEvent | KeyboardEvent;
+
 export interface BeerResultType {
   id: number;
   name_ko: string;
