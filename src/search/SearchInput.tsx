@@ -6,9 +6,9 @@ import {
   InputLeftElement,
   InputRightElement,
 } from "@chakra-ui/react";
-import React, { useRef } from "react";
-import { SearchGlass, WhiteCross } from "../../public/svg";
-import { SEARCH_BAR_PLACEHOLDER } from "../../interface/static";
+import React, {useRef} from "react";
+import {SearchGlass, WhiteCross} from "../../public/svg";
+import {SEARCH_BAR_PLACEHOLDER} from "../../interface/static";
 
 interface SearchInputProps {
   onKeyPress: (e: React.KeyboardEvent<HTMLInputElement>) => void;
@@ -43,7 +43,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
         autoFocus
         borderRadius="20px"
         textColor="white"
-        _placeholder={{ color: "inherit" }}
+        _placeholder={{color: "inherit"}}
         focusBorderColor="inherit"
         _hover={{}}
       />
@@ -51,7 +51,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
         <SearchGlass />
       </InputLeftElement>
       <InputRightElement h="full" onClick={clearInput} borderRadius="50%">
-        <Box w="17px" h="17px" id="circle" borderRadius="50%" color="blue.200">
+        <Box w="21px" h="21px" borderRadius="full" bg="blue.200">
           <WhiteCross />
         </Box>
       </InputRightElement>
