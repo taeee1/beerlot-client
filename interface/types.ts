@@ -8,30 +8,31 @@ export interface BeerResultType {
   country: CountryType;
   volume: number;
   image_url: string;
-  category: {
-    id: number;
-    name_ko: string;
-    name_en: string;
-    description: string;
-    parent: TagType;
-  };
-  tags: TagType[];
+  category: CategoryType;
+  tags: TagsType[];
   like_count: number;
   review_count: number;
-  rate: number;
+  rate?: number;
 }
 
-interface TagType {
+interface TagsType {
   id: number;
   name_ko: string;
   name_en: string;
-  description: string;
+  description?: string;
+  beers?: string;
 }
 
 interface CountryType {
   code: string;
+}
+
+interface CategoryType {
+  id: number;
   name_ko: string;
   name_en: string;
+  description: string;
+  parent: TagsType;
 }
 
 export type RecoilState = "hasValue" | "loading" | "hasError";
@@ -39,4 +40,11 @@ export type RecoilState = "hasValue" | "loading" | "hasError";
 export type SignUpType = {
   email: string;
   username: string;
+};
+
+export type ErrorResponse = {
+  error: string;
+  path: string;
+  status: number;
+  timestamp: string;
 };

@@ -5,7 +5,7 @@ import {
   CardType,
   POPULAR_BEER_TITLE,
 } from "../../../interface/static";
-import { BeerResultType } from "../../../interface/types";
+import {BeerResultType} from "../../../interface/types";
 import CardItem from "../CardItem";
 import CardItemChakra from "../CardItemChakra";
 import CardTitle from "../CardTitle";

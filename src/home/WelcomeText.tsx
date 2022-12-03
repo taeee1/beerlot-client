@@ -1,19 +1,18 @@
 import React from "react";
-import { WELCOME_MESSAGE_FIRST } from "../../interface/static";
-import { WELCOME_MESSAGE_SECOND } from "../../interface/static";
+import {WELCOME_MESSAGE_FIRST} from "../../interface/static";
+import {WELCOME_MESSAGE_SECOND} from "../../interface/static";
 import styled from "styled-components";
 
 interface WelcomeTextProps {
-  nickname: string;
-  isLoggedIn: boolean;
+  nickname?: string;
 }
 
-const WelcomeText: React.FC<WelcomeTextProps> = ({ nickname, isLoggedIn }) => {
+const WelcomeText: React.FC<WelcomeTextProps> = ({nickname}) => {
   return (
     <WelcomeTextContainer>
       <TextContainer>
         <p>{WELCOME_MESSAGE_FIRST}</p>
-        {isLoggedIn && (
+        {nickname && (
           <NickanameContainer>
             <Nickname>{nickname}</Nickname>
             <p> 님!</p>
