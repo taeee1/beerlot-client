@@ -21,3 +21,4 @@ export { default as AlertBell } from "./alert-bell.svg";
 export { default as SettingGear } from "./setting-gear.svg";
 export { default as TrashBin } from "./trash-bin.svg";
 export { default as EditNote } from "./edit-note.svg";
+export { default as EditPencil } from "./edit-pencil.svg";
