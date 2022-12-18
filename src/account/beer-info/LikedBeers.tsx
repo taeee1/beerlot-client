@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useRecoilState} from "recoil";
 import {CardType} from "../../../interface/static";
 import {BeerResultType} from "../../../interface/types";
-import {getAllBeersAysync} from "../../../server/api";
+import {getAllBeersApi} from "../../../server/api";
 import CardItem from "../../card/CardItem";
 import {likedBeerState} from "../../store/atom";
 
@@ -10,7 +10,7 @@ const LikedBeers = () => {
   const [allBeers, setAllBeers] = useState<BeerResultType[]>([]);
   const [likedBeers, setLikedBeers] = useRecoilState(likedBeerState);
   const handleInfo = async (index: number) => {
-    const beers = await getAllBeersAysync(index);
+    const beers = await getAllBeersApi(index);
     return beers;
   };
 

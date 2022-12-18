@@ -6,7 +6,7 @@ import styled from "styled-components";
 import {RightBellHeader} from "../../common/headers/RightBell";
 import {POPULAR_BEER_TITLE} from "../../interface/static";
 import {BeerResultType, ErrorResponse} from "../../interface/types";
-import {getTop10BeersAsync} from "../../server/api";
+import {getTop10BeersApi} from "../../server/api";
 import CarouselCardList from "../card/card-list/CarouselCardList";
 import TwoByTwoCardList from "../card/card-list/TwoByTwoCardList";
 import {userInfoState, top10BeersState} from "../store/atom";
@@ -18,7 +18,7 @@ const HomeTemplate = () => {
   const [top10Beers, setTop10Beers] = useRecoilState(top10BeersState);
   const popularBeers = useQuery<BeerResultType[], ErrorResponse>(
     "top10Beers",
-    getTop10BeersAsync,
+    getTop10BeersApi,
     {
       enabled: !userInfo,
       refetchOnWindowFocus: false,

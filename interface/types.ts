@@ -27,7 +27,7 @@ interface CountryType {
   code: string;
 }
 
-interface CategoryType {
+export interface CategoryType {
   id: number;
   name_ko: string;
   name_en: string;

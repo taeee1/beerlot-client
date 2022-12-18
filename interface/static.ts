@@ -63,3 +63,8 @@ export interface beerItemType {
   sort: string;
   country: string;
 }
+
+export enum ReviewStatic {
+  numberOfMaxAttachedFile = 5,
+  ReviewInputMaxLength = 2000,
+}

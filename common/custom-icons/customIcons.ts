@@ -1,4 +1,4 @@
-import { createIcon } from "@chakra-ui/react";
+import {createIcon} from "@chakra-ui/react";
 
 export const HeartButton = createIcon({
   displayName: "HeartButton",
@@ -52,4 +52,10 @@ export const OrangeStar = createIcon({
   displayName: "OrangeStar",
   viewBox: "0 0 36 34",
   d: "M18 1.333l5.15 10.434 11.516 1.683-8.333 8.117L28.3 33.033 18 27.617 7.7 33.033l1.966-11.466-8.333-8.117 11.517-1.683L18 1.333z",
+});
+
+export const EmptyStar = createIcon({
+  displayName: "EmptyStar",
+  viewBox: "0 0 24 24",
+  d: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z",
 });

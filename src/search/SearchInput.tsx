@@ -11,7 +11,7 @@ import {SearchGlass, WhiteCross} from "../../public/svg";
 import {SEARCH_BAR_PLACEHOLDER} from "../../interface/static";
 
 interface SearchInputProps {
-  onKeyPress: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onKeyPress?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   clearValue: () => void;
 }

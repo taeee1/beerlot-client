@@ -1,16 +1,20 @@
-import { Box } from "@chakra-ui/react";
-import { useRouter } from "next/router";
+import {Box} from "@chakra-ui/react";
+import {useRouter} from "next/router";
 import React from "react";
-import { LeftArrow } from "../public/svg";
+import {LeftArrow} from "../public/svg";
 
-const BackButton = () => {
+interface BackButtonProps {
+  onClick?: () => void;
+}
+
+const BackButton: React.FC<BackButtonProps> = ({onClick}) => {
   const router = useRouter();
   const handleClick = () => {
     router.back();
   };
 
   return (
-    <Box onClick={handleClick}>
+    <Box onClick={onClick ? onClick : handleClick}>
       <LeftArrow />
     </Box>
   );
