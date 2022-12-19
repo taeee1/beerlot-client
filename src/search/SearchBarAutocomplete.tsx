@@ -54,16 +54,23 @@ const SearchBarAutocomplete = () => {
   }, [searchBeer.data?.data.contents]);
 
   return (
-    <Flex w="full" direction="column" borderRadius="20px" gap="10px" mt="14px">
+    <Flex
+      h="full"
+      w="full"
+      direction="column"
+      borderRadius="20px"
+      gap="10px"
+      mt="14px"
+    >
       <SearchInput
         onKeyPress={handleKeyPress}
         onChange={handleChange}
         clearValue={clearValue}
       />
       {isInputEmpty ? (
-        <MarketingScreen />
+        <Box w="full" h="full" />
       ) : (
-        <Flex flexDirection="column">
+        <Flex flexDirection="column" h="full" w="full">
           <>
             {selectedItems?.length > 0 ? (
               selectedItems.map((beerItems: any) => {
@@ -96,14 +103,3 @@ const SearchBarAutocomplete = () => {
 };
 
 export default SearchBarAutocomplete;
-
-const MarketingScreen = () => (
-  <Box>
-    <Text fontSize="24px" fontWeight="bold" mb="10px">
-      Welcome to Beerlot!
-    </Text>
-    <Text fontSize="16px" fontWeight="normal" mb="10px">
-      Please enter the beer name you want to search.
-    </Text>
-  </Box>
-);

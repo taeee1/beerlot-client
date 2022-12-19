@@ -5,11 +5,12 @@ import SearchBarAutocomplete from "./SearchBarAutocomplete";
 
 const SearchTemplate = () => {
   return (
-    <VStack pt="70px">
+    <VStack pt="70px" h="full" w="full">
       <LeftBackTItle />
       <Box
         id="bg-dim"
-        h="100vh"
+        h="100%"
+        w="100%"
         bg="gray.100" // 뭔지 모르겠음.
         display="flex"
         justifyContent="center"

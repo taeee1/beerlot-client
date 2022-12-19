@@ -10,6 +10,8 @@ const EmptySearchResult: React.FC<EmptySearchResultProps> = ({
 }) => {
   return (
     <Flex
+      w="full"
+      h="full"
       justifyContent="center"
       alignItems="center"
       mt="118px"
