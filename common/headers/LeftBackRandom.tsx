@@ -1,4 +1,4 @@
-import {Box, Button, Flex, Text} from "@chakra-ui/react";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import React from "react";
 import BackButton from "../BackButton";
 import BeerlotTitle from "./BeerlotTitle";
@@ -14,6 +14,7 @@ export const LeftBackRandom: React.FC<LeftBackRandomProps> = ({
 }) => {
   return (
     <Flex
+      bg="white"
       position="absolute"
       top="0px"
       right="0px"

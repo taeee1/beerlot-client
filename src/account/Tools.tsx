@@ -1,8 +1,14 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, IconButton } from "@chakra-ui/react";
+import Router, { useRouter } from "next/router";
 import React from "react";
 import { AlertBell, SettingGear } from "../../public/svg";
 
 const Tools = () => {
+  const router = useRouter();
+  const handleClickSettings = () => {
+    router.push("/accounts/settings");
+  };
+
   return (
     <Flex
       py="10px"
@@ -11,8 +17,16 @@ const Tools = () => {
       alignItems="center"
       gap="12px"
     >
-      <SettingGear />
-      <AlertBell />
+      <IconButton
+        _hover={{}}
+        _focus={{}}
+        bg="transparent"
+        aria-label="settings"
+        icon={<SettingGear />}
+        onClick={handleClickSettings}
+      />
+
+      {/* <AlertBell /> */}
     </Flex>
   );
 };
