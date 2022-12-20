@@ -1,12 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import {
-  beerItemType,
-  CardType,
-  POPULAR_BEER_TITLE,
-} from "../../../interface/static";
-import {BeerResultType} from "../../../interface/types";
-import CardItem from "../CardItem";
+import { CardType, POPULAR_BEER_TITLE } from "../../../interface/static";
+import { BeerResultType } from "../../../interface/types";
 import CardItemChakra from "../CardItemChakra";
 import CardTitle from "../CardTitle";
 

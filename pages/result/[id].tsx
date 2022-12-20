@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
 import CardItem from "../../src/card/CardItem";
-import { CardContainer } from "../../src/card/card-list/TwoByTwoCardList";
+import { CardContainer } from "../../src/card/CardList/TwoByTwoCardList";
 import SearchInputHome from "../../src/home/SearchInputHome";
 import EmptyFilteredResult from "../../src/result/EmptyFilteredResult";
 import SearchFilterList from "../../src/result/filter/search-filter-list/SearchFilterList";

@@ -1,4 +1,4 @@
-import { Flex, Text, VStack } from "@chakra-ui/react";
+import { Box, Flex, Text, VStack } from "@chakra-ui/react";
 import axios, { AxiosResponse } from "axios";
 import React, { useEffect, useState } from "react";
 import { useMutation } from "react-query";
@@ -52,7 +52,7 @@ const CardItemChakra: React.FC<CardItemProps> = ({
   return (
     <>
       <VStack
-        position="absolute"
+        position="relative"
         alignItems="flex-start"
         gap="4px"
         p="8px"
@@ -60,11 +60,13 @@ const CardItemChakra: React.FC<CardItemProps> = ({
         borderRadius="12px"
         borderColor={borderColor}
       >
-        <LikeButton
-          isClicked={isLiked}
-          onClick={handleClick}
-          iconProps={iconProps}
-        />
+        <Box position="absolute" right="0px" top="0px">
+          <LikeButton
+            isClicked={isLiked}
+            onClick={handleClick}
+            iconProps={iconProps}
+          />
+        </Box>
         <CardImage src={img_src} alt={beerName} isTwoByTwo={isTwoByTwo} />
         <Text textStyle="h4" color="black">
           {beerName}

@@ -1,13 +1,13 @@
 import React from "react";
-import {WELCOME_MESSAGE_FIRST} from "../../interface/static";
-import {WELCOME_MESSAGE_SECOND} from "../../interface/static";
+import { WELCOME_MESSAGE_FIRST } from "../../interface/static";
+import { WELCOME_MESSAGE_SECOND } from "../../interface/static";
 import styled from "styled-components";
 
 interface WelcomeTextProps {
   nickname?: string;
 }
 
-const WelcomeText: React.FC<WelcomeTextProps> = ({nickname}) => {
+const WelcomeText: React.FC<WelcomeTextProps> = ({ nickname }) => {
   return (
     <WelcomeTextContainer>
       <TextContainer>
@@ -31,7 +31,6 @@ export default WelcomeText;
 const TextContainer = styled.div`
   font-family: "Roboto";
   font-weight: 700;
-  margin: 10px 0px;
   font-size: 22px;
 
   color: rgba(0, 0, 0, 0.8);
@@ -48,6 +47,4 @@ const NickanameContainer = styled.div`
   align-items: center;
 `;
 
-const WelcomeTextContainer = styled.div`
-  margin: 8.4vh 0px 4.6vh;
-`;
+const WelcomeTextContainer = styled.div``;

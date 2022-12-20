@@ -1,26 +1,25 @@
-import {AxiosError} from "axios";
-import {useEffect} from "react";
-import {useQuery} from "react-query";
-import {useRecoilState} from "recoil";
+import { Box, Text } from "@chakra-ui/react";
+import { useQuery } from "react-query";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import {RightBellHeader} from "../../common/headers/RightBell";
-import {POPULAR_BEER_TITLE} from "../../interface/static";
-import {BeerResultType, ErrorResponse} from "../../interface/types";
-import {getTop10BeersApi} from "../../server/api";
-import CarouselCardList from "../card/card-list/CarouselCardList";
-import TwoByTwoCardList from "../card/card-list/TwoByTwoCardList";
-import {userInfoState, top10BeersState} from "../store/atom";
+import { BlankHeader } from "../../common/headers/BlankHeader";
+import { POPULAR_BEER_TITLE } from "../../interface/static";
+import { BeerResultType, ErrorResponse } from "../../interface/types";
+import { getTop10BeersApi } from "../../server/api";
+import CardItemChakra from "../card/CardItemChakra";
+import CarouselCardList from "../card/CardList/CarouselCardList";
+import { top10BeersState, userInfoState } from "../store/atom";
 import SearchInputHome from "./SearchInputHome";
 import WelcomeText from "./WelcomeText";
 
 const HomeTemplate = () => {
   const [userInfo] = useRecoilState(userInfoState);
   const [top10Beers, setTop10Beers] = useRecoilState(top10BeersState);
+
   const popularBeers = useQuery<BeerResultType[], ErrorResponse>(
     "top10Beers",
     getTop10BeersApi,
     {
-      enabled: !userInfo,
       refetchOnWindowFocus: false,
       retry: 1,
       onSuccess: (data: BeerResultType[]) => {
@@ -32,26 +31,43 @@ const HomeTemplate = () => {
       },
     }
   );
-
   return (
     <Container>
-      <RightBellHeader />
-
+      <BlankHeader />
+      {/* TODO: v2 alarm feature */}
+      {/* <RightBellHeader /> */}
       <WelcomeText nickname={userInfo?.username} />
-
-      <SearchInputHome />
+      <Box py={"34px"}>
+        <SearchInputHome />
+      </Box>
       {userInfo ? (
         <>
           <CarouselCardList title={POPULAR_BEER_TITLE} />
           <CarouselCardList title={userInfo.username} />
         </>
       ) : (
-        top10Beers && (
-          <TwoByTwoCardList
-            title={POPULAR_BEER_TITLE}
-            itemList={top10Beers} // list단에 전부 내리는 게 맞다고 생각하지 않음.
-          />
-        )
+        <>
+          {/* title */}
+          <Text textColor="black.100">🔥 인기맥주 TOP10 🔥 </Text>
+          {top10Beers && (
+            <>
+              {top10Beers.map((item, idx) => {
+                return (
+                  <CardItemChakra
+                    key={idx}
+                    beerId={item.id}
+                    isTwoByTwo
+                    borderColor={"orange.300"}
+                    beerName={item.name_ko}
+                    img_src={item.image_url}
+                    sort={item.category.name_ko}
+                    country={item.country.code}
+                  />
+                );
+              })}
+            </>
+          )}
+        </>
       )}
     </Container>
   );
