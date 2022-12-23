@@ -1,15 +1,17 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
+import { VStack } from "@chakra-ui/react";
 import axios from "axios";
 import _, { debounce } from "lodash";
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
 import { useMutation } from "react-query";
+import { LeftBackTitle } from "../../common/headers/LeftBackTitle";
 import useKeyboard from "../../hooks/useKeyboard";
 import { useSearch } from "../../hooks/useSearch";
 import EmptySearchResult from "./EmptySearchResult";
 import SearchInput from "./SearchInput";
 
-const SearchBarAutocomplete = () => {
+const SearchBarTemplate = () => {
   const router = useRouter();
   const [value, setValue] = useState("");
   const [selectedItems, setSelectedItems] = useState([]);
@@ -54,52 +56,54 @@ const SearchBarAutocomplete = () => {
   }, [searchBeer.data?.data.contents]);
 
   return (
-    <Flex
-      h="full"
-      w="full"
-      direction="column"
-      borderRadius="20px"
-      gap="10px"
-      mt="14px"
-    >
-      <SearchInput
-        onKeyPress={handleKeyPress}
-        onChange={handleChange}
-        clearValue={clearValue}
-      />
-      {isInputEmpty ? (
-        <Box w="full" h="full" />
-      ) : (
-        <Flex flexDirection="column" h="full" w="full">
-          <>
-            {selectedItems?.length > 0 ? (
-              selectedItems.map((beerItems: any) => {
-                return (
-                  <Box
-                    borderBottom="1px solid"
-                    borderColor="gray.200"
-                    py="10px"
-                    px="15px"
-                    key={beerItems.id}
-                  >
-                    <Text
-                      textStyle="h2"
-                      key={beerItems.id}
-                      onClick={handleClickItem}
-                    >
-                      {beerItems.name_ko}
-                    </Text>
-                  </Box>
-                );
-              })
-            ) : (
-              <EmptySearchResult inputValue={value} />
-            )}
-          </>
+    <Box w="full" h="full">
+      <VStack pt="80px" h="full" w="full">
+        <LeftBackTitle />
+        <Flex
+          h="full"
+          w="full"
+          direction="column"
+          borderRadius="20px"
+          gap="10px"
+          mt="14px"
+        >
+          <SearchInput
+            onKeyPress={handleKeyPress}
+            onChange={handleChange}
+            clearValue={clearValue}
+          />
+          {isInputEmpty ? (
+            <Box w="full" h="full" />
+          ) : (
+            <Flex flexDirection="column" h="full" w="full">
+              <>
+                {selectedItems?.length > 0 ? (
+                  selectedItems.map((beerItems: any) => {
+                    return (
+                      <Box
+                        borderBottom="1px solid"
+                        borderColor="gray.200"
+                        py="10px"
+                        px="15px"
+                        key={beerItems.id}
+                        onClick={handleClickItem}
+                      >
+                        <Text textStyle="h2" key={beerItems.id}>
+                          {beerItems.name_ko}
+                        </Text>
+                      </Box>
+                    );
+                  })
+                ) : (
+                  <EmptySearchResult inputValue={value} />
+                )}
+              </>
+            </Flex>
+          )}
         </Flex>
-      )}
-    </Flex>
+      </VStack>
+    </Box>
   );
 };
 
-export default SearchBarAutocomplete;
+export default SearchBarTemplate;

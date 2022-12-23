@@ -1,7 +1,7 @@
 import { Box, Center, HStack, Image, Text, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import { LeftBackBeerNameRightHeart } from "../../common/headers/LeftBackBeerNameRightHeart";
-import { LeftBackTItle } from "../../common/headers/LeftBackTitle";
+import { LeftBackTitle } from "../../common/headers/LeftBackTitle";
 import { Rating } from "../../common/Rating";
 
 interface DetailInfoProps {
@@ -26,7 +26,7 @@ export const DetailInfo: React.FC<DetailInfoProps> = ({
       {didPassStar ? (
         <LeftBackBeerNameRightHeart beerName={beerName} />
       ) : (
-        <LeftBackTItle />
+        <LeftBackTitle />
       )}
       {/* image  */}
       <Center pt="72px" w="full">

@@ -1,8 +1,8 @@
 import React from "react";
-import Beers from "../../src/auth/sign-up/Beers";
+import BeersTemplate from "../../src/auth/sign-up/BeersTemplate";
 
 const beers = () => {
-  return <Beers />;
+  return <BeersTemplate />;
 };
 
 export default beers;

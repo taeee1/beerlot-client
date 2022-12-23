@@ -1,20 +1,21 @@
 import { Flex } from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import React, { useState } from "react";
+import { useRecoilState } from "recoil";
 import BackButton from "../../../common/BackButton";
 import CompleteCircles from "../../../common/CompleteCircles";
+import { userInfoState } from "../../store/atom";
 import BeerCards from "./BeerCards";
 
-const Beers = () => {
+const BeersTemplate = () => {
+  const [userInfo] = useRecoilState(userInfoState);
   return (
     <>
       <Flex h="100vh" px="21px" pt="34px" flexDirection="column">
         <BackButton />
         <CompleteCircles isNicknameDone={true} isBeersDone={true} />
-        <BeerCards nickName="김태희" />
+        {userInfo?.username && <BeerCards nickName={userInfo?.username} />}
       </Flex>
     </>
   );
 };
 
-export default Beers;
+export default BeersTemplate;

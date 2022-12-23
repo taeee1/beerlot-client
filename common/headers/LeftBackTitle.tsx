@@ -3,7 +3,7 @@ import React from "react";
 import BackButton from "../BackButton";
 import BeerlotTitle from "./BeerlotTitle";
 
-export const LeftBackTItle = () => {
+export const LeftBackTitle = () => {
   return (
     <Flex
       position="absolute"

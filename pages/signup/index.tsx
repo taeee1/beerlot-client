@@ -1,8 +1,8 @@
 import React from "react";
-import SignUp from "../../src/auth/sign-up/SignUp";
+import SignUpTemplate from "../../src/auth/sign-up/SignUpTemplate";
 
 const index = () => {
-  return <SignUp />;
+  return <SignUpTemplate />;
 };
 
 export default index;

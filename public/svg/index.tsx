@@ -1,8 +1,4 @@
 export { default as ThumbsUpIcon } from "./thumbs-up.svg";
-export { default as Facebook } from "./facebook.svg";
-export { default as Kakao } from "./kakao.svg";
-export { default as Google } from "./google.svg";
-export { default as Naver } from "./naver.svg";
 export { default as None } from "./none.svg";
 export { default as X } from "./x.svg";
 export { default as SearchGlass } from "./search-glass.svg";
@@ -24,6 +20,6 @@ export { default as EditNote } from "./edit-note.svg";
 export { default as EditPencil } from "./edit-pencil.svg";
 export { default as OrangeCamera } from "./orange-camera.svg";
 export { default as FacebookLogo } from "./facebook-logo.svg";
-export { default as GoogleIcon } from "./google-icon.svg";
-export { default as KakaoIcon } from "./kakao-icon.svg";
-export { default as NaverIcon } from "./naver-icon.svg";
+export { default as GoogleLogo } from "./google-logo.svg";
+export { default as KakaoLogo } from "./kakao-logo.svg";
+export { default as NaverLogo } from "./naver-logo.svg";

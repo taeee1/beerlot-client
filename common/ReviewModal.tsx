@@ -16,10 +16,9 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-
 import { ChangeEvent } from "react";
 import { ReviewStatic } from "../interface/static";
-import { BeerResultType, CategoryType } from "../interface/types";
+import { BeerResultType, CategoryType, ReviewType } from "../interface/types";
 import { EditPencil, OrangeCamera, RightArrow } from "../public/svg";
 import SearchInput from "../src/search/SearchInput";
 import { LeftBackRandom } from "./headers/LeftBackRandom";
@@ -27,24 +26,29 @@ import { LeftCloseRandom } from "./headers/LeftCloseRandom";
 import { Rating } from "./Rating";
 
 export const ReviewModal = () => {
-  const [isCompleted, setIsCompleted] = useState(false);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [reviewInfo, setReviewInfo] = useState<ReviewType>({
+    beerName: null,
+    rate: null,
+  });
+  const isCompleted = !!reviewInfo.beerName; // should contain rating stars as well
   const [step, setStep] = useState(0);
-  const handleSizeClick = () => {
-    onOpen();
-  };
   const [inputValue, setInputValue] = useState("");
-  const [selectedBeerName, setSelectedBeerName] = useState("");
+  const [attachedFile, setAttachedPhoto] = useState([]);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(e.target.value);
   };
-  const [numberOfAttachedFile, setNumberOfAttachedPhoto] = useState<number>(0);
+  const handleSizeClick = () => {
+    onOpen();
+  };
   const handleClickBack = () => {
     setStep(step - 1);
   };
 
   const handleChangeBeerName = (name: string) => {
-    setSelectedBeerName(name);
+    const newBeerReview = { ...reviewInfo, beerName: name };
+    setReviewInfo(newBeerReview);
   };
 
   return (
@@ -87,9 +91,9 @@ export const ReviewModal = () => {
                     <Text textStyle="h2" textColor="black.100">
                       맥주 이름을 골라주세요!
                     </Text>
-                    {selectedBeerName && (
+                    {reviewInfo.beerName && (
                       <Text textStyle="h2_bold" textColor="orange.200">
-                        {selectedBeerName}
+                        {reviewInfo.beerName}
                       </Text>
                     )}
                   </VStack>
@@ -119,7 +123,7 @@ export const ReviewModal = () => {
                       (선택)
                     </Text>
                   </Box>
-                  <HStack w="full" border="1px solid pink" gap="10px">
+                  <HStack w="full" gap="10px">
                     {purchasePlaces.map((place) => {
                       return (
                         <Tag
@@ -199,7 +203,7 @@ export const ReviewModal = () => {
                   >
                     <OrangeCamera />
                     <Text textStyle="h3" textColor="orange.200">
-                      사진 첨부하기 ({numberOfAttachedFile}/
+                      사진 첨부하기 ({attachedFile.length}/
                       {ReviewStatic.numberOfMaxAttachedFile})
                     </Text>
                   </Button>
@@ -285,11 +289,10 @@ const BeerSearchContent: React.FC<BeerSearchContentProps> = ({
       <ModalHeader pt="46px">
         <LeftBackRandom onClick={onClickBack} title="맥주 이름" />
       </ModalHeader>
-      <ModalBody p="10px 20px" border="1px solid blue" h="full">
+      <ModalBody p="10px 20px" h="full">
         <VStack
           h="full"
           gap="10px"
-          border="1px solid pink"
           justifyContent="flex-start"
           alignItems={"flex-start"}
         >

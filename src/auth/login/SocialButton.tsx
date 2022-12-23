@@ -1,11 +1,11 @@
-import { Box, Button, Icon, IconButton, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, Icon, Text, VStack } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
 import {
   FacebookLogo,
-  GoogleIcon,
-  KakaoIcon,
-  NaverIcon,
+  GoogleLogo,
+  KakaoLogo,
+  NaverLogo,
 } from "../../../public/svg";
 import { userInfoState } from "../../store/atom";
 
@@ -50,7 +50,7 @@ const SocialButton = () => {
 export const socialButton = [
   {
     ariaLabel: "kakao login",
-    icon: KakaoIcon,
+    icon: KakaoLogo,
     onClick: () => {},
     label: "카카오로 계속하기",
     buttonColor: "yellow.400",
@@ -59,7 +59,7 @@ export const socialButton = [
   },
   {
     ariaLabel: "naver login",
-    icon: NaverIcon,
+    icon: NaverLogo,
     onClick: () => {},
     label: "네이버로 계속하기",
     buttonColor: "green.100",
@@ -77,7 +77,7 @@ export const socialButton = [
   },
   {
     ariaLabel: "google login",
-    icon: GoogleIcon,
+    icon: GoogleLogo,
     onClick: () => {},
     label: "Google로 계속하기",
     buttonColor: "white.100",

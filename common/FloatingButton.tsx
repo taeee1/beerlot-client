@@ -8,7 +8,7 @@ interface FloatingButtonProps {
   bgColor?: string;
   textColor?: string;
   boxShadow?: string | undefined;
-  href: string;
+  onClick: () => void;
 }
 
 const FloatingButton: React.FC<FloatingButtonProps> = ({
@@ -17,12 +17,12 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
   bgColor,
   textColor,
   boxShadow,
-  href,
+  onClick,
 }) => {
   const router = useRouter();
   return (
     <Button
-      onClick={() => router.push(href)}
+      onClick={onClick}
       disabled={disabled}
       boxShadow={boxShadow}
       pos="fixed"

@@ -1,20 +1,21 @@
 import { Box, Checkbox, Text, VStack } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import { CheckedBox, CheckedOrange, UncheckedBox } from "../../../public/svg";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
+import { useRecoilState } from "recoil";
 import FloatingButton from "../../../common/FloatingButton";
 import NicknameInput from "../../../common/NicknameInput";
+import { CheckedBox, CheckedOrange, UncheckedBox } from "../../../public/svg";
+import { userInfoState } from "../../store/atom";
 
 const Nickname = () => {
+  const [_, setUserInfo] = useRecoilState(userInfoState);
   const [checkedItems, setCheckedItems] = useState([false, false]);
   const [curNickname, setCurNickName] = useState("");
   const [isValid, setIsValid] = useState<boolean | null>(null);
   const [guideText, setGuideText] = useState("");
-  const [isFullfilled, setIsFullfilled] = useState<boolean>(false);
   const allChecked = checkedItems.every(Boolean);
-
-  useEffect(() => {
-    setIsFullfilled(allChecked && isValid === true);
-  }, [allChecked, isValid]);
+  const isFullfilled = allChecked && isValid === true;
+  const router = useRouter();
 
   const checkValidation = () => {
     // too long
@@ -43,12 +44,20 @@ const Nickname = () => {
     setCurNickName(e.target.value);
   };
 
+  const handleClick = () => {
+    setUserInfo({
+      email: "beer.lover@email.com",
+      username: curNickname,
+    });
+    router.push(`/signup/beers`);
+  };
+
   return (
     <>
       <FloatingButton
+        onClick={handleClick}
         disabled={!isFullfilled}
         text="다음으로"
-        href={`/signup/beers`}
         bgColor={isFullfilled ? "orange.200" : "gray.200"}
         textColor={isFullfilled ? "white.100" : "black.100"}
         boxShadow={isFullfilled ? "0px 8px 16px rgba(0, 0, 0, 0.3)" : "none"}

@@ -48,3 +48,11 @@ export type ErrorResponse = {
   status: number;
   timestamp: string;
 };
+
+export interface ReviewType {
+  beerName: string | null;
+  rate: number | null;
+  place?: string;
+  review?: string;
+  imgUrl?: string[];
+}

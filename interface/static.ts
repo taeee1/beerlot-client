@@ -68,3 +68,34 @@ export enum ReviewStatic {
   numberOfMaxAttachedFile = 5,
   ReviewInputMaxLength = 2000,
 }
+
+export const MOCK_BEERS_SUGGESTION = {
+  id: 0,
+  name_ko: "오비라거",
+  name_en: "OB LAGAR",
+  description: "오비라거 입니다.",
+  country: "KO",
+  volume: 4.4,
+  image_url: "https://picsum.photos/id/237/200/300",
+  category: {
+    id: 1,
+    name_ko: "라거",
+    name_en: "lagar",
+    description: "this is lagar",
+    parent: {
+      id: 2,
+      name_ko: "밀맥주",
+      name_en: "wheat beer",
+    },
+  },
+  tags: [
+    {
+      id: 2,
+      name_ko: "밀맥주",
+      name_en: "wheat beer",
+    },
+  ],
+  like_count: 24,
+  review_count: 3,
+  rate: 4.1,
+};

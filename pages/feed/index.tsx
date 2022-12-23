@@ -1,15 +1,7 @@
-import { TitleRightBellHeader } from "../../common/headers/TitleRightBell";
-import { ReviewModal } from "../../common/ReviewModal";
-import FeedTabList from "../../src/feed/FeedTabList";
+import { FeedTemplate } from "../../src/feed/FeedTemplate";
 
 const Feed = () => {
-  return (
-    <>
-      <TitleRightBellHeader />
-      <FeedTabList />
-      <ReviewModal />
-    </>
-  );
+  return <FeedTemplate />;
 };
 
 export default Feed;
