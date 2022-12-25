@@ -4,7 +4,7 @@ import React from "react";
 const MarketingText = () => {
   return (
     <Box pt={"50px"}>
-      <VStack gap={"10px"}>
+      <VStack gap={"10px"} textStyle={"h1"}>
         <Box>
           <Text as="span" textColor={"orange.200"}>
             3초만에{" "}

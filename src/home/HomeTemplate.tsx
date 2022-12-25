@@ -48,7 +48,9 @@ const HomeTemplate = () => {
       ) : (
         <>
           {/* title */}
-          <Text textColor="black.100">🔥 인기맥주 TOP10 🔥 </Text>
+          <Text textColor="black.100" textStyle={"h2_bold"}>
+            🔥 인기맥주 TOP10 🔥
+          </Text>
           {top10Beers && (
             <>
               {top10Beers.map((item, idx) => {

@@ -11,7 +11,7 @@ import {
 import axios from "axios";
 import React, { useState } from "react";
 import { useMutation } from "react-query";
-import LikeButton from "../../common/OrangeLikeButton";
+import LikeButton from "./OrangeLikeButton";
 
 interface BeerCardProps {
   styleProps?: styleProps;
@@ -66,7 +66,7 @@ const BeerCard: React.FC<BeerCardProps> = ({
   };
 
   return (
-    <VStack {...styleProps?.boxStyleProps}>
+    <VStack {...styleProps?.boxStyleProps} w="full">
       {isLikable && (
         <Box position="absolute" right="0px" top="0px">
           <LikeButton

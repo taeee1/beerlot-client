@@ -31,7 +31,8 @@ const SocialButton = () => {
           width="100%"
           bg={button.buttonColor}
           borderRadius={30}
-          onClick={button.onClick}
+          onClick={handleClick}
+          // onClick={button.onClick}
           justifyContent="space-between"
           p={"5px"}
           alignItems={"center"}
