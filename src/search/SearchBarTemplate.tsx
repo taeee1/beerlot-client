@@ -37,7 +37,8 @@ const SearchBarTemplate = () => {
 
   const handleClickItem = (e: React.MouseEvent) => {
     const selectedName = e.currentTarget.textContent;
-    router.push(`/result/${selectedName}`);
+    // router.push(`/result/${selectedName}`);
+    router.push(`/result?query=${selectedName}`);
   };
 
   const clearValue = () => {
@@ -46,7 +47,8 @@ const SearchBarTemplate = () => {
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (isEnterKey(e)) {
-      router.push(`/result/${e.target.value}}`);
+      // router.push(`/result/${e.target.value}`);
+      router.push(`/result?query=${e.target.value}`);
     }
   };
 
