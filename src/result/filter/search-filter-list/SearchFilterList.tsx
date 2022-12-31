@@ -31,7 +31,6 @@ const SearchFilterList: React.FC<SearchFilterListProps> = ({
         textColor: "black.100",
         textStyle: "h4",
       },
-      IconProp: {},
     };
   };
 
@@ -58,7 +57,7 @@ const SearchFilterList: React.FC<SearchFilterListProps> = ({
   return (
     <Box>
       {isFilterListOpen ? (
-        <>
+        <Box>
           {filterList.map((filterObj) => {
             const {title, tags} = filterObj;
             return (
@@ -83,7 +82,7 @@ const SearchFilterList: React.FC<SearchFilterListProps> = ({
               </HStack>
             );
           })}
-        </>
+        </Box>
       ) : (
         <HStack>
           {filterList.map((filterObj) => {

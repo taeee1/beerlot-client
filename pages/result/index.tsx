@@ -78,12 +78,13 @@ const SearchResultPage = () => {
 
   return (
     <Box p={"24px"}>
-      {/* <Flex gap="10px" alignItems="center" mb="24px">
+      <Flex gap="10px" alignItems="center" mb="24px">
         <SearchInput clearValue={clearValue} />
         <Circle size="31px" bg="blue.100" onClick={handleClickToggle}>
           {isFilterListOpen ? <WhiteFilter /> : <EmptyFilter />}
         </Circle>
       </Flex>
+
       <SearchFilterList
         selectedFilters={selectedFilters}
         filterList={MOCK_CATEGORY_FILTER_LIST}
@@ -91,6 +92,7 @@ const SearchResultPage = () => {
         onClickToggle={handleClickToggle}
         onClickTag={handleClickTag}
       />
+
       {filteredItemList.length > 0 ? (
         <Box mt="15px">
           {filteredItemList.map((item) => {
@@ -115,7 +117,7 @@ const SearchResultPage = () => {
         </Box>
       ) : (
         <EmptyFilteredResult />
-      )} */}
+      )}
     </Box>
   );
 };
