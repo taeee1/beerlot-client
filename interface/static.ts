@@ -1,3 +1,5 @@
+import { CategoryFilterListType } from "./types";
+
 export const WELCOME_MESSAGE_FIRST = "👋 어서와요 ";
 export const WELCOME_MESSAGE_SECOND = "오늘은 어떤 맥주를 마셔볼까요?";
 export const POPULAR_BEER_TITLE = "🔥 인기맥주 TOP10 🔥 ";
@@ -6,6 +8,13 @@ export const RECOMMENDED_BEER_TITLE_2 = " 님께 추천해요 🍻";
 export const BEERLOT_TITLE = "🍺BEER LOT🍺";
 export const orangeBright = "#FEA801";
 export const SEARCH_BAR_PLACEHOLDER = "맥주 이름, 종류, 향 등을 검색해보세요!";
+
+export const MOCK_CATEGORY_FILTER_LIST: CategoryFilterListType[] = [
+  { title: "정렬 기준", tags: ["좋아요", "별점순", "리뷰많은 순"] },
+  { title: "맥주 종류", tags: ["IPA", "필스너"] },
+  { title: "제조국", tags: ["독일", "미국", "일본"] },
+  { title: "도수", tags: ["논알콜", "3%미만", "3%대"] },
+];
 
 export const textMain = "#000000";
 

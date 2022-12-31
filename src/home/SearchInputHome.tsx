@@ -33,6 +33,7 @@ const SearchInputHome: React.FC<SearchInputHomeProps> = ({ placeholder }) => {
         textColor="white"
         _placeholder={{ color: "inherit" }}
         focusBorderColor="inherit"
+        _hover={{}}
       />
       <InputLeftElement h="full">
         <SearchGlass />
