@@ -74,3 +74,10 @@ export interface ReviewType {
   review?: string;
   imgUrl?: string[];
 }
+
+export enum ReviewSortType {
+  RecentlyUpdated = "RECENTLY_UPDATED",
+  MostLikes = "MOST_LIKES",
+  HighRate = "HIGH_RATE",
+  LowRate = "LOW_RATE",
+}

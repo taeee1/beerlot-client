@@ -1,8 +1,19 @@
-import { Flex } from "@chakra-ui/react";
-import { v4 as uuidv4 } from "uuid";
+import {Flex} from "@chakra-ui/react";
+import {useEffect} from "react";
+import {v4 as uuidv4} from "uuid";
+import {getAllReviewApi} from "../../server/api";
 import FollowingTabPanelItem from "./TabPanelItem";
 
 const AllTabPanelList = () => {
+  useEffect(() => {
+    allReviewsAsync();
+  });
+
+  const allReviewsAsync = async () => {
+    const res = await getAllReviewApi();
+    console.log("res", res);
+  };
+
   const ALL_FEED_MOCK = [
     {
       id: uuidv4(),
