@@ -1,13 +1,13 @@
-import { Box, Button, Icon, Text, VStack } from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import { useRecoilState } from "recoil";
+import {Box, Button, Icon, Text, VStack} from "@chakra-ui/react";
+import {useRouter} from "next/router";
+import {useRecoilState} from "recoil";
 import {
   FacebookLogo,
   GoogleLogo,
   KakaoLogo,
   NaverLogo,
 } from "../../../public/svg";
-import { userInfoState } from "../../store/atom";
+import {userInfoState} from "../../store/atom";
 
 const SocialButton = () => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
@@ -17,6 +17,7 @@ const SocialButton = () => {
     setUserInfo({
       email: "beer.lover@email.com",
       username: "비어러버",
+      statusMessage: "난 물러서는 건 질색이야",
     });
     router.push("/accounts");
   };

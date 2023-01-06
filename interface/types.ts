@@ -58,6 +58,8 @@ export type RecoilState = "hasValue" | "loading" | "hasError";
 export type SignUpType = {
   email: string;
   username: string;
+  statusMessage?: string;
+  image_url?: string;
 };
 
 export type ErrorResponse = {

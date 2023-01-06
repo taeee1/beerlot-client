@@ -1,6 +1,5 @@
-import { Button, Text } from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import React from "react";
+import {Button, Text} from "@chakra-ui/react";
+import {useRouter} from "next/router";
 
 const EditProfileButton = () => {
   const router = useRouter();

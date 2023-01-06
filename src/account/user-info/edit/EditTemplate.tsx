@@ -1,17 +1,41 @@
-import { Text, VStack } from "@chakra-ui/react";
-import React, { useState } from "react";
-import NavHeader from "../../../../common/NavHeader";
+import { VStack } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import React, { useRef, useState } from "react";
+import { SetterOrUpdater } from "recoil";
+import LeftXTitleRightComplete from "../../../../common/headers/LeftXTitleRightComplete";
 import NicknameInput from "../../../../common/NicknameInput";
 import ProfileAvatar from "../../../../common/ProfileAvatar";
+import { SignUpType } from "../../../../interface/types";
 
-const EditTemplate = () => {
-  const MOCK_IMAGE_SRC = "https://picsum.photos/seed/picsum/200/300";
+interface EditTemplateProps {
+  userInfo: SignUpType;
+  setUserInfo: SetterOrUpdater<SignUpType | null>;
+}
+
+const EditTemplate: React.FC<EditTemplateProps> = ({
+  userInfo,
+  setUserInfo,
+}) => {
+  const router = useRouter();
+  // TODO: error handling should be added
+  const {
+    image_url = `/image/default-profile.png`,
+    username,
+    statusMessage = "",
+  } = userInfo;
+
   const [isNicknameValid, setIsNicknameValid] = useState<boolean | null>(null);
-  const [nickname, setNickname] = useState("");
+  const [imgFile, setImgFile] = useState<string>(image_url);
+  const [nickname, setNickname] = useState(username);
   const [nicknameGuideText, setNicknameGuideText] = useState("");
   const [isBioValid, setIsBioValid] = useState<boolean | null>(null);
-  const [bio, setBio] = useState("");
+  const [bio, setBio] = useState(statusMessage);
   const [bioGuideText, setBioGuideText] = useState("");
+  const rightTitleStyleProps = {
+    disabled: !isNicknameValid,
+    textColor: isNicknameValid ? "orange.200" : "gray.200",
+  };
+  const imgRef = useRef<HTMLInputElement>(null);
 
   const onNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value);
@@ -58,19 +82,68 @@ const EditTemplate = () => {
     setIsBioValid(true);
   };
 
+  const handleClickComplete = () => {
+    setUserInfo({
+      email: userInfo?.email,
+      image_url: imgFile,
+      username: nickname,
+      statusMessage: bio,
+    });
+    // use api
+    router.push("/accounts");
+  };
+
+  const handleChangeProfileImage = () => {
+    if (!imgRef || !imgRef.current || !imgRef.current.files) return;
+    const file = imgRef.current.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    console.log("reader.result", reader.result);
+    reader.onloadend = () => {
+      if (typeof reader.result === "string") setImgFile(reader.result);
+    };
+  };
+
   return (
     <>
-      <NavHeader />
-      <VStack px="30px" py="10px" gap="32px">
-        <VStack gap="10px">
+      <LeftXTitleRightComplete
+        title={"프로필 편집"}
+        rightTitleStyleProps={rightTitleStyleProps}
+        rightTitle={"완료"}
+        onClickRight={handleClickComplete}
+      />
+      <VStack px="30px" py="10px" gap="32px" pt="50px">
+        <VStack>
           <ProfileAvatar
             alt="user profile photo"
-            src={MOCK_IMAGE_SRC}
+            src={imgFile}
             boxSize="100px"
           />
-          <Text textStyle="h3_bold" textColor="orange.200">
-            프로필 사진 바꾸기
-          </Text>
+          <form>
+            <label
+              className="signup-profileImg-label"
+              htmlFor="profileImg"
+              style={{
+                color: "#FEA801",
+                fontWeight: "700",
+                lineHeight: "24px",
+                fontSize: "14px",
+                letterSpacing: "0.01px",
+                cursor: "pointer",
+              }}
+            >
+              프로필 이미지 추가
+            </label>
+            <input
+              className="signup-profileImg-input"
+              type="file"
+              accept="image/*"
+              id="profileImg"
+              onChange={handleChangeProfileImage}
+              ref={imgRef}
+              style={{ display: "none" }}
+            />
+          </form>
         </VStack>
         <VStack gap="px" w="100%">
           <NicknameInput
