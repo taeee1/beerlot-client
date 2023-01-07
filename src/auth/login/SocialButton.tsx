@@ -26,6 +26,8 @@ const SocialButton = () => {
     <VStack w={"100%"} gap="10px">
       {socialButton.map((button) => (
         <Button
+          _hover={{}}
+          _active={{}}
           key={button.ariaLabel}
           aria-label={button.ariaLabel}
           border={button.border} // TODO: use them as styleProps
@@ -37,6 +39,7 @@ const SocialButton = () => {
           justifyContent="space-between"
           p={"5px"}
           alignItems={"center"}
+          cursor="pointer"
         >
           <Icon as={button.icon} w={"36px"} h={"36px"} />
           <Text textStyle={"h2"} textColor={button.textColor}>
