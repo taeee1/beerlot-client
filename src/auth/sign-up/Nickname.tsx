@@ -79,7 +79,6 @@ const Nickname = () => {
         />
         <Box px="8px" w="100%">
           <Checkbox
-            icon={allChecked ? <CheckedBox /> : <UncheckedBox />}
             w="100%"
             bg="gray.100"
             borderRadius="5px"
@@ -95,12 +94,10 @@ const Nickname = () => {
             </Text>
           </Checkbox>
           <Checkbox
-            colorScheme="undefined"
             w="100%"
             borderRadius="5px"
             py="8px"
             px="6px"
-            icon={checkedItems[0] ? <CheckedBox /> : <UncheckedBox />}
             isChecked={checkedItems[0]}
             onChange={(e) =>
               setCheckedItems([e.target.checked, checkedItems[1]])
@@ -115,7 +112,6 @@ const Nickname = () => {
             borderRadius="5px"
             py="8px"
             px="6px"
-            icon={checkedItems[1] ? <CheckedOrange /> : <UncheckedBox />}
             isChecked={checkedItems[1]}
             onChange={(e) =>
               setCheckedItems([checkedItems[0], e.target.checked])
