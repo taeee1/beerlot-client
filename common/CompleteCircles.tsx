@@ -1,4 +1,4 @@
-import { Circle, Flex } from "@chakra-ui/react";
+import {Circle, Flex} from "@chakra-ui/react";
 import React from "react";
 
 interface CompleteCirclesProps {
@@ -6,7 +6,7 @@ interface CompleteCirclesProps {
   isBeersDone: boolean;
 }
 
-const CompleteCircles: React.FC<CompleteCirclesProps> = ({
+export const CompleteCircles: React.FC<CompleteCirclesProps> = ({
   isNicknameDone,
   isBeersDone,
 }) => {
@@ -17,5 +17,3 @@ const CompleteCircles: React.FC<CompleteCirclesProps> = ({
     </Flex>
   );
 };
-
-export default CompleteCircles;

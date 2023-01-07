@@ -14,7 +14,7 @@ const BackButton: React.FC<BackButtonProps> = ({onClick}) => {
   };
 
   return (
-    <Box onClick={onClick ? onClick : handleClick}>
+    <Box onClick={onClick ? onClick : handleClick} cursor="pointer">
       <LeftArrow />
     </Box>
   );

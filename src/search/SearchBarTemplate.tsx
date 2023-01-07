@@ -60,7 +60,7 @@ const SearchBarTemplate = () => {
   return (
     <Box w="full" h="full" bg="gray.100">
       <Container h="full" w="full" bg="white" position="relative" maxW="450px">
-        <VStack pt="80px">
+        <VStack pt="64px">
           <LeftBackTitle />
           <Flex
             h="full"

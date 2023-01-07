@@ -1,7 +1,8 @@
-import { Text } from "@chakra-ui/react";
-import { useRouter } from "next/router";
+import {Icon, IconButton, Img, Text} from "@chakra-ui/react";
+import {useRouter} from "next/router";
 import React from "react";
-import { BEERLOT_TITLE } from "../../interface/static";
+import {BEERLOT_TITLE} from "../../interface/static";
+import {BeerlotLogoDefault} from "../../public/svg";
 
 const BeerlotTitle = () => {
   const router = useRouter();
@@ -10,14 +11,19 @@ const BeerlotTitle = () => {
   };
 
   return (
-    <Text
-      h="100%"
-      textStyle="h2" // mock. 요청함.
-      textShadow=" 0px 8px 20px rgba(0, 0, 0, 0.4)"
+    <IconButton
+      px={"0px"}
+      borderRadius={"0px"}
+      bg="initial"
+      _hover={{}}
+      _active={{}}
+      cursor="pointer"
+      w="82px"
+      h="34px"
+      as={BeerlotLogoDefault}
+      aria-label="beerlot-logo"
       onClick={handleClick}
-    >
-      {BEERLOT_TITLE}
-    </Text>
+    />
   );
 };
 

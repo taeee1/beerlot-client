@@ -1,9 +1,15 @@
 import {Box, Flex} from "@chakra-ui/react";
-import React from "react";
 import BackButton from "../BackButton";
-import BeerlotTitle from "./BeerlotTitle";
+import {CompleteCircles} from "../CompleteCircles";
 
-export const LeftBackTitle = ({...props}) => {
+interface LeftBackCompleteCirclesProps {
+  isFirstCircleDone: boolean;
+  isSecondCircleDone: boolean;
+}
+
+export const LeftBackCompleteCircles: React.FC<
+  LeftBackCompleteCirclesProps
+> = ({isFirstCircleDone, isSecondCircleDone, ...props}) => {
   return (
     <Flex
       {...props}
@@ -18,7 +24,10 @@ export const LeftBackTitle = ({...props}) => {
       dropShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
     >
       <BackButton />
-      <BeerlotTitle />
+      <CompleteCircles
+        isNicknameDone={isFirstCircleDone}
+        isBeersDone={isSecondCircleDone}
+      />
       <Box w="12px" />
     </Flex>
   );

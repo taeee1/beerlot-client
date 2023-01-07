@@ -1,6 +1,7 @@
 import {Box, Circle, Container, Flex} from "@chakra-ui/react";
 import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
+import {LeftBackTitle} from "../../common/headers/LeftBackTitle";
 import {
   CardType,
   MOCK_CARD_LIST,
@@ -86,7 +87,8 @@ const SearchResultPage = () => {
         position="relative"
         maxW="450px"
       >
-        <Box p={"24px"}>
+        <LeftBackTitle />
+        <Box p={"68px 24px 24px"}>
           <Flex gap="10px" alignItems="center" mb="24px">
             <SearchInput clearValue={clearValue} />
             <Circle size="31px" bg="blue.100" onClick={handleClickToggle}>

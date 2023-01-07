@@ -1,9 +1,7 @@
-import {Box, Flex} from "@chakra-ui/react";
-import React from "react";
-import BackButton from "../BackButton";
+import {Flex} from "@chakra-ui/react";
 import BeerlotTitle from "./BeerlotTitle";
 
-export const LeftBackTitle = ({...props}) => {
+export const CenteredTitle = ({...props}) => {
   return (
     <Flex
       {...props}
@@ -13,13 +11,11 @@ export const LeftBackTitle = ({...props}) => {
       left="0px"
       py="16px"
       px="20px"
-      justifyContent="space-between"
+      justifyContent="center"
       alignItems="center"
       dropShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
     >
-      <BackButton />
       <BeerlotTitle />
-      <Box w="12px" />
     </Flex>
   );
 };

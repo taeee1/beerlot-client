@@ -1,11 +1,11 @@
-import { Box, Checkbox, Text, VStack } from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import React, { useState } from "react";
-import { useRecoilState } from "recoil";
+import {Box, Checkbox, Text, VStack} from "@chakra-ui/react";
+import {useRouter} from "next/router";
+import React, {useState} from "react";
+import {useRecoilState} from "recoil";
 import FloatingButton from "../../../common/FloatingButton";
 import NicknameInput from "../../../common/NicknameInput";
-import { CheckedBox, CheckedOrange, UncheckedBox } from "../../../public/svg";
-import { userInfoState } from "../../store/atom";
+import {CheckedBox, CheckedOrange, UncheckedBox} from "../../../public/svg";
+import {userInfoState} from "../../store/atom";
 
 const Nickname = () => {
   const [_, setUserInfo] = useRecoilState(userInfoState);
@@ -63,7 +63,7 @@ const Nickname = () => {
         boxShadow={isFullfilled ? "0px 8px 16px rgba(0, 0, 0, 0.3)" : "none"}
       />
 
-      <VStack alignItems="start" gap="60px" w="100%">
+      <VStack alignItems="start" gap="60px" w="100%" pt="44px">
         <Box pl="2.5px" mt="62px">
           <Text textStyle="h1">닉네임을 정해볼까요?</Text>
         </Box>

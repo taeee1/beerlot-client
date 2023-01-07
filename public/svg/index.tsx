@@ -24,3 +24,6 @@ export {default as GoogleLogo} from "./google-logo.svg";
 export {default as KakaoLogo} from "./kakao-logo.svg";
 export {default as NaverLogo} from "./naver-logo.svg";
 export {default as CrossX} from "./cross-x.svg";
+export {default as BeerlotLogoBig} from "./beerlot-logo-big.svg";
+export {default as BeerlotLogoDefault} from "./beerlot-logo-default.svg";
+export {default as BeerlotLogoSmall} from "./beerlot-logo-small.svg";

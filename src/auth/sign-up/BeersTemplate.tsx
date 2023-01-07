@@ -1,20 +1,23 @@
-import { Flex } from "@chakra-ui/react";
-import { useRecoilState } from "recoil";
-import BackButton from "../../../common/BackButton";
-import CompleteCircles from "../../../common/CompleteCircles";
-import { userInfoState } from "../../store/atom";
+import {Box, Container, Flex} from "@chakra-ui/react";
+import {useRecoilState} from "recoil";
+import {LeftBackCompleteCircles} from "../../../common/headers/LeftBackCompleteCircles";
+import {userInfoState} from "../../store/atom";
 import BeerCards from "./BeerCards";
 
 const BeersTemplate = () => {
   const [userInfo] = useRecoilState(userInfoState);
   return (
-    <>
-      <Flex h="100vh" px="21px" pt="34px" flexDirection="column">
-        <BackButton />
-        <CompleteCircles isNicknameDone={true} isBeersDone={true} />
-        {userInfo?.username && <BeerCards nickName={userInfo?.username} />}
-      </Flex>
-    </>
+    <Box w="full" h="full" bg="gray.100">
+      <Container h="full" w="full" bg="white" position="relative" maxW="450px">
+        <Flex h="100vh" px="21px" pt="34px" flexDirection="column">
+          <LeftBackCompleteCircles
+            isFirstCircleDone={true}
+            isSecondCircleDone={true}
+          />
+          {userInfo?.username && <BeerCards nickName={userInfo?.username} />}
+        </Flex>
+      </Container>
+    </Box>
   );
 };
 

@@ -1,7 +1,7 @@
 import {HStack, Img, Text, VStack} from "@chakra-ui/react";
 import React from "react";
 import ProfileAvatar from "../../../common/ProfileAvatar";
-import {DefaultProfile} from "../../../public/image";
+import {DefaultProfile} from "../../../public/images";
 
 interface InfoContainerProps {
   imageSrc: string;
