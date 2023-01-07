@@ -1,4 +1,4 @@
-import {Box, Circle, Flex} from "@chakra-ui/react";
+import {Box, Circle, Container, Flex} from "@chakra-ui/react";
 import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
 import {
@@ -77,47 +77,58 @@ const SearchResultPage = () => {
   };
 
   return (
-    <Box p={"24px"}>
-      <Flex gap="10px" alignItems="center" mb="24px">
-        <SearchInput clearValue={clearValue} />
-        <Circle size="31px" bg="blue.100" onClick={handleClickToggle}>
-          {isFilterListOpen ? <WhiteFilter /> : <EmptyFilter />}
-        </Circle>
-      </Flex>
+    <Box w="full" h="full" bg="gray.100">
+      <Container
+        p={"0px"}
+        h="full"
+        w="full"
+        bg="white"
+        position="relative"
+        maxW="450px"
+      >
+        <Box p={"24px"}>
+          <Flex gap="10px" alignItems="center" mb="24px">
+            <SearchInput clearValue={clearValue} />
+            <Circle size="31px" bg="blue.100" onClick={handleClickToggle}>
+              {isFilterListOpen ? <WhiteFilter /> : <EmptyFilter />}
+            </Circle>
+          </Flex>
 
-      <SearchFilterList
-        selectedFilters={selectedFilters}
-        filterList={MOCK_CATEGORY_FILTER_LIST}
-        isFilterListOpen={isFilterListOpen}
-        onClickToggle={handleClickToggle}
-        onClickTag={handleClickTag}
-      />
+          <SearchFilterList
+            selectedFilters={selectedFilters}
+            filterList={MOCK_CATEGORY_FILTER_LIST}
+            isFilterListOpen={isFilterListOpen}
+            onClickToggle={handleClickToggle}
+            onClickTag={handleClickTag}
+          />
 
-      {filteredItemList.length > 0 ? (
-        <Box mt="15px">
-          {filteredItemList.map((item) => {
-            return (
-              <CardContainer
-                key={item.id}
-                onClick={() => {
-                  router.push(`/result/details?query=${item.beerName}`);
-                }}
-              >
-                <CardItem
-                  isTwoByTwo
-                  cardType={CardType.POPULAR}
-                  beerName={item.beerName}
-                  img_src={item.img_src}
-                  sort={item.sort}
-                  country={item.country}
-                />
-              </CardContainer>
-            );
-          })}
+          {filteredItemList.length > 0 ? (
+            <Box mt="15px">
+              {filteredItemList.map((item) => {
+                return (
+                  <CardContainer
+                    key={item.id}
+                    onClick={() => {
+                      router.push(`/result/details?query=${item.beerName}`);
+                    }}
+                  >
+                    <CardItem
+                      isTwoByTwo
+                      cardType={CardType.POPULAR}
+                      beerName={item.beerName}
+                      img_src={item.img_src}
+                      sort={item.sort}
+                      country={item.country}
+                    />
+                  </CardContainer>
+                );
+              })}
+            </Box>
+          ) : (
+            <EmptyFilteredResult />
+          )}
         </Box>
-      ) : (
-        <EmptyFilteredResult />
-      )}
+      </Container>
     </Box>
   );
 };
