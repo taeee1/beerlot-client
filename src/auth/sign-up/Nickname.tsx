@@ -4,7 +4,6 @@ import React, {useState} from "react";
 import {useRecoilState} from "recoil";
 import FloatingButton from "../../../common/FloatingButton";
 import NicknameInput from "../../../common/NicknameInput";
-import {CheckedBox, CheckedOrange, UncheckedBox} from "../../../public/svg";
 import {userInfoState} from "../../store/atom";
 
 const Nickname = () => {

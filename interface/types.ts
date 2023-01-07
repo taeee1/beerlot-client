@@ -71,7 +71,7 @@ export type ErrorResponse = {
 
 export interface ReviewType {
   beerName: string | null;
-  rate: number | null;
+  rate: number;
   place?: string;
   review?: string;
   imgUrl?: string[];

@@ -1,8 +1,8 @@
-import { Box, Center, HStack, Image, Text, VStack } from "@chakra-ui/react";
-import { useState } from "react";
-import { LeftBackBeerNameRightHeart } from "../../common/headers/LeftBackBeerNameRightHeart";
-import { LeftBackTitle } from "../../common/headers/LeftBackTitle";
-import { Rating } from "../../common/Rating";
+import {Box, Center, HStack, Image, Text, VStack} from "@chakra-ui/react";
+import {useState} from "react";
+import {LeftBackBeerNameRightHeart} from "../../common/headers/LeftBackBeerNameRightHeart";
+import {LeftBackTitle} from "../../common/headers/LeftBackTitle";
+import {Rating} from "../../common/Rating";
 
 interface DetailInfoProps {
   beerName: string;
@@ -20,6 +20,7 @@ export const DetailInfo: React.FC<DetailInfoProps> = ({
   beerImg,
 }) => {
   const [didPassStar, setDidPassStar] = useState(false);
+  const [rate, setRate] = useState(0);
   return (
     <>
       {/* title */}
@@ -58,6 +59,7 @@ export const DetailInfo: React.FC<DetailInfoProps> = ({
         </HStack>
         <Center w="full">
           <Rating
+            rate={rate}
             styleProps={{
               gap: "20px",
             }}

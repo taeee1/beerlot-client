@@ -7,6 +7,7 @@ import {
   Modal,
   ModalBody,
   ModalContent,
+  ModalContentProps,
   ModalFooter,
   ModalHeader,
   Tag,
@@ -15,26 +16,27 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
-import { ChangeEvent } from "react";
-import { ReviewStatic } from "../interface/static";
-import { BeerResultType, CategoryType, ReviewType } from "../interface/types";
-import { EditPencil, OrangeCamera, RightArrow } from "../public/svg";
+import React, {ChangeEvent, useState} from "react";
+import {ReviewStatic} from "../interface/static";
+import {BeerResultType, CategoryType, ReviewType} from "../interface/types";
+import {EditPencil, OrangeCamera, RightArrow} from "../public/svg";
 import SearchInput from "../src/search/SearchInput";
-import { LeftBackRandom } from "./headers/LeftBackRandom";
-import { LeftCloseRandom } from "./headers/LeftCloseRandom";
-import { Rating } from "./Rating";
+import BottomDrawer from "./BottomDrawer";
+import {LeftBackRandom} from "./headers/LeftBackRandom";
+import {LeftCloseRandom} from "./headers/LeftCloseRandom";
+import {Rating} from "./Rating";
 
 export const ReviewModal = () => {
   const [reviewInfo, setReviewInfo] = useState<ReviewType>({
     beerName: null,
-    rate: null,
+    rate: 0,
   });
-  const isCompleted = !!reviewInfo.beerName; // should contain rating stars as well
+  const isCompleted = !!reviewInfo.beerName && !!reviewInfo.rate; // should contain rating stars as well
+  const CloseReviewDrawer = useDisclosure();
   const [step, setStep] = useState(0);
   const [inputValue, setInputValue] = useState("");
   const [attachedFile, setAttachedPhoto] = useState([]);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {isOpen, onOpen, onClose} = useDisclosure();
 
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(e.target.value);
@@ -47,12 +49,17 @@ export const ReviewModal = () => {
   };
 
   const handleChangeBeerName = (name: string) => {
-    const newBeerReview = { ...reviewInfo, beerName: name };
+    const newBeerReview = {...reviewInfo, beerName: name};
+    setReviewInfo(newBeerReview);
+  };
+
+  const handleChangeRate = (rate: number) => {
+    const newBeerReview = {...reviewInfo, rate: rate};
     setReviewInfo(newBeerReview);
   };
 
   return (
-    <Box>
+    <Box position={"relative"}>
       <Button
         onClick={handleSizeClick}
         w="70px"
@@ -66,11 +73,53 @@ export const ReviewModal = () => {
         {/* TODO: should be replaced */}
         <EditPencil />
       </Button>
+      {/* LOGOUT drawer */}
+      <BottomDrawer
+        headerText={"정말로 나가실 건가요?"}
+        onClose={CloseReviewDrawer.onClose}
+        isOpen={CloseReviewDrawer.isOpen}
+        boxStyle={{
+          justifyContent: "center",
+          gap: "50px",
+          w: "full",
+          bg: "white",
+          p: "38px 20px 34px 21px",
+          borderRadius: "10px 10px 0px 0px",
+        }}
+        leftButtonText={"나가기"}
+        leftButtonStyle={{
+          w: "full",
+          py: "10px",
+          px: "39px",
+          onClick: () => {
+            // TODO: reset everything
+            setReviewInfo({
+              beerName: null,
+              rate: 0,
+            });
+            onClose();
+            CloseReviewDrawer.onClose();
+          },
+        }}
+        rightButtonText={"계속 작성하기"}
+        rightButtonStyle={{
+          w: "full",
+          bg: "blue.100",
+          py: "10px",
+          px: "22px",
+          onClick: () => {
+            CloseReviewDrawer.onClose();
+          },
+        }}
+      />
       <Modal onClose={onClose} size={"full"} isOpen={isOpen}>
         {step === 0 && (
-          <ModalContent px="20px" pb="40px">
+          <ModalContent px="20px" pb="40px" maxW="452px">
             <ModalHeader pt="46px">
-              <LeftCloseRandom onClose={onClose} title="글쓰기" />
+              <LeftCloseRandom
+                onClose={CloseReviewDrawer.onOpen}
+                title="글쓰기"
+              />
             </ModalHeader>
             <ModalBody p={0} pt="10px">
               <VStack
@@ -111,7 +160,11 @@ export const ReviewModal = () => {
                   <Text textStyle="h2" textColor="black.100">
                     얼마나 맛있었나요?
                   </Text>
-                  <Rating starSize={24} />
+                  <Rating
+                    starSize={24}
+                    onClick={handleChangeRate}
+                    rate={reviewInfo.rate}
+                  />
                 </Flex>
                 {/* purchase */}
                 <VStack p="10px" gap="10px" alignItems={"flex-start"}>
@@ -199,7 +252,7 @@ export const ReviewModal = () => {
                     aria-label="attach-photo"
                     gap="10px"
                     mt="0px"
-                    _notFirst={{ marginInlineStart: "0px", marginTop: "0px" }}
+                    _notFirst={{marginInlineStart: "0px", marginTop: "0px"}}
                   >
                     <OrangeCamera />
                     <Text textStyle="h3" textColor="orange.200">
@@ -229,6 +282,7 @@ export const ReviewModal = () => {
         )}
         {step === 1 && (
           <BeerSearchContent
+            maxW="450px"
             onClickBack={handleClickBack}
             onChangeBeerName={handleChangeBeerName}
           />
@@ -241,7 +295,7 @@ export const ReviewModal = () => {
 //TODO : should be replaced
 export const purchasePlaces = ["편의점", "펍", "대형마트", "기타"];
 
-interface BeerSearchContentProps {
+interface BeerSearchContentProps extends ModalContentProps {
   onClickBack: () => void;
   onChangeBeerName: (name: string) => void;
 }
@@ -249,6 +303,7 @@ interface BeerSearchContentProps {
 const BeerSearchContent: React.FC<BeerSearchContentProps> = ({
   onClickBack,
   onChangeBeerName,
+  ...props
 }) => {
   const [value, setValue] = useState<string>("");
   // recoil state가 되어야 함.
@@ -285,7 +340,7 @@ const BeerSearchContent: React.FC<BeerSearchContentProps> = ({
   };
 
   return (
-    <ModalContent px="20px">
+    <ModalContent px="20px" {...props}>
       <ModalHeader pt="46px">
         <LeftBackRandom onClick={onClickBack} title="맥주 이름" />
       </ModalHeader>
