@@ -72,9 +72,9 @@ export type ErrorResponse = {
 export interface ReviewType {
   beerName: string | null;
   rate: number;
-  place?: string;
-  review?: string;
-  imgUrl?: string[];
+  place?: string | null;
+  review?: string | null;
+  imgUrl?: string[] | null;
 }
 
 export enum ReviewSortType {

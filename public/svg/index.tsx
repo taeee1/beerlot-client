@@ -29,3 +29,4 @@ export {default as BeerlotLogoDefault} from "./beerlot-logo-default.svg";
 export {default as BeerlotLogoSmall} from "./beerlot-logo-small.svg";
 export {default as FullStar} from "./full-star.svg";
 export {default as EmptyStar} from "./empty-star.svg";
+export {default as CrossXBlack} from "./cross-x-black.svg";
