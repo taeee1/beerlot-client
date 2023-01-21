@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { CardType } from "../../interface/static";
+import React, {useState} from "react";
+import {CardType} from "../../interface/static";
 
 import styled from "styled-components";
-import LikeButton from "../../common/OrangeLikeButton";
+import {LikeButton} from "../../common/LikeButton";
 
 interface CardItemProps {
   isTwoByTwo: boolean;
@@ -23,18 +23,8 @@ const CardItem: React.FC<CardItemProps> = ({
 }) => {
   const color = cardType === CardType.POPULAR ? "orange.300" : "orange.200";
   const [isClicked, setIsClicked] = useState(false);
-  const handleClick = (state: boolean) => {
-    setIsClicked(state);
-  };
-
-  const iconProps = {
-    position: "absolute",
-    top: "12px",
-    right: "12px",
-    w: "27px",
-    h: "29px",
-    filter: isClicked ? "none" : "drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5))",
-    color: isClicked ? "orange.300" : "#ffffff",
+  const handleClick = () => {
+    setIsClicked(!isClicked);
   };
 
   return (
@@ -43,7 +33,15 @@ const CardItem: React.FC<CardItemProps> = ({
         <LikeButton
           isClicked={isClicked}
           onClick={handleClick}
-          iconProps={iconProps}
+          position="absolute"
+          top="12px"
+          right="12px"
+          w="27px"
+          h="29px"
+          filter={
+            isClicked ? "none" : "drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5))"
+          }
+          color={isClicked ? "orange.300" : "#ffffff"}
         />
         <CardImage src={img_src} alt={beerName} isTwoByTwo={isTwoByTwo} />
 
@@ -63,9 +61,9 @@ const CardItem: React.FC<CardItemProps> = ({
 
 export default CardItem;
 
-export const SortContainer = styled.div<{ color: string }>`
+export const SortContainer = styled.div<{color: string}>`
   padding: 0px 5px;
-  background: ${({ color }) => color};
+  background: ${({color}) => color};
   border-radius: 20px;
   display: flex;
   align-items: center;
@@ -84,10 +82,10 @@ export const SortP = styled.p`
 `;
 
 //TODO: 색상 지정
-export const CardContainer = styled.div<{ color: string }>`
+export const CardContainer = styled.div<{color: string}>`
   padding: 8px;
   position: relative;
-  border: ${({ color }) => `${color} solid 1px`};
+  border: ${({color}) => `${color} solid 1px`};
   border-radius: 11px;
   display: flex;
   flex-direction: column;
@@ -98,7 +96,7 @@ export const CardContainer = styled.div<{ color: string }>`
 {
   /* TODO: 이렇게 width잡으면 안 좋음 375미만에서 깨짐 */
 }
-export const CardImage = styled.img<{ isTwoByTwo: boolean }>`
+export const CardImage = styled.img<{isTwoByTwo: boolean}>`
   border-radius: 7px;
   width: ${(isTwoByTwo) => (isTwoByTwo ? `37vw` : `30vw`)};
   height: ${(isTwoByTwo) => (isTwoByTwo ? `37vw` : `30vw`)};

@@ -29,6 +29,7 @@ export const DetailTemplate = () => {
               category={category}
               country={country}
               beerImg={MOCK_IMAGE_SRC}
+              beerId={0}
             />
           )}
 

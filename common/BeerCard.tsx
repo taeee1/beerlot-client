@@ -11,7 +11,7 @@ import {
 import axios from "axios";
 import React, {useState} from "react";
 import {useMutation} from "react-query";
-import LikeButton from "./OrangeLikeButton";
+import {LikeButton} from "./LikeButton";
 
 interface BeerCardProps {
   styleProps?: styleProps;
@@ -42,16 +42,6 @@ const BeerCard: React.FC<BeerCardProps> = ({
 }) => {
   const [isLiked, setIsLiked] = useState(false);
 
-  const iconProps = {
-    position: "absolute",
-    top: "12px",
-    right: "12px",
-    w: "27px",
-    h: "29px",
-    filter: isLiked ? "none" : "drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5))",
-    color: isLiked ? "orange.300" : "#ffffff",
-  };
-
   const likeBeer = useMutation((beerId: number) =>
     axios.post(`/api/v1/beers/${beerId}/likes`)
   );
@@ -60,8 +50,8 @@ const BeerCard: React.FC<BeerCardProps> = ({
     axios.delete(`/api/v1/beers/${beerId}/likes`)
   );
 
-  const handleClick = (state: boolean) => {
-    setIsLiked(state);
+  const handleClick = () => {
+    setIsLiked(!isLiked);
     isLiked ? dislikeBeer.mutate(beerId) : likeBeer.mutate(beerId); // 데이터 저장
   };
 
@@ -72,7 +62,15 @@ const BeerCard: React.FC<BeerCardProps> = ({
           <LikeButton
             isClicked={isLiked}
             onClick={handleClick}
-            iconProps={iconProps}
+            position="absolute"
+            top="12px"
+            right="12px"
+            w="27px"
+            h="29px"
+            filter={
+              isLiked ? "none" : "drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5))"
+            }
+            color={isLiked ? "orange.300" : "#ffffff"}
           />
         </Box>
       )}

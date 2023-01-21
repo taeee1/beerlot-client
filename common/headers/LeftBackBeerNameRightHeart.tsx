@@ -1,7 +1,7 @@
-import { Flex, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
-import OrangeLikeButton from "../../common/OrangeLikeButton";
+import {Flex, Text} from "@chakra-ui/react";
+import React, {useState} from "react";
 import BackButton from "../BackButton";
+import {LikeButton} from "../LikeButton";
 
 interface LeftBackBeerNameRightHeartProps {
   beerName: string;
@@ -9,18 +9,12 @@ interface LeftBackBeerNameRightHeartProps {
 
 export const LeftBackBeerNameRightHeart: React.FC<
   LeftBackBeerNameRightHeartProps
-> = ({ beerName }) => {
+> = ({beerName}) => {
   const [isClicked, setIsClicked] = useState(false); // get 함수 대체되야 함.
-  const handleClick = (state: boolean) => {
-    setIsClicked(state);
+  const handleClick = () => {
+    setIsClicked(!isClicked);
   };
 
-  const iconProps = {
-    w: "27px",
-    h: "29px",
-    filter: isClicked ? "none" : "drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5))",
-    color: isClicked ? "orange.300" : "#ffffff",
-  };
   return (
     <Flex
       position="absolute"
@@ -42,10 +36,15 @@ export const LeftBackBeerNameRightHeart: React.FC<
       >
         {beerName}
       </Text>
-      <OrangeLikeButton
-        iconProps={iconProps}
+      <LikeButton
         onClick={handleClick}
         isClicked={isClicked}
+        w="27px"
+        h="29px"
+        filter={
+          isClicked ? "none" : "drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5))"
+        }
+        color={isClicked ? "orange.300" : "#ffffff"}
       />
     </Flex>
   );

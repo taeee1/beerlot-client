@@ -1,9 +1,9 @@
-import { Box, Flex, Text, VStack } from "@chakra-ui/react";
-import axios, { AxiosResponse } from "axios";
-import React, { useEffect, useState } from "react";
-import { useMutation } from "react-query";
+import {Box, Flex, Text, VStack} from "@chakra-ui/react";
+import axios, {AxiosResponse} from "axios";
+import React, {useEffect, useState} from "react";
+import {useMutation} from "react-query";
 import styled from "styled-components";
-import LikeButton from "../../common/OrangeLikeButton";
+import {LikeButton} from "../../common/LikeButton";
 
 interface CardItemProps {
   beerId: number;
@@ -34,19 +34,9 @@ const CardItemChakra: React.FC<CardItemProps> = ({
     axios.delete(`/api/v1/beers/${beerId}/likes`)
   );
 
-  const handleClick = (state: boolean) => {
-    setIsLiked(state);
+  const handleClick = () => {
+    setIsLiked(!isLiked);
     isLiked ? dislikeBeer.mutate(beerId) : likeBeer.mutate(beerId); // 데이터 저장
-  };
-
-  const iconProps = {
-    position: "absolute",
-    top: "12px",
-    right: "12px",
-    w: "27px",
-    h: "29px",
-    filter: isLiked ? "none" : "drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5))",
-    color: isLiked ? "orange.300" : "#ffffff",
   };
 
   return (
@@ -64,7 +54,15 @@ const CardItemChakra: React.FC<CardItemProps> = ({
           <LikeButton
             isClicked={isLiked}
             onClick={handleClick}
-            iconProps={iconProps}
+            position="absolute"
+            top="12px"
+            right="12px"
+            w="27px"
+            h="29px"
+            filter={
+              isLiked ? "none" : "drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5))"
+            }
+            color={isLiked ? "orange.300" : "#ffffff"}
           />
         </Box>
         <CardImage src={img_src} alt={beerName} isTwoByTwo={isTwoByTwo} />
@@ -94,7 +92,7 @@ const CardItemChakra: React.FC<CardItemProps> = ({
 
 export default CardItemChakra;
 
-export const CardImage = styled.img<{ isTwoByTwo: boolean }>`
+export const CardImage = styled.img<{isTwoByTwo: boolean}>`
   border-radius: 7px;
   width: ${(isTwoByTwo) => (isTwoByTwo ? `37vw` : `30vw`)};
   height: ${(isTwoByTwo) => (isTwoByTwo ? `37vw` : `30vw`)};
