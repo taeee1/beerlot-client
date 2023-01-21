@@ -9,11 +9,11 @@ import {
 } from "@chakra-ui/react";
 import FollowingTabPanelList from "./FollowingTabPanel";
 import AllTabPanelList from "./AllTabPanelList";
-import { UpcomingFeed } from "./UpcomingFeed";
+import {UpcomingFeed} from "./UpcomingFeed";
 
 const FeedTabList = () => {
   return (
-    <Tabs colorScheme="orange" pt="64px" w="full" h="full">
+    <Tabs colorScheme="orange" pt="64px" w="full" h="full" defaultIndex={1}>
       <TabList px={"18px"}>
         <Tab flexGrow="1" color="orange.100">
           팔로잉
