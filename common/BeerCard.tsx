@@ -9,8 +9,8 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useState } from "react";
-import { useMutation } from "react-query";
+import React, {useState} from "react";
+import {useMutation} from "react-query";
 import LikeButton from "./OrangeLikeButton";
 
 interface BeerCardProps {

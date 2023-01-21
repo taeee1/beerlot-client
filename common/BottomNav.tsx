@@ -1,8 +1,8 @@
-import { HStack, Text, VStack } from "@chakra-ui/react";
-import { useRouter } from "next/router";
+import {HStack, Text, VStack} from "@chakra-ui/react";
+import {useRouter} from "next/router";
 import React from "react";
-import { useRecoilState } from "recoil";
-import { userInfoState } from "../src/store/atom";
+import {useRecoilState} from "recoil";
+import {userInfoState} from "../src/store/atom";
 import {
   NavAccountsPath,
   NavFeedPath,
@@ -15,14 +15,14 @@ export const BottomNav = () => {
   const [userInfo] = useRecoilState(userInfoState);
 
   const navMenu = [
-    { title: "home", displayName: "홈", icon: NavHomePath, url: "/" },
+    {title: "home", displayName: "홈", icon: NavHomePath, url: "/"},
     {
       title: "search",
       displayName: "검색",
       icon: NavSearchPath,
       url: "/search",
     },
-    { title: "feed", displayName: "피드", icon: NavFeedPath, url: "/feed" },
+    {title: "feed", displayName: "피드", icon: NavFeedPath, url: "/feed"},
     {
       title: "account",
       displayName: "마이",
@@ -47,10 +47,11 @@ export const BottomNav = () => {
       bottom="0px"
     >
       {navMenu.map((item) => {
-        const { title, displayName, icon, url } = item;
+        const {title, displayName, icon, url} = item;
         const curColor = router.pathname === url ? "orange.300" : "gray.300";
         return (
           <VStack
+            cursor={"pointer"}
             key={title}
             flexGrow={1}
             gap="1px"

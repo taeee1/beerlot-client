@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import {BasicPanelList} from "./tab-panel/BasicPanelList";
 import {ReviewPanelList} from "./tab-panel/ReviewPanelList";
+import {BeerDetailMock} from "../../interface/static";
 
 export const DetailTabList = () => {
   const [tabIndex, setTabIndex] = useState(0);
@@ -38,7 +39,7 @@ export const DetailTabList = () => {
 
         <TabPanels>
           <TabPanel p={0}>
-            <BasicPanelList />
+            <BasicPanelList beerDetailInfo={BeerDetailMock} />
             <ReviewPanelList />
           </TabPanel>
           <TabPanel p={0}>

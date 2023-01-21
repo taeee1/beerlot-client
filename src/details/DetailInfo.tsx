@@ -21,6 +21,8 @@ export const DetailInfo: React.FC<DetailInfoProps> = ({
 }) => {
   const [didPassStar, setDidPassStar] = useState(false);
   const [rate, setRate] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
+
   return (
     <>
       {/* title */}
@@ -45,8 +47,6 @@ export const DetailInfo: React.FC<DetailInfoProps> = ({
         <HStack w="full" justifyContent="space-between">
           <Text textStyle="h1">{beerName}</Text>
           <HStack gap="20px">
-            {/* share button */}
-            <Box w="40px" h="40px" bg="black" />
             {/* like button */}
             <Box w="40px" h="40px" bg="black" />
           </HStack>

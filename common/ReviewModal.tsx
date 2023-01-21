@@ -3,11 +3,8 @@ import {
   Button,
   Flex,
   HStack,
-  Icon,
   IconButton,
   Input,
-  InputGroup,
-  InputRightElement,
   Modal,
   ModalBody,
   ModalContent,
@@ -24,11 +21,10 @@ import React, {ChangeEvent, useState} from "react";
 import {ReviewStatic} from "../interface/static";
 import {BeerResultType, CategoryType, ReviewType} from "../interface/types";
 import {
+  CrossXBlack,
   EditPencil,
   OrangeCamera,
   RightArrow,
-  CrossX,
-  CrossXBlack,
   WhiteCross,
 } from "../public/svg";
 import SearchInput from "../src/search/SearchInput";
