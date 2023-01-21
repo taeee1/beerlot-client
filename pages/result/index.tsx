@@ -1,21 +1,18 @@
 import {Box, Circle, Container, Flex} from "@chakra-ui/react";
 import {useRouter} from "next/router";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {LeftBackTitle} from "../../common/headers/LeftBackTitle";
 import {
   CardType,
   MOCK_CARD_LIST,
   MOCK_CATEGORY_FILTER_LIST,
 } from "../../interface/static";
-import {
-  CategoryFilterListType,
-  CategoryTitleStatic,
-} from "../../interface/types";
+import {CategoryFilterListType} from "../../interface/types";
 import {EmptyFilter, WhiteFilter} from "../../public/svg";
 import CardItem from "../../src/card/CardItem";
 import {CardContainer} from "../../src/card/CardList/TwoByTwoCardList";
 import EmptyFilteredResult from "../../src/result/EmptyFilteredResult";
-import SearchFilterList from "../../src/result/filter/search-filter-list/SearchFilterList";
+import {SearchFilterList} from "../../src/result/filter/search-filter-list/SearchFilterList";
 import SearchInput from "../../src/search/SearchInput";
 
 const SearchResultPage = () => {
@@ -89,7 +86,7 @@ const SearchResultPage = () => {
       >
         <LeftBackTitle />
         <Box p={"68px 24px 24px"}>
-          <Flex gap="10px" alignItems="center" mb="24px">
+          <Flex gap="10px" alignItems="center" mb="10px" cursor={"pointer"}>
             <SearchInput clearValue={clearValue} />
             <Circle size="31px" bg="blue.100" onClick={handleClickToggle}>
               {isFilterListOpen ? <WhiteFilter /> : <EmptyFilter />}

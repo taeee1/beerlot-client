@@ -7,7 +7,6 @@ import {
   TabPanel,
   Divider,
 } from "@chakra-ui/react";
-import FollowingTabPanelList from "./FollowingTabPanel";
 import AllTabPanelList from "./AllTabPanelList";
 import {UpcomingFeed} from "./UpcomingFeed";
 

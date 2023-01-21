@@ -1,8 +1,13 @@
-import {Box, HStack, Text} from "@chakra-ui/react";
+import {Box, ButtonProps, HStack, Icon, Text} from "@chakra-ui/react";
 import React from "react";
+import {
+  DownChevron,
+  RightChevron,
+} from "../../../../common/custom-icons/customIcons";
 import FilterTag from "../../../../common/Filters/FilterTag";
 import {CategoryFilterListType} from "../../../../interface/types";
 import {checkIsSelectedCategoryTitle} from "../../../../utils/array";
+import {checkSelectedFilter} from "../../../../service/filter";
 
 interface SearchFilterListProps {
   isFilterListOpen: boolean;
@@ -12,48 +17,13 @@ interface SearchFilterListProps {
   onClickTag: (targetTitle: string, targetTag: string) => void;
 }
 
-const SearchFilterList: React.FC<SearchFilterListProps> = ({
+export const SearchFilterList: React.FC<SearchFilterListProps> = ({
   isFilterListOpen,
   filterList,
   selectedFilters,
   onClickToggle,
   onClickTag,
 }) => {
-  const getFilterTagStyles = (targetTitle: string) => {
-    return {
-      tagStyle: {
-        h: "full",
-        bg: checkIsSelectedCategoryTitle(selectedFilters, targetTitle)
-          ? "yellow.300"
-          : "yellow.200",
-      },
-      textStyle: {
-        textColor: "black.100",
-        textStyle: "h4",
-      },
-    };
-  };
-
-  const getFilterRowStyles = (targetTitle: string, targetTag: string) => {
-    let isSelected = false;
-    const selectedObjList = selectedFilters.filter(
-      (item) => item.title === targetTitle
-    );
-    if (
-      selectedObjList.length > 0 &&
-      selectedObjList[0].tags.includes(targetTag)
-    ) {
-      isSelected = true;
-    }
-    return {
-      textStyle: {
-        bg: "none",
-        textColor: isSelected ? "black.100" : "gray.200",
-        textStyle: isSelected ? "h4_bold" : "h4",
-      },
-    };
-  };
-
   return (
     <Box>
       {isFilterListOpen ? (
@@ -61,18 +31,47 @@ const SearchFilterList: React.FC<SearchFilterListProps> = ({
           {filterList.map((filterObj) => {
             const {title, tags} = filterObj;
             return (
-              <HStack w="full" key={title}>
-                <FilterTag
-                  tagText={title}
-                  filterTagStyles={getFilterTagStyles(title)}
+              <HStack
+                w="full"
+                key={title}
+                py="5px"
+                borderBottom={"1px solid"}
+                borderBottomColor="gray.200"
+              >
+                <SearchFilterTag
+                  title={title}
+                  selectedFilters={selectedFilters}
+                  isFilterListOpen={isFilterListOpen}
+                  flexShrink={0}
                 />
-                <HStack gap={"15px"} overflowX={"scroll"}>
+                <HStack
+                  gap={"15px"}
+                  overflowX={"scroll"}
+                  sx={{
+                    "::-webkit-scrollbar": {
+                      display: "none",
+                    },
+                  }}
+                >
                   {tags.map((tag: string) => {
                     return (
                       <Text
+                        flexShrink={0}
                         key={tag}
-                        {...getFilterRowStyles(title, tag).textStyle}
-                        onClick={() => onClickTag(title, tag)}
+                        cursor="pointer"
+                        textColor={
+                          checkSelectedFilter(selectedFilters, title, tag)
+                            ? "black.100"
+                            : "gray.200"
+                        }
+                        textStyle={
+                          checkSelectedFilter(selectedFilters, title, tag)
+                            ? "h4_bold"
+                            : "h4"
+                        }
+                        onClick={() => {
+                          onClickTag(title, tag);
+                        }}
                       >
                         {tag}
                       </Text>
@@ -88,11 +87,12 @@ const SearchFilterList: React.FC<SearchFilterListProps> = ({
           {filterList.map((filterObj) => {
             const {title} = filterObj;
             return (
-              <FilterTag
-                onClick={onClickToggle}
+              <SearchFilterTag
                 key={title}
-                tagText={title}
-                filterTagStyles={getFilterTagStyles(title)}
+                title={title}
+                selectedFilters={selectedFilters}
+                onClick={onClickToggle}
+                isFilterListOpen={isFilterListOpen}
               />
             );
           })}
@@ -102,4 +102,44 @@ const SearchFilterList: React.FC<SearchFilterListProps> = ({
   );
 };
 
-export default SearchFilterList;
+interface SearchFilterTagProps extends ButtonProps {
+  title: string;
+  selectedFilters: CategoryFilterListType[];
+  isFilterListOpen: boolean;
+  onClick?: () => void;
+}
+
+export const SearchFilterTag: React.FC<SearchFilterTagProps> = ({
+  title,
+  selectedFilters,
+  isFilterListOpen,
+  onClick,
+  ...props
+}) => {
+  return (
+    <FilterTag
+      {...props}
+      tagText={title}
+      borderRadius="15px"
+      pl="5px"
+      px={"0px"}
+      py="1.5px"
+      h="full"
+      alignItems={"center"}
+      justifyContent={"center"}
+      bg={
+        checkIsSelectedCategoryTitle(selectedFilters, title)
+          ? "yellow.300"
+          : "yellow.200"
+      }
+      onClick={onClick}
+    >
+      <Icon
+        as={isFilterListOpen ? RightChevron : DownChevron}
+        w="19px"
+        h="19px"
+        color="black.100"
+      />
+    </FilterTag>
+  );
+};
