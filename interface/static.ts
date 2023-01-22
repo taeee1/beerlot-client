@@ -1,5 +1,5 @@
 import {beerDetailType} from "../src/details/tab-panel/BasicPanelList";
-import {CategoryFilterListType} from "./types";
+import {CategoryFilterListType, CategoryTitle} from "./types";
 
 export const WELCOME_MESSAGE_FIRST = "👋 어서와요 ";
 export const WELCOME_MESSAGE_SECOND = "오늘은 어떤 맥주를 마셔볼까요?";
@@ -11,29 +11,16 @@ export const orangeBright = "#FEA801";
 export const SEARCH_BAR_PLACEHOLDER = "맥주 이름, 종류, 향 등을 검색해보세요!";
 
 export const MOCK_CATEGORY_FILTER_LIST: CategoryFilterListType[] = [
-  {title: "정렬 기준", tags: ["좋아요", "별점순", "리뷰많은 순"]},
   {
-    title: "맥주 종류",
-    tags: [
-      "IPA",
-      "필스너",
-      "IPA",
-      "필스너",
-      "IPA",
-      "필스너",
-      "IPA",
-      "필스너",
-      "IPA",
-      "스타우트",
-      "스타우트",
-      "스타우트",
-      "스타우트",
-      "스타우트",
-      "스타우트",
-    ],
+    title: CategoryTitle.SORT_CRITERIA,
+    tags: ["좋아요", "별점순", "리뷰많은 순"],
   },
-  {title: "제조국", tags: ["독일", "미국", "일본"]},
-  {title: "도수", tags: ["논알콜", "3%미만", "3%대"]},
+  {
+    title: CategoryTitle.BEER_TYPE,
+    tags: ["IPA", "필스너", "스타우트"],
+  },
+  {title: CategoryTitle.BEER_COUNTRY, tags: ["독일", "미국", "일본"]},
+  {title: CategoryTitle.BEER_DEGREE, tags: ["논알콜", "3%미만", "3%대"]},
 ];
 
 export const textMain = "#000000";

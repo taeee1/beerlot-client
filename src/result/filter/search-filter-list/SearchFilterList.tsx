@@ -5,7 +5,10 @@ import {
   RightChevron,
 } from "../../../../common/custom-icons/customIcons";
 import FilterTag from "../../../../common/Filters/FilterTag";
-import {CategoryFilterListType} from "../../../../interface/types";
+import {
+  CategoryFilterListType,
+  CategoryTitle,
+} from "../../../../interface/types";
 import {checkIsSelectedCategoryTitle} from "../../../../utils/array";
 import {checkSelectedFilter} from "../../../../service/filter";
 
@@ -14,7 +17,7 @@ interface SearchFilterListProps {
   filterList: CategoryFilterListType[];
   selectedFilters: CategoryFilterListType[];
   onClickToggle: () => void;
-  onClickTag: (targetTitle: string, targetTag: string) => void;
+  onClickTag: (targetTitle: CategoryTitle, targetTag: string) => void;
 }
 
 export const SearchFilterList: React.FC<SearchFilterListProps> = ({

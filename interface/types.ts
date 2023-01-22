@@ -5,7 +5,7 @@ export type AllKeyboardEvent = React.KeyboardEvent | KeyboardEvent;
 // }
 
 export interface CategoryFilterListType {
-  title: CategoryTitleStatic;
+  title: CategoryTitle;
   tags: string[];
 }
 
@@ -16,7 +16,12 @@ export interface CategoryFilterListType {
 //   ALCHOLE = "도수",
 // }
 
-export type CategoryTitleStatic = "정렬 기준" | "맥주 종류" | "제조국" | "도수";
+export enum CategoryTitle {
+  SORT_CRITERIA = "정렬 기준",
+  BEER_TYPE = "맥주 종류",
+  BEER_COUNTRY = "제조국",
+  BEER_DEGREE = "도수",
+}
 
 export interface BeerResultType {
   id: number;
