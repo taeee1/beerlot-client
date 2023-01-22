@@ -7,8 +7,8 @@ import {
   TabPanel,
   Divider,
 } from "@chakra-ui/react";
-import AllTabPanelList from "./AllTabPanelList";
 import {UpcomingFeed} from "./UpcomingFeed";
+import {AllTabPanelList} from "./AllTabPanelList";
 
 const FeedTabList = () => {
   return (

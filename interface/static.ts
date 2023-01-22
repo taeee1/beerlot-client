@@ -10,6 +10,13 @@ export const BEERLOT_TITLE = "🍺BEER LOT🍺";
 export const orangeBright = "#FEA801";
 export const SEARCH_BAR_PLACEHOLDER = "맥주 이름, 종류, 향 등을 검색해보세요!";
 
+export const MOCK_FEED_FILTER_LIST: CategoryFilterListType[] = [
+  {
+    title: CategoryTitle.SORT_CRITERIA,
+    tags: ["최신순", "별점높은순", "별점낮은순", "좋아요순"],
+  },
+];
+
 export const MOCK_CATEGORY_FILTER_LIST: CategoryFilterListType[] = [
   {
     title: CategoryTitle.SORT_CRITERIA,
