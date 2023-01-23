@@ -1,5 +1,5 @@
-import {HStack, Text, VStack} from "@chakra-ui/react";
-import React from "react";
+import {HStack, Text, TextProps, VStack} from "@chakra-ui/react";
+import React, {ReactNode} from "react";
 
 interface BasicPanelListProps {
   beerDetailInfo: beerDetailType;
@@ -38,20 +38,29 @@ export const BasicPanelList: React.FC<BasicPanelListProps> = ({
   );
 };
 
-interface BeerInfoHStackProps {
+interface BeerInfoHStackProps extends TextProps {
   label: string;
-  desc: string;
+  desc?: string;
+  children?: ReactNode;
 }
 
-const BeerInfoHStack: React.FC<BeerInfoHStackProps> = ({label, desc}) => {
+export const BeerInfoHStack: React.FC<BeerInfoHStackProps> = ({
+  label,
+  desc,
+  children,
+  ...props
+}) => {
   return (
     <HStack gap="16px" w="full" alignItems={"start"}>
-      <Text textStyle="h3" color="gray.300" flexBasis={"68px"}>
+      <Text textStyle="h3" color="gray.300" flexBasis={"68px"} {...props}>
         {label}
       </Text>
-      <Text flex={1} textStyle="h3" textColor={"black"}>
-        {desc}
-      </Text>
+      {children}
+      {desc && (
+        <Text flex={1} textStyle="h3" textColor={"black.100"}>
+          {desc}
+        </Text>
+      )}
     </HStack>
   );
 };

@@ -1,9 +1,9 @@
-import {Flex, HStack, Icon, Text} from "@chakra-ui/react";
+import {Flex, HStack, Icon, StackProps, Text} from "@chakra-ui/react";
 import {useEffect, useState} from "react";
-import {v4 as uuidv4} from "uuid";
+
 import {RightChevron} from "../../common/custom-icons/customIcons";
 import FilterTag from "../../common/Filters/FilterTag";
-import {MOCK_FEED_FILTER_LIST} from "../../interface/static";
+import {ALL_FEED_MOCK, MOCK_FEED_FILTER_LIST} from "../../interface/static";
 import {getAllReviewApi} from "../../server/api";
 import FollowingTabPanelItem from "./TabPanelItem";
 
@@ -24,54 +24,10 @@ export const AllTabPanelList = () => {
     console.log("res", res);
   };
 
-  const ALL_FEED_MOCK = [
-    {
-      id: uuidv4(),
-      nickname: "김누누",
-      postingTime: "2시간 전",
-      beerName: "버드와이저",
-      ratingNumber: 4,
-      imageSrc: "goat.png",
-      postText:
-        " 여윽시 내 최애 맥주.. 다시 미국 가고싶다ㅠㅠ 미국에서 먹었던 그 느낌을 다시 느끼고 싶을 때면 꼭 버드와이저를 찾게 되더라구요. 그리고 뭐니뭐니해도 버드와이저에는 감자칩이죠! 레이스랑 한 잔 하고 잡니다 :) 모두들 굿나잇!",
-      thumbsUpNumber: 22,
-    },
-    {
-      id: uuidv4(),
-      nickname: "김태희",
-      postingTime: "어제",
-      beerName: "호가든",
-      ratingNumber: 4,
-      imageSrc: "goat.png",
-      postText: "",
-      thumbsUpNumber: 24,
-    },
-    {
-      id: uuidv4(),
-      nickname: "김누누",
-      postingTime: "2시간 전",
-      beerName: "버드와이저",
-      ratingNumber: 4,
-      imageSrc: "goat.png",
-      postText:
-        " 여윽시 내 최애 맥주.. 다시 미국 가고싶다ㅠㅠ 미국에서 먹었던 그 느낌을 다시 느끼고 싶을 때면 꼭 버드와이저를 찾게 되더라구요. 그리고 뭐니뭐니해도 버드와이저에는 감자칩이죠! 레이스랑 한 잔 하고 잡니다 :) 모두들 굿나잇!",
-      thumbsUpNumber: 22,
-    },
-    {
-      id: uuidv4(),
-      nickname: "김태희",
-      postingTime: "어제",
-      beerName: "호가든",
-      ratingNumber: 4,
-      imageSrc: "goat.png",
-      postText: " 여윽시 내 최애 맥주..",
-      thumbsUpNumber: 24,
-    },
-  ];
-
   return (
-    <Flex flexDirection="column" gap={"10px"} border="1px solid green">
+    <Flex flexDirection="column" gap={"10px"}>
       <FeedFilter selectedTag={selectedTag} onClickTag={handleSelectTag} />
+      {/* ALL_FEED_MOCK을 prop으로 받아서 AllTabPanelList랑 공유하기 */}
       {ALL_FEED_MOCK.map((feed) => {
         return (
           <FollowingTabPanelItem
@@ -92,24 +48,22 @@ export const AllTabPanelList = () => {
   );
 };
 
-interface FeedFilterProps {
+interface FeedFilterProps extends StackProps {
   selectedTag: string;
   onClickTag: (tag: string) => void;
 }
 
-const FeedFilter: React.FC<FeedFilterProps> = ({selectedTag, onClickTag}) => {
+export const FeedFilter: React.FC<FeedFilterProps> = ({
+  selectedTag,
+  onClickTag,
+  ...props
+}) => {
   return (
     <>
       {MOCK_FEED_FILTER_LIST.map((filterObj) => {
         const {title, tags} = filterObj;
         return (
-          <HStack
-            w="full"
-            key={title}
-            py="5px"
-            borderBottom={"1px solid"}
-            borderBottomColor="gray.200"
-          >
+          <HStack w="full" key={title} py="5px" {...props}>
             <FilterTag
               tagText={title}
               borderRadius="15px"
@@ -139,7 +93,7 @@ const FeedFilter: React.FC<FeedFilterProps> = ({selectedTag, onClickTag}) => {
                     flexShrink={0}
                     key={tag}
                     cursor="pointer"
-                    textColor={isSelectedTag ? "black.100" : "gray.200"}
+                    textColor={isSelectedTag ? "black.100" : "gray.300"}
                     textStyle={isSelectedTag ? "h4_bold" : "h4"}
                     onClick={() => onClickTag(tag)}
                   >

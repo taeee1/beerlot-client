@@ -39,10 +39,6 @@ const SearchResultPage = () => {
     setIsFilterListOpen(!isFilterListOpen);
   };
 
-  useEffect(() => {
-    console.log("selectedFilters", selectedFilters);
-  }, [selectedFilters]);
-
   const handleClickTag = (targetTitle: CategoryTitle, targetTag: string) => {
     const isSingleMode = targetTitle === CategoryTitle.SORT_CRITERIA;
 

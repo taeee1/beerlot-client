@@ -20,6 +20,7 @@ export const Rating: React.FC<RatingProps> = ({
       {[1, 2, 3, 4, 5].map((star) => {
         return (
           <IconButton
+            _notFirst={{marginInlineStart: 0}}
             disabled={onClick ? false : true}
             cursor="pointer"
             _hover={{}}
