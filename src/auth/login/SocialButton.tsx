@@ -1,19 +1,22 @@
 import {Box, Button, Icon, Text, VStack} from "@chakra-ui/react";
 import {useRouter} from "next/router";
 import {useRecoilState} from "recoil";
+import {OAUTH_PROVIDER} from "../../../interface/types";
 import {
   FacebookLogo,
   GoogleLogo,
   KakaoLogo,
   NaverLogo,
 } from "../../../public/svg";
+import {loginWithSocialLogin} from "../../../server/api";
 import {userInfoState} from "../../store/atom";
 
 const SocialButton = () => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const router = useRouter();
   // mock 함수
-  const handleClick = () => {
+  const handleClick = (provider: OAUTH_PROVIDER) => {
+    loginWithSocialLogin(provider);
     setUserInfo({
       email: "beer.lover@email.com",
       username: "비어러버",
@@ -34,7 +37,7 @@ const SocialButton = () => {
           width="100%"
           bg={button.buttonColor}
           borderRadius={30}
-          onClick={handleClick}
+          onClick={() => handleClick(button.provider)}
           // onClick={button.onClick}
           justifyContent="space-between"
           p={"5px"}
@@ -54,6 +57,7 @@ const SocialButton = () => {
 
 export const socialButton = [
   {
+    provider: OAUTH_PROVIDER.KAKAO,
     ariaLabel: "kakao login",
     icon: KakaoLogo,
     onClick: () => {},
@@ -63,6 +67,7 @@ export const socialButton = [
     border: "none",
   },
   {
+    provider: OAUTH_PROVIDER.NAVER,
     ariaLabel: "naver login",
     icon: NaverLogo,
     onClick: () => {},
@@ -81,6 +86,7 @@ export const socialButton = [
   //   border: "none",
   // },
   {
+    provider: OAUTH_PROVIDER.GOOGLE,
     ariaLabel: "google login",
     icon: GoogleLogo,
     onClick: () => {},

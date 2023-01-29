@@ -111,3 +111,9 @@ export enum LANGUAGE_TYPE {
   KR = "KR",
   EN = "EN",
 }
+
+export enum OAUTH_PROVIDER {
+  GOOGLE = "google",
+  NAVER = "naver",
+  KAKAO = "kakao",
+}

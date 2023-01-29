@@ -1,22 +1,39 @@
-import { Box, SimpleGrid, Text, VStack } from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import React, { useCallback } from "react";
-import { useRecoilState } from "recoil";
+import {Box, SimpleGrid, Text, VStack} from "@chakra-ui/react";
+import {useRouter} from "next/router";
+import React, {useCallback} from "react";
+import {useRecoilState} from "recoil";
 import BeerCard from "../../../common/BeerCard";
 import FloatingButton from "../../../common/FloatingButton";
-import { MOCK_BEERS_SUGGESTION } from "../../../interface/static";
-import { isSelected } from "../../../utils/array";
-import { chosenBeerIdsState } from "../../store/atom";
+import {POLICY_LABEL} from "../../../interface/server/types/Auth";
+import {MOCK_BEERS_SUGGESTION} from "../../../interface/static";
+import {signUpWithSocialLogin} from "../../../server/api";
+import {isSelected} from "../../../utils/array";
+import {chosenBeerIdsState} from "../../store/atom";
 
 interface BeerCardsProps {
   nickName: string;
 }
 
-const BeerCards: React.FC<BeerCardsProps> = ({ nickName }) => {
+const BeerCards: React.FC<BeerCardsProps> = ({nickName}) => {
   const [chosenBeerIds, setChosenBeerIds] = useRecoilState(chosenBeerIdsState);
   const isFullfilled = chosenBeerIds && chosenBeerIds.length > 0;
+
+  // 여기서 전역에서 들고 있는 데이터를 꺼내다 써야 함.
+  // 즉 이 전 단계에서 recoil에 데이터를 set해야함.
+  const MOCK_AUTH = {
+    username: "태희",
+    status_message: "나는 태희다",
+    image_url: "https://picsum.photos/200/300?grayscale",
+    agreed_policies: [
+      POLICY_LABEL.PERSONAL_INFORMATION_POLICY,
+      POLICY_LABEL.TERMS_OF_SERVICE,
+    ],
+  };
+
   const router = useRouter();
-  const handleClick = () => {
+
+  const handleClickComplete = () => {
+    signUpWithSocialLogin(MOCK_AUTH);
     router.push("/");
   };
 
@@ -75,7 +92,7 @@ const BeerCards: React.FC<BeerCardsProps> = ({ nickName }) => {
       <FloatingButton
         disabled={!isFullfilled}
         text="완료!"
-        onClick={handleClick}
+        onClick={handleClickComplete}
         bgColor={isFullfilled ? "orange.200" : "gray.200"}
         textColor={isFullfilled ? "white.100" : "black.100"}
         boxShadow={isFullfilled ? "0px 8px 16px rgba(0, 0, 0, 0.3)" : "none"}
