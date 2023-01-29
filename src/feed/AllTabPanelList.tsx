@@ -1,45 +1,68 @@
 import {Flex, HStack, Icon, StackProps, Text} from "@chakra-ui/react";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 
 import {RightChevron} from "../../common/custom-icons/customIcons";
 import FilterTag from "../../common/Filters/FilterTag";
-import {ALL_FEED_MOCK, MOCK_FEED_FILTER_LIST} from "../../interface/static";
+import {ReviewResponseType} from "../../interface/server/types/Review";
+import {MOCK_FEED_FILTER_LIST} from "../../interface/static";
+import {ReviewFilterSort, ReviewSortEnum} from "../../interface/types";
 import {getAllReviewApi} from "../../server/api";
 import FollowingTabPanelItem from "./TabPanelItem";
 
+// interface AllTabPanelListProps {
+//   allReviews: ReviewResponseType[];
+// }
+
 export const AllTabPanelList = () => {
-  const [selectedTag, setSelectedTag] = useState(
+  const [selectedTag, setSelectedTag] = useState<ReviewSortEnum>(
     MOCK_FEED_FILTER_LIST[0].tags[0]
   );
-  useEffect(() => {
-    allReviewsAsync();
-  });
+  const [selectedReviews, setSelectedReviews] = useState<ReviewResponseType[]>(
+    []
+  );
 
-  const handleSelectTag = (tag: string) => {
+  const allReviewsAsync = useCallback(async () => {
+    const res = await getAllReviewApi({sort: selectedTag});
+    return res;
+  }, [selectedTag]);
+
+  const handleSetSelectedReviews = useCallback(
+    (reviews: ReviewResponseType[]) => {
+      setSelectedReviews(reviews);
+    },
+    []
+  );
+
+  const setNewReviews = useCallback(async () => {
+    const res = await allReviewsAsync();
+    handleSetSelectedReviews(res.contents);
+  }, [allReviewsAsync, handleSetSelectedReviews]);
+
+  const handleSelectTag = async (tag: ReviewSortEnum) => {
     setSelectedTag(tag);
+    setNewReviews();
   };
 
-  const allReviewsAsync = async () => {
-    const res = await getAllReviewApi();
-    console.log("res", res);
-  };
+  useEffect(() => {
+    setNewReviews();
+  }, [allReviewsAsync, setNewReviews]);
 
   return (
     <Flex flexDirection="column" gap={"10px"}>
       <FeedFilter selectedTag={selectedTag} onClickTag={handleSelectTag} />
       {/* ALL_FEED_MOCK을 prop으로 받아서 AllTabPanelList랑 공유하기 */}
-      {ALL_FEED_MOCK.map((feed) => {
+      {selectedReviews.map((feed) => {
         return (
           <FollowingTabPanelItem
             key={feed.id}
             isRow
-            nickname={feed.nickname}
-            postingTime={feed.postingTime}
-            beerName={feed.beerName}
-            ratingNumber={feed.ratingNumber}
-            imageSrc={feed.imageSrc}
-            postText={feed.postText}
-            thumbsUpNumber={feed.thumbsUpNumber}
+            nickname={feed.member.username}
+            postingTime={feed.updated_at}
+            beerName={"MOCK_BEER_NAME"}
+            ratingNumber={feed.rate}
+            imageSrc={feed.image_url}
+            postText={feed.content}
+            thumbsUpNumber={feed.like_count}
             isEditable={false}
           />
         );
@@ -49,8 +72,8 @@ export const AllTabPanelList = () => {
 };
 
 interface FeedFilterProps extends StackProps {
-  selectedTag: string;
-  onClickTag: (tag: string) => void;
+  selectedTag: ReviewSortEnum;
+  onClickTag: (tag: ReviewSortEnum) => void;
 }
 
 export const FeedFilter: React.FC<FeedFilterProps> = ({
@@ -86,7 +109,7 @@ export const FeedFilter: React.FC<FeedFilterProps> = ({
                 },
               }}
             >
-              {tags.map((tag: string) => {
+              {tags.map((tag: ReviewSortEnum) => {
                 const isSelectedTag = selectedTag === tag;
                 return (
                   <Text
@@ -97,7 +120,7 @@ export const FeedFilter: React.FC<FeedFilterProps> = ({
                     textStyle={isSelectedTag ? "h4_bold" : "h4"}
                     onClick={() => onClickTag(tag)}
                   >
-                    {tag}
+                    {ReviewFilterSort[tag]}
                   </Text>
                 );
               })}

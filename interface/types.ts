@@ -8,6 +8,10 @@ export interface CategoryFilterListType {
   title: CategoryTitle;
   tags: string[];
 }
+export interface ReviewCategoryFilterListType {
+  title: CategoryTitle;
+  tags: ReviewSortEnum[];
+}
 
 // export enum CategoryTitle {
 //   CRITERIA = "정렬 기준",
@@ -82,9 +86,28 @@ export interface ReviewType {
   imgUrl?: string[] | null;
 }
 
-export enum ReviewSortType {
+export enum ReviewSortEnum {
   RecentlyUpdated = "RECENTLY_UPDATED",
   MostLikes = "MOST_LIKES",
   HighRate = "HIGH_RATE",
   LowRate = "LOW_RATE",
+}
+
+export enum ReviewSortLabelEnum {
+  RECENTLY_UPDATED = "최신순",
+  MOST_LIKES = "좋아요순",
+  HIGH_RATE = "별점높은순",
+  LOW_RATE = "별점낮은순",
+}
+
+export const ReviewFilterSort = {
+  [ReviewSortEnum.RecentlyUpdated]: ReviewSortLabelEnum.RECENTLY_UPDATED,
+  [ReviewSortEnum.MostLikes]: ReviewSortLabelEnum.MOST_LIKES,
+  [ReviewSortEnum.HighRate]: ReviewSortLabelEnum.HIGH_RATE,
+  [ReviewSortEnum.LowRate]: ReviewSortLabelEnum.LOW_RATE,
+};
+
+export enum LANGUAGE_TYPE {
+  KR = "KR",
+  EN = "EN",
 }

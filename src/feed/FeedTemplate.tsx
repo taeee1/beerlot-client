@@ -3,7 +3,12 @@ import React from "react";
 import {CenteredTitle} from "../../common/headers/CenteredTitle";
 import {TitleRightBellHeader} from "../../common/headers/TitleRightBell";
 import {ReviewModal} from "../../common/ReviewModal";
-import FeedTabList from "./FeedTabList";
+import {ReviewResponseType} from "../../interface/server/types/Review";
+import {FeedTabList} from "./FeedTabList";
+
+// interface FeedTemplatetProps {
+//   allReviews: ReviewResponseType[];
+// }
 
 export const FeedTemplate = () => {
   return (

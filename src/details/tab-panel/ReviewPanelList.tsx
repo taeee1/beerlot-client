@@ -3,6 +3,7 @@ import {useState} from "react";
 import {Rating} from "../../../common/Rating";
 import {ReviewModal} from "../../../common/ReviewModal";
 import {ALL_FEED_MOCK, MOCK_FEED_FILTER_LIST} from "../../../interface/static";
+import {ReviewFilterSort, ReviewSortEnum} from "../../../interface/types";
 import {FeedFilter} from "../../feed/AllTabPanelList";
 import FollowingTabPanelItem from "../../feed/TabPanelItem";
 import {BeerInfoHStack} from "./BasicPanelList";
@@ -11,11 +12,11 @@ export const ReviewPanelList = () => {
   const reviewData = [];
   const avgRate = 3.2;
   const sellingPlace = "편의점";
-  const [selectedTag, setSelectedTag] = useState(
+  const [selectedTag, setSelectedTag] = useState<ReviewSortEnum>(
     MOCK_FEED_FILTER_LIST[0].tags[0]
   );
 
-  const handleSelectTag = (tag: string) => {
+  const handleSelectTag = (tag: ReviewSortEnum) => {
     setSelectedTag(tag);
   };
 

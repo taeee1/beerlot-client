@@ -3,7 +3,8 @@ module.exports = {
     return [
       {
         source: "/:path*",
-        destination: "https://beerlot-core-obtg3qwuhq-an.a.run.app/:path*",
+        // destination: "https://beerlot-core-obtg3qwuhq-an.a.run.app/:path*",
+        destination: "https://beerlot-api-ecxukq6suq-du.a.run.app/:path*",
       },
     ];
   },

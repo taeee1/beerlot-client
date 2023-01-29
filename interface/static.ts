@@ -1,5 +1,11 @@
 import {beerDetailType} from "../src/details/tab-panel/BasicPanelList";
-import {CategoryFilterListType, CategoryTitle} from "./types";
+import {
+  CategoryFilterListType,
+  CategoryTitle,
+  ReviewCategoryFilterListType,
+  ReviewFilterSort,
+  ReviewSortEnum,
+} from "./types";
 import {v4 as uuidv4} from "uuid";
 
 export const WELCOME_MESSAGE_FIRST = "👋 어서와요 ";
@@ -11,10 +17,15 @@ export const BEERLOT_TITLE = "🍺BEER LOT🍺";
 export const orangeBright = "#FEA801";
 export const SEARCH_BAR_PLACEHOLDER = "맥주 이름, 종류, 향 등을 검색해보세요!";
 
-export const MOCK_FEED_FILTER_LIST: CategoryFilterListType[] = [
+export const MOCK_FEED_FILTER_LIST: ReviewCategoryFilterListType[] = [
   {
     title: CategoryTitle.SORT_CRITERIA,
-    tags: ["최신순", "별점높은순", "별점낮은순", "좋아요순"],
+    tags: [
+      ReviewSortEnum.RecentlyUpdated,
+      ReviewSortEnum.HighRate,
+      ReviewSortEnum.LowRate,
+      ReviewSortEnum.MostLikes,
+    ],
   },
 ];
 
