@@ -84,7 +84,11 @@ export const MOCK_CATEGORY_FILTER_LIST: CategoryFilterListType[] = [
     tags: ["IPA", "필스너", "스타우트"],
   },
   {title: CategoryTitle.BEER_COUNTRY, tags: ["독일", "미국", "일본"]},
-  {title: CategoryTitle.BEER_DEGREE, tags: ["논알콜", "3%미만", "3%대"]},
+  {
+    title: CategoryTitle.BEER_DEGREE,
+    tags: ["논알콜", "3%미만", "3%대"],
+    isRange: true,
+  },
 ];
 
 export const textMain = "#000000";
@@ -188,3 +192,11 @@ export const BeerDetailMock: beerDetailType = {
   suitableGlass: "파인트",
   desc: "미국을 대표하는 맥주로, 매년 미국에서 판매량 1위를 놓치지 않는 앤하이저부시의 대표적인 상품! ",
 };
+
+const MAX_BEER_VOLUME_SLIDER = 10;
+const MIN_BEER_VOLUME_SLIDER = 0;
+
+export const MIN_MAX_BEER_VOLUME_SLIDER = [
+  MIN_BEER_VOLUME_SLIDER,
+  MAX_BEER_VOLUME_SLIDER,
+];

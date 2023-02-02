@@ -7,6 +7,7 @@ export type AllKeyboardEvent = React.KeyboardEvent | KeyboardEvent;
 export interface CategoryFilterListType {
   title: CategoryTitle;
   tags: string[];
+  isRange?: boolean;
 }
 export interface ReviewCategoryFilterListType {
   title: CategoryTitle;
