@@ -27,7 +27,7 @@ export const loginWithSocialLogin = async (provider: OAUTH_PROVIDER) => {
   try {
     console.log("provider", provider);
     const result = await axios.get(
-      `/api/v1/authorize/${provider}?redirect-url=https://beerlot-client.vercel.app`
+      `/api/v1/auth/authorize/${provider}?redirect-url=https://beerlot-client.vercel.app`
     );
     console.log(result);
   } catch (error) {
