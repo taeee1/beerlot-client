@@ -11,6 +11,7 @@ import {
 import axios from "axios";
 import React, {useState} from "react";
 import {useMutation} from "react-query";
+import {dislikeBeerApi, likeBeerApi} from "../src/api/review/api";
 import {LikeButton} from "./LikeButton";
 
 interface BeerCardProps {
@@ -42,17 +43,9 @@ const BeerCard: React.FC<BeerCardProps> = ({
 }) => {
   const [isLiked, setIsLiked] = useState(false);
 
-  const likeBeer = useMutation((beerId: number) =>
-    axios.post(`/api/v1/beers/${beerId}/likes`)
-  );
-
-  const dislikeBeer = useMutation((beerId: number) =>
-    axios.delete(`/api/v1/beers/${beerId}/likes`)
-  );
-
   const handleClick = () => {
     setIsLiked(!isLiked);
-    isLiked ? dislikeBeer.mutate(beerId) : likeBeer.mutate(beerId); // 데이터 저장
+    isLiked ? dislikeBeerApi(beerId) : likeBeerApi(beerId); // 데이터 저장
   };
 
   return (

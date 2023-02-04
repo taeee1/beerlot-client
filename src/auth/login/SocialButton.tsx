@@ -2,13 +2,8 @@ import {Box, Button, Icon, Text, VStack} from "@chakra-ui/react";
 import {useRouter} from "next/router";
 import {useRecoilState} from "recoil";
 import {OAUTH_PROVIDER} from "../../../interface/types";
-import {
-  FacebookLogo,
-  GoogleLogo,
-  KakaoLogo,
-  NaverLogo,
-} from "../../../public/svg";
-import {loginWithSocialLogin} from "../../../server/api";
+import {GoogleLogo, KakaoLogo, NaverLogo} from "../../../public/svg";
+import {loginWithSocialLoginApi} from "../../api/auth/api";
 import {userInfoState} from "../../store/atom";
 
 const SocialButton = () => {
@@ -16,7 +11,7 @@ const SocialButton = () => {
   const router = useRouter();
   // mock 함수
   const handleClick = (provider: OAUTH_PROVIDER) => {
-    loginWithSocialLogin(provider);
+    loginWithSocialLoginApi(provider);
     setUserInfo({
       email: "beer.lover@email.com",
       username: "비어러버",

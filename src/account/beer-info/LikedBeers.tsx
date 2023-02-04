@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useRecoilState} from "recoil";
 import {CardType} from "../../../interface/static";
 import {BeerResultType} from "../../../interface/types";
-import {getAllBeersApi} from "../../../server/api";
+import {getAllBeersApi} from "../../api/beers/api";
 import CardItem from "../../card/CardItem";
 import {likedBeerState} from "../../store/atom";
 
@@ -20,9 +20,9 @@ const LikedBeers = () => {
         return handleInfo(index + 1);
       })
     );
-    if (allBeers) {
-      setAllBeers(allBeers);
-    }
+    // if (allBeers) {
+    //   setAllBeers(allBeers);
+    // }
   };
 
   useEffect(() => {

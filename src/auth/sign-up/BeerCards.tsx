@@ -6,7 +6,7 @@ import BeerCard from "../../../common/BeerCard";
 import FloatingButton from "../../../common/FloatingButton";
 import {POLICY_LABEL} from "../../../interface/server/types/Auth";
 import {MOCK_BEERS_SUGGESTION} from "../../../interface/static";
-import {signUpWithSocialLogin} from "../../../server/api";
+import {signUpWithSocialLogin} from "../../api/beers/api";
 import {isSelected} from "../../../utils/array";
 import {chosenBeerIdsState} from "../../store/atom";
 

@@ -6,7 +6,7 @@ import FilterTag from "../../common/Filters/FilterTag";
 import {ReviewResponseType} from "../../interface/server/types/Review";
 import {MOCK_FEED_FILTER_LIST} from "../../interface/static";
 import {ReviewFilterSort, ReviewSortEnum} from "../../interface/types";
-import {getAllReviewApi} from "../../server/api";
+import {getAllReviewApi} from "../api/review/api";
 import FollowingTabPanelItem from "./TabPanelItem";
 
 // interface AllTabPanelListProps {
@@ -35,7 +35,7 @@ export const AllTabPanelList = () => {
 
   const setNewReviews = useCallback(async () => {
     const res = await allReviewsAsync();
-    handleSetSelectedReviews(res.contents);
+    // if (res !== undefined) handleSetSelectedReviews(res);
   }, [allReviewsAsync, handleSetSelectedReviews]);
 
   const handleSelectTag = async (tag: ReviewSortEnum) => {

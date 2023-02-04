@@ -1,5 +1,4 @@
 import {ReviewResponseType} from "../../interface/server/types/Review";
-import {getAllReviewApi} from "../../server/api";
 import {FeedTemplate} from "../../src/feed/FeedTemplate";
 
 // export async function getServerSideProps() {
