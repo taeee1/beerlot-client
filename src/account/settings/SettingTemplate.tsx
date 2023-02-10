@@ -144,12 +144,10 @@ export const SettingsTemplate = () => {
   );
 };
 
-// put it into environment variable
-const beerlotEmail = process.env.NEXT_PUBLIC_INQUIRY_EMAIL;
-
 export const BeerSettingSection = [
   {title: "최애맥주 변경", href: "/account/settings/favoritebeer"},
 ];
+
 export const NoticeSettingSection = [
   {
     title: "공지사항",
@@ -157,8 +155,7 @@ export const NoticeSettingSection = [
   },
   {
     title: "문의하기",
-    href: `mailto:?subject=${beerlotEmail}`,
-    isEmail: true,
+    href: "/account/settings/inquiry",
   },
   {title: "비어랏 정보", href: "/account/settings/info"},
 ];

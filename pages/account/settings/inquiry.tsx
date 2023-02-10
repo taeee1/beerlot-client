@@ -1,4 +1,5 @@
 import {Box, Container} from "@chakra-ui/react";
+import {InquiryTemplate} from "../../../src/account/settings/InquiryTemplate";
 
 const Inquiry = () => {
   return (
@@ -11,7 +12,7 @@ const Inquiry = () => {
         position="relative"
         maxW="450px"
       >
-        Inquiry
+        <InquiryTemplate />
       </Container>
     </Box>
   );

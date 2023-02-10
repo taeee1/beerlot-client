@@ -28,7 +28,8 @@ export const SectionButton: React.FC<SectionButtonProps> = ({
       href={href}
       passHref
       textDecoration="none"
-      target="_blank"
+      _visited={{textDecoration: "none"}}
+      _hover={{textDecoration: "none"}}
       as={href ? Link : HStack}
     >
       <Text textStyle={"h3"} textColor="black.100">

@@ -11,12 +11,6 @@ export const theme = extendTheme({
   },
   styles: {
     global: {
-      p: {
-        mt: "0px !important",
-      },
-      div: {
-        mt: "0px !important",
-      },
       body: {
         pb: "65px",
         h: "calc(100vh)",
