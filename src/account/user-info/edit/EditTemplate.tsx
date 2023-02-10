@@ -87,7 +87,7 @@ const EditTemplate: React.FC<EditTemplateProps> = ({userInfo, setUserInfo}) => {
       statusMessage: bio,
     });
     // use api
-    router.push("/accounts");
+    router.push("/account");
   };
 
   const handleChangeProfileImage = () => {

@@ -27,7 +27,7 @@ export const BottomNav = () => {
       title: "account",
       displayName: "마이",
       icon: NavAccountsPath,
-      url: userInfo ? "/accounts" : "/login",
+      url: userInfo ? "/account" : "/login",
     },
   ];
 

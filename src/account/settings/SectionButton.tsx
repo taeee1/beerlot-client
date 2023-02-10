@@ -1,12 +1,18 @@
-import { IconButton, Text, HStack } from "@chakra-ui/react";
+import {IconButton, Text, HStack, Link, StackProps} from "@chakra-ui/react";
 import React from "react";
-import { RightArrow } from "../../../common/custom-icons/customIcons";
+import NextLink from "next/link";
+import {RightArrow} from "../../../common/custom-icons/customIcons";
 
 interface SectionButtonProps {
   title: string;
+  href?: string;
 }
 
-export const SectionButton: React.FC<SectionButtonProps> = ({ title }) => {
+export const SectionButton: React.FC<SectionButtonProps> = ({
+  title,
+  href,
+  ...props
+}) => {
   return (
     <HStack
       w="full"
@@ -18,6 +24,12 @@ export const SectionButton: React.FC<SectionButtonProps> = ({ title }) => {
       border="1px solid"
       borderBottom={"none"}
       borderColor={"gray.200"}
+      {...props}
+      href={href}
+      passHref
+      textDecoration="none"
+      target="_blank"
+      as={href ? Link : HStack}
     >
       <Text textStyle={"h3"} textColor="black.100">
         {title}

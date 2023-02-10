@@ -17,6 +17,7 @@ const SocialButton = () => {
       username: "비어러버",
       statusMessage: "난 물러서는 건 질색이야",
     });
+    router.push(`/account`);
   };
 
   return (
@@ -32,7 +33,6 @@ const SocialButton = () => {
           bg={button.buttonColor}
           borderRadius={30}
           onClick={() => handleClick(button.provider)}
-          // onClick={button.onClick}
           justifyContent="space-between"
           p={"5px"}
           alignItems={"center"}

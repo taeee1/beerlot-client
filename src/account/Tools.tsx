@@ -1,12 +1,12 @@
-import { Flex, IconButton } from "@chakra-ui/react";
-import Router, { useRouter } from "next/router";
+import {Flex, IconButton} from "@chakra-ui/react";
+import Router, {useRouter} from "next/router";
 import React from "react";
-import { AlertBell, SettingGear } from "../../public/svg";
+import {AlertBell, SettingGear} from "../../public/svg";
 
 const Tools = () => {
   const router = useRouter();
   const handleClickSettings = () => {
-    router.push("/accounts/settings");
+    router.push("/account/settings");
   };
 
   return (

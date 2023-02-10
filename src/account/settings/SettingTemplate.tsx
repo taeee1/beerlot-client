@@ -1,10 +1,10 @@
-import { Box, useDisclosure, VStack } from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import { useRecoilState } from "recoil";
+import {Box, useDisclosure, VStack} from "@chakra-ui/react";
+import {useRouter} from "next/router";
+import {useRecoilState} from "recoil";
 import BottomDrawer from "../../../common/BottomDrawer";
-import { LeftBackRandom } from "../../../common/headers/LeftBackRandom";
-import { userInfoState } from "../../store/atom";
-import { SectionButton } from "./SectionButton";
+import {LeftBackRandom} from "../../../common/headers/LeftBackRandom";
+import {userInfoState} from "../../store/atom";
+import {SectionButton} from "./SectionButton";
 
 export const SettingsTemplate = () => {
   const [_, setUserInfo] = useRecoilState(userInfoState);
@@ -32,6 +32,7 @@ export const SettingsTemplate = () => {
       },
     },
   ];
+
   return (
     <Box h="full">
       <VStack bg="gray.100" h="full">
@@ -112,13 +113,17 @@ export const SettingsTemplate = () => {
         />
         <VStack bg="gray.100" pt="70px" w="full" gap="10px">
           <VStack w="full">
-            {["최애맥주 변경"].map((title) => (
-              <SectionButton key={title} title={title} />
+            {BeerSettingSection.map(({title, href}) => (
+              <SectionButton key={title} title={title} href={href} />
             ))}
           </VStack>
           <VStack w="full">
-            {["공지사항", "문의하기", "비어랏 정보"].map((title) => (
-              <SectionButton key={title} title={title} />
+            {NoticeSettingSection.map((content) => (
+              <SectionButton
+                key={content.title}
+                title={content.title}
+                href={content.href}
+              />
             ))}
           </VStack>
           <VStack w="full">
@@ -127,7 +132,7 @@ export const SettingsTemplate = () => {
                 onClick={item.onClick}
                 key={item.title}
                 w="full"
-                _hover={{ cursor: "pointer" }}
+                _hover={{cursor: "pointer"}}
               >
                 <SectionButton title={item.title} />
               </Box>
@@ -138,3 +143,22 @@ export const SettingsTemplate = () => {
     </Box>
   );
 };
+
+// put it into environment variable
+const beerlotEmail = process.env.INQUIRY_EMAIL;
+
+export const BeerSettingSection = [
+  {title: "최애맥주 변경", href: "/account/settings/favoritebeer"},
+];
+export const NoticeSettingSection = [
+  {
+    title: "공지사항",
+    href: "/account/settings/notice",
+  },
+  {
+    title: "문의하기",
+    href: `mailto:?subject=${beerlotEmail}`,
+    isEmail: true,
+  },
+  {title: "비어랏 정보", href: "/account/settings/info"},
+];
