@@ -8,7 +8,6 @@ const useGetPopularBeers = () => {
 
   const getTopBeers = useCallback(async () => {
     const data = await getTop10BeersApi();
-    console.log({data});
     if (data === undefined) {
       console.error("getTop10BeersApi is undefined");
       return;

@@ -25,3 +25,8 @@ export const chosenBeerIdsState = atom<number[]>({
   key: "chosenBeersState",
   default: [],
 });
+
+export const accessTokenState = atom<string | null>({
+  key: "accessTokenState",
+  default: null,
+});

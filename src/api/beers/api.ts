@@ -15,6 +15,15 @@ export const signUpWithSocialLogin = async (request: SignUpRequestType) => {
   }
 };
 
+export const getNewAccessTokenWithRefreshToken = async () => {
+  try {
+    const result = await axios.get(`/api/v1/auth/refresh`);
+    console.log(result);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const getAllBeersApi = async (index: number) => {
   try {
     const result: BeerResultType = await axios.get(`/api/v1/beers/${index}`);

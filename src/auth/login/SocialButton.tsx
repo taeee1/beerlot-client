@@ -17,7 +17,6 @@ const SocialButton = () => {
       username: "비어러버",
       statusMessage: "난 물러서는 건 질색이야",
     });
-    router.push("/accounts");
   };
 
   return (
