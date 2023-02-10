@@ -145,7 +145,7 @@ export const SettingsTemplate = () => {
 };
 
 // put it into environment variable
-const beerlotEmail = process.env.INQUIRY_EMAIL;
+const beerlotEmail = process.env.NEXT_PUBLIC_INQUIRY_EMAIL;
 
 export const BeerSettingSection = [
   {title: "최애맥주 변경", href: "/account/settings/favoritebeer"},
