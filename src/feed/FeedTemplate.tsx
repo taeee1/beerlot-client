@@ -2,7 +2,7 @@ import {Box, Container} from "@chakra-ui/react";
 import React from "react";
 import {CenteredTitle} from "../../common/headers/CenteredTitle";
 import {TitleRightBellHeader} from "../../common/headers/TitleRightBell";
-import {ReviewModal} from "../../common/ReviewModal";
+import {ReviewModal} from "../../common/ReviewModal/ReviewModal";
 import {ReviewResponseType} from "../../interface/server/types/Review";
 import {FeedTabList} from "./FeedTabList";
 
