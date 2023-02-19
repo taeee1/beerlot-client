@@ -1,23 +1,9 @@
-import React, {ChangeEvent, useState} from "react";
-import {
-  Box,
-  Button,
-  Flex,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  Text,
-  Textarea,
-  useDisclosure,
-  VStack,
-} from "@chakra-ui/react";
-import {OrangeCamera} from "../../public/svg";
+import {Box, Flex, Text, Textarea, VStack} from "@chakra-ui/react";
+import {ChangeEvent, useState} from "react";
 import {ReviewStatic} from "../../interface/static";
+import {UploadedReviewImages} from "./UploadedReviewImages";
 
 export const BeerReviewTextSection = () => {
-  const [attachedFile, setAttachedPhoto] = useState([]);
   const [reviewInputValue, setReviewInputValue] = useState("");
 
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -65,27 +51,7 @@ export const BeerReviewTextSection = () => {
           </Text>
         </Flex>
       </VStack>
-
-      {/* sholud remove default marginTop */}
-      <Button
-        w="full"
-        bg="inherit"
-        _hover={{}}
-        border="1px solid"
-        borderColor="orange.200"
-        borderRadius="10px"
-        p="5px 10px"
-        aria-label="attach-photo"
-        gap="10px"
-        mt="0px"
-        _notFirst={{marginInlineStart: "0px", marginTop: "0px"}}
-      >
-        <OrangeCamera />
-        <Text textStyle="h3" textColor="orange.200">
-          사진 첨부하기 ({attachedFile.length}/
-          {ReviewStatic.numberOfMaxAttachedFile})
-        </Text>
-      </Button>
+      <UploadedReviewImages />
     </VStack>
   );
 };
