@@ -1,30 +1,23 @@
 import {HStack, Text, TextProps, VStack} from "@chakra-ui/react";
 import React, {ReactNode} from "react";
 
-interface BasicPanelListProps {
-  beerDetailInfo: beerDetailType;
-}
-
-export type beerDetailType = {
+export interface BasicPanelListProps {
   id: number;
   city: string;
   brewary: string;
   calories: number; // TODO: 사용하는 곳에서 string으로 wrapping하기
   suitableGlass: string; // TODO: 어울리는 잔 추후에 enum 타입으로 들고 있기
   desc: string;
-};
+}
 
 export const BasicPanelList: React.FC<BasicPanelListProps> = ({
-  beerDetailInfo,
+  id,
+  city,
+  brewary,
+  calories,
+  suitableGlass,
+  desc,
 }) => {
-  const {
-    city,
-    brewary,
-    calories, // TODO: 사용하는 곳에서 string으로 wrapping하기
-    suitableGlass, // TODO: 어울리는 잔 추후에 enum 타입으로 들고 있기
-    desc,
-  } = beerDetailInfo;
-
   const stringedCalories = `${calories}kcal (355 ml 기준)`; // TODO: 함수 처리 && 용량 enum화
   return (
     <VStack w="full" p="20px" gap="10px" alignItems="flex-start">

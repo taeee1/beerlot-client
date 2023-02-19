@@ -17,7 +17,9 @@ const SearchBarTemplate = () => {
   const [selectedItems, setSelectedItems] = useState([]);
   const {isInputEmpty} = useSearch(value);
   const searchBeer = useMutation((keyword: string) =>
-    axios.get(`/api/v1/beers?keyword=${keyword}&page=1&size=10&sort=MOST_LIKES`)
+    axios.get(
+      `/api/v1/beers?keyword=${keyword}&page=1&size=10&sort=MOST_LIKES&language=KR`
+    )
   );
 
   const {isEnterKey} = useKeyboard();
@@ -35,10 +37,8 @@ const SearchBarTemplate = () => {
     [searchBeer]
   );
 
-  const handleClickItem = (e: React.MouseEvent) => {
-    const selectedName = e.currentTarget.textContent;
-    // router.push(`/result/${selectedName}`);
-    router.push(`/result?query=${selectedName}`);
+  const handleClickItem = (id: number, name: string) => {
+    router.push(`/result/details?id=${id}&name=${name}`);
   };
 
   const clearValue = () => {
@@ -48,14 +48,16 @@ const SearchBarTemplate = () => {
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (isEnterKey(e)) {
       // router.push(`/result/${e.target.value}`);
+
       router.push(`/result?query=${e.target.value}`);
     }
   };
 
   useEffect(() => {
+    console.log("searchBeer", searchBeer.data?.data.contents);
     const newSelectedItem = searchBeer.data?.data.contents;
     setSelectedItems(newSelectedItem);
-  }, [searchBeer.data?.data.contents]);
+  }, [searchBeer, searchBeer.data?.data.contents]);
 
   return (
     <Box w="full" h="full" bg="gray.100">
@@ -89,10 +91,13 @@ const SearchBarTemplate = () => {
                           py="10px"
                           px="15px"
                           key={beerItems.id}
-                          onClick={handleClickItem}
+                          onClick={() =>
+                            handleClickItem(beerItems.id, beerItems.name)
+                          }
+                          cursor="pointer"
                         >
                           <Text textStyle="h2" key={beerItems.id}>
-                            {beerItems.name_ko}
+                            {beerItems.name}
                           </Text>
                         </Box>
                       );

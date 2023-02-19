@@ -1,19 +1,37 @@
-import React, {useEffect, useState} from "react";
 import {
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
   Divider,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
   Text,
-  Button,
 } from "@chakra-ui/react";
+import React, {useState} from "react";
 import {BasicPanelList} from "./tab-panel/BasicPanelList";
 import {ReviewPanelList} from "./tab-panel/ReviewPanelList";
-import {BeerDetailMock} from "../../interface/static";
 
-export const DetailTabList = () => {
+interface DetailTabListProps {
+  id: number;
+  city: string;
+  brewary: string;
+  calories: number;
+  suitableGlass: string;
+  desc: string;
+  buyFrom: string[]; // FIXME: should be array
+  rate: number;
+}
+
+export const DetailTabList: React.FC<DetailTabListProps> = ({
+  id,
+  city,
+  brewary,
+  calories,
+  suitableGlass,
+  desc,
+  buyFrom,
+  rate,
+}) => {
   const [tabIndex, setTabIndex] = useState(0);
   const handleTabsChange = (index: number) => {
     setTabIndex(index);
@@ -39,11 +57,18 @@ export const DetailTabList = () => {
 
         <TabPanels>
           <TabPanel p={0}>
-            <BasicPanelList beerDetailInfo={BeerDetailMock} />
-            <ReviewPanelList />
+            <BasicPanelList
+              id={id}
+              city={city}
+              brewary={brewary}
+              calories={calories}
+              suitableGlass={suitableGlass}
+              desc={desc}
+            />
+            <ReviewPanelList rate={rate} />
           </TabPanel>
           <TabPanel p={0}>
-            <ReviewPanelList />
+            <ReviewPanelList rate={rate} />
           </TabPanel>
         </TabPanels>
       </Tabs>

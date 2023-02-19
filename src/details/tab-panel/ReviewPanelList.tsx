@@ -1,17 +1,20 @@
-import {Box, Container, VStack, Text, HStack, Flex} from "@chakra-ui/react";
+import {Box, Container, Flex, HStack, Text, VStack} from "@chakra-ui/react";
 import {useState} from "react";
 import {Rating} from "../../../common/Rating";
 import {ReviewModal} from "../../../common/ReviewModal/ReviewModal";
 import {ALL_FEED_MOCK, MOCK_FEED_FILTER_LIST} from "../../../interface/static";
-import {ReviewFilterSort, ReviewSortEnum} from "../../../interface/types";
+import {ReviewSortEnum} from "../../../interface/types";
 import {FeedFilter} from "../../feed/AllTabPanelList";
 import FollowingTabPanelItem from "../../feed/TabPanelItem";
 import {BeerInfoHStack} from "./BasicPanelList";
 
-export const ReviewPanelList = () => {
+interface ReviewPanelListProps {
+  rate: number;
+}
+
+export const ReviewPanelList: React.FC<ReviewPanelListProps> = ({rate}) => {
   const reviewData = [];
-  const avgRate = 3.2;
-  const sellingPlace = "편의점";
+  const buyFrom = "buyFrom";
   const [selectedTag, setSelectedTag] = useState<ReviewSortEnum>(
     MOCK_FEED_FILTER_LIST[0].tags[0]
   );
@@ -33,20 +36,20 @@ export const ReviewPanelList = () => {
         </Box>
         <BeerInfoHStack
           label={"제보된 판매처"}
-          desc={sellingPlace}
+          desc={buyFrom}
           flexBasis={"81px"}
         />
         <BeerInfoHStack label={"평균 별점"} flexBasis={"81px"}>
           <HStack>
             <Rating
               starSize={23}
-              rate={Math.round(avgRate)}
+              rate={Math.round(rate)}
               styleProps={{
                 gap: "0px",
               }}
             />
             <Text textStyle={"h3"} textColor="black.100">
-              {avgRate}
+              {rate}
             </Text>
             <Text textStyle={"h3"} textColor="gray.300">
               {" "}

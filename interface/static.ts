@@ -1,4 +1,3 @@
-import {beerDetailType} from "../src/details/tab-panel/BasicPanelList";
 import {
   CategoryFilterListType,
   CategoryTitle,
@@ -184,7 +183,7 @@ export const MOCK_BEERS_SUGGESTION = {
   rate: 4.1,
 };
 
-export const BeerDetailMock: beerDetailType = {
+export const BeerDetailMock = {
   id: 0,
   city: "콜럼버스, 미국",
   brewary: "앤하이저-부시",

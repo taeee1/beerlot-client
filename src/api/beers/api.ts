@@ -47,6 +47,35 @@ export const getTop10BeersApi = async () => {
   }
 };
 
+export const getSingleBeerInfoApi = async (id: number) => {
+  const language: LANGUAGE_TYPE = LANGUAGE_TYPE.KR;
+  try {
+    const {data}: {data: SingleBeerResultType} = await axios.get(
+      `/api/v1/beers/${id}?language=${language}`
+    );
+    console.log(data, "getSingleBeerInfoApi");
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export interface SingleBeerResultType extends ServerSingleBeerResultType {
+  beerId: number;
+  beerName: string;
+}
+
+export interface ServerSingleBeerResultType {
+  brewery: string;
+  buy_from: string[];
+  description: string;
+  like_count: number;
+  origin_city: string;
+  rate: number;
+  review_count: number;
+  volume: number;
+}
+
 export const getBeerCategoriesApi = async () => {
   try {
     const result: CategoryType[] = await axios.get(`/api/v1/categories`);
