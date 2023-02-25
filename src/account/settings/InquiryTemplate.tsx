@@ -1,6 +1,6 @@
 import {Button, Center, Link, Text} from "@chakra-ui/react";
 import {useRouter} from "next/router";
-import {LeftBackRandom} from "../../../common/headers/LeftBackRandom";
+import {LeftBackRandom} from "../../shared/Headers/LeftBackRandom";
 
 export const InquiryTemplate = () => {
   const beerlotEmail = process.env.NEXT_PUBLIC_INQUIRY_EMAIL;

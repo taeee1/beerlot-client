@@ -1,12 +1,12 @@
 import {Box, Center, HStack, Image, Text, VStack} from "@chakra-ui/react";
 import {useState} from "react";
-import {LeftBackBeerNameRightHeart} from "../../common/headers/LeftBackBeerNameRightHeart";
-import {LeftBackTitle} from "../../common/headers/LeftBackTitle";
-import {Rating} from "../../common/Rating";
+import {LeftBackBeerNameRightHeart} from "../shared/Headers/LeftBackBeerNameRightHeart";
+import {LeftBackTitle} from "../shared/Headers/LeftBackTitle";
+import {Rating} from "../shared/Rating";
 import {useToast} from "@chakra-ui/react";
 import {useMutation} from "react-query";
 import axios from "axios";
-import {LikeButton} from "../../common/LikeButton";
+import {LikeButton} from "../shared/LikeButton";
 interface DetailInfoProps {
   beerName: string;
   volume: number;

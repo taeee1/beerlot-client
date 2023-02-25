@@ -1,8 +1,8 @@
 import {Flex, HStack, Icon, StackProps, Text} from "@chakra-ui/react";
 import {useCallback, useEffect, useState} from "react";
 
-import {RightChevron} from "../../common/custom-icons/customIcons";
-import FilterTag from "../../common/Filters/FilterTag";
+import {RightChevron} from "../shared/CustomIcons/customIcons";
+import FilterTag from "../shared/Filters/FilterTag";
 import {ReviewResponseType} from "../../interface/server/types/Review";
 import {MOCK_FEED_FILTER_LIST} from "../../interface/static";
 import {ReviewFilterSort, ReviewSortEnum} from "../../interface/types";

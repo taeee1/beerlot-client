@@ -1,6 +1,6 @@
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import {Box, Button, Flex, Text} from "@chakra-ui/react";
 import React from "react";
-import { X } from "../../public/svg";
+import {X} from "../../../public/svg";
 import BeerlotTitle from "./BeerlotTitle";
 
 interface LeftCloseRandomProps {

@@ -1,7 +1,7 @@
 import {IconButton, Text, HStack, Link, StackProps} from "@chakra-ui/react";
 import React from "react";
 import NextLink from "next/link";
-import {RightArrow} from "../../../common/custom-icons/customIcons";
+import {RightArrow} from "../../shared/CustomIcons/customIcons";
 
 interface SectionButtonProps {
   title: string;

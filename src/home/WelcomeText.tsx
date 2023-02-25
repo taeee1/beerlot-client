@@ -1,50 +1,28 @@
-import React from "react";
-import { WELCOME_MESSAGE_FIRST } from "../../interface/static";
-import { WELCOME_MESSAGE_SECOND } from "../../interface/static";
-import styled from "styled-components";
+import {Text} from "@chakra-ui/react";
 
-interface WelcomeTextProps {
-  nickname?: string;
+interface WelcomeTextContentProps {
+  username?: string;
 }
 
-const WelcomeText: React.FC<WelcomeTextProps> = ({ nickname }) => {
+export const WelcomeTextContent: React.FC<WelcomeTextContentProps> = ({
+  username,
+}) => {
   return (
-    <WelcomeTextContainer>
-      <TextContainer>
-        <p>{WELCOME_MESSAGE_FIRST}</p>
-        {nickname && (
-          <NickanameContainer>
-            <Nickname>{nickname}</Nickname>
-            <p> 님!</p>
-          </NickanameContainer>
+    <>
+      <Text textStyle={"h1"} color={"black.100"}>
+        👋 어서와요{" "}
+        {username && (
+          <>
+            <Text color={"orange.200"} textStyle={"h1"} display="inline">
+              {username}
+            </Text>
+            <Text display="inline">님!</Text>
+          </>
         )}
-      </TextContainer>
-      <TextContainer>
-        <p>{WELCOME_MESSAGE_SECOND}</p>
-      </TextContainer>
-    </WelcomeTextContainer>
+      </Text>
+      <Text color={"black.100"} textStyle={"h1"}>
+        오늘은 어떤 맥주를 마셔볼까요?
+      </Text>
+    </>
   );
 };
-
-export default WelcomeText;
-
-const TextContainer = styled.div`
-  font-family: "Roboto";
-  font-weight: 700;
-  font-size: 22px;
-
-  color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  padding: 2px 0px;
-`;
-
-const Nickname = styled.p`
-  color: #fea801;
-`;
-
-const NickanameContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const WelcomeTextContainer = styled.div``;

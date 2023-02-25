@@ -67,7 +67,7 @@ export const theme = extendTheme({
       fontWeight: "700",
       fontSize: "22px",
       letterSpacing: "0.01px",
-      lineHeight: "24px",
+      lineHeight: "28px",
     },
     h2: {
       fontWeight: "500",

@@ -1,6 +1,6 @@
 import {HStack, IconButton} from "@chakra-ui/react";
 import React from "react";
-import {EmptyStar, FullStar} from "../public/svg";
+import {EmptyStar, FullStar} from "../../public/svg";
 
 interface RatingProps {
   starSize?: number;

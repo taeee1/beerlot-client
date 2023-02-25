@@ -1,5 +1,5 @@
 import {Box, Container, Flex} from "@chakra-ui/react";
-import {LeftBackCompleteCircles} from "../../../common/headers/LeftBackCompleteCircles";
+import {LeftBackCompleteCircles} from "../../shared/Headers/LeftBackCompleteCircles";
 import Nickname from "./Nickname";
 
 const SignUpTemplate = () => {

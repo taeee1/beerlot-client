@@ -1,7 +1,6 @@
 import {Box, Circle, Container, Flex} from "@chakra-ui/react";
 import {useRouter} from "next/router";
-import {useEffect, useState} from "react";
-import {LeftBackTitle} from "../../common/headers/LeftBackTitle";
+import {useState} from "react";
 import {
   CardType,
   MOCK_CARD_LIST,
@@ -9,11 +8,11 @@ import {
 } from "../../interface/static";
 import {CategoryFilterListType, CategoryTitle} from "../../interface/types";
 import {EmptyFilter, WhiteFilter} from "../../public/svg";
-import CardItem from "../../src/card/CardItem";
-import {CardContainer} from "../../src/card/CardList/TwoByTwoCardList";
+import CardItem, {CardContainer} from "../../src/card/CardItem";
 import EmptyFilteredResult from "../../src/result/EmptyFilteredResult";
 import {SearchFilterList} from "../../src/result/filter/search-filter-list/SearchFilterList";
 import SearchInput from "../../src/search/SearchInput";
+import {LeftBackTitle} from "../../src/shared/Headers/LeftBackTitle";
 
 const SearchResultPage = () => {
   const router = useRouter();
@@ -124,21 +123,23 @@ const SearchResultPage = () => {
             <Box mt="15px">
               {filteredItemList.map((item) => {
                 return (
-                  <CardContainer
-                    key={item.id}
-                    onClick={() => {
-                      router.push(`/result/details?query=${item.beerName}`);
-                    }}
-                  >
-                    <CardItem
-                      isTwoByTwo
-                      cardType={CardType.POPULAR}
-                      beerName={item.beerName}
-                      img_src={item.img_src}
-                      sort={item.sort}
-                      country={item.country}
-                    />
-                  </CardContainer>
+                  <Box key={item.id}>
+                    {/* <CardContainer
+                      key={item.id}
+                      onClick={() => {
+                        router.push(`/result/details?query=${item.beerName}`);
+                      }}
+                    >
+                      <CardItem
+                        isTwoByTwo
+                        cardType={CardType.POPULAR}
+                        beerName={item.beerName}
+                        img_src={item.img_src}
+                        sort={item.sort}
+                        country={item.country}
+                      />
+                    </CardContainer> */}
+                  </Box>
                 );
               })}
             </Box>

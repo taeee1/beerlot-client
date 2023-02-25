@@ -1,7 +1,7 @@
 import {IconButton} from "@chakra-ui/react";
 import {useRouter} from "next/router";
 import React from "react";
-import {CrossX} from "../public/svg";
+import {CrossX} from "../../public/svg";
 
 interface CloseButtonProps {
   onClick?: () => void;

@@ -10,8 +10,8 @@ import {
   Text,
 } from "@chakra-ui/react";
 import {useRef, useState} from "react";
-import {ReviewStatic} from "../../interface/static";
-import {OrangeCamera} from "../../public/svg";
+import {ReviewStatic} from "../../../interface/static";
+import {OrangeCamera} from "../../../public/svg";
 
 export const UploadedReviewImages = () => {
   const [imgFile, setImgFile] = useState<string[]>([]);

@@ -1,6 +1,6 @@
 import {Flex, FlexProps, IconButton, Text, VStack} from "@chakra-ui/react";
-import {ReviewType} from "../../interface/types";
-import {RightArrow} from "../../public/svg";
+import {ReviewType} from "../../../interface/types";
+import {RightArrow} from "../../../public/svg";
 
 interface BeerNameSectionProps extends FlexProps {
   reviewInfo: ReviewType;

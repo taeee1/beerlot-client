@@ -1,6 +1,6 @@
 import {Icon, IconProps} from "@chakra-ui/react";
 import React from "react";
-import {HeartEmpty, HeartOrange} from "./custom-icons/customIcons";
+import {HeartEmpty, HeartOrange} from "./CustomIcons/customIcons";
 
 interface LikeButtonProps extends IconProps {
   isClicked: boolean;

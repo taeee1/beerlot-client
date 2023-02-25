@@ -2,9 +2,9 @@ import {Box, Container, VStack} from "@chakra-ui/react";
 import {useRouter} from "next/router";
 import React, {useRef, useState} from "react";
 import {SetterOrUpdater} from "recoil";
-import LeftXTitleRightComplete from "../../../../common/headers/LeftXTitleRightComplete";
-import NicknameInput from "../../../../common/NicknameInput";
-import ProfileAvatar from "../../../../common/ProfileAvatar";
+import LeftXTitleRightComplete from "../../../shared/Headers/LeftXTitleRightComplete";
+import NicknameInput from "../../../shared/NicknameInput";
+import ProfileAvatar from "../../../shared/ProfileAvatar";
 import {SignUpType} from "../../../../interface/types";
 
 interface EditTemplateProps {

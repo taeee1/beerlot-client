@@ -3,7 +3,7 @@ import axios, {AxiosResponse} from "axios";
 import React, {useEffect, useState} from "react";
 import {useMutation} from "react-query";
 import styled from "styled-components";
-import {LikeButton} from "../../common/LikeButton";
+import {LikeButton} from "../shared/LikeButton";
 
 interface CardItemProps {
   beerId: number;

@@ -5,7 +5,7 @@ import _, {debounce} from "lodash";
 import {useRouter} from "next/router";
 import React, {useEffect, useMemo, useState} from "react";
 import {useMutation} from "react-query";
-import {LeftBackTitle} from "../../common/headers/LeftBackTitle";
+import {LeftBackTitle} from "../shared/Headers/LeftBackTitle";
 import useKeyboard from "../../hooks/useKeyboard";
 import {useSearch} from "../../hooks/useSearch";
 import EmptySearchResult from "./EmptySearchResult";

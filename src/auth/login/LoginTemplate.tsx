@@ -1,7 +1,7 @@
-import { Box, Center, Container } from "@chakra-ui/react";
-import { useRouter } from "next/router";
+import {Box, Center, Container} from "@chakra-ui/react";
+import {useRouter} from "next/router";
 import React from "react";
-import { LeftCloseRandom } from "../../../common/headers/LeftCloseRandom";
+import {LeftCloseRandom} from "../../shared/Headers/LeftCloseRandom";
 import ContinueButton from "./Continue";
 import MarketingText from "./MarketingText";
 import SocialButton from "./SocialButton";
@@ -26,4 +26,4 @@ const LoginTemplate = () => {
   );
 };
 
-export { LoginTemplate };
+export {LoginTemplate};

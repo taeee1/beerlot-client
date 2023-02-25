@@ -1,6 +1,6 @@
 import {HStack, StackProps, TextProps} from "@chakra-ui/react";
 import React from "react";
-import {CategoryFilterListType} from "../../interface/types";
+import {CategoryFilterListType} from "../../../interface/types";
 import FilterTag from "./FilterTag";
 
 interface FilterRowProps {

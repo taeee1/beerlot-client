@@ -2,8 +2,8 @@ import {Box, Checkbox, Text, VStack} from "@chakra-ui/react";
 import {useRouter} from "next/router";
 import React, {useState} from "react";
 import {useRecoilState} from "recoil";
-import FloatingButton from "../../../common/FloatingButton";
-import NicknameInput from "../../../common/NicknameInput";
+import FloatingButton from "../../shared/FloatingButton";
+import NicknameInput from "../../shared/NicknameInput";
 import {userInfoState} from "../../store/atom";
 
 const Nickname = () => {

@@ -1,6 +1,6 @@
 import {Box, Container, Flex} from "@chakra-ui/react";
 import {useRecoilState} from "recoil";
-import {LeftBackCompleteCircles} from "../../../common/headers/LeftBackCompleteCircles";
+import {LeftBackCompleteCircles} from "../../shared/Headers/LeftBackCompleteCircles";
 import {userInfoState} from "../../store/atom";
 import BeerCards from "./BeerCards";
 

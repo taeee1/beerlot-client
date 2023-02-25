@@ -11,11 +11,11 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React, {ChangeEvent, useCallback, useState} from "react";
-import {ReviewType} from "../../interface/types";
-import {EditPencil} from "../../public/svg";
-import {postReviewWithBeerIdApi} from "../../src/api/review/api";
+import {ReviewType} from "../../../interface/types";
+import {EditPencil} from "../../../public/svg";
+import {postReviewWithBeerIdApi} from "../../api/review/api";
 import BottomDrawer from "../BottomDrawer";
-import {LeftCloseRandom} from "../headers/LeftCloseRandom";
+import {LeftCloseRandom} from "../Headers/LeftCloseRandom";
 import BeerNameSection from "./BeerNameSection";
 import {BeerPurchaseSection} from "./BeerPurchaseSection";
 import {BeerRatingSection} from "./BeerRatingSection";

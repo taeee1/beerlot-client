@@ -1,7 +1,7 @@
 import {Box, Container, Flex, HStack, Text, VStack} from "@chakra-ui/react";
 import {useEffect, useState} from "react";
-import {Rating} from "../../../common/Rating";
-import {ReviewModal} from "../../../common/ReviewModal/ReviewModal";
+import {Rating} from "../../shared/Rating";
+import {ReviewModal} from "../../shared/ReviewModal/ReviewModal";
 import {MOCK_FEED_FILTER_LIST} from "../../../interface/static";
 import {ReviewSortEnum} from "../../../interface/types";
 import {getReviewWithBeerIdApi} from "../../api/review/api";

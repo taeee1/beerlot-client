@@ -8,9 +8,9 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React, {useState} from "react";
-import {BeerResultType, CategoryType} from "../../interface/types";
-import SearchInput from "../../src/search/SearchInput";
-import {LeftBackRandom} from "../headers/LeftBackRandom";
+import {BeerResultType, CategoryType} from "../../../interface/types";
+import SearchInput from "../../search/SearchInput";
+import {LeftBackRandom} from "../Headers/LeftBackRandom";
 
 interface BeerSearchContentProps extends ModalContentProps {
   onClickBack: () => void;

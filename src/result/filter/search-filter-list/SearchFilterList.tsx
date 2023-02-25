@@ -3,15 +3,15 @@ import React, {useState} from "react";
 import {
   DownChevron,
   RightChevron,
-} from "../../../../common/custom-icons/customIcons";
-import FilterTag from "../../../../common/Filters/FilterTag";
+} from "../../../shared/CustomIcons/customIcons";
+import FilterTag from "../../../shared/Filters/FilterTag";
 import {
   CategoryFilterListType,
   CategoryTitle,
 } from "../../../../interface/types";
 import {checkIsSelectedCategoryTitle} from "../../../../utils/array";
 import {checkSelectedFilter} from "../../../../service/filter";
-import {VolumeSlider} from "../../../../common/Filters/VolumeSlider";
+import {VolumeSlider} from "../../../shared/Filters/VolumeSlider";
 import {MIN_MAX_BEER_VOLUME_SLIDER} from "../../../../interface/static";
 
 interface SearchFilterListProps {

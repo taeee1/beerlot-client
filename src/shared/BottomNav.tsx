@@ -2,13 +2,13 @@ import {HStack, Text, VStack} from "@chakra-ui/react";
 import {useRouter} from "next/router";
 import React from "react";
 import {useRecoilState} from "recoil";
-import {userInfoState} from "../src/store/atom";
+import {userInfoState} from "../store/atom";
 import {
   NavAccountsPath,
   NavFeedPath,
   NavHomePath,
   NavSearchPath,
-} from "./custom-icons/customPath";
+} from "./CustomIcons/customPath";
 
 export const BottomNav = () => {
   const router = useRouter();

@@ -8,8 +8,8 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import {ReviewType} from "../../interface/types";
-import {CrossXBlack, WhiteCross} from "../../public/svg";
+import {ReviewType} from "../../../interface/types";
+import {CrossXBlack, WhiteCross} from "../../../public/svg";
 
 interface BeerPurchaseSectionProps {
   reviewInfo: ReviewType;

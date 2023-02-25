@@ -11,7 +11,7 @@ import {
 import axios from "axios";
 import React, {useState} from "react";
 import {useMutation} from "react-query";
-import {dislikeBeerApi, likeBeerApi} from "../src/api/beers/api";
+import {dislikeBeerApi, likeBeerApi} from "../api/beers/api";
 import {LikeButton} from "./LikeButton";
 
 interface BeerCardProps {

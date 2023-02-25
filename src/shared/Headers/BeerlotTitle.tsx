@@ -1,8 +1,8 @@
 import {Icon, IconButton, Img, Text} from "@chakra-ui/react";
 import {useRouter} from "next/router";
 import React from "react";
-import {BEERLOT_TITLE} from "../../interface/static";
-import {BeerlotLogoDefault} from "../../public/svg";
+import {BEERLOT_TITLE} from "../../../interface/static";
+import {BeerlotLogoDefault} from "../../../public/svg";
 
 const BeerlotTitle = () => {
   const router = useRouter();

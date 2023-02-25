@@ -1,7 +1,7 @@
 import {Box} from "@chakra-ui/react";
 import {useRouter} from "next/router";
 import React from "react";
-import {LeftArrow} from "../public/svg";
+import {LeftArrow} from "../../public/svg";
 
 interface BackButtonProps {
   onClick?: () => void;
