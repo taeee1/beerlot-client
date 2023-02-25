@@ -10,9 +10,10 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
-import React, {useState} from "react";
+import React, {ChangeEvent, useCallback, useState} from "react";
 import {ReviewType} from "../../interface/types";
 import {EditPencil} from "../../public/svg";
+import {postReviewWithBeerIdApi} from "../../src/api/review/api";
 import BottomDrawer from "../BottomDrawer";
 import {LeftCloseRandom} from "../headers/LeftCloseRandom";
 import BeerNameSection from "./BeerNameSection";
@@ -29,6 +30,11 @@ export const ReviewModal = () => {
   const isCompleted = !!reviewInfo.beerName && !!reviewInfo.rate; // should contain rating stars as well
   const CloseReviewDrawer = useDisclosure();
   const [step, setStep] = useState(0);
+  const [reviewInputValue, setReviewInputValue] = useState("");
+
+  const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setReviewInputValue(e.target.value);
+  };
 
   const [placeInputValue, setPlaceInputValue] = useState("");
 
@@ -62,6 +68,28 @@ export const ReviewModal = () => {
   const clearInput = () => {
     setPlaceInputValue("");
   };
+
+  const postReview = useCallback(async () => {
+    const result = await await postReviewWithBeerIdApi(1, {
+      content: reviewInputValue,
+      rate: reviewInfo.rate,
+      // image_url: reviewInfo.imgUrl,
+      // buy_from: [reviewInfo.place],
+    });
+    console.log(result);
+  }, [reviewInfo.rate, reviewInputValue]);
+
+  const handleClickComplete = useCallback(() => {
+    console.log("reviewInfo", reviewInfo);
+    postReview();
+    onClose();
+    setReviewInfo({
+      beerName: null,
+      rate: 0,
+      place: null,
+    });
+    clearInput();
+  }, [onClose, postReview, reviewInfo]);
 
   return (
     <Box position={"relative"}>
@@ -156,21 +184,15 @@ export const ReviewModal = () => {
                 />
 
                 {/* review text and images */}
-                <BeerReviewTextSection />
+                <BeerReviewTextSection
+                  onChangeInput={handleInputChange}
+                  input={reviewInputValue}
+                />
               </VStack>
             </ModalBody>
             <ModalFooter px={0}>
               <Button
-                onClick={() => {
-                  console.log("reviewInfo", reviewInfo);
-                  onClose();
-                  setReviewInfo({
-                    beerName: null,
-                    rate: 0,
-                    place: null,
-                  });
-                  clearInput();
-                }}
+                onClick={handleClickComplete}
                 w="full"
                 bg={isCompleted ? "blue.100" : "gray.200"}
                 boxShadow={

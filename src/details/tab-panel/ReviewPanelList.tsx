@@ -1,11 +1,11 @@
 import {Box, Container, Flex, HStack, Text, VStack} from "@chakra-ui/react";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Rating} from "../../../common/Rating";
 import {ReviewModal} from "../../../common/ReviewModal/ReviewModal";
-import {ALL_FEED_MOCK, MOCK_FEED_FILTER_LIST} from "../../../interface/static";
+import {MOCK_FEED_FILTER_LIST} from "../../../interface/static";
 import {ReviewSortEnum} from "../../../interface/types";
+import {getReviewWithBeerIdApi} from "../../api/review/api";
 import {FeedFilter} from "../../feed/AllTabPanelList";
-import FollowingTabPanelItem from "../../feed/TabPanelItem";
 import {BeerInfoHStack} from "./BasicPanelList";
 
 interface ReviewPanelListProps {
@@ -13,7 +13,7 @@ interface ReviewPanelListProps {
 }
 
 export const ReviewPanelList: React.FC<ReviewPanelListProps> = ({rate}) => {
-  const reviewData = [];
+  const [reviews, setReviews] = useState([]);
   const buyFrom = "buyFrom";
   const [selectedTag, setSelectedTag] = useState<ReviewSortEnum>(
     MOCK_FEED_FILTER_LIST[0].tags[0]
@@ -23,6 +23,18 @@ export const ReviewPanelList: React.FC<ReviewPanelListProps> = ({rate}) => {
     setSelectedTag(tag);
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await getReviewWithBeerIdApi({
+        beerId: 1,
+        page: 1,
+        size: 10,
+      });
+      if (result?.data) setReviews(result.data.contents);
+    };
+    fetchData();
+  }, []);
+
   return (
     <Container px="8px" py="20px" bg="yellow.100">
       <VStack px={"12px"} gap="10px" alignItems={"start"}>
@@ -31,7 +43,7 @@ export const ReviewPanelList: React.FC<ReviewPanelListProps> = ({rate}) => {
             리뷰{" "}
           </Text>
           <Text textColor="orange.200" as="span" textStyle={"h2_bold"}>
-            {reviewData.length}
+            {reviews.length}
           </Text>
         </Box>
         <BeerInfoHStack
@@ -61,22 +73,26 @@ export const ReviewPanelList: React.FC<ReviewPanelListProps> = ({rate}) => {
         {/* ALL_FEED_MOCK을 prop으로 받아서 AllTabPanelList랑 공유하기 */}
       </VStack>
       <Flex flexDir={"column"} gap="10px">
-        {ALL_FEED_MOCK.map((feed) => {
-          return (
-            <FollowingTabPanelItem
-              key={feed.id}
-              isRow
-              nickname={feed.nickname}
-              postingTime={feed.postingTime}
-              beerName={feed.beerName}
-              ratingNumber={feed.ratingNumber}
-              imageSrc={feed.imageSrc}
-              postText={feed.postText}
-              thumbsUpNumber={feed.thumbsUpNumber}
-              isEditable={false}
-            />
-          );
-        })}
+        {reviews &&
+          reviews.map((feed) => {
+            console.log("feed", feed);
+            return (
+              <>
+                {/* <FollowingTabPanelItem
+                  key={feed.id}
+                  isRow
+                  nickname={feed.nickname}
+                  postingTime={feed.postingTime}
+                  beerName={feed.beerName}
+                  ratingNumber={feed.ratingNumber}
+                  imageSrc={feed.imageSrc}
+                  postText={feed.postText}
+                  thumbsUpNumber={feed.thumbsUpNumber}
+                  isEditable={false}
+                /> */}
+              </>
+            );
+          })}
       </Flex>
       <ReviewModal />
     </Container>

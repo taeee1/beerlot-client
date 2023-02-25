@@ -1,8 +1,57 @@
 import axios from "axios";
-import {useMutation} from "react-query";
-import {ReviewSortEnum} from "../../../interface/types";
+import {ReviewPostparamType, ReviewSortEnum} from "../../../interface/types";
 
-// review
+// 맥주 1개에 대한 리뷰 리스트 get
+export const getReviewWithBeerIdApi = async ({
+  beerId = 1,
+  page = 1,
+  size = 10,
+  sort = ReviewSortEnum.RecentlyUpdated,
+}: {
+  beerId?: number;
+  page?: number;
+  size?: number;
+  sort?: ReviewSortEnum;
+}) => {
+  try {
+    const result = await axios.get(
+      `/api/v1/beers/${beerId}/reviews?page=${page}&size=${size}&sort=${sort}`
+    );
+    console.log(result, "getAllReviewApi");
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// 맥주 1개에 대한 리뷰 리스트 post
+export const postReviewWithBeerIdApi = async (
+  beerId: number,
+  content: ReviewPostparamType
+) => {
+  try {
+    const result = await axios.post(`/api/v1/beers/${beerId}/reviews`, content);
+    console.log(result, "postReviewWithBeerIdApi");
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// 리뷰 1개 get
+export const getReviewWitReviewBeerIdApi = async (
+  beerId: number,
+  content: ReviewPostparamType
+) => {
+  try {
+    const result = await axios.get(`/api/v1/reviews/${beerId}`);
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// 맥주 리뷰 전체 리스트 get
 export const getAllReviewApi = async ({
   page = 1,
   size = 10,
@@ -23,20 +72,47 @@ export const getAllReviewApi = async ({
   }
 };
 
-export const likeBeerApi = async (beerId: number) => {
+// 맥주 1개에 대한 리뷰 리스트 post
+export const patchReviewApi = async (
+  beerId: number,
+  content: ReviewPostparamType
+) => {
   try {
-    const result = await axios.post(`/api/v1/beers/${beerId}/likes`);
-    console.log(result, "likeBeerApi");
+    const result = await axios.patch(`/api/v1/reviews/${beerId}`, content);
+    console.log(result, "postReviewWithBeerIdApi");
     return result;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const dislikeBeerApi = async (beerId: number) => {
+// 리뷰 1개 delete
+export const deleteReviewApi = async (beerId: number) => {
   try {
-    const result = await axios.delete(`/api/v1/beers/${beerId}/likes`);
-    console.log(result, "dislikeBeerApi");
+    const result = await axios.delete(`/api/api/v1/reviews/${beerId}`);
+    console.log(result, "deleteReviewApi");
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// like review
+export const likeReviewApi = async (beerId: number) => {
+  try {
+    const result = await axios.post(`/api/v1/reviews/${beerId}/likes`);
+    console.log(result, "likeReviewApi");
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// displike review
+export const dislikeReviewApi = async (beerId: number) => {
+  try {
+    const result = await axios.delete(`/api/v1/reviews/${beerId}/likes`);
+    console.log(result, "likeReviewApi");
     return result;
   } catch (error) {
     console.error(error);

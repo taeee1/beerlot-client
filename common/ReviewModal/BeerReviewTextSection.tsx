@@ -3,13 +3,15 @@ import {ChangeEvent, useState} from "react";
 import {ReviewStatic} from "../../interface/static";
 import {UploadedReviewImages} from "./UploadedReviewImages";
 
-export const BeerReviewTextSection = () => {
-  const [reviewInputValue, setReviewInputValue] = useState("");
+interface BeerReviewTextSectionProps {
+  onChangeInput: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+  input: string;
+}
 
-  const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setReviewInputValue(e.target.value);
-  };
-
+export const BeerReviewTextSection: React.FC<BeerReviewTextSectionProps> = ({
+  onChangeInput,
+  input,
+}) => {
   return (
     <VStack p="10px" w="full" alignItems={"flex-start"} gap="10px">
       <Box>
@@ -36,8 +38,8 @@ export const BeerReviewTextSection = () => {
           border="none"
           h="full"
           p="0px"
-          value={reviewInputValue}
-          onChange={handleInputChange}
+          value={input}
+          onChange={onChangeInput}
           _placeholder={{
             textStyle: "h3",
             textColor: "gray.200",
@@ -47,7 +49,7 @@ export const BeerReviewTextSection = () => {
         />
         <Flex justify="flex-end" w="full">
           <Text textStyle="h2" textColor="gray.200">
-            {reviewInputValue.length} / {ReviewStatic.ReviewInputMaxLength}
+            {input.length} / {ReviewStatic.ReviewInputMaxLength}
           </Text>
         </Flex>
       </VStack>

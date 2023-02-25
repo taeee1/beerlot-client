@@ -36,7 +36,7 @@ export const AllTabPanelList = () => {
   const setNewReviews = useCallback(async () => {
     const res = await allReviewsAsync();
     // if (res !== undefined) handleSetSelectedReviews(res);
-  }, [allReviewsAsync, handleSetSelectedReviews]);
+  }, [allReviewsAsync]);
 
   const handleSelectTag = async (tag: ReviewSortEnum) => {
     setSelectedTag(tag);
@@ -44,6 +44,7 @@ export const AllTabPanelList = () => {
   };
 
   useEffect(() => {
+    allReviewsAsync();
     setNewReviews();
   }, [allReviewsAsync, setNewReviews]);
 

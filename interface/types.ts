@@ -118,3 +118,10 @@ export enum OAUTH_PROVIDER {
   NAVER = "naver",
   KAKAO = "kakao",
 }
+
+export interface ReviewPostparamType {
+  content?: string;
+  rate: number;
+  image_url?: string;
+  buy_from?: string[];
+}
