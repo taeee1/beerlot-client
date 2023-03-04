@@ -4,6 +4,7 @@ import {
   BeerResultType,
   CategoryType,
   LANGUAGE_TYPE,
+  ReviewSortEnum,
 } from "../../../interface/types";
 
 export const signUpWithSocialLogin = async (request: SignUpRequestType) => {
@@ -28,6 +29,30 @@ export const getAllBeersApi = async (index: number) => {
   try {
     const result: BeerResultType = await axios.get(`/api/v1/beers/${index}`);
     console.log(result, "getAllBeersApi");
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getBeersWithKeywordApi = async ({
+  keyword,
+  page = 1,
+  size = 10,
+  sort = ReviewSortEnum.MostLikes,
+}: {
+  keyword: string;
+  page?: number;
+  size?: number;
+  sort?: ReviewSortEnum;
+}) => {
+  try {
+    console.log("try statment");
+    const language: LANGUAGE_TYPE = LANGUAGE_TYPE.KR;
+    const result = await axios.get(
+      `/api/v1/beers?keyword=${keyword}&page=${page}&size=${size}&sort=${sort}&language=${language}`
+    );
+    console.log(result, "getBeersWithKeywordApi");
     return result;
   } catch (error) {
     console.error(error);

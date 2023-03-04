@@ -1,4 +1,11 @@
-import {Box, Container, HStack, SimpleGrid, Text} from "@chakra-ui/react";
+import {
+  AspectRatio,
+  Box,
+  Container,
+  HStack,
+  SimpleGrid,
+  Text,
+} from "@chakra-ui/react";
 import Image from "next/image";
 import {useRecoilState} from "recoil";
 import {BeerResponseType} from "../../typedef/server/beer";
@@ -19,16 +26,6 @@ const HomeTemplate = () => {
   const [userInfo] = useRecoilState(userInfoState);
   // const {top10Beers} = useGetPopularBeers();
 
-  const mockData: BeerResponseType = {
-    id: 1,
-    name: "Pale Ale",
-    origin_country: "USA",
-    image_url: "/images/preview-beer.png",
-    category: {
-      id: 1,
-      name: "아메리칸 에일",
-    },
-  };
   const top10Beers = [mockData, mockData, mockData, mockData, mockData];
 
   const {name, origin_country, image_url, category} = mockData;
@@ -63,7 +60,6 @@ const HomeTemplate = () => {
                                 src={image_url}
                                 alt={name}
                                 width="124px"
-                                style={{border: "1px solid black"}}
                                 height="128px"
                                 objectFit="cover"
                               />
@@ -142,14 +138,14 @@ const HomeTemplate = () => {
                   top10Beers.map((item) => {
                     return (
                       <BeerCard key={item.id} mt={1} w="full">
-                        <BeerCardBody w="full">
-                          <Box position="relative" w="full">
+                        <BeerCardBody w="full" h="full" position={"relative"}>
+                          <Box position="relative">
                             {image_url && (
                               <Image
                                 src={image_url}
                                 alt={name}
-                                width="140px"
-                                height="150px"
+                                width="175px"
+                                height="175px"
                                 objectFit="cover"
                               />
                             )}
@@ -180,3 +176,14 @@ const HomeTemplate = () => {
 };
 
 export default HomeTemplate;
+
+export const mockData: BeerResponseType = {
+  id: 1,
+  name: "Pale Ale",
+  origin_country: "USA",
+  image_url: "/images/preview-beer.png",
+  category: {
+    id: 1,
+    name: "아메리칸 에일",
+  },
+};

@@ -1,38 +1,54 @@
-import {Box, Circle, Container, Flex} from "@chakra-ui/react";
-import {useRouter} from "next/router";
-import {useState} from "react";
 import {
-  CardType,
-  MOCK_CARD_LIST,
-  MOCK_CATEGORY_FILTER_LIST,
-} from "../../interface/static";
+  Box,
+  Circle,
+  Container,
+  Flex,
+  HStack,
+  SimpleGrid,
+} from "@chakra-ui/react";
+import Image from "next/image";
+import {useRouter} from "next/router";
+import {useCallback, useEffect, useState} from "react";
+import {MOCK_CATEGORY_FILTER_LIST} from "../../interface/static";
 import {CategoryFilterListType, CategoryTitle} from "../../interface/types";
 import {EmptyFilter, WhiteFilter} from "../../public/svg";
-import CardItem, {CardContainer} from "../../src/card/CardItem";
-import EmptyFilteredResult from "../../src/result/EmptyFilteredResult";
+import {getBeersWithKeywordApi} from "../../src/api/beers/api";
+import {mockData} from "../../src/home/HomeTemplate";
 import {SearchFilterList} from "../../src/result/filter/search-filter-list/SearchFilterList";
 import SearchInput from "../../src/search/SearchInput";
+import {
+  BeerCard,
+  BeerCardBody,
+  BeerCardFooter,
+  BeerCategoryTag,
+  BeerCategoryTagLabel,
+  BeerNameText,
+} from "../../src/shared/Card/BeerCardItem";
 import {LeftBackTitle} from "../../src/shared/Headers/LeftBackTitle";
 
 const SearchResultPage = () => {
   const router = useRouter();
-  const {id} = router.query;
+  const {query} = router.query;
   const [isFilterListOpen, setIsFilterListOpen] = useState<boolean>(true);
   const [value, setValue] = useState<string>("");
   const [selectedFilters, setSelectedFilter] = useState<
     CategoryFilterListType[]
   >([]);
+  const [beers, setBeers] = useState([]);
+  useEffect(() => console.log("beers", beers), [beers]);
+  const allKeywordAsync = useCallback(async (keyword: string) => {
+    const res = await getBeersWithKeywordApi({keyword});
+    setBeers(res?.data.contents);
+  }, []);
+
+  useEffect(() => {
+    if (typeof query !== "string") return;
+    allKeywordAsync(query);
+  }, [allKeywordAsync, query]);
 
   const clearValue = () => {
     setValue("");
   };
-
-  const filteredItemList = MOCK_CARD_LIST.filter((item) => {
-    if (!id) {
-      return [];
-    }
-    return item.beerName.includes(id[0]);
-  });
 
   const handleClickToggle = () => {
     setIsFilterListOpen(!isFilterListOpen);
@@ -118,34 +134,41 @@ const SearchResultPage = () => {
             onClickToggle={handleClickToggle}
             onClickTag={handleClickTag}
           />
-
-          {filteredItemList.length > 0 ? (
-            <Box mt="15px">
-              {filteredItemList.map((item) => {
+          <SimpleGrid columns={2} spacing={"16px"} mt={"8px"}>
+            {beers &&
+              [mockData, mockData, mockData].map((beerItems: any) => {
+                const {name, origin_country, image_url, category} = beerItems;
                 return (
-                  <Box key={item.id}>
-                    {/* <CardContainer
-                      key={item.id}
-                      onClick={() => {
-                        router.push(`/result/details?query=${item.beerName}`);
-                      }}
-                    >
-                      <CardItem
-                        isTwoByTwo
-                        cardType={CardType.POPULAR}
-                        beerName={item.beerName}
-                        img_src={item.img_src}
-                        sort={item.sort}
-                        country={item.country}
-                      />
-                    </CardContainer> */}
-                  </Box>
+                  <BeerCard key={beerItems.id} mt={1} w="full">
+                    <BeerCardBody w="full" h="full" position={"relative"}>
+                      <Box position="relative">
+                        {image_url && (
+                          <Image
+                            src={image_url}
+                            alt={name}
+                            width="175px"
+                            height="175px"
+                            objectFit="cover"
+                          />
+                        )}
+                      </Box>
+                    </BeerCardBody>
+                    <BeerCardFooter>
+                      <BeerNameText>{name}</BeerNameText>
+                      <HStack>
+                        <BeerNameText>{origin_country}</BeerNameText>
+                        <BeerCategoryTag>
+                          <BeerCategoryTagLabel>
+                            {category?.name}
+                          </BeerCategoryTagLabel>
+                        </BeerCategoryTag>
+                      </HStack>
+                    </BeerCardFooter>
+                  </BeerCard>
                 );
               })}
-            </Box>
-          ) : (
-            <EmptyFilteredResult />
-          )}
+          </SimpleGrid>
+          <Box h="64px" />
         </Box>
       </Container>
     </Box>
@@ -153,3 +176,31 @@ const SearchResultPage = () => {
 };
 
 export default SearchResultPage;
+
+// {filteredItemList.length > 0 ? (
+//   <Box mt="15px">
+//     {filteredItemList.map((item) => {
+//       return (
+//         <Box key={item.id}>
+//           {/* <CardContainer
+//             key={item.id}
+//             onClick={() => {
+//               router.push(`/result/details?query=${item.beerName}`);
+//             }}
+//           >
+//             <CardItem
+//               isTwoByTwo
+//               cardType={CardType.POPULAR}
+//               beerName={item.beerName}
+//               img_src={item.img_src}
+//               sort={item.sort}
+//               country={item.country}
+//             />
+//           </CardContainer> */}
+//         </Box>
+//       );
+//     })}
+//   </Box>
+// ) : (
+//   <EmptyFilteredResult />
+// )}
