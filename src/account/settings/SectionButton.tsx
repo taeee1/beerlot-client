@@ -3,14 +3,16 @@ import React from "react";
 import NextLink from "next/link";
 import {RightArrow} from "../../shared/CustomIcons/customIcons";
 
-interface SectionButtonProps {
+interface SectionButtonProps extends StackProps {
   title: string;
   href?: string;
+  children?: React.ReactNode;
 }
 
 export const SectionButton: React.FC<SectionButtonProps> = ({
   title,
   href,
+  children,
   ...props
 }) => {
   return (
@@ -24,23 +26,26 @@ export const SectionButton: React.FC<SectionButtonProps> = ({
       border="1px solid"
       borderBottom={"none"}
       borderColor={"gray.200"}
-      {...props}
       href={href}
       passHref
       textDecoration="none"
       _visited={{textDecoration: "none"}}
       _hover={{textDecoration: "none"}}
       as={href ? Link : HStack}
+      {...props}
     >
       <Text textStyle={"h3"} textColor="black.100">
         {title}
       </Text>
-      <IconButton
-        _hover={{}}
-        bg="transparent"
-        icon={<RightArrow />}
-        aria-label="right-arrow"
-      />
+      {children}
+      {href && (
+        <IconButton
+          _hover={{}}
+          bg="transparent"
+          icon={<RightArrow />}
+          aria-label="right-arrow"
+        />
+      )}
     </HStack>
   );
 };
