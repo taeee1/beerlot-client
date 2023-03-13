@@ -50,10 +50,9 @@ export const BeerSearchContent: React.FC<BeerSearchContentProps> = ({
     setValue("");
   };
 
-  const handleClick = (e: any) => {
-    const value = e.target.innerHTML;
+  const handleClick = (beerName: string) => {
     onClickBack();
-    onChangeBeerName(value);
+    onChangeBeerName(beerName);
   };
 
   return (
@@ -74,7 +73,12 @@ export const BeerSearchContent: React.FC<BeerSearchContentProps> = ({
           <VStack px="10px">
             {selectedItems.map((item: CategoryType) => {
               return (
-                <Box key={item.id} py="10px" onClick={handleClick}>
+                <Box
+                  key={item.id}
+                  py="10px"
+                  onClick={() => handleClick(item.name_ko)}
+                  cursor="pointer"
+                >
                   <Text textStyle="h2" textColor={"black.100"}>
                     {item.name_ko}
                   </Text>
