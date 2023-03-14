@@ -1,8 +1,8 @@
-import { Button, Text } from "@chakra-ui/react";
-import { useRouter } from "next/router";
+import {Button, ButtonProps, Text} from "@chakra-ui/react";
+import {useRouter} from "next/router";
 import React from "react";
 
-interface FloatingButtonProps {
+interface FloatingButtonProps extends ButtonProps {
   disabled: boolean;
   text?: string;
   bgColor?: string;
@@ -18,6 +18,7 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
   textColor,
   boxShadow,
   onClick,
+  ...props
 }) => {
   const router = useRouter();
   return (
@@ -25,7 +26,7 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
       onClick={onClick}
       disabled={disabled}
       boxShadow={boxShadow}
-      pos="fixed"
+      pos="absolute"
       bottom="35px"
       left="38px"
       right="35px"
@@ -36,6 +37,7 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
         textColor: textColor,
       }}
       textColor={textColor}
+      {...props}
     >
       <Text textStyle="h3">{text}</Text>
     </Button>

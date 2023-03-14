@@ -31,10 +31,11 @@ const SocialButton = () => {
           border={button.border} // TODO: use them as styleProps
           width="100%"
           bg={button.buttonColor}
-          borderRadius={30}
+          borderRadius={12}
           onClick={() => handleClick(button.provider)}
           justifyContent="space-between"
           p={"5px"}
+          px={"8px"}
           alignItems={"center"}
           cursor="pointer"
         >

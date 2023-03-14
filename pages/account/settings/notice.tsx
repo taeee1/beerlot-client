@@ -14,7 +14,7 @@ const Notice = () => {
     router.back();
   };
   return (
-    <Box w="full" h="full" bg="gray.100" border="1px solid red">
+    <Box w="full" h="full" bg="gray.100">
       <Container
         p={"0px"}
         h="full"
