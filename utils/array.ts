@@ -1,6 +1,6 @@
 import {CategoryFilterListType} from "../interface/types";
 
-export const isSelected = (id: number, ids: number[]) => {
+export const checkSelected = (id: number, ids: number[]) => {
   return ids.includes(id);
 };
 

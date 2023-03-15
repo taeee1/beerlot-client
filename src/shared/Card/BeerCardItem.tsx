@@ -1,5 +1,4 @@
 import {
-  Box,
   Card,
   CardBody,
   CardBodyProps,
@@ -8,7 +7,6 @@ import {
   CardHeader,
   CardHeaderProps,
   CardProps,
-  ImageProps,
   Tag,
   TagLabel,
   TagLabelProps,

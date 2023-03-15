@@ -1,22 +1,60 @@
-import {Box, SimpleGrid, Text, VStack} from "@chakra-ui/react";
+import {
+  Box,
+  HStack,
+  SimpleGrid,
+  StackProps,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
+import Image from "next/image";
 import {useRouter} from "next/router";
-import React, {useCallback} from "react";
+import React from "react";
 import {useRecoilState} from "recoil";
-import BeerCard from "../../shared/BeerCard";
-import FloatingButton from "../../shared/FloatingButton";
 import {POLICY_LABEL} from "../../../interface/server/types/Auth";
-import {MOCK_BEERS_SUGGESTION} from "../../../interface/static";
+import {checkSelected} from "../../../utils/array";
 import {signUpWithSocialLogin} from "../../api/beers/api";
-import {isSelected} from "../../../utils/array";
+import {mockData} from "../../home/HomeTemplate";
+import {
+  BeerCard,
+  BeerCardBody,
+  BeerCardFooter,
+  BeerCategoryTag,
+  BeerCategoryTagLabel,
+  BeerNameText,
+} from "../../shared/Card/BeerCardItem";
+
+import FloatingButton from "../../shared/FloatingButton";
 import {chosenBeerIdsState} from "../../store/atom";
 
-interface BeerCardsProps {
+interface BeerCardsProps extends StackProps {
   nickName: string;
 }
 
-const BeerCards: React.FC<BeerCardsProps> = ({nickName}) => {
+const BeerCards: React.FC<BeerCardsProps> = ({nickName, ...props}) => {
   const [chosenBeerIds, setChosenBeerIds] = useRecoilState(chosenBeerIdsState);
   const isFullfilled = chosenBeerIds && chosenBeerIds.length > 0;
+  const top10Beers = [
+    mockData,
+    mockData,
+    mockData,
+    mockData,
+    mockData,
+    mockData,
+    mockData,
+    mockData,
+    mockData,
+    mockData,
+    mockData,
+    mockData,
+    mockData,
+    mockData,
+    mockData,
+    mockData,
+    mockData,
+    mockData,
+    mockData,
+    mockData,
+  ];
 
   // 여기서 전역에서 들고 있는 데이터를 꺼내다 써야 함.
   // 즉 이 전 단계에서 recoil에 데이터를 set해야함.
@@ -37,9 +75,10 @@ const BeerCards: React.FC<BeerCardsProps> = ({nickName}) => {
     router.push("/");
   };
 
-  const handleClickBeer = (newBeerId: number) => {
+  const handleClickBeer = (newBeerId: number | undefined) => {
+    if (!newBeerId) return;
     let newChosenBeers = [...chosenBeerIds];
-    if (isSelected(newBeerId, newChosenBeers)) {
+    if (checkSelected(newBeerId, newChosenBeers)) {
       newChosenBeers = newChosenBeers.filter((id) => id !== newBeerId);
     } else {
       newChosenBeers.push(newBeerId);
@@ -47,49 +86,90 @@ const BeerCards: React.FC<BeerCardsProps> = ({nickName}) => {
     setChosenBeerIds(newChosenBeers);
   };
 
-  const styleProps = useCallback(
-    (id: number) => {
-      return {
-        boxStyleProps: {
-          p: "6px",
-          border: "1px solid",
-          borderColor: "orange.200",
-          borderRadius: "10px",
-          alignItems: "start",
-          bg: isSelected(id, chosenBeerIds) ? "orange.200" : "white",
-          boxShadow: isSelected(id, chosenBeerIds)
-            ? "0px 8px 16px rgba(0, 0, 0, 0.3)"
-            : "none",
-        },
-        nameProps: {
-          textColor: "black.100",
-          textStyle: "h4",
-        },
-        countryProps: {
-          bg: "white",
-          textStyle: "body",
-          textColor: "orange.300",
-          borderRadius: "20px",
-        },
-        sortProps: {
-          textStyle: "h4",
-          textColor: isSelected(id, chosenBeerIds) ? "orange.200" : "white",
-          bg: isSelected(id, chosenBeerIds) ? "white" : "orange.200",
-          borderRadius: "20px",
-          p: "0px 5px",
-        },
-        imageProps: {
-          borderRadius: "6px",
-          w: "full",
-        },
-      };
-    },
-    [chosenBeerIds]
-  );
-
   return (
-    <VStack w="full" h="full">
+    <VStack
+      mt="48px"
+      pb={"25px"}
+      alignItems="start"
+      w="full"
+      h="full"
+      {...props}
+    >
+      <Box>
+        <Text display="inline" textStyle={"h1"} textColor="orange.200">
+          {nickName}
+        </Text>
+        <Text display="inline" textStyle={"h1"}>
+          님의 최애맥주
+        </Text>
+      </Box>
+
+      <Text textColor="black.100" textStyle={"h1"} style={{marginTop: 0}}>
+        N개를 골라주세요!
+      </Text>
+      <Text fontSize="12px" textColor="gray.300" textStyle={"h4"}>
+        고른 맥주를 바탕으로 취향 분석 후, 맥주를 추천해드릴게요 :)
+      </Text>
+
+      <SimpleGrid columns={3} spacingX="10px" spacingY="25px">
+        {top10Beers.map((item) => {
+          const isSelected = item.id ? chosenBeerIds.includes(item.id) : false;
+          return (
+            <BeerCard
+              key={item.id}
+              mt={1}
+              w="full"
+              borderColor={"orange.200"}
+              cursor="pointer"
+              onClick={() => handleClickBeer(item?.id)}
+              filter={
+                isSelected
+                  ? "drop-shadow(0px 8px 16px rgba(0, 0, 0, 0.3))"
+                  : "none"
+              }
+              bg={isSelected ? "orange.200" : "white.100"}
+            >
+              <BeerCardBody
+                w="full"
+                h="full"
+                position={"relative"}
+                border="orange.200"
+              >
+                <Box position="relative" borderRadius={6}>
+                  {item.image_url && (
+                    <Image
+                      src={item.image_url}
+                      alt={item.name}
+                      width="175px"
+                      height="175px"
+                      objectFit="cover"
+                      style={{borderRadius: "6px"}}
+                    />
+                  )}
+                </Box>
+              </BeerCardBody>
+              <BeerCardFooter>
+                <BeerNameText>{item.name}</BeerNameText>
+                <HStack>
+                  <BeerNameText borderRadius="full">
+                    {item.origin_country}
+                  </BeerNameText>
+                  <BeerCategoryTag bg={isSelected ? "white.100" : "orange.200"}>
+                    <BeerCategoryTagLabel
+                      textColor={isSelected ? "orange.200" : "white.100"}
+                    >
+                      {item.category?.name}
+                    </BeerCategoryTagLabel>
+                  </BeerCategoryTag>
+                </HStack>
+              </BeerCardFooter>
+            </BeerCard>
+          );
+        })}
+      </SimpleGrid>
       <FloatingButton
+        pos="sticky"
+        w="full"
         disabled={!isFullfilled}
         text="완료!"
         onClick={handleClickComplete}
@@ -97,77 +177,6 @@ const BeerCards: React.FC<BeerCardsProps> = ({nickName}) => {
         textColor={isFullfilled ? "white.100" : "black.100"}
         boxShadow={isFullfilled ? "0px 8px 16px rgba(0, 0, 0, 0.3)" : "none"}
       />
-      <VStack
-        gap={"25px"}
-        p={0}
-        pb={"25px"}
-        alignItems="start"
-        w="full"
-        h="full"
-      >
-        <VStack
-          pt={"64px"}
-          textStyle="h1"
-          gap="5px"
-          alignItems="start"
-          w="full"
-          h="full"
-        >
-          <Box>
-            <Text as="span" textColor="orange.200">
-              {nickName}
-            </Text>
-            <Text as="span">님의 최애맥주</Text>
-          </Box>
-          <Box>
-            <Text> N개를 골라주세요!</Text>
-          </Box>
-          <Box>
-            <Text fontSize="12px" textColor="gray.300">
-              고른 맥주를 바탕으로 취향 분석 후, 맥주를 추천해드릴게요 :)
-            </Text>
-          </Box>
-        </VStack>
-        <SimpleGrid
-          w="full"
-          h="full"
-          columns={3}
-          spacingX="10px"
-          spacingY="25px"
-        >
-          {[
-            MOCK_BEERS_SUGGESTION,
-            MOCK_BEERS_SUGGESTION,
-            MOCK_BEERS_SUGGESTION,
-            MOCK_BEERS_SUGGESTION,
-            MOCK_BEERS_SUGGESTION,
-            MOCK_BEERS_SUGGESTION,
-            MOCK_BEERS_SUGGESTION,
-            MOCK_BEERS_SUGGESTION,
-            MOCK_BEERS_SUGGESTION,
-            MOCK_BEERS_SUGGESTION,
-            MOCK_BEERS_SUGGESTION,
-          ].map((item, idx) => {
-            return (
-              <Box
-                key={idx}
-                onClick={() => handleClickBeer(item.id)}
-                w="full"
-                h="full"
-              >
-                <BeerCard
-                  beerName={item.name_ko}
-                  img_src={item.image_url}
-                  country={item.country}
-                  sort={item.category.name_ko}
-                  beerId={idx}
-                  styleProps={styleProps(item.id)}
-                />
-              </Box>
-            );
-          })}
-        </SimpleGrid>
-      </VStack>
     </VStack>
   );
 };
