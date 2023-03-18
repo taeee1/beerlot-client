@@ -1,6 +1,6 @@
 import {Flex, IconButton} from "@chakra-ui/react";
 import {useRouter} from "next/router";
-import {SettingGear} from "../shared/CustomIcons/customIcons";
+import {SettingGear} from "../../../public/svg";
 
 const Tools = () => {
   const router = useRouter();

@@ -4,7 +4,7 @@ import {useRouter} from "next/router";
 const EditProfileButton = () => {
   const router = useRouter();
   const handleClick = () => {
-    router.push(`accounts/edit`);
+    router.push(`account/edit`);
   };
 
   return (

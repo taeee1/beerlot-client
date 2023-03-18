@@ -1,62 +1,65 @@
-import { Box, Input, Text } from "@chakra-ui/react";
+import {FormControl, FormHelperText, FormLabel, Input} from "@chakra-ui/react";
 import React from "react";
 
 interface NicknameInputProps {
-  title: string;
-  isValid: boolean | null;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur: () => void;
-  guideText: string;
+  input: string | null;
+  label?: string;
+  isValid?: boolean | null;
+  guideText?: string;
   placeholder?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
 
 const NicknameInput: React.FC<NicknameInputProps> = ({
-  title,
-  isValid,
+  label = "닉네임",
+  isValid = null,
+  guideText = "",
+  placeholder = "",
+  input = "닉네임은 9자 이내로 만들 수 있어요!",
   onChange,
   onBlur,
-  guideText,
-  placeholder = "",
 }) => {
   return (
-    <Box w="100%">
-      <Text
+    <FormControl>
+      <FormLabel
         textStyle="h3"
         textColor={
           isValid === null ? "gray.300" : isValid ? "orange.200" : "red.100"
         }
       >
-        {title}
-      </Text>
+        {label}
+      </FormLabel>
       <Input
-        onChange={onChange}
-        onBlur={onBlur}
-        w="100%"
-        p={0}
-        borderRadius={0}
-        borderBottom="1px"
-        errorBorderColor="none"
-        borderBottomColor={
-          isValid === null ? "gray.200" : isValid ? "orange.200" : "red.100"
-        }
-        border="none"
-        focusBorderColor="none"
-        isInvalid={isValid ?? false}
+        type="text"
+        value={input ?? ""}
         placeholder={placeholder}
         _placeholder={{
-          color:
-            isValid === null ? "gray.300" : isValid ? "orange.200" : "red.100",
+          textColor: "gray.200",
+          textStyle: "h2",
         }}
-      />
-      <Text
-        textStyle="h3"
-        textColor={
+        onChange={onChange}
+        borderRadius="none"
+        px={0}
+        border="none"
+        borderBottom="1px solid"
+        borderBottomColor={
           isValid === null ? "gray.300" : isValid ? "orange.200" : "red.100"
         }
-      >
-        {guideText}
-      </Text>
-    </Box>
+        onBlur={onBlur}
+        _focusVisible={{}}
+        _hover={{}}
+      />
+      {input !== null && (
+        <FormHelperText
+          marginTop={1}
+          textStyle="h4"
+          textColor={isValid ? "orange.200" : "red.100"}
+        >
+          {guideText}
+        </FormHelperText>
+      )}
+    </FormControl>
   );
 };
 

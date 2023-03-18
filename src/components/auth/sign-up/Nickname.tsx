@@ -1,25 +1,22 @@
-import {
-  Box,
-  Checkbox,
-  FormControl,
-  FormErrorMessage,
-  FormHelperText,
-  FormLabel,
-  Input,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import {Box, Checkbox, Text, VStack} from "@chakra-ui/react";
 import {useRouter} from "next/router";
-import React, {useState} from "react";
+import {useState} from "react";
 import {useRecoilState} from "recoil";
+import useNicknameInput from "../../../../hooks/useNicknameInput";
+import {
+  checkIsValidNickname,
+  getNicknameHelperText,
+} from "../../../../service/input";
 import {userInfoState} from "../../../store/atom";
 import FloatingButton from "../../shared/FloatingButton";
+import NicknameInput from "../../shared/NicknameInput";
 
 const Nickname = () => {
   const [_, setUserInfo] = useRecoilState(userInfoState);
   const [checkedItems, setCheckedItems] = useState([false, false]);
-  const [input, setInput] = useState<string | null>(null);
-  const isValid = checkIsValid(input);
+  const {input, handleInputChange} = useNicknameInput();
+
+  const isValid = checkIsValidNickname(input);
 
   const allChecked = checkedItems.every(Boolean);
   const isReadyForNextStep = allChecked && isValid === true;
@@ -32,10 +29,6 @@ const Nickname = () => {
       username: input,
     });
     router.push(`/signup/beers`);
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
   };
 
   return (
@@ -55,44 +48,12 @@ const Nickname = () => {
         _hover={{}}
       />
 
-      <FormControl>
-        <FormLabel
-          textStyle="h3"
-          textColor={
-            isValid === null ? "gray.300" : isValid ? "orange.200" : "red.100"
-          }
-        >
-          닉네임
-        </FormLabel>
-        <Input
-          type="text"
-          value={input ?? ""}
-          placeholder="닉네임은 9자 이내로 만들 수 있어요!"
-          _placeholder={{
-            textColor: "gray.200",
-            textStyle: "h2",
-          }}
-          onChange={handleInputChange}
-          borderRadius="none"
-          px={0}
-          border="none"
-          borderBottom="1px solid"
-          borderBottomColor={
-            isValid === null ? "gray.300" : isValid ? "orange.200" : "red.100"
-          }
-          _focusVisible={{}}
-          _hover={{}}
-        />
-        {input !== null && (
-          <FormHelperText
-            marginTop={1}
-            textStyle="h4"
-            textColor={isValid ? "orange.200" : "red.100"}
-          >
-            {getHelperText(input)}
-          </FormHelperText>
-        )}
-      </FormControl>
+      <NicknameInput
+        input={input}
+        isValid={isValid}
+        onChange={handleInputChange}
+        guideText={getNicknameHelperText(input)}
+      />
 
       <Box px="8px" w="100%">
         <Checkbox
@@ -140,40 +101,3 @@ const Nickname = () => {
 };
 
 export default Nickname;
-
-const checkIsValid = (input: string | null) => {
-  if (input === null) return null;
-
-  if (input.length > 9) {
-    return false;
-  }
-
-  if (input.length === 0) {
-    return false;
-  }
-
-  // duplicated
-  if (input === "beerlover") {
-    return false;
-  }
-
-  return true;
-};
-
-const getHelperText = (input: string | null) => {
-  if (input === null) return "";
-  if (input.length > 9) {
-    return "닉네임은 9자 이내로 만들 수 있어요!";
-  }
-
-  if (input.length === 0) {
-    return "닉네임을 정해주세요!";
-  }
-
-  // duplicated
-  if (input === "beerlover") {
-    return "이미 사용 중인 닉네임이에요 :(";
-  }
-
-  return "사용할 수 있는 닉네임이에요 :)";
-};

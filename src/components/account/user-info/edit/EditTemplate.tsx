@@ -2,7 +2,15 @@ import {Box, Container, VStack} from "@chakra-ui/react";
 import {useRouter} from "next/router";
 import React, {useRef, useState} from "react";
 import {SetterOrUpdater} from "recoil";
+import useNicknameInput from "../../../../../hooks/useNicknameInput";
 import {SignUpType} from "../../../../../interface/types";
+import {
+  checkProfileValidity,
+  checkValidBioOrOriginalBio,
+  checkValidNicknameOrOriginalNickname,
+  getBioHelperText,
+  getNicknameHelperTextOrOriginalNickname,
+} from "../../../../../service/input";
 import LeftXTitleRightComplete from "../../../shared/Headers/LeftXTitleRightComplete";
 import NicknameInput from "../../../shared/NicknameInput";
 import ProfileAvatar from "../../../shared/ProfileAvatar";
@@ -16,77 +24,39 @@ const EditTemplate: React.FC<EditTemplateProps> = ({userInfo, setUserInfo}) => {
   const router = useRouter();
   // TODO: error handling should be added
   const {
-    image_url = `/image/default-profile.png`,
+    image_url = `/images/default-profile.png`,
     username,
     statusMessage = "",
   } = userInfo;
 
-  const [isNicknameValid, setIsNicknameValid] = useState<boolean | null>(null);
+  const nicknameInput = useNicknameInput({initialInputState: username});
+  const bioInput = useNicknameInput({initialInputState: statusMessage});
+
   const [imgFile, setImgFile] = useState<string>(image_url);
-  const [nickname, setNickname] = useState(username);
-  const [nicknameGuideText, setNicknameGuideText] = useState("");
-  const [isBioValid, setIsBioValid] = useState<boolean | null>(null);
-  const [bio, setBio] = useState(statusMessage);
-  const [bioGuideText, setBioGuideText] = useState("");
-  const rightTitleStyleProps = {
-    disabled: !isNicknameValid,
-    textColor: isNicknameValid ? "orange.200" : "gray.200",
-  };
   const imgRef = useRef<HTMLInputElement>(null);
 
-  const onNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNickname(e.target.value);
-  };
+  // [완료 버튼 활성화 조건]
+  // (소개글, 프사 변경 여부 상관 없이)
 
-  const checkNicknameValidation = () => {
-    // too long
-    if (nickname.length > 9) {
-      setNicknameGuideText("닉네임은 9자 이내로 만들 수 있어요!");
-      setIsNicknameValid(false);
-      return;
-    }
-    // zero length
-    if (nickname.length === 0) {
-      setNicknameGuideText("비어 있으면 안됩니다");
-      setIsNicknameValid(false);
-      return;
-    } // 추후 리팩토링
-    // duplicated
-    // right
-    setNicknameGuideText(`사용할 수 있는 닉네임이에요 :)`);
-    setIsNicknameValid(true);
-  };
+  // 닉네임은 건드리지 않고 소개 AND/OR 프사 변경되었을 때
 
-  const onNicknameBlur = () => {
-    checkNicknameValidation();
-  };
+  const isValidNickname = checkValidNicknameOrOriginalNickname(
+    nicknameInput.input,
+    username
+  );
 
-  const onBioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setBio(e.target.value);
-  };
-
-  const onBioBlur = () => {
-    checkBioValidation();
-  };
-
-  const checkBioValidation = () => {
-    // too long
-    if (bio.length > 25) {
-      setBioGuideText("글자수는 25자 이내로 만들 수 있어요!");
-      setIsBioValid(false);
-      return;
-    }
-    setIsBioValid(true);
-  };
+  const isValidBio = checkValidBioOrOriginalBio(bioInput.input, statusMessage);
+  const isChangeCompleted = checkProfileValidity(isValidNickname, isValidBio);
 
   const handleClickComplete = () => {
+    if (nicknameInput.input === null) return;
+    if (bioInput.input === null) return;
     setUserInfo({
       email: userInfo?.email,
       image_url: imgFile,
-      username: nickname,
-      statusMessage: bio,
+      username: nicknameInput.input,
+      statusMessage: bioInput.input,
     });
-    // use api
     router.push("/account");
   };
 
@@ -99,6 +69,11 @@ const EditTemplate: React.FC<EditTemplateProps> = ({userInfo, setUserInfo}) => {
     reader.onloadend = () => {
       if (typeof reader.result === "string") setImgFile(reader.result);
     };
+  };
+
+  const rightTitleStyleProps = {
+    isDisabled: !isChangeCompleted,
+    textColor: isChangeCompleted ? "orange.200" : "gray.200",
   };
 
   return (
@@ -145,26 +120,21 @@ const EditTemplate: React.FC<EditTemplateProps> = ({userInfo, setUserInfo}) => {
           </VStack>
           <VStack gap="px" w="100%">
             <NicknameInput
-              title="닉네임"
-              isValid={isNicknameValid}
-              onChange={onNicknameChange}
-              onBlur={onNicknameBlur}
-              guideText={nicknameGuideText}
-              placeholder={
-                isNicknameValid === null
-                  ? ""
-                  : "닉네임은 9자 이내로 만들 수 있어요!"
-              }
+              input={nicknameInput.input}
+              isValid={isValidNickname}
+              onChange={nicknameInput.handleInputChange}
+              guideText={getNicknameHelperTextOrOriginalNickname(
+                nicknameInput.input,
+                username
+              )}
             />
             <NicknameInput
-              title="소개"
-              isValid={isBioValid}
-              onChange={onBioChange}
-              onBlur={onBioBlur}
-              guideText={bioGuideText}
-              placeholder={
-                isBioValid === null ? "소개는 25자까지 입력이 가능해요!" : ""
-              }
+              label="소개"
+              placeholder="소개는 25자까지 입력이 가능해요!"
+              input={bioInput.input}
+              isValid={isValidBio}
+              onChange={bioInput.handleInputChange}
+              guideText={getBioHelperText(bioInput.input)}
             />
           </VStack>
         </VStack>
