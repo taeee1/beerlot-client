@@ -1,4 +1,4 @@
-import SearchBarTemplate from "../../src/search/SearchBarTemplate";
+import SearchBarTemplate from "../../src/components/search/SearchBarTemplate";
 
 const index = () => {
   return <SearchBarTemplate />;

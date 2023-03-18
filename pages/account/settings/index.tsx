@@ -1,6 +1,5 @@
 import {Box, Container} from "@chakra-ui/react";
-import {SettingsTemplate} from "../../../src/account/settings/SettingTemplate";
-
+import {SettingsTemplate} from "../../../src/components/account/settings/SettingTemplate";
 const SettingsPage = () => {
   return (
     <Box w="full" h="full" bg="gray.100">

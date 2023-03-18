@@ -13,9 +13,9 @@ import {MOCK_CATEGORY_FILTER_LIST} from "../../interface/static";
 import {CategoryFilterListType, CategoryTitle} from "../../interface/types";
 import {EmptyFilter, WhiteFilter} from "../../public/svg";
 import {getBeersWithKeywordApi} from "../../src/api/beers/api";
-import {mockData} from "../../src/home/HomeTemplate";
-import {SearchFilterList} from "../../src/result/filter/search-filter-list/SearchFilterList";
-import SearchInput from "../../src/search/SearchInput";
+import {mockData} from "../../src/components/home/HomeTemplate";
+import {SearchFilterList} from "../../src/components/result/filter/search-filter-list/SearchFilterList";
+import SearchInput from "../../src/components/search/SearchInput";
 import {
   BeerCard,
   BeerCardBody,
@@ -23,8 +23,8 @@ import {
   BeerCategoryTag,
   BeerCategoryTagLabel,
   BeerNameText,
-} from "../../src/shared/Card/BeerCardItem";
-import {LeftBackTitle} from "../../src/shared/Headers/LeftBackTitle";
+} from "../../src/components/shared/Card/BeerCardItem";
+import {LeftBackTitle} from "../../src/components/shared/Headers/LeftBackTitle";
 
 const SearchResultPage = () => {
   const router = useRouter();
@@ -109,15 +109,8 @@ const SearchResultPage = () => {
   };
 
   return (
-    <Box w="full" h="full" bg="gray.100">
-      <Container
-        p={"0px"}
-        h="full"
-        w="full"
-        bg="white"
-        position="relative"
-        maxW="450px"
-      >
+    <Box w="full" h="full" bg="gray.100" overflowY="scroll">
+      <Container p={"0px"} w="full" bg="white" position="relative" maxW="450px">
         <LeftBackTitle />
         <Box p={"68px 24px 24px"}>
           <Flex gap="10px" alignItems="center" mb="10px" cursor={"pointer"}>

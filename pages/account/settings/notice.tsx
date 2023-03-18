@@ -1,6 +1,5 @@
 import {Box, Container, Text} from "@chakra-ui/react";
 import {useRouter} from "next/router";
-import {LeftBackRandom} from "../../../src/shared/Headers/LeftBackRandom";
 import {
   Accordion,
   AccordionItem,
@@ -8,6 +7,7 @@ import {
   AccordionPanel,
   AccordionIcon,
 } from "@chakra-ui/react";
+import {LeftBackRandom} from "../../../src/components/shared/Headers/LeftBackRandom";
 const Notice = () => {
   const router = useRouter();
   const handleClickBack = () => {

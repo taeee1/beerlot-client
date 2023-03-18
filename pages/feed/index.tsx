@@ -1,5 +1,4 @@
-import {ReviewResponseType} from "../../interface/server/types/Review";
-import {FeedTemplate} from "../../src/feed/FeedTemplate";
+import {FeedTemplate} from "../../src/components/feed/FeedTemplate";
 
 // export async function getServerSideProps() {
 //   // const res = await fetch(`https://.../data`);

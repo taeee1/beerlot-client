@@ -1,7 +1,7 @@
 import {Box, Container, Text, VStack} from "@chakra-ui/react";
 import {useRouter} from "next/router";
-import {SectionButton} from "../../../src/account/settings/SectionButton";
-import {LeftBackRandom} from "../../../src/shared/Headers/LeftBackRandom";
+import {SectionButton} from "../../../src/components/account/settings/SectionButton";
+import {LeftBackRandom} from "../../../src/components/shared/Headers/LeftBackRandom";
 
 const Info = () => {
   const router = useRouter();

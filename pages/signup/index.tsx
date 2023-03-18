@@ -1,5 +1,5 @@
 import React from "react";
-import SignUpTemplate from "../../src/auth/sign-up/SignUpTemplate";
+import SignUpTemplate from "../../src/components/auth/sign-up/SignUpTemplate";
 
 const index = () => {
   return <SignUpTemplate />;

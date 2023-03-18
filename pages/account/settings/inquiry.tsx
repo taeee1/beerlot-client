@@ -1,5 +1,5 @@
 import {Box, Container} from "@chakra-ui/react";
-import {InquiryTemplate} from "../../../src/account/settings/InquiryTemplate";
+import {InquiryTemplate} from "../../../src/components/account/settings/InquiryTemplate";
 
 const Inquiry = () => {
   return (

@@ -1,5 +1,5 @@
 import {Box, Container} from "@chakra-ui/react";
-import {LoginTemplate} from "../../src/auth/login/LoginTemplate";
+import {LoginTemplate} from "../../src/components/auth/login/LoginTemplate";
 
 const index = () => {
   return (

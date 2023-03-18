@@ -1,6 +1,6 @@
-import { useRecoilState } from "recoil";
-import EditTemplate from "../../../src/account/user-info/edit/EditTemplate";
-import { userInfoState } from "../../../src/store/atom";
+import {useRecoilState} from "recoil";
+import EditTemplate from "../../../src/components/account/user-info/edit/EditTemplate";
+import {userInfoState} from "../../../src/store/atom";
 
 const EditPage = () => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
