@@ -56,6 +56,7 @@ export const BeerCard: React.FC<BeerCardProps> = ({children, ...props}) => {
       w="fit-content"
       style={{marginInlineStart: 0}}
       p={2}
+      cursor="pointer"
       flexShrink={0}
       {...props}
     >

@@ -54,6 +54,13 @@ const SearchResultPage = () => {
     setIsFilterListOpen(!isFilterListOpen);
   };
 
+  const handleClickBeerCard = useCallback(
+    (id: number, name: string) => {
+      router.push(`/result/details?id=${id}&name=${name}`);
+    },
+    [router]
+  );
+
   const handleClickTag = (targetTitle: CategoryTitle, targetTag: string) => {
     const isSingleMode = targetTitle === CategoryTitle.SORT_CRITERIA;
 
@@ -130,9 +137,15 @@ const SearchResultPage = () => {
           <SimpleGrid columns={2} spacing={"16px"} mt={"8px"}>
             {beers &&
               [mockData, mockData, mockData].map((beerItems: any) => {
-                const {name, origin_country, image_url, category} = beerItems;
+                const {id, name, origin_country, image_url, category} =
+                  beerItems;
                 return (
-                  <BeerCard key={beerItems.id} mt={1} w="full">
+                  <BeerCard
+                    key={beerItems.id}
+                    mt={1}
+                    w="full"
+                    onClick={() => handleClickBeerCard(id, name)}
+                  >
                     <BeerCardBody w="full" h="full" position={"relative"}>
                       <Box position="relative">
                         {image_url && (
