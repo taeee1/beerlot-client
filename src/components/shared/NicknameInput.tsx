@@ -7,6 +7,7 @@ interface NicknameInputProps {
   isValid?: boolean | null;
   guideText?: string;
   placeholder?: string;
+  maxLength?: number;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
@@ -19,6 +20,7 @@ const NicknameInput: React.FC<NicknameInputProps> = ({
   input = "닉네임은 9자 이내로 만들 수 있어요!",
   onChange,
   onBlur,
+  maxLength,
 }) => {
   return (
     <FormControl>
@@ -49,6 +51,7 @@ const NicknameInput: React.FC<NicknameInputProps> = ({
         onBlur={onBlur}
         _focusVisible={{}}
         _hover={{}}
+        maxLength={maxLength}
       />
       {input !== null && (
         <FormHelperText

@@ -35,11 +35,6 @@ const EditTemplate: React.FC<EditTemplateProps> = ({userInfo, setUserInfo}) => {
   const [imgFile, setImgFile] = useState<string>(image_url);
   const imgRef = useRef<HTMLInputElement>(null);
 
-  // [완료 버튼 활성화 조건]
-  // (소개글, 프사 변경 여부 상관 없이)
-
-  // 닉네임은 건드리지 않고 소개 AND/OR 프사 변경되었을 때
-
   const isValidNickname = checkValidNicknameOrOriginalNickname(
     nicknameInput.input,
     username
@@ -130,6 +125,7 @@ const EditTemplate: React.FC<EditTemplateProps> = ({userInfo, setUserInfo}) => {
             />
             <NicknameInput
               label="소개"
+              maxLength={25}
               placeholder="소개는 25자까지 입력이 가능해요!"
               input={bioInput.input}
               isValid={isValidBio}

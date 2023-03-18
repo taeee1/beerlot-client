@@ -96,9 +96,5 @@ export const checkIsValidBio = (input: string | null) => {
     return false;
   }
 
-  if (input.length === 0) {
-    return false;
-  }
-
   return true;
 };
