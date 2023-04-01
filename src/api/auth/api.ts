@@ -3,7 +3,7 @@ import {SignUpRequestType} from "../../../interface/server/types/Auth";
 import {OAUTH_PROVIDER} from "../../../interface/types";
 
 // const redirectUrl = "https://beerlot-client.vercel.app";
-const redirectUrl = "https://localhost:3000";
+export const redirectUrl = "https://localhost:3000";
 
 export const loginWithSocialLoginApi = async (provider: OAUTH_PROVIDER) => {
   try {
@@ -14,6 +14,10 @@ export const loginWithSocialLoginApi = async (provider: OAUTH_PROVIDER) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const generateSocialLoginUrl = (provider: OAUTH_PROVIDER) => {
+  return `/api/v1/auth/authorize/${provider}?redirect-url=${redirectUrl}`;
 };
 
 export const signUpWithSocialLoginApi = async (request: SignUpRequestType) => {
