@@ -1,4 +1,5 @@
 import {Box, Container, Text, VStack} from "@chakra-ui/react";
+import {GetServerSideProps} from "next";
 import {useRouter} from "next/router";
 import {SectionButton} from "../../../src/components/account/settings/SectionButton";
 import {LeftBackRandom} from "../../../src/components/shared/Headers/LeftBackRandom";
@@ -61,3 +62,19 @@ export const InfoSettingSection = [
     href: "/account/settings/inquiry", // TODO: change hr
   },
 ];
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const cookies = context.req.headers.cookie;
+
+  if (!cookies || !cookies.includes("beerlot-oauth-auth-request")) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
+};

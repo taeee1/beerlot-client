@@ -1,4 +1,5 @@
 import {Box, Container} from "@chakra-ui/react";
+import {GetServerSideProps} from "next";
 import {SettingsTemplate} from "../../../src/components/account/settings/SettingTemplate";
 const SettingsPage = () => {
   return (
@@ -18,3 +19,19 @@ const SettingsPage = () => {
 };
 
 export default SettingsPage;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const cookies = context.req.headers.cookie;
+
+  if (!cookies || !cookies.includes("beerlot-oauth-auth-request")) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
+};

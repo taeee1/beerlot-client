@@ -1,4 +1,5 @@
 import {Box, Container} from "@chakra-ui/react";
+import {GetServerSideProps} from "next";
 import {useEffect} from "react";
 import {getMyAccountApi} from "../../src/api/auth/api";
 import AccountsTemplate from "../../src/components/account/AccountsTemplate";
@@ -18,3 +19,19 @@ const AccountPage = () => {
 };
 
 export default AccountPage;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const cookies = context.req.headers.cookie;
+
+  if (!cookies || !cookies.includes("beerlot-oauth-auth-request")) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
+};

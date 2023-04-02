@@ -6,23 +6,26 @@ import {RecoilRoot} from "recoil";
 import {BottomNav} from "../src/components/shared/BottomNav";
 import "../styles/globals.css";
 import {theme} from "../styles/theme";
+import {SessionProvider} from "next-auth/react";
 
-function MyApp({Component, pageProps}: AppProps) {
+function MyApp({Component, pageProps: {session, ...pageProps}}: AppProps) {
   const queryClient = new QueryClient();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
-        <RecoilRoot>
-          <ChakraProvider theme={theme}>
-            <ErrorBoundary fallback={<div>error</div>}>
-              <Component {...pageProps} />
-              <BottomNav />
-            </ErrorBoundary>
-          </ChakraProvider>
-        </RecoilRoot>
-      </Hydrate>
-    </QueryClientProvider>
+    <SessionProvider session={session}>
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <RecoilRoot>
+            <ChakraProvider theme={theme}>
+              <ErrorBoundary fallback={<div>error</div>}>
+                <Component {...pageProps} />
+                <BottomNav />
+              </ErrorBoundary>
+            </ChakraProvider>
+          </RecoilRoot>
+        </Hydrate>
+      </QueryClientProvider>
+    </SessionProvider>
   );
 }
 
