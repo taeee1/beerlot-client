@@ -73,7 +73,7 @@ const BeerCards: React.FC<BeerCardsProps> = ({nickName, ...props}) => {
 
   const handleClickComplete = () => {
     signUpWithSocialLogin(MOCK_AUTH);
-    router.push("/");
+    router.push(`/signup/complete`);
   };
 
   const handleClickBeer = (newBeerId: number | undefined) => {

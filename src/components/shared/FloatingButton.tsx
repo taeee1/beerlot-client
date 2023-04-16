@@ -3,7 +3,7 @@ import {useRouter} from "next/router";
 import React from "react";
 
 interface FloatingButtonProps extends ButtonProps {
-  disabled: boolean;
+  disabled?: boolean;
   text?: string;
   bgColor?: string;
   textColor?: string;
@@ -13,7 +13,7 @@ interface FloatingButtonProps extends ButtonProps {
 
 const FloatingButton: React.FC<FloatingButtonProps> = ({
   text,
-  disabled,
+  disabled = false,
   bgColor,
   textColor,
   boxShadow,
@@ -37,6 +37,7 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
         textColor: textColor,
       }}
       textColor={textColor}
+      py={"10px"}
       {...props}
     >
       <Text textStyle="h3">{text}</Text>
