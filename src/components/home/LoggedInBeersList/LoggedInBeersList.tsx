@@ -7,8 +7,10 @@ import {
   BeerCategoryTagLabel,
   BeerNameText,
 } from "@components/shared/Card/BeerCardItem";
-import React from "react";
+import React, {useCallback} from "react";
 import {BeerResponseType} from "../../../../typedef/server/beer";
+import {useRouter} from "next/router";
+import {generateBeerDetailUrl} from "@/../utils/url";
 
 interface LoggedInBeersListProps {
   topBeersList?: BeerResponseType[];
@@ -18,6 +20,17 @@ const LoggedInBeersList: React.FC<LoggedInBeersListProps> = ({
   topBeersList,
   userName,
 }) => {
+  const router = useRouter();
+  const onClick = useCallback(
+    (id?: number, name?: string) => {
+      if (!id || !name) return; //TODO: add toast
+
+      const url = generateBeerDetailUrl(id, name);
+      router.push(url);
+    },
+    [router]
+  );
+
   return (
     <>
       <Text textColor="black.100" textStyle={"h2_bold"}>
@@ -27,7 +40,11 @@ const LoggedInBeersList: React.FC<LoggedInBeersListProps> = ({
         {topBeersList &&
           topBeersList.map((item) => {
             return (
-              <BeerCard key={item.id} mt={1}>
+              <BeerCard
+                key={item.id}
+                mt={1}
+                onClick={() => onClick(item?.id, item.name)}
+              >
                 <BeerCardBody>
                   <Box position="relative">
                     {item.image_url && (

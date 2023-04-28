@@ -16,11 +16,13 @@
     "incremental": true,
     "baseUrl": "./src",
     "paths": {
+      "@/*": ["./*"],
       "@components/*": ["components/*"],
       "@mock/*": ["mock/*"],
       "@constant/*": ["constant/*"],
       "@types/*": ["types/*"],
-      "@interface/*": ["interface/*"]
+      "@interface/*": ["interface/*"],
+      "@utils/*": ["utils/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
