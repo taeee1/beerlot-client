@@ -1,7 +1,6 @@
-import type {GetServerSideProps, NextPage} from "next";
+import type {NextPage} from "next";
 import Head from "next/head";
 import HomeTemplate from "../src/components/home/HomeTemplate";
-import {getSession} from "next-auth/react";
 
 const Home: NextPage = () => {
   return (

@@ -59,17 +59,14 @@ export const getBeersWithKeywordApi = async ({
   }
 };
 
-export const getTop10BeersApi = async () => {
+export const fetchTopBeersApi = async () => {
   const language: LANGUAGE_TYPE = LANGUAGE_TYPE.KR;
-  try {
-    const result: BeerResultType[] = await axios.get(
-      `/api/v1/beers/top?language=${language}`
-    );
-    console.log(result, "getTop10BeersApi");
-    return result;
-  } catch (error) {
-    console.error(error);
-  }
+  const res = await axios.get("/api/v1/beers/top", {
+    params: {
+      language: language,
+    },
+  });
+  return res.data;
 };
 
 export const getSingleBeerInfoApi = async (id: number) => {
