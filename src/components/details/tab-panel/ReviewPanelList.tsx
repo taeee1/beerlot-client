@@ -7,7 +7,6 @@ import {FeedFilter} from "../../feed/AllTabPanelList";
 import {BeerInfoHStack} from "./BasicPanelList";
 import {MOCK_FEED_FILTER_LIST} from "../../../../interface/static";
 import {ReviewSortEnum} from "../../../../interface/types";
-import {getReviewWithBeerIdApi} from "../../../api/review/api";
 
 interface ReviewPanelListProps {
   rate: number;
@@ -23,18 +22,6 @@ export const ReviewPanelList: React.FC<ReviewPanelListProps> = ({rate}) => {
   const handleSelectTag = (tag: ReviewSortEnum) => {
     setSelectedTag(tag);
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await getReviewWithBeerIdApi({
-        beerId: 1,
-        page: 1,
-        size: 10,
-      });
-      if (result?.data) setReviews(result.data.contents);
-    };
-    fetchData();
-  }, []);
 
   return (
     <Container px="8px" py="20px" bg="yellow.100">

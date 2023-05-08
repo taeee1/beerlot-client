@@ -149,7 +149,7 @@ export const ReviewModal = () => {
 
       <Modal onClose={onClose} size={"full"} isOpen={isOpen}>
         {step === 0 && (
-          <ModalContent px="20px" pb="40px" maxW="452px">
+          <ModalContent px="20px" pb="40px" maxW="452px" bg="white">
             <ModalHeader pt="46px">
               <LeftCloseRandom
                 onClose={CloseReviewDrawer.onOpen}

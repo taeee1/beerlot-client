@@ -10,10 +10,6 @@ import {ReviewResponseType} from "../../../interface/server/types/Review";
 import {AllTabPanelList} from "./AllTabPanelList";
 import {UpcomingFeed} from "./UpcomingFeed";
 
-interface FeedTabListProps {
-  allReviews: ReviewResponseType[];
-}
-
 export const FeedTabList = () => (
   <Tabs colorScheme="orange" pt="64px" w="full" h="full" defaultIndex={1}>
     <TabList px={"18px"}>

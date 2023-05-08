@@ -3,16 +3,12 @@ import {useCallback, useEffect, useState} from "react";
 import {ReviewResponseType} from "../../../interface/server/types/Review";
 import {MOCK_FEED_FILTER_LIST} from "../../../interface/static";
 import {ReviewFilterSort, ReviewSortEnum} from "../../../interface/types";
-import {getAllReviewApi} from "../../api/review/api";
 
 import {RightChevron} from "../shared/CustomIcons/customIcons";
 import FilterTag from "../shared/Filters/FilterTag";
 
+import {useAllReviewsQuery} from "@/../hooks/useReviewQuery";
 import FollowingTabPanelItem from "./TabPanelItem";
-
-// interface AllTabPanelListProps {
-//   allReviews: ReviewResponseType[];
-// }
 
 export const AllTabPanelList = () => {
   const [selectedTag, setSelectedTag] = useState<ReviewSortEnum>(
@@ -22,10 +18,11 @@ export const AllTabPanelList = () => {
     []
   );
 
-  const allReviewsAsync = useCallback(async () => {
-    const res = await getAllReviewApi({sort: selectedTag});
-    return res;
-  }, [selectedTag]);
+  const allReviewsQuery = useAllReviewsQuery({});
+
+  useEffect(() => {
+    allReviewsQuery.refetch();
+  }, []);
 
   const handleSetSelectedReviews = useCallback(
     (reviews: ReviewResponseType[]) => {
@@ -34,26 +31,15 @@ export const AllTabPanelList = () => {
     []
   );
 
-  const setNewReviews = useCallback(async () => {
-    const res = await allReviewsAsync();
-    // if (res !== undefined) handleSetSelectedReviews(res);
-  }, [allReviewsAsync]);
-
   const handleSelectTag = async (tag: ReviewSortEnum) => {
     setSelectedTag(tag);
-    setNewReviews();
   };
-
-  useEffect(() => {
-    allReviewsAsync();
-    setNewReviews();
-  }, [allReviewsAsync, setNewReviews]);
 
   return (
     <Flex flexDirection="column" gap={"10px"}>
       <FeedFilter selectedTag={selectedTag} onClickTag={handleSelectTag} />
       {/* ALL_FEED_MOCK을 prop으로 받아서 AllTabPanelList랑 공유하기 */}
-      {selectedReviews.map((feed) => {
+      {allReviewsQuery?.data?.contents?.map((feed: any) => {
         return (
           <FollowingTabPanelItem
             key={feed.id}
@@ -61,7 +47,7 @@ export const AllTabPanelList = () => {
             nickname={feed.member.username}
             postingTime={feed.updated_at}
             beerName={"MOCK_BEER_NAME"}
-            ratingNumber={feed.rate}
+            rate={feed.rate}
             imageSrc={feed.image_url}
             postText={feed.content}
             thumbsUpNumber={feed.like_count}

@@ -1,5 +1,5 @@
-import { Flex } from "@chakra-ui/react";
-import { v4 as uuidv4 } from "uuid";
+import {Flex} from "@chakra-ui/react";
+import {v4 as uuidv4} from "uuid";
 import FollowingTabPanelItem from "./TabPanelItem";
 
 const FollowingTabPanelList = () => {
@@ -58,7 +58,7 @@ const FollowingTabPanelList = () => {
             nickname={feed.nickname}
             postingTime={feed.postingTime}
             beerName={feed.beerName}
-            ratingNumber={feed.ratingNumber}
+            rate={feed.ratingNumber}
             imageSrc={feed.imageSrc}
             postText={feed.postText}
             thumbsUpNumber={feed.thumbsUpNumber}
