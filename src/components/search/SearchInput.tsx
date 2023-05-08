@@ -12,7 +12,7 @@ import {SearchGlass, WhiteCross} from "../../../public/svg";
 interface SearchInputProps {
   onKeyPress?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  clearValue: () => void;
+  clearValue?: () => void;
 }
 
 const SearchInput: React.FC<SearchInputProps> = ({
@@ -24,7 +24,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
   const clearInput = () => {
     if (inputRef.current) {
       inputRef.current.value = "";
-      clearValue();
+      clearValue?.();
     }
   };
 
