@@ -17,6 +17,7 @@ import React, {useCallback} from "react";
 import {BeerResponseType} from "../../../../typedef/server/beer";
 import {useRouter} from "next/router";
 import {generateBeerDetailUrl} from "@/../utils/url";
+import {CommonBeerImage} from "@/components/shared/CommonBeerImage/CommonBeerImage";
 
 interface CommonBeersListProps {
   topBeersList?: BeerResponseType[];
@@ -52,7 +53,7 @@ const CommonBeersList: React.FC<CommonBeersListProps> = ({topBeersList}) => {
                 <BeerCardBody w="full" h="full" position={"relative"}>
                   <Box position="relative">
                     {item.image_url && (
-                      <ChakraImage
+                      <CommonBeerImage
                         src={item.image_url}
                         alt={item.name}
                         width="175px"

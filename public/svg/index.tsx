@@ -31,3 +31,4 @@ export {default as FullStar} from "./full-star.svg";
 export {default as EmptyStar} from "./empty-star.svg";
 export {default as CrossXBlack} from "./cross-x-black.svg";
 export {default as OrangeCheckCircle} from "./orange-check-circle.svg";
+export {default as BeerPreviewDefaultImage} from "./beer-preview-default-image.svg";

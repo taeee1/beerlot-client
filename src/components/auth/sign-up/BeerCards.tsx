@@ -5,8 +5,8 @@ import {
   StackProps,
   Text,
   VStack,
+  Image as ChakraImage,
 } from "@chakra-ui/react";
-import Image from "next/image";
 import {useRouter} from "next/router";
 import React from "react";
 import {useRecoilState} from "recoil";
@@ -26,6 +26,7 @@ import {
 } from "../../shared/Card/BeerCardItem";
 
 import FloatingButton from "../../shared/FloatingButton";
+import {CommonBeerImage} from "@/components/shared/CommonBeerImage/CommonBeerImage";
 
 interface BeerCardsProps extends StackProps {
   nickName: string;
@@ -138,7 +139,7 @@ const BeerCards: React.FC<BeerCardsProps> = ({nickName, ...props}) => {
               >
                 <Box position="relative" borderRadius={6}>
                   {item.image_url && (
-                    <Image
+                    <CommonBeerImage
                       src={item.image_url}
                       alt={item.name}
                       width="175px"

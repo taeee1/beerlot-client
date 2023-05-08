@@ -5,8 +5,8 @@ import {
   Flex,
   HStack,
   SimpleGrid,
+  Image as ChakraImage,
 } from "@chakra-ui/react";
-import Image from "next/image";
 import {useRouter} from "next/router";
 import {useCallback, useEffect, useState} from "react";
 import {MOCK_CATEGORY_FILTER_LIST} from "../../interface/static";
@@ -26,6 +26,7 @@ import {
 } from "../../src/components/shared/Card/BeerCardItem";
 import {LeftBackTitle} from "../../src/components/shared/Headers/LeftBackTitle";
 import {generateBeerDetailUrl} from "@/../utils/url";
+import {CommonBeerImage} from "@/components/shared/CommonBeerImage/CommonBeerImage";
 
 const SearchResultPage = () => {
   const router = useRouter();
@@ -151,7 +152,7 @@ const SearchResultPage = () => {
                     <BeerCardBody w="full" h="full" position={"relative"}>
                       <Box position="relative">
                         {image_url && (
-                          <Image
+                          <CommonBeerImage
                             src={image_url}
                             alt={name}
                             width="175px"

@@ -1,9 +1,9 @@
-import {Avatar, Box, Center, Flex, IconButton, Text} from "@chakra-ui/react";
-import Image from "next/image";
-import {EditNote, TrashBin} from "../../../public/svg";
-import ThumbsUpButton from "../shared/ThumbsUpButton";
 import {getLeftTime} from "@/../utils/time";
+import {Avatar, Box, Center, Flex, IconButton, Text} from "@chakra-ui/react";
+import {EditNote, TrashBin} from "../../../public/svg";
+import {CommonBeerImage} from "../shared/CommonBeerImage/CommonBeerImage";
 import {Rating} from "../shared/Rating";
+import ThumbsUpButton from "../shared/ThumbsUpButton";
 
 interface FollowingTabPanelItemProps {
   isRow: boolean;
@@ -84,9 +84,9 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
         </Box>
         <Box flexShrink={0} borderRadius={"6px"}>
           {imageSrc && (
-            <Image
-              width={isRow ? 100 : 330}
-              height={isRow ? 100 : 330}
+            <CommonBeerImage
+              width={isRow ? "100px" : "330px"}
+              height={isRow ? "100px" : "330px"}
               alt="beer photo"
               src={`/image/${imageSrc}`}
             />

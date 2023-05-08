@@ -7,6 +7,7 @@ import {useToast} from "@chakra-ui/react";
 import {useMutation} from "react-query";
 import axios from "axios";
 import {LikeButton} from "../shared/LikeButton";
+import {CommonBeerImage} from "../shared/CommonBeerImage/CommonBeerImage";
 interface DetailInfoProps {
   beerName: string;
   volume: number;
@@ -83,7 +84,7 @@ export const DetailInfo: React.FC<DetailInfoProps> = ({
       )}
       {/* image  */}
       <Center pt="72px" w="full" px="24px">
-        <Image
+        <CommonBeerImage
           boxSize="320px"
           src={beerImg}
           fallbackSrc="https://via.placeholder.com/150"
