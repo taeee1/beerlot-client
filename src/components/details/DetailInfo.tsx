@@ -87,7 +87,6 @@ export const DetailInfo: React.FC<DetailInfoProps> = ({
         <CommonBeerImage
           boxSize="320px"
           src={beerImg}
-          fallbackSrc="https://via.placeholder.com/150"
           alt={`${beerName} image`}
           borderRadius="6px"
         />
