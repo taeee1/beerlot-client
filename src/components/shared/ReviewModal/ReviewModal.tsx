@@ -92,16 +92,16 @@ export const ReviewModal = () => {
   }, [onClose, postReview, reviewInfo]);
 
   return (
-    <Box position={"relative"}>
+    <Box>
       <Button
         onClick={handleSizeClick}
         w="70px"
         h="70px"
-        pos="fixed"
+        pos="absolute"
         borderRadius="full"
         bg="orange.300"
-        right="21px"
-        bottom="72.5px"
+        bottom={5}
+        right={5}
       >
         {/* TODO: should be replaced */}
         <EditPencil />

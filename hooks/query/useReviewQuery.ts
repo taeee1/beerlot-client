@@ -19,8 +19,25 @@ export const useAllReviewsQuery = (
 };
 
 export type AllReviewsQueryParams = {
-  // beerId: number;
   page?: number;
   size?: number;
   sort?: ReviewSortEnum;
+};
+
+export type AllReviewsQueryResponse = {
+  contents: ContentType[];
+};
+
+export type ContentType = {
+  id: number;
+  content: string;
+  image_url: string;
+  rate: number;
+  like_count: number;
+  updated_at: string;
+  member: {
+    id: number;
+    username: string;
+    image_url: string;
+  };
 };

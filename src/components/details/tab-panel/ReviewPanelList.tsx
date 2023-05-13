@@ -1,12 +1,12 @@
 import {Box, Container, Flex, HStack, Text, VStack} from "@chakra-ui/react";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {Rating} from "../../shared/Rating";
 import {ReviewModal} from "../../shared/ReviewModal/ReviewModal";
 
-import {FeedFilter} from "../../feed/AllTabPanelList";
-import {BeerInfoHStack} from "./BasicPanelList";
 import {MOCK_FEED_FILTER_LIST} from "../../../../interface/static";
 import {ReviewSortEnum} from "../../../../interface/types";
+import {BeerInfoHStack} from "./BasicPanelList";
+import {FeedFilter} from "@/components/feed/FeedFilter/FeedFilter";
 
 interface ReviewPanelListProps {
   rate: number;

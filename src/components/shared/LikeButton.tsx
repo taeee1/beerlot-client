@@ -14,6 +14,8 @@ export const LikeButton: React.FC<LikeButtonProps> = ({
 }) => {
   return (
     <IconButton
+      w="fit-content"
+      minW="initial"
       onClick={onClick}
       icon={isLiked ? <HeartEmpty /> : <HeartEmpty />}
       color={isLiked ? "orange.200" : "gray.300"}

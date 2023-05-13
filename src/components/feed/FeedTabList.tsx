@@ -6,19 +6,21 @@ import {
   TabPanels,
   Tabs,
 } from "@chakra-ui/react";
-import {ReviewResponseType} from "../../../interface/server/types/Review";
 import {AllTabPanelList} from "./AllTabPanelList";
 import {UpcomingFeed} from "./UpcomingFeed";
 
 export const FeedTabList = () => (
-  <Tabs colorScheme="orange" pt="64px" w="full" h="full" defaultIndex={1}>
+  <Tabs
+    colorScheme="orange"
+    pt="64px"
+    w="full"
+    h="full"
+    defaultIndex={1}
+    isFitted
+  >
     <TabList px={"18px"}>
-      <Tab flexGrow="1" color="orange.100">
-        팔로잉
-      </Tab>
-      <Tab flexGrow="1" color="orange.100">
-        전체보기
-      </Tab>
+      <Tab>팔로잉</Tab>
+      <Tab>전체보기</Tab>
     </TabList>
     <Divider />
 

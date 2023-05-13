@@ -1,5 +1,14 @@
 import {getLeftTime} from "@/../utils/time";
-import {Avatar, Box, Center, Flex, IconButton, Text} from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  Button,
+  Center,
+  Flex,
+  IconButton,
+  Text,
+} from "@chakra-ui/react";
+import {useState} from "react";
 import {EditNote, TrashBin} from "../../../public/svg";
 import {CommonBeerImage} from "../shared/CommonBeerImage/CommonBeerImage";
 import {Rating} from "../shared/Rating";
@@ -15,6 +24,7 @@ interface FollowingTabPanelItemProps {
   postText: string;
   thumbsUpNumber: number;
   isEditable: boolean;
+  maxPostLength?: number;
 }
 
 const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
@@ -27,7 +37,19 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
   postText,
   thumbsUpNumber,
   isEditable,
+  maxPostLength = MAX_TEXT_LENGTH_OF_REVIEW,
 }) => {
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+
+  const handleToggleElipsis = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  const postEllipsisStatus = chooseTextDisplay(
+    postText.length > maxPostLength,
+    isExpanded
+  );
+
   return (
     <Box p={"12px"} bg="white">
       <Box
@@ -70,14 +92,26 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
               }}
             />
           </Box>
+
+          {/* review post texts */}
           {isRow && (
-            <Box display="flex" my={"2px"} flexDirection="row">
-              <Text textStyle="h3" as="span">
-                {postText.slice(0, 35)}
-                <Text as="span">{postText.length > 35 && "..."}</Text>
-                <Text as="span" color="gray.200">
-                  {postText.length > 35 && "더 보기"}
-                </Text>
+            <Box display="inline" my={"2px"} flexDirection="row">
+              <Text textStyle="h3" display="inline">
+                {postEllipsisStatus === "shorten"
+                  ? postText.slice(0, 35)
+                  : postText}
+                {postEllipsisStatus === "shorten" ? "..." : ""}
+              </Text>
+              <Text
+                as={"button"}
+                textStyle="h3"
+                onClick={handleToggleElipsis}
+                textColor={"gray.200"}
+                display={
+                  postEllipsisStatus === "normal" ? "none" : "inline-block"
+                }
+              >
+                {isExpanded ? "숨기기" : "더보기"}
               </Text>
             </Box>
           )}
@@ -126,3 +160,14 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
 };
 
 export default FollowingTabPanelItem;
+
+const MAX_TEXT_LENGTH_OF_REVIEW = 35;
+
+const chooseTextDisplay = (
+  expandable: boolean,
+  isExpanded: boolean
+): "expanded" | "shorten" | "normal" => {
+  if (!expandable) return "normal";
+  if (isExpanded) return "expanded";
+  return "shorten";
+};
