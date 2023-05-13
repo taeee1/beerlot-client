@@ -1,3 +1,6 @@
+import {useBeersQuery} from "@/../hooks/query/useBeerQuery";
+import {generateBeerDetailUrl} from "@/../utils/url";
+import {CommonBeerImage} from "@/components/shared/CommonBeerImage/CommonBeerImage";
 import {
   Box,
   Circle,
@@ -5,15 +8,12 @@ import {
   Flex,
   HStack,
   SimpleGrid,
-  Image as ChakraImage,
 } from "@chakra-ui/react";
 import {useRouter} from "next/router";
 import {useCallback, useEffect, useState} from "react";
 import {MOCK_CATEGORY_FILTER_LIST} from "../../interface/static";
 import {CategoryFilterListType, CategoryTitle} from "../../interface/types";
 import {EmptyFilter, WhiteFilter} from "../../public/svg";
-import {getBeersWithKeywordApi} from "../../src/api/beers/api";
-import {mockData} from "../../src/components/home/HomeTemplate";
 import {SearchFilterList} from "../../src/components/result/filter/search-filter-list/SearchFilterList";
 import SearchInput from "../../src/components/search/SearchInput";
 import {
@@ -25,8 +25,6 @@ import {
   BeerNameText,
 } from "../../src/components/shared/Card/BeerCardItem";
 import {LeftBackTitle} from "../../src/components/shared/Headers/LeftBackTitle";
-import {generateBeerDetailUrl} from "@/../utils/url";
-import {CommonBeerImage} from "@/components/shared/CommonBeerImage/CommonBeerImage";
 
 const SearchResultPage = () => {
   const router = useRouter();
@@ -36,17 +34,13 @@ const SearchResultPage = () => {
   const [selectedFilters, setSelectedFilter] = useState<
     CategoryFilterListType[]
   >([]);
-  const [beers, setBeers] = useState([]);
-  useEffect(() => console.log("beers", beers), [beers]);
-  const allKeywordAsync = useCallback(async (keyword: string) => {
-    const res = await getBeersWithKeywordApi({keyword});
-    setBeers(res?.data.contents);
-  }, []);
+  const SearchBeerQuery = useBeersQuery({
+    keyword: typeof query === "string" ? query : "",
+  });
 
   useEffect(() => {
-    if (typeof query !== "string") return;
-    allKeywordAsync(query);
-  }, [allKeywordAsync, query]);
+    SearchBeerQuery.refetch();
+  }, []);
 
   const clearValue = () => {
     setValue("");
@@ -56,7 +50,7 @@ const SearchResultPage = () => {
     setIsFilterListOpen(!isFilterListOpen);
   };
 
-  const onClick = useCallback(
+  const handleClickCard = useCallback(
     (id: number, name: string) => {
       const url = generateBeerDetailUrl(id, name);
       router.push(url);
@@ -120,9 +114,16 @@ const SearchResultPage = () => {
 
   return (
     <Box w="full" h="full" bg="gray.100" overflowY="scroll">
-      <Container p={"0px"} w="full" bg="white" position="relative" maxW="450px">
+      <Container
+        p={"0px"}
+        w="full"
+        bg="white"
+        position="relative"
+        maxW="450px"
+        h="full"
+      >
         <LeftBackTitle />
-        <Box p={"68px 24px 24px"}>
+        <Box p={"68px 24px 24px"} h="full">
           <Flex gap="10px" alignItems="center" mb="10px" cursor={"pointer"}>
             <SearchInput clearValue={clearValue} />
             <Circle size="31px" bg="blue.100" onClick={handleClickToggle}>
@@ -138,44 +139,42 @@ const SearchResultPage = () => {
             onClickTag={handleClickTag}
           />
           <SimpleGrid columns={2} spacing={"16px"} mt={"8px"}>
-            {beers &&
-              [mockData, mockData, mockData].map((beerItems: any) => {
-                const {id, name, origin_country, image_url, category} =
-                  beerItems;
-                return (
-                  <BeerCard
-                    key={beerItems.id}
-                    mt={1}
-                    w="full"
-                    onClick={() => onClick(id, name)}
-                  >
-                    <BeerCardBody w="full" h="full" position={"relative"}>
-                      <Box position="relative">
-                        {image_url && (
-                          <CommonBeerImage
-                            src={image_url}
-                            alt={name}
-                            width="175px"
-                            height="175px"
-                            objectFit="cover"
-                          />
-                        )}
-                      </Box>
-                    </BeerCardBody>
-                    <BeerCardFooter>
-                      <BeerNameText>{name}</BeerNameText>
-                      <HStack>
-                        <BeerNameText>{origin_country}</BeerNameText>
-                        <BeerCategoryTag>
-                          <BeerCategoryTagLabel>
-                            {category?.name}
-                          </BeerCategoryTagLabel>
-                        </BeerCategoryTag>
-                      </HStack>
-                    </BeerCardFooter>
-                  </BeerCard>
-                );
-              })}
+            {SearchBeerQuery.data?.contents?.map((beerItems: any) => {
+              const {id, name, origin_country, image_url, category} = beerItems;
+              return (
+                <BeerCard
+                  key={beerItems.id}
+                  mt={1}
+                  w="full"
+                  onClick={() => handleClickCard(id, name)}
+                >
+                  <BeerCardBody w="full" h="full" position={"relative"}>
+                    <Box position="relative">
+                      {image_url && (
+                        <CommonBeerImage
+                          src={image_url}
+                          alt={name}
+                          width="175px"
+                          height="175px"
+                          objectFit="cover"
+                        />
+                      )}
+                    </Box>
+                  </BeerCardBody>
+                  <BeerCardFooter>
+                    <BeerNameText>{name}</BeerNameText>
+                    <HStack>
+                      <BeerNameText>{origin_country}</BeerNameText>
+                      <BeerCategoryTag>
+                        <BeerCategoryTagLabel>
+                          {category?.name}
+                        </BeerCategoryTagLabel>
+                      </BeerCategoryTag>
+                    </HStack>
+                  </BeerCardFooter>
+                </BeerCard>
+              );
+            })}
           </SimpleGrid>
           <Box h="64px" />
         </Box>

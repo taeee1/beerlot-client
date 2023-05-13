@@ -7,9 +7,7 @@ import {
   Tabs,
   Text,
 } from "@chakra-ui/react";
-import React from "react";
 import BeerReviews from "./BeerReviews";
-import LikedBeers from "./LikedBeers";
 
 const BeerInfo = () => {
   return (
@@ -28,9 +26,7 @@ const BeerInfo = () => {
         <TabPanel bg="yellow.100">
           <BeerReviews />
         </TabPanel>
-        <TabPanel>
-          <LikedBeers />
-        </TabPanel>
+        <TabPanel></TabPanel>
       </TabPanels>
     </Tabs>
   );

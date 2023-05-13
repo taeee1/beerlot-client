@@ -21,6 +21,7 @@ import {BeerPurchaseSection} from "./BeerPurchaseSection";
 import {BeerRatingSection} from "./BeerRatingSection";
 import {BeerReviewTextSection} from "./BeerReviewTextSection";
 import {BeerSearchContent} from "./BeerSearchContent";
+import {ReviewCancelDrawer} from "./ReviewCancelDrawer";
 
 export const ReviewModal = () => {
   const [reviewInfo, setReviewInfo] = useState<ReviewType>({
@@ -40,7 +41,24 @@ export const ReviewModal = () => {
 
   const {isOpen, onOpen, onClose} = useDisclosure();
 
-  const handleSizeClick = () => {
+  const handleClickLeftButton = () => {
+    // TODO: reset everything
+    setReviewInfo({
+      beerName: null,
+      rate: 0,
+      place: null,
+    });
+    onClose();
+    clearInput();
+    setReviewInputValue("");
+    CloseReviewDrawer.onClose();
+  };
+
+  const handleClickRightButton = () => {
+    CloseReviewDrawer.onClose();
+  };
+
+  const handleWriteReview = () => {
     onOpen();
   };
   const handleClickBack = () => {
@@ -70,17 +88,15 @@ export const ReviewModal = () => {
   };
 
   const postReview = useCallback(async () => {
-    const result = await await postReviewWithBeerIdApi(1, {
+    const result = await postReviewWithBeerIdApi(1, {
       content: reviewInputValue,
       rate: reviewInfo.rate,
       // image_url: reviewInfo.imgUrl,
       // buy_from: [reviewInfo.place],
     });
-    console.log(result);
   }, [reviewInfo.rate, reviewInputValue]);
 
   const handleClickComplete = useCallback(() => {
-    console.log("reviewInfo", reviewInfo);
     postReview();
     onClose();
     setReviewInfo({
@@ -89,12 +105,13 @@ export const ReviewModal = () => {
       place: null,
     });
     clearInput();
-  }, [onClose, postReview, reviewInfo]);
+    setReviewInputValue("");
+  }, [onClose, postReview]);
 
   return (
     <Box>
       <Button
-        onClick={handleSizeClick}
+        onClick={handleWriteReview}
         w="70px"
         h="70px"
         pos="absolute"
@@ -106,47 +123,12 @@ export const ReviewModal = () => {
         {/* TODO: should be replaced */}
         <EditPencil />
       </Button>
-      <BottomDrawer
-        headerText={"정말로 나가실 건가요?"}
-        onClose={CloseReviewDrawer.onClose}
+      <ReviewCancelDrawer
         isOpen={CloseReviewDrawer.isOpen}
-        boxStyle={{
-          justifyContent: "center",
-          gap: "50px",
-          w: "full",
-          bg: "white",
-          p: "38px 20px 34px 21px",
-          borderRadius: "10px 10px 0px 0px",
-        }}
-        leftButtonText={"나가기"}
-        leftButtonStyle={{
-          w: "full",
-          py: "10px",
-          px: "39px",
-          onClick: () => {
-            // TODO: reset everything
-            setReviewInfo({
-              beerName: null,
-              rate: 0,
-              place: null,
-            });
-            onClose();
-            clearInput();
-            CloseReviewDrawer.onClose();
-          },
-        }}
-        rightButtonText={"계속 작성하기"}
-        rightButtonStyle={{
-          w: "full",
-          bg: "blue.100",
-          py: "10px",
-          px: "22px",
-          onClick: () => {
-            CloseReviewDrawer.onClose();
-          },
-        }}
+        onClose={CloseReviewDrawer.onClose}
+        onClickLeftButton={handleClickLeftButton}
+        onClickRightButton={handleClickRightButton}
       />
-
       <Modal onClose={onClose} size={"full"} isOpen={isOpen}>
         {step === 0 && (
           <ModalContent px="20px" pb="40px" maxW="452px" bg="white">

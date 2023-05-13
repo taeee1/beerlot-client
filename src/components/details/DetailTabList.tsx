@@ -46,10 +46,10 @@ export const DetailTabList: React.FC<DetailTabListProps> = ({
         onChange={handleTabsChange}
       >
         <TabList px={"18px"}>
-          <Tab flexGrow="1" color="orange.100">
+          <Tab flexGrow="1">
             <Text>기본 정보</Text>
           </Tab>
-          <Tab flexGrow="1" color="orange.100">
+          <Tab flexGrow="1">
             <Text>리뷰</Text>
           </Tab>
         </TabList>

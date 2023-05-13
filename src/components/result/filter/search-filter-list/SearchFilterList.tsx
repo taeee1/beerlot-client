@@ -1,4 +1,4 @@
-import {Box, ButtonProps, HStack, Icon, Text} from "@chakra-ui/react";
+import {Box, HStack, Text} from "@chakra-ui/react";
 import React, {useState} from "react";
 import {MIN_MAX_BEER_VOLUME_SLIDER} from "../../../../../interface/static";
 import {
@@ -6,13 +6,8 @@ import {
   CategoryTitle,
 } from "../../../../../interface/types";
 import {checkSelectedFilter} from "../../../../../service/filter";
-import {checkIsSelectedCategoryTitle} from "../../../../../utils/array";
-import {
-  DownChevron,
-  RightChevron,
-} from "../../../shared/CustomIcons/customIcons";
-import FilterTag from "../../../shared/Filters/FilterTag";
 import {VolumeSlider} from "../../../shared/Filters/VolumeSlider";
+import {SearchFilterTag} from "../SearchFilterTag/SearchFilterTag";
 
 interface SearchFilterListProps {
   isFilterListOpen: boolean;
@@ -131,47 +126,5 @@ export const SearchFilterList: React.FC<SearchFilterListProps> = ({
         </HStack>
       )}
     </Box>
-  );
-};
-
-interface SearchFilterTagProps extends ButtonProps {
-  title: string;
-  selectedFilters: CategoryFilterListType[];
-  isFilterListOpen: boolean;
-  onClick?: () => void;
-}
-
-export const SearchFilterTag: React.FC<SearchFilterTagProps> = ({
-  title,
-  selectedFilters,
-  isFilterListOpen,
-  onClick,
-  ...props
-}) => {
-  return (
-    <FilterTag
-      {...props}
-      tagText={title}
-      borderRadius="15px"
-      pl="5px"
-      px={"0px"}
-      py="1.5px"
-      h="full"
-      alignItems={"center"}
-      justifyContent={"center"}
-      bg={
-        checkIsSelectedCategoryTitle(selectedFilters, title)
-          ? "yellow.300"
-          : "yellow.200"
-      }
-      onClick={onClick}
-    >
-      <Icon
-        as={isFilterListOpen ? RightChevron : DownChevron}
-        w="19px"
-        h="19px"
-        color="black.100"
-      />
-    </FilterTag>
   );
 };

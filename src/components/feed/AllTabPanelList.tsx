@@ -1,6 +1,5 @@
 import {Flex} from "@chakra-ui/react";
-import {useCallback, useEffect, useState} from "react";
-import {ReviewResponseType} from "../../../interface/server/types/Review";
+import {useEffect, useState} from "react";
 import {MOCK_FEED_FILTER_LIST} from "../../../interface/static";
 import {ReviewSortEnum} from "../../../interface/types";
 

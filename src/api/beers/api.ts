@@ -6,6 +6,7 @@ import {
   LANGUAGE_TYPE,
   ReviewSortEnum,
 } from "../../../interface/types";
+import {BeerFilterRequestType} from "@/types/api";
 
 export const signUpWithSocialLogin = async (request: SignUpRequestType) => {
   try {
@@ -25,38 +26,22 @@ export const getNewAccessTokenWithRefreshToken = async () => {
   }
 };
 
-export const getAllBeersApi = async (index: number) => {
-  try {
-    const result: BeerResultType = await axios.get(`/api/v1/beers/${index}`);
-    console.log(result, "getAllBeersApi");
-    return result;
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const getBeersWithKeywordApi = async ({
-  keyword,
-  page = 1,
-  size = 10,
-  sort = ReviewSortEnum.MostLikes,
-}: {
-  keyword: string;
-  page?: number;
-  size?: number;
-  sort?: ReviewSortEnum;
-}) => {
-  try {
-    console.log("try statment");
-    const language: LANGUAGE_TYPE = LANGUAGE_TYPE.KR;
-    const result = await axios.get(
-      `/api/v1/beers?keyword=${keyword}&page=${page}&size=${size}&sort=${sort}&language=${language}`
-    );
-    console.log(result, "getBeersWithKeywordApi");
-    return result;
-  } catch (error) {
-    console.error(error);
-  }
+export const fetchBeersApi = async (params: BeerFilterRequestType) => {
+  const language: LANGUAGE_TYPE = LANGUAGE_TYPE.KR;
+  const res = await axios.get("/api/v1/beers", {
+    params: {
+      language: language,
+      page: params.page || 1,
+      size: params.size || 10,
+      sort: params.sort || ReviewSortEnum.MostLikes,
+      keyword: params.keyword || undefined,
+      categories: params.categories || undefined,
+      countries: params.countries || undefined,
+      volume_min: params.volume_min || undefined,
+      volume_max: params.volume_max || undefined,
+    },
+  });
+  return res.data;
 };
 
 export const fetchTopBeersApi = async () => {
