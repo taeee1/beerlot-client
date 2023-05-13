@@ -1,6 +1,6 @@
 import axios from "axios";
 import {ReviewPostparamType, ReviewSortEnum} from "../../../interface/types";
-import {AllReviewsQueryParams} from "@/../hooks/useReviewQuery";
+import {AllReviewsQueryParams} from "@/../hooks/query/useReviewQuery";
 
 // 맥주 1개에 대한 리뷰 리스트 get
 export const fetchAllBeersApi = async (queryParam: AllReviewsQueryParams) => {

@@ -1,7 +1,7 @@
 export interface FailureResponse {
-  statusCode: number;
-  timestamp: string;
-  path: string;
-  error: string;
-  errorCode?: string;
+  response: {
+    data: string;
+    status: number;
+    statusText: string;
+  };
 }

@@ -2,7 +2,7 @@ import {Box, Container} from "@chakra-ui/react";
 import {CenteredTitle} from "../shared/Headers/CenteredTitle";
 import {ReviewModal} from "../shared/ReviewModal/ReviewModal";
 import {FeedTabList} from "./FeedTabList";
-import {useAllReviewsQuery} from "@/../hooks/useReviewQuery";
+import {useAllReviewsQuery} from "@/../hooks/query/useReviewQuery";
 import {useEffect} from "react";
 
 // interface FeedTemplatetProps {

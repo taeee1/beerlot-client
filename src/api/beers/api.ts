@@ -109,13 +109,8 @@ export const getBeerCategoriesApi = async () => {
 };
 
 export const likeBeerApi = async (beerId: number) => {
-  try {
-    const result = await axios.post(`/api/v1/beers/${beerId}/likes`);
-    console.log(result, "likeBeerApi");
-    return result;
-  } catch (error) {
-    console.error(error);
-  }
+  const res = await axios.post(`/api/v1/beers/${beerId}/likes`);
+  return res.data;
 };
 
 export const dislikeBeerApi = async (beerId: number) => {

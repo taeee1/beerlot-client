@@ -1,6 +1,6 @@
 import {Box, Flex, Text, VStack} from "@chakra-ui/react";
-import axios, {AxiosResponse} from "axios";
-import React, {useEffect, useState} from "react";
+import axios from "axios";
+import React, {useState} from "react";
 import {useMutation} from "react-query";
 import styled from "styled-components";
 import {LikeButton} from "../shared/LikeButton";
@@ -52,7 +52,7 @@ const CardItemChakra: React.FC<CardItemProps> = ({
       >
         <Box position="absolute" right="0px" top="0px">
           <LikeButton
-            isClicked={isLiked}
+            isLiked={isLiked}
             onClick={handleClick}
             position="absolute"
             top="12px"
@@ -63,6 +63,7 @@ const CardItemChakra: React.FC<CardItemProps> = ({
               isLiked ? "none" : "drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5))"
             }
             color={isLiked ? "orange.300" : "#ffffff"}
+            aria-label="like button"
           />
         </Box>
         <CardImage src={img_src} alt={beerName} isTwoByTwo={isTwoByTwo} />

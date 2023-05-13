@@ -31,7 +31,7 @@ const CardItem: React.FC<CardItemProps> = ({
     <>
       <CardContainer color={color}>
         <LikeButton
-          isClicked={isClicked}
+          isLiked={isClicked}
           onClick={handleClick}
           position="absolute"
           top="12px"
@@ -42,6 +42,7 @@ const CardItem: React.FC<CardItemProps> = ({
             isClicked ? "none" : "drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5))"
           }
           color={isClicked ? "orange.300" : "#ffffff"}
+          aria-label="like button"
         />
         <CardImage src={img_src} alt={beerName} isTwoByTwo={isTwoByTwo} />
 

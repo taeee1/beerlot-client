@@ -99,11 +99,12 @@ export const DetailInfo: React.FC<DetailInfoProps> = ({
           <HStack gap="20px">
             {/* like button */}
             <LikeButton
-              isClicked={isLiked}
+              isLiked={isLiked}
               onClick={handleClickLike}
               w="40px"
               h="40px"
               cursor="pointer"
+              aria-label="like button"
             />
           </HStack>
         </HStack>

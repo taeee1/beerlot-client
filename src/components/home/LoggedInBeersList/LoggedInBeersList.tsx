@@ -12,6 +12,7 @@ import {BeerResponseType} from "../../../../typedef/server/beer";
 import {useRouter} from "next/router";
 import {generateBeerDetailUrl} from "@/../utils/url";
 import {CommonBeerImage} from "@/components/shared/CommonBeerImage/CommonBeerImage";
+import {LikeButton} from "@/components/shared/LikeButton";
 
 interface LoggedInBeersListProps {
   topBeersList?: BeerResponseType[];
@@ -44,8 +45,13 @@ const LoggedInBeersList: React.FC<LoggedInBeersListProps> = ({
               <BeerCard
                 key={item.id}
                 mt={1}
+                pos={"relative"}
                 onClick={() => onClick(item?.id, item.name)}
               >
+                <Box id={"like button"} pos={"absolute"} right={4} top={4}>
+                  <LikeButton isLiked={true} aria-label="like button" />
+                </Box>
+
                 <BeerCardBody>
                   <Box position="relative">
                     {item.image_url && (

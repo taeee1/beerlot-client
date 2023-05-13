@@ -1,25 +1,28 @@
-import {Icon, IconProps} from "@chakra-ui/react";
+import {IconButton, IconButtonProps} from "@chakra-ui/react";
 import React from "react";
-import {HeartEmpty, HeartOrange} from "./CustomIcons/customIcons";
+import {HeartEmpty} from "./CustomIcons/customIcons";
 
-interface LikeButtonProps extends IconProps {
-  isClicked: boolean;
-  onClick?: () => void;
+interface LikeButtonProps extends IconButtonProps {
+  isLiked: boolean;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 export const LikeButton: React.FC<LikeButtonProps> = ({
-  isClicked,
+  isLiked,
   onClick,
   ...props
 }) => {
   return (
-    <Icon
-      {...props}
-      aria-label="like button"
+    <IconButton
       onClick={onClick}
-      as={isClicked ? HeartOrange : HeartEmpty}
-      color={isClicked ? "orange.200" : "gray.300"}
+      icon={isLiked ? <HeartEmpty /> : <HeartEmpty />}
+      color={isLiked ? "orange.200" : "gray.300"}
       cursor="pointer"
+      fontSize={"28px"}
+      _hover={{}}
+      _active={{}}
+      p={0}
+      {...props}
     />
   );
 };

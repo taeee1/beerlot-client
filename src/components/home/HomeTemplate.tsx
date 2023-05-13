@@ -7,7 +7,7 @@ import {CommonBeersList} from "./CommonBeersList/CommonBeersList";
 import {LoggedInBeersList} from "./LoggedInBeersList/LoggedInBeersList";
 import SearchInputHome from "./SearchInputHome";
 import {WelcomeTextContent} from "./WelcomeText";
-import {useTopBeersQuery} from "@/../hooks/useBeerQuery";
+import {useTopBeersQuery} from "@/../hooks/query/useBeerQuery";
 
 interface HomeTemplateProps {
   userInfo?: SignUpType;

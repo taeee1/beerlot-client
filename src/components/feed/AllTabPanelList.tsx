@@ -7,7 +7,7 @@ import {ReviewFilterSort, ReviewSortEnum} from "../../../interface/types";
 import {RightChevron} from "../shared/CustomIcons/customIcons";
 import FilterTag from "../shared/Filters/FilterTag";
 
-import {useAllReviewsQuery} from "@/../hooks/useReviewQuery";
+import {useAllReviewsQuery} from "@/../hooks/query/useReviewQuery";
 import FollowingTabPanelItem from "./TabPanelItem";
 
 export const AllTabPanelList = () => {
