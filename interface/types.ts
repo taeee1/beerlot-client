@@ -13,6 +13,14 @@ export interface ReviewCategoryFilterListType {
   title: CategoryTitle;
   tags: ReviewSortEnum[];
 }
+export interface BeerFilterType {
+  sort: string;
+  keyword: string;
+  categories: number[];
+  countries: string[];
+  volume_min: number;
+  volume_max: number;
+}
 
 // export enum CategoryTitle {
 //   CRITERIA = "정렬 기준",

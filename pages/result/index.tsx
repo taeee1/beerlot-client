@@ -34,6 +34,7 @@ const SearchResultPage = () => {
   const [selectedFilters, setSelectedFilter] = useState<
     CategoryFilterListType[]
   >([]);
+
   const SearchBeerQuery = useBeersQuery({
     keyword: typeof query === "string" ? query : "",
   });
@@ -184,31 +185,3 @@ const SearchResultPage = () => {
 };
 
 export default SearchResultPage;
-
-// {filteredItemList.length > 0 ? (
-//   <Box mt="15px">
-//     {filteredItemList.map((item) => {
-//       return (
-//         <Box key={item.id}>
-//           {/* <CardContainer
-//             key={item.id}
-//             onClick={() => {
-//               router.push(`/result/details?query=${item.beerName}`);
-//             }}
-//           >
-//             <CardItem
-//               isTwoByTwo
-//               cardType={CardType.POPULAR}
-//               beerName={item.beerName}
-//               img_src={item.img_src}
-//               sort={item.sort}
-//               country={item.country}
-//             />
-//           </CardContainer> */}
-//         </Box>
-//       );
-//     })}
-//   </Box>
-// ) : (
-//   <EmptyFilteredResult />
-// )}
