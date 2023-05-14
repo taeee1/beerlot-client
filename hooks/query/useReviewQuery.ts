@@ -1,4 +1,4 @@
-import {fetchAllBeersApi} from "@/api/review/api";
+import {fetchAllReviewsApi} from "@/api/review/api";
 import {UseQueryOptions, useQuery} from "react-query";
 import {FailureResponse} from "types/api";
 import {ReviewSortEnum} from "../../interface/types";
@@ -10,7 +10,7 @@ export const useAllReviewsQuery = (
 ) => {
   return useQuery({
     queryKey: allReviewsQueryKey(),
-    queryFn: () => fetchAllBeersApi(queryParam),
+    queryFn: () => fetchAllReviewsApi(queryParam),
     enabled: false,
     refetchOnMount: false,
     refetchOnWindowFocus: false,

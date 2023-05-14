@@ -2,23 +2,6 @@ import axios from "axios";
 import {ReviewPostparamType, ReviewSortEnum} from "../../../interface/types";
 import {AllReviewsQueryParams} from "@/../hooks/query/useReviewQuery";
 
-// 맥주 1개에 대한 리뷰 리스트 get
-export const fetchAllBeersApi = async (queryParam: AllReviewsQueryParams) => {
-  const {
-    page = 1,
-    size = 10,
-    sort = ReviewSortEnum.RecentlyUpdated,
-  } = queryParam;
-  const res = await axios.get(`/api/v1/reviews`, {
-    params: {
-      page,
-      size,
-      sort,
-    },
-  });
-  return res.data;
-};
-
 // 맥주 1개에 대한 리뷰 리스트 post
 export const postReviewWithBeerIdApi = async (
   beerId: number,
@@ -46,25 +29,20 @@ export const getReviewWitReviewBeerIdApi = async (
   }
 };
 
-// 맥주 리뷰 전체 리스트 get
-export const getAllReviewApi = async ({
-  page = 1,
-  size = 10,
-  sort = ReviewSortEnum.RecentlyUpdated,
-}: {
-  page?: number;
-  size?: number;
-  sort?: ReviewSortEnum;
-}) => {
-  try {
-    const result = await axios.get(
-      `/api/v1/reviews?page=${page}&size=${size}&sort=${sort}`
-    );
-    console.log(result, "getAllReviewApi");
-    return result;
-  } catch (error) {
-    console.error(error);
-  }
+export const fetchAllReviewsApi = async (queryParam: AllReviewsQueryParams) => {
+  const {
+    page = 1,
+    size = 10,
+    sort = ReviewSortEnum.RecentlyUpdated,
+  } = queryParam;
+  const res = await axios.get(`/api/v1/reviews`, {
+    params: {
+      page,
+      size,
+      sort,
+    },
+  });
+  return res.data;
 };
 
 // 맥주 1개에 대한 리뷰 리스트 post

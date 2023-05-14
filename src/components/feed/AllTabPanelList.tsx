@@ -11,12 +11,13 @@ export const AllTabPanelList = () => {
   const [selectedTag, setSelectedTag] = useState<ReviewSortEnum>(
     MOCK_FEED_FILTER_LIST[0].tags[0]
   );
-
-  const allReviewsQuery = useAllReviewsQuery({});
+  const allReviewsQuery = useAllReviewsQuery({
+    sort: selectedTag,
+  });
 
   useEffect(() => {
     allReviewsQuery.refetch();
-  }, []);
+  }, [selectedTag]);
 
   const handleSelectTag = async (tag: ReviewSortEnum) => {
     setSelectedTag(tag);
