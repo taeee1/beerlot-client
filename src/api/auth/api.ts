@@ -17,7 +17,7 @@ export const loginWithSocialLoginApi = async (provider: OAUTH_PROVIDER) => {
 };
 
 export const generateSocialLoginUrl = (provider: OAUTH_PROVIDER) => {
-  return `/api/v1/auth/authorize/${provider}?redirect-url=${redirectUrl}`;
+  return `https://beerlot-core-api-lopbi5pmwq-du.a.run.app/api/v1/auth/authorize/${provider}?redirect-url=${redirectUrl}`;
 };
 
 export const signUpWithSocialLoginApi = async (request: SignUpRequestType) => {

@@ -14,7 +14,6 @@ const SocialButton = () => {
   return (
     <VStack w={"100%"} gap="10px">
       {socialButton.map((button) => {
-        console.log(button.href, "href");
         return (
           <Button
             _hover={{}}
