@@ -12,7 +12,6 @@ import React from "react";
 import {useRecoilState} from "recoil";
 import {POLICY_LABEL} from "../../../../interface/server/types/Auth";
 import {checkSelected} from "../../../../utils/array";
-import {signUpWithSocialLogin} from "../../../api/beers/api";
 import {chosenBeerIdsState} from "../../../store/atom";
 
 import {mockData} from "../../home/HomeTemplate";
@@ -73,7 +72,6 @@ const BeerCards: React.FC<BeerCardsProps> = ({nickName, ...props}) => {
   const router = useRouter();
 
   const handleClickComplete = () => {
-    signUpWithSocialLogin(MOCK_AUTH);
     router.push(`/signup/complete`);
   };
 

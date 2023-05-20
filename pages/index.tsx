@@ -1,8 +1,19 @@
 import type {NextPage} from "next";
 import Head from "next/head";
 import HomeTemplate from "../src/components/home/HomeTemplate";
+import {useEffect} from "react";
+import {useRouter} from "next/router";
 
 const Home: NextPage = () => {
+  const router = useRouter();
+  const isSignedUp = router.query.is_signed_up;
+
+  useEffect(() => {
+    if (isSignedUp === "false") {
+      router.push("/signup");
+    }
+  }, [isSignedUp, router]);
+
   return (
     <>
       <Head>

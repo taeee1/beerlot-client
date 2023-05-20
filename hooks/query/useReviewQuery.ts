@@ -1,7 +1,7 @@
 import {fetchAllReviewsApi} from "@/api/review/api";
 import {UseQueryOptions, useQuery} from "react-query";
 import {FailureResponse} from "types/api";
-import {ReviewSortEnum} from "../../interface/types";
+import {BeerSortEnum, ReviewSortEnum} from "../../interface/types";
 
 export const allReviewsQueryKey = () => ["allReviews"];
 export const useAllReviewsQuery = (
@@ -23,6 +23,15 @@ export type AllReviewsQueryParams = {
   size?: number;
   sort?: ReviewSortEnum;
 };
+
+export type AllBeersQueryParams = {
+  page?: number;
+  size?: number;
+  sort?: BeerSortEnum;
+};
+
+export type ReviewsWithLanguage = AllReviewsQueryParams & {language: string};
+export type BeersWithLanguage = AllBeersQueryParams & {language: string};
 
 export type AllReviewsQueryResponse = {
   contents: ContentType[];

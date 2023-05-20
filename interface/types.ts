@@ -101,6 +101,11 @@ export enum ReviewSortEnum {
   HighRate = "HIGH_RATE",
   LowRate = "LOW_RATE",
 }
+export enum BeerSortEnum {
+  MostLikes = "MOST_LIKES",
+  HighRate = "HIGH_RATE",
+  MostReviews = "MOST_REVIEWS",
+}
 
 export enum ReviewSortLabelEnum {
   RECENTLY_UPDATED = "최신순",

@@ -1,21 +1,10 @@
+import {BeerFilterRequestType} from "@/types/api";
 import axios from "axios";
-import {SignUpRequestType} from "../../../interface/server/types/Auth";
 import {
-  BeerResultType,
   CategoryType,
   LANGUAGE_TYPE,
   ReviewSortEnum,
 } from "../../../interface/types";
-import {BeerFilterRequestType} from "@/types/api";
-
-export const signUpWithSocialLogin = async (request: SignUpRequestType) => {
-  try {
-    const result = await axios.patch(`/api/v1/auth/signup`, request);
-    console.log(result);
-  } catch (error) {
-    console.error(error);
-  }
-};
 
 export const getNewAccessTokenWithRefreshToken = async () => {
   try {
