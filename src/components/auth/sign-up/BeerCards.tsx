@@ -26,6 +26,7 @@ import {
 
 import FloatingButton from "../../shared/FloatingButton";
 import {CommonBeerImage} from "@/components/shared/CommonBeerImage/CommonBeerImage";
+import {useSignupQuery} from "@/../hooks/query/useAuthQuery";
 
 interface BeerCardsProps extends StackProps {
   nickName: string;
@@ -70,8 +71,10 @@ const BeerCards: React.FC<BeerCardsProps> = ({nickName, ...props}) => {
   };
 
   const router = useRouter();
+  const signupQuery = useSignupQuery(MOCK_AUTH);
 
   const handleClickComplete = () => {
+    signupQuery.refetch();
     router.push(`/signup/complete`);
   };
 

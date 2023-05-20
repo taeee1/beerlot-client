@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import {OAUTH_PROVIDER} from "../../../../interface/types";
 import {GoogleLogo, KakaoLogo, NaverLogo} from "../../../../public/svg";
-import {generateSocialLoginUrl} from "../../../api/auth/api";
+import {generateSocialLoginUrl} from "../../../api/user/api";
 
 const SocialButton = () => {
   return (

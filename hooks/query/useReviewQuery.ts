@@ -2,6 +2,7 @@ import {fetchAllReviewsApi} from "@/api/review/api";
 import {UseQueryOptions, useQuery} from "react-query";
 import {FailureResponse} from "types/api";
 import {BeerSortEnum, ReviewSortEnum} from "../../interface/types";
+import {POLICY_LABEL} from "@/../interface/server/types/Auth";
 
 export const allReviewsQueryKey = () => ["allReviews"];
 export const useAllReviewsQuery = (
@@ -32,6 +33,13 @@ export type AllBeersQueryParams = {
 
 export type ReviewsWithLanguage = AllReviewsQueryParams & {language: string};
 export type BeersWithLanguage = AllBeersQueryParams & {language: string};
+
+export type SignupRequestType = {
+  username: string;
+  status_message: string;
+  image_url: string;
+  agreed_policies: POLICY_LABEL[];
+};
 
 export type AllReviewsQueryResponse = {
   contents: ContentType[];

@@ -3,7 +3,7 @@ import {
   getUserReviewsApi,
   getUsersInfoApi,
   putUsersInfoApi,
-} from "@/api/auth/api";
+} from "@/api/user/api";
 import {UseQueryOptions, useQuery} from "react-query";
 import {FailureResponse} from "types/api";
 import {BeersWithLanguage, ReviewsWithLanguage} from "./useReviewQuery";
