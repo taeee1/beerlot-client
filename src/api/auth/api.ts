@@ -2,8 +2,8 @@ import axios from "axios";
 import {SignUpRequestType} from "../../../interface/server/types/Auth";
 import {OAUTH_PROVIDER} from "../../../interface/types";
 
-// const redirectUrl = "https://beerlot-client.vercel.app";
-export const redirectUrl = "https://localhost:3000";
+const redirectUrl = "https://beerlot-client.vercel.app";
+// export const redirectUrl = "https://localhost:3000";
 
 export const loginWithSocialLoginApi = async (provider: OAUTH_PROVIDER) => {
   try {
