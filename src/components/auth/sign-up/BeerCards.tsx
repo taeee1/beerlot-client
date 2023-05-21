@@ -8,11 +8,12 @@ import {
   Image as ChakraImage,
 } from "@chakra-ui/react";
 import {useRouter} from "next/router";
-import React from "react";
+import React, {useEffect} from "react";
 import {useRecoilState} from "recoil";
 import {POLICY_LABEL} from "../../../../interface/server/types/Auth";
 import {checkSelected} from "../../../../utils/array";
 import {chosenBeerIdsState} from "../../../store/atom";
+import Cookies from "js-cookie";
 
 import {mockData} from "../../home/HomeTemplate";
 import {
@@ -72,8 +73,14 @@ const BeerCards: React.FC<BeerCardsProps> = ({nickName, ...props}) => {
 
   const router = useRouter();
   const signupQuery = useSignupQuery(MOCK_AUTH);
+  useEffect(() => {
+    const accessToken = Cookies.get("beerlot-oauth-auth-request");
+    console.log("accessToken", accessToken);
+  }, []);
 
   const handleClickComplete = () => {
+    const accessToken = Cookies.get("beerlot-oauth-auth-request");
+    console.log("accessToken", accessToken);
     signupQuery.refetch();
     router.push(`/signup/complete`);
   };

@@ -3,16 +3,22 @@ import Head from "next/head";
 import HomeTemplate from "../src/components/home/HomeTemplate";
 import {useEffect} from "react";
 import {useRouter} from "next/router";
+import Cookies from "js-cookie";
 
 const Home: NextPage = () => {
   const router = useRouter();
   const isSignedUp = router.query.is_signed_up;
+  const accessToken = router.query.access_token;
 
   useEffect(() => {
-    if (isSignedUp === "false") {
-      router.push("/signup");
+    if (typeof accessToken === "string") {
+      Cookies.set("beerlot-oauth-auth-request", accessToken);
     }
-  }, [isSignedUp, router]);
+
+    // if (isSignedUp === "false") {
+    //   router.push("/signup");
+    // }
+  }, [accessToken, isSignedUp, router]);
 
   return (
     <>
