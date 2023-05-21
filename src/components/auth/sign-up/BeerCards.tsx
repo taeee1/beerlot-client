@@ -74,12 +74,12 @@ const BeerCards: React.FC<BeerCardsProps> = ({nickName, ...props}) => {
   const router = useRouter();
   const signupQuery = useSignupQuery(MOCK_AUTH);
   useEffect(() => {
-    const accessToken = Cookies.get("beerlot-oauth-auth-request");
+    const accessToken = Cookies.get("beerlot-oauth-auth-guest");
     console.log("accessToken", accessToken);
   }, []);
 
   const handleClickComplete = () => {
-    const accessToken = Cookies.get("beerlot-oauth-auth-request");
+    const accessToken = Cookies.get("beerlot-oauth-auth-guest");
     console.log("accessToken", accessToken);
     signupQuery.refetch();
     router.push(`/signup/complete`);

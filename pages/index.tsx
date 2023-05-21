@@ -12,7 +12,7 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     if (typeof accessToken === "string") {
-      Cookies.set("beerlot-oauth-auth-request", accessToken);
+      Cookies.set("beerlot-oauth-auth-guest", accessToken);
     }
 
     // if (isSignedUp === "false") {
