@@ -9,22 +9,22 @@ const beers = () => {
 
 export default beers;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
-  const cookies = context.req.headers.cookie;
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const session = await getSession(context);
+//   const cookies = context.req.headers.cookie;
 
-  if (cookies && cookies.includes("beerlot-oauth-auth-request")) {
-    return {
-      redirect: {
-        destination: "/account",
-        permanent: false,
-      },
-    };
-  }
+//   if (cookies && cookies.includes("beerlot-oauth-auth-request")) {
+//     return {
+//       redirect: {
+//         destination: "/account",
+//         permanent: false,
+//       },
+//     };
+//   }
 
-  return {
-    props: {
-      session,
-    },
-  };
-};
+//   return {
+//     props: {
+//       session,
+//     },
+//   };
+// };

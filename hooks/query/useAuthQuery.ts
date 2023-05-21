@@ -7,12 +7,11 @@ export const signupQueryKey = () => ["signup"];
 
 export const useSignupQuery = (
   queryParam: SignupRequestType,
-  accessToken: string,
   options?: UseQueryOptions<any, FailureResponse>
 ) => {
   return useQuery({
     queryKey: signupQueryKey(),
-    queryFn: () => signupApi(queryParam, accessToken),
+    queryFn: () => signupApi(queryParam),
     enabled: false,
     refetchOnMount: false,
     refetchOnWindowFocus: false,

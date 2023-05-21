@@ -70,9 +70,9 @@ const BeerCards: React.FC<BeerCardsProps> = ({nickName, ...props}) => {
       POLICY_LABEL.TERMS_OF_SERVICE,
     ],
   };
-  const accessToken = Cookies.get("beerlot-oauth-auth-guest") ?? "";
+  // const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const router = useRouter();
-  const signupQuery = useSignupQuery(MOCK_AUTH, accessToken);
+  const signupQuery = useSignupQuery(MOCK_AUTH);
   const handleClickComplete = () => {
     signupQuery.refetch();
     router.push(`/signup/complete`);
