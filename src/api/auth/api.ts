@@ -6,16 +6,19 @@ export const signupApi = async (
   accessToken: string
 ) => {
   const {username, status_message, image_url, agreed_policies} = queryParam;
-  const res = await axios.patch(`/api/v1/auth/signup`, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-    params: {
+  const res = await axios.patch(
+    `/api/v1/auth/signup`,
+    {
       username,
       status_message,
       image_url,
       agreed_policies,
     },
-  });
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
   return res.data;
 };
