@@ -4,7 +4,6 @@ import HomeTemplate from "../src/components/home/HomeTemplate";
 import {useEffect} from "react";
 import {useRouter} from "next/router";
 import Cookies from "js-cookie";
-import axios from "axios";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -13,14 +12,12 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     if (typeof accessToken === "string") {
-      Cookies.set("beerlot-oauth-auth-request", accessToken);
-
-      axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+      Cookies.set("beerlot-oauth-auth-guest", accessToken);
     }
 
-    if (isSignedUp === "false") {
-      router.push("/signup");
-    }
+    // if (isSignedUp === "false") {
+    //   router.push("/signup");
+    // }
   }, [accessToken, isSignedUp, router]);
 
   return (
