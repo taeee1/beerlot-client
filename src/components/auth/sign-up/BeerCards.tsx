@@ -72,10 +72,18 @@ const BeerCards: React.FC<BeerCardsProps> = ({nickName, ...props}) => {
   };
   const accessToken = Cookies.get("beerlot-oauth-auth-guest") ?? "";
   const router = useRouter();
-  const signupQuery = useSignupQuery(MOCK_AUTH, accessToken);
+  const signupQuery = useSignupQuery(MOCK_AUTH, accessToken, {
+    onSettled: () => {
+      Cookies.set("beerlot-oauth-auth-request", accessToken);
+
+      Cookies.remove("beerlot-oauth-auth-guest");
+
+      router.push(`/signup/complete`);
+    },
+  });
+
   const handleClickComplete = () => {
     signupQuery.refetch();
-    router.push(`/signup/complete`);
   };
 
   const handleClickBeer = (newBeerId: number | undefined) => {

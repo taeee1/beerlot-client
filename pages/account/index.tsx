@@ -1,6 +1,5 @@
 import {Box, Container} from "@chakra-ui/react";
 import {GetServerSideProps} from "next";
-import {useEffect} from "react";
 import AccountsTemplate from "../../src/components/account/AccountsTemplate";
 
 const AccountPage = () => {

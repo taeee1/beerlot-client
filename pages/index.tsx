@@ -11,13 +11,16 @@ const Home: NextPage = () => {
   const accessToken = router.query.access_token;
 
   useEffect(() => {
-    if (typeof accessToken === "string") {
+    if (isSignedUp === "false" && typeof accessToken === "string") {
       Cookies.set("beerlot-oauth-auth-guest", accessToken);
+      router.push("/signup");
+      return;
     }
 
-    // if (isSignedUp === "false") {
-    //   router.push("/signup");
-    // }
+    if (isSignedUp === "true" && typeof accessToken === "string") {
+      Cookies.set("beerlot-oauth-auth-request", accessToken);
+      return;
+    }
   }, [accessToken, isSignedUp, router]);
 
   return (
