@@ -14,11 +14,12 @@ export const userReviewsQueryKey = () => ["userReviews"];
 export const userBeersQueryKey = () => ["userBeers"];
 
 export const useUserInfoQuery = (
+  accessToken: string,
   options?: UseQueryOptions<any, FailureResponse> //TODO: fix any type
 ) => {
   return useQuery({
     queryKey: getUserInfoQueryKey(),
-    queryFn: getUsersInfoApi,
+    queryFn: () => getUsersInfoApi(accessToken),
     enabled: false,
     refetchOnMount: false,
     refetchOnWindowFocus: false,

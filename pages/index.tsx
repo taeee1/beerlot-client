@@ -4,11 +4,17 @@ import HomeTemplate from "../src/components/home/HomeTemplate";
 import {useEffect} from "react";
 import {useRouter} from "next/router";
 import Cookies from "js-cookie";
+import {useUserInfoQuery} from "../hooks/query/useUserQuery";
 
 const Home: NextPage = () => {
   const router = useRouter();
   const isSignedUp = router.query.is_signed_up;
-  const accessToken = router.query.access_token;
+  const accessToken =
+    typeof router.query.access_token === "string"
+      ? router.query.access_token
+      : "";
+
+  const userQuery = useUserInfoQuery(accessToken);
 
   useEffect(() => {
     if (isSignedUp === "false" && typeof accessToken === "string") {
@@ -22,6 +28,14 @@ const Home: NextPage = () => {
       return;
     }
   }, [accessToken, isSignedUp, router]);
+
+  useEffect(() => {
+    userQuery.refetch();
+  }, []);
+
+  useEffect(() => {
+    console.log("userQuery.data", userQuery.data);
+  }, [userQuery.data]);
 
   return (
     <>

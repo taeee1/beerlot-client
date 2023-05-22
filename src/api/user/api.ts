@@ -12,8 +12,12 @@ import {
 
 const redirectUrl = "https://beerlot-client.vercel.app";
 
-export const getUsersInfoApi = async () => {
-  const res = await axios.get("/api/v1/members/me");
+export const getUsersInfoApi = async (accessToken: string) => {
+  const res = await axios.get("/api/v1/members/me", {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
   return res.data;
 };
 
