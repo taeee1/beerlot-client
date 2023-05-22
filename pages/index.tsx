@@ -1,12 +1,13 @@
 import type {NextPage} from "next";
 import Head from "next/head";
 import HomeTemplate from "../src/components/home/HomeTemplate";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import Cookies from "js-cookie";
 import {useUserInfoQuery} from "../hooks/query/useUserQuery";
 
 const Home: NextPage = () => {
+  const [userInfo, setUserInfo] = useState<any>(null); // TODO: fix any
   const router = useRouter();
   const isSignedUp = router.query.is_signed_up;
   const accessToken =
@@ -14,7 +15,12 @@ const Home: NextPage = () => {
       ? router.query.access_token
       : "";
 
-  const userQuery = useUserInfoQuery(accessToken);
+  const userQuery = useUserInfoQuery(accessToken, {
+    onSuccess: (data) => {
+      console.log("onSuccess");
+      setUserInfo(data);
+    },
+  });
 
   useEffect(() => {
     if (isSignedUp === "false" && typeof accessToken === "string") {
@@ -30,12 +36,16 @@ const Home: NextPage = () => {
   }, [accessToken, isSignedUp, router]);
 
   useEffect(() => {
-    userQuery.refetch();
-  }, []);
+    if (!!accessToken) userQuery.refetch();
+  }, [accessToken, userQuery]);
 
   useEffect(() => {
     console.log("userQuery.data", userQuery.data);
   }, [userQuery.data]);
+
+  useEffect(() => {
+    console.log("userInfo", userInfo);
+  }, [userInfo]);
 
   return (
     <>
