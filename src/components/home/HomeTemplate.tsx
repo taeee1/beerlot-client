@@ -10,9 +10,9 @@ import {WelcomeTextContent} from "./WelcomeText";
 import {useTopBeersQuery} from "@/../hooks/query/useBeerQuery";
 
 interface HomeTemplateProps {
-  userInfo?: SignUpType;
+  username?: string;
 }
-const HomeTemplate: React.FC<HomeTemplateProps> = ({userInfo}) => {
+const HomeTemplate: React.FC<HomeTemplateProps> = ({username}) => {
   const topBeersQuery = useTopBeersQuery({
     onSuccess: async () => {},
     onError: (error) => {
@@ -32,15 +32,15 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({userInfo}) => {
           {/* TODO: v2 alarm feature */}
           {/* <RightBellHeader /> */}
 
-          <WelcomeTextContent username={userInfo?.username} />
+          <WelcomeTextContent username={username} />
 
           <Box py={"34px"}>
             <SearchInputHome />
           </Box>
 
-          {userInfo ? (
+          {username ? (
             <LoggedInBeersList
-              userName={userInfo?.username}
+              userName={username}
               topBeersList={topBeersQuery.data}
             />
           ) : (
