@@ -39,11 +39,9 @@ const Home: NextPage = () => {
   useEffect(() => {
     if (!!accessToken) {
       userQuery.refetch();
-      return;
     }
     if (cookieAccessToken) {
       userQuery.refetch();
-      return;
     }
   }, [accessToken, cookieAccessToken]);
 
