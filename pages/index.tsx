@@ -5,43 +5,48 @@ import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import Cookies from "js-cookie";
 import {useUserInfoQuery} from "../hooks/query/useUserQuery";
+import {filterAccessToken} from "../service/auth";
+import {access} from "fs";
 
 const Home: NextPage = () => {
   const router = useRouter();
   const isSignedUp = router.query.is_signed_up;
-  const accessToken =
-    typeof router.query.access_token === "string"
-      ? router.query.access_token
-      : "";
+  const queryAccessToken = router.query.access_token;
+  const cookieAccessToken = Cookies.get("beerlot-oauth-auth-request");
+  const accessToken = filterAccessToken(cookieAccessToken, queryAccessToken);
 
   const userQuery = useUserInfoQuery(accessToken);
 
   useEffect(() => {
-    if (isSignedUp === "false" && typeof accessToken === "string") {
-      Cookies.set("beerlot-oauth-auth-guest", accessToken);
+    console.log("accessToken", accessToken);
+  }, [accessToken]);
+
+  useEffect(() => {
+    if (isSignedUp === "false" && typeof queryAccessToken === "string") {
+      Cookies.set("beerlot-oauth-auth-guest", queryAccessToken);
       router.push("/signup");
       return;
     }
 
-    if (isSignedUp === "true" && typeof accessToken === "string") {
-      Cookies.set("beerlot-oauth-auth-request", accessToken);
+    if (isSignedUp === "true" && typeof queryAccessToken === "string") {
+      Cookies.set("beerlot-oauth-auth-request", queryAccessToken);
       return;
     }
-  }, [accessToken, isSignedUp, router]);
+  }, [queryAccessToken, isSignedUp, router]);
 
   useEffect(() => {
-    const cookieAccessToken = Cookies.get("beerlot-oauth-auth-request");
-    console.log("cookieAccessToken", cookieAccessToken);
-
-    if (!!accessToken) {
+    if (!!queryAccessToken) {
       userQuery.refetch();
       return;
     }
+  }, [queryAccessToken]);
+
+  useEffect(() => {
     if (cookieAccessToken) {
       userQuery.refetch();
       return;
     }
-  }, [accessToken]);
+  }, [cookieAccessToken]);
 
   return (
     <>
