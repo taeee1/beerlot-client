@@ -7,21 +7,14 @@ import Cookies from "js-cookie";
 import {useUserInfoQuery} from "../hooks/query/useUserQuery";
 
 const Home: NextPage = () => {
-  const [userInfo, setUserInfo] = useState<any>(null); // TODO: fix any
   const router = useRouter();
   const isSignedUp = router.query.is_signed_up;
   const accessToken =
     typeof router.query.access_token === "string"
       ? router.query.access_token
       : "";
-  const cookieAccessToken = Cookies.get("beerlot-oauth-auth-request");
 
-  const userQuery = useUserInfoQuery(accessToken, {
-    onSuccess: (data) => {
-      console.log("onSuccess");
-      setUserInfo(data);
-    },
-  });
+  const userQuery = useUserInfoQuery(accessToken);
 
   useEffect(() => {
     if (isSignedUp === "false" && typeof accessToken === "string") {
@@ -37,6 +30,9 @@ const Home: NextPage = () => {
   }, [accessToken, isSignedUp, router]);
 
   useEffect(() => {
+    const cookieAccessToken = Cookies.get("beerlot-oauth-auth-request");
+    console.log("cookieAccessToken", cookieAccessToken);
+
     if (!!accessToken) {
       userQuery.refetch();
       return;
@@ -45,7 +41,7 @@ const Home: NextPage = () => {
       userQuery.refetch();
       return;
     }
-  }, [accessToken, cookieAccessToken]);
+  }, [accessToken]);
 
   return (
     <>
