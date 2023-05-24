@@ -72,19 +72,15 @@ export const deleteReviewApi = async (beerId: number) => {
 
 // like review
 export const likeReviewApi = async (reviewId: number, accessToken: string) => {
+  const config = {
+    headers: {Authorization: `Bearer ${accessToken}`},
+  };
   const res = await axios.post(
     `/api/v1/reviews/${reviewId}/likes`,
-    {
-      params: {
-        reviewId: reviewId,
-      },
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    }
+    null,
+    config
   );
+
   return res.data;
 };
 
@@ -93,14 +89,11 @@ export const dislikeReviewApi = async (
   reviewId: number,
   accessToken: string
 ) => {
-  const res = await axios.delete(`/api/v1/reviews/${reviewId}/likes`, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-    data: {
-      reviewId: reviewId,
-    },
-  });
+  const config = {
+    headers: {Authorization: `Bearer ${accessToken}`},
+  };
+
+  const res = await axios.delete(`/api/v1/reviews/${reviewId}/likes`, config);
 
   return res.data;
 };
