@@ -20,7 +20,7 @@ import {
 import Cookies from "js-cookie";
 
 interface FollowingTabPanelItemProps {
-  reviewId: string;
+  reviewId: number;
   isRow: boolean;
   nickname: string;
   postingTime: string;

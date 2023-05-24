@@ -27,7 +27,7 @@ export const reviewLikeKey = () => ["reviewLike"];
 export const reviewDislikeKey = () => ["reviewDisike"];
 
 export const useReviewLikeMutation = (
-  reviewId: string,
+  reviewId: number,
   accessToken: string,
   options?: UseQueryOptions<any, FailureResponse>
 ) => {
@@ -42,7 +42,7 @@ export const useReviewLikeMutation = (
 };
 
 export const useReviewDislikeMutation = (
-  reviewId: string,
+  reviewId: number,
   accessToken: string,
   options?: UseQueryOptions<any, FailureResponse>
 ) => {

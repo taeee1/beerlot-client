@@ -55,7 +55,7 @@ const BeerReviews = () => {
         return (
           <FollowingTabPanelItem
             key={feed.id}
-            reviewId={feed.id}
+            reviewId={Number(feed.id)}
             isRow
             nickname={feed.nickname}
             postingTime={feed.postingTime}
