@@ -1,4 +1,5 @@
 export {default as ThumbsUpIcon} from "./thumbs-up.svg";
+export {default as ThumbsUpOrangeIcon} from "./thumbs-up-orange.svg";
 export {default as None} from "./none.svg";
 export {default as X} from "./x.svg";
 export {default as SearchGlass} from "./search-glass.svg";

@@ -71,23 +71,25 @@ export const deleteReviewApi = async (beerId: number) => {
 };
 
 // like review
-export const likeReviewApi = async (beerId: number) => {
-  try {
-    const result = await axios.post(`/api/v1/reviews/${beerId}/likes`);
-    console.log(result, "likeReviewApi");
-    return result;
-  } catch (error) {
-    console.error(error);
-  }
+export const likeReviewApi = async (reviewId: string, accessToken: string) => {
+  const res = await axios.post(`/api/v1/reviews/${reviewId}/likes`, null, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  return res.data;
 };
 
-// displike review
-export const dislikeReviewApi = async (beerId: number) => {
-  try {
-    const result = await axios.delete(`/api/v1/reviews/${beerId}/likes`);
-    console.log(result, "likeReviewApi");
-    return result;
-  } catch (error) {
-    console.error(error);
-  }
+// dislike review
+export const dislikeReviewApi = async (
+  reviewId: string,
+  accessToken: string
+) => {
+  const res = await axios.delete(`/api/v1/reviews/${reviewId}/likes`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  return res.data;
 };

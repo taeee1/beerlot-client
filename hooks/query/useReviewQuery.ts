@@ -1,17 +1,54 @@
-import {fetchAllReviewsApi} from "@/api/review/api";
+import {POLICY_LABEL} from "@/../interface/server/types/Auth";
+import {
+  dislikeReviewApi,
+  fetchAllReviewsApi,
+  likeReviewApi,
+} from "@/api/review/api";
 import {UseQueryOptions, useQuery} from "react-query";
 import {FailureResponse} from "types/api";
 import {BeerSortEnum, ReviewSortEnum} from "../../interface/types";
-import {POLICY_LABEL} from "@/../interface/server/types/Auth";
 
 export const allReviewsQueryKey = () => ["allReviews"];
 export const useAllReviewsQuery = (
   queryParam: AllReviewsQueryParams,
-  options?: UseQueryOptions<any, FailureResponse> //TODO: fix any type
+  options?: UseQueryOptions<any, FailureResponse>
 ) => {
   return useQuery({
     queryKey: allReviewsQueryKey(),
     queryFn: () => fetchAllReviewsApi(queryParam),
+    enabled: false,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    ...options,
+  });
+};
+
+export const reviewLikeKey = () => ["reviewLike"];
+export const reviewDislikeKey = () => ["reviewDisike"];
+
+export const useReviewLikeMutation = (
+  reviewId: string,
+  accessToken: string,
+  options?: UseQueryOptions<any, FailureResponse>
+) => {
+  return useQuery({
+    queryKey: reviewLikeKey(),
+    queryFn: () => likeReviewApi(reviewId, accessToken),
+    enabled: false,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    ...options,
+  });
+};
+
+export const useReviewDislikeMutation = (
+  reviewId: string,
+  accessToken: string,
+  options?: UseQueryOptions<any, FailureResponse>
+) => {
+  return useQuery({
+    queryKey: reviewDislikeKey(),
+    queryFn: () => dislikeReviewApi(reviewId, accessToken),
     enabled: false,
     refetchOnMount: false,
     refetchOnWindowFocus: false,

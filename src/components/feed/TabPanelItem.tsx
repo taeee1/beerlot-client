@@ -8,13 +8,19 @@ import {
   IconButton,
   Text,
 } from "@chakra-ui/react";
-import {useState} from "react";
+import {useCallback, useState} from "react";
 import {EditNote, TrashBin} from "../../../public/svg";
 import {CommonBeerImage} from "../shared/CommonBeerImage/CommonBeerImage";
 import {Rating} from "../shared/Rating";
 import ThumbsUpButton from "../shared/ThumbsUpButton";
+import {
+  useReviewDislikeMutation,
+  useReviewLikeMutation,
+} from "@/../hooks/query/useReviewQuery";
+import Cookies from "js-cookie";
 
 interface FollowingTabPanelItemProps {
+  reviewId: string;
   isRow: boolean;
   nickname: string;
   postingTime: string;
@@ -28,6 +34,7 @@ interface FollowingTabPanelItemProps {
 }
 
 const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
+  reviewId,
   isRow,
   nickname,
   postingTime,
@@ -40,7 +47,7 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
   maxPostLength = MAX_TEXT_LENGTH_OF_REVIEW,
 }) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
-
+  const [isLiked, setIsLiked] = useState<boolean>(false);
   const handleToggleElipsis = () => {
     setIsExpanded(!isExpanded);
   };
@@ -49,6 +56,31 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
     postText.length > maxPostLength,
     isExpanded
   );
+  const accessToken = Cookies.get("beerlot-oauth-auth-guest") ?? "";
+
+  const reviewLikeMutation = useReviewLikeMutation(reviewId, accessToken, {
+    onSuccess: () => {
+      setIsLiked(true);
+      console.log("reviewLikeMutation");
+    },
+  });
+  const reviewDislikeMutation = useReviewDislikeMutation(
+    reviewId,
+    accessToken,
+    {
+      onSuccess: () => {
+        setIsLiked(false);
+      },
+    }
+  );
+
+  const handleClickLike = useCallback(() => {
+    if (isLiked) {
+      reviewDislikeMutation.refetch();
+    } else {
+      reviewLikeMutation.refetch();
+    }
+  }, [isLiked, reviewDislikeMutation, reviewLikeMutation]);
 
   return (
     <Box p={"12px"} bg="white">
@@ -148,11 +180,19 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
               icon={<EditNote />}
             />
           </Center>
-          <ThumbsUpButton thumbsUpNumber={thumbsUpNumber} />
+          <ThumbsUpButton
+            thumbsUpNumber={thumbsUpNumber}
+            isLiked={isLiked}
+            onClick={handleClickLike}
+          />
         </Flex>
       ) : (
         <Flex justifyContent="end">
-          <ThumbsUpButton thumbsUpNumber={thumbsUpNumber} />
+          <ThumbsUpButton
+            thumbsUpNumber={thumbsUpNumber}
+            onClick={handleClickLike}
+            isLiked={isLiked}
+          />
         </Flex>
       )}
     </Box>
