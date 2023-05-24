@@ -31,6 +31,7 @@ export const AllTabPanelList = () => {
         return (
           <FollowingTabPanelItem
             key={post.id}
+            reviewId={post.id.toString()}
             postText={post.content}
             nickname={post.member.username}
             postingTime={post.updated_at}
