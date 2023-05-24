@@ -31,7 +31,7 @@ const ThumbsUpButton: React.FC<ThumbsUpButtonProps> = ({
       <Text
         textStyle="h3"
         ml={"4px"}
-        color={isLiked ? "orange.200" : "gray.200"}
+        color={isLiked ? "orange.200" : "black.100"}
       >
         {thumbsUpNumber}
       </Text>
