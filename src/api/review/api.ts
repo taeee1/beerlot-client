@@ -20,18 +20,15 @@ export const postReviewWithBeerIdApi = async (
 };
 
 export const createReviewApi = async (
+  beerId: number,
   data: CreateReviewRequestType,
   accessToken: string
 ) => {
-  const response = await axios.post(
-    `/api/v1/beers/${data.beerId}/reviews`,
-    data,
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    }
-  );
+  const response = await axios.post(`/api/v1/beers/${beerId}/reviews`, data, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
   return response.data;
 };
 

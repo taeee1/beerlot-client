@@ -27,13 +27,14 @@ export const useAllReviewsQuery = (
 export const createReviewMutationKey = () => ["createReview"];
 
 export const useCreateReviewMutation = (
+  beerId: number,
   accessToken: string,
   options?: UseMutationOptions<any, FailureResponse, CreateReviewRequestType>
 ) => {
   return useMutation({
     mutationKey: createReviewMutationKey(),
     mutationFn: (data: CreateReviewRequestType) =>
-      createReviewApi(data, accessToken),
+      createReviewApi(beerId, data, accessToken),
     ...options,
   });
 };
