@@ -110,7 +110,6 @@ export type ContentType = {
   };
 };
 export interface CreateReviewRequestType {
-  beerId: number;
   content: string;
   rate: number;
   image_url: string;

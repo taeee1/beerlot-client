@@ -93,7 +93,6 @@ export const ReviewModal = () => {
 
   const handleClickComplete = () => {
     const reviewData = {
-      beerId: 1,
       content: "그냥 그런 3점 맥주",
       rate: 3,
       image_url: "",
