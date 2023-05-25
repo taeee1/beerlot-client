@@ -10,11 +10,11 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
+import Cookies from "js-cookie";
 import React, {ChangeEvent, useCallback, useState} from "react";
 import {ReviewType} from "../../../../interface/types";
 import {EditPencil} from "../../../../public/svg";
 import {postReviewWithBeerIdApi} from "../../../api/review/api";
-import BottomDrawer from "../BottomDrawer";
 import {LeftCloseRandom} from "../Headers/LeftCloseRandom";
 import BeerNameSection from "./BeerNameSection";
 import {BeerPurchaseSection} from "./BeerPurchaseSection";
@@ -22,6 +22,7 @@ import {BeerRatingSection} from "./BeerRatingSection";
 import {BeerReviewTextSection} from "./BeerReviewTextSection";
 import {BeerSearchContent} from "./BeerSearchContent";
 import {ReviewCancelDrawer} from "./ReviewCancelDrawer";
+import {useCreateReviewMutation} from "@/../hooks/query/useReviewQuery";
 
 export const ReviewModal = () => {
   const [reviewInfo, setReviewInfo] = useState<ReviewType>({
@@ -86,18 +87,19 @@ export const ReviewModal = () => {
   const clearInput = () => {
     setPlaceInputValue("");
   };
+  const accessToken = Cookies.get("beerlot-oauth-auth-guest") ?? "";
 
-  const postReview = useCallback(async () => {
-    const result = await postReviewWithBeerIdApi(1, {
-      content: reviewInputValue,
-      rate: reviewInfo.rate,
-      // image_url: reviewInfo.imgUrl,
-      // buy_from: [reviewInfo.place],
-    });
-  }, [reviewInfo.rate, reviewInputValue]);
+  const createReviewMutation = useCreateReviewMutation(accessToken);
 
-  const handleClickComplete = useCallback(() => {
-    postReview();
+  const handleClickComplete = () => {
+    const reviewData = {
+      beerId: 1,
+      content: "그냥 그런 3점 맥주",
+      rate: 3,
+      image_url: "",
+      buy_from: "CU",
+    };
+    createReviewMutation.mutate(reviewData);
     onClose();
     setReviewInfo({
       beerName: null,
@@ -106,7 +108,7 @@ export const ReviewModal = () => {
     });
     clearInput();
     setReviewInputValue("");
-  }, [onClose, postReview]);
+  };
 
   return (
     <Box>

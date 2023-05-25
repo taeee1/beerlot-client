@@ -1,12 +1,14 @@
 import {POLICY_LABEL} from "@/../interface/server/types/Auth";
 import {
+  createReviewApi,
   dislikeReviewApi,
   fetchAllReviewsApi,
   likeReviewApi,
 } from "@/api/review/api";
-import {UseQueryOptions, useQuery} from "react-query";
+import {UseMutationOptions, UseQueryOptions, useQuery} from "react-query";
 import {FailureResponse} from "types/api";
 import {BeerSortEnum, ReviewSortEnum} from "../../interface/types";
+import {useMutation} from "react-query";
 
 export const allReviewsQueryKey = () => ["allReviews"];
 export const useAllReviewsQuery = (
@@ -22,7 +24,19 @@ export const useAllReviewsQuery = (
     ...options,
   });
 };
+export const createReviewMutationKey = () => ["createReview"];
 
+export const useCreateReviewMutation = (
+  accessToken: string,
+  options?: UseMutationOptions<any, FailureResponse, CreateReviewRequestType>
+) => {
+  return useMutation({
+    mutationKey: createReviewMutationKey(),
+    mutationFn: (data: CreateReviewRequestType) =>
+      createReviewApi(data, accessToken),
+    ...options,
+  });
+};
 export const reviewLikeKey = () => ["reviewLike"];
 export const reviewDislikeKey = () => ["reviewDisike"];
 
@@ -95,3 +109,10 @@ export type ContentType = {
     image_url: string;
   };
 };
+export interface CreateReviewRequestType {
+  beerId: number;
+  content: string;
+  rate: number;
+  image_url: string;
+  buy_from: string;
+}

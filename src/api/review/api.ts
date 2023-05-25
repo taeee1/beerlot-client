@@ -1,6 +1,9 @@
 import axios from "axios";
 import {ReviewPostparamType, ReviewSortEnum} from "../../../interface/types";
-import {AllReviewsQueryParams} from "@/../hooks/query/useReviewQuery";
+import {
+  AllReviewsQueryParams,
+  CreateReviewRequestType,
+} from "@/../hooks/query/useReviewQuery";
 
 // 맥주 1개에 대한 리뷰 리스트 post
 export const postReviewWithBeerIdApi = async (
@@ -14,6 +17,22 @@ export const postReviewWithBeerIdApi = async (
   } catch (error) {
     console.error(error);
   }
+};
+
+export const createReviewApi = async (
+  data: CreateReviewRequestType,
+  accessToken: string
+) => {
+  const response = await axios.post(
+    `/api/v1/beers/${data.beerId}/reviews`,
+    data,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return response.data;
 };
 
 // 리뷰 1개 get
