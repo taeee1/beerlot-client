@@ -9,6 +9,7 @@ import {
   OAUTH_PROVIDER,
   ReviewSortEnum,
 } from "../../../interface/types";
+import {LanguageType} from "@/../types/common";
 
 const redirectUrl = "https://beerlot-client.vercel.app";
 
@@ -44,15 +45,21 @@ export const getUserReviewsApi = async (queryParam: ReviewsWithLanguage) => {
   return res.data;
 };
 
-export const getUserLikedBeersApi = async (queryParam: BeersWithLanguage) => {
-  const language: LANGUAGE_TYPE = LANGUAGE_TYPE.KR;
-  const {page = 1, size = 10, sort = BeerSortEnum.MostLikes} = queryParam;
+export const getUserLikedBeersApi = async (
+  accessToken: string,
+  queryParam?: BeersWithLanguage,
+  language: LanguageType = LanguageType.KR
+) => {
+  const {page = 1, size = 10, sort = BeerSortEnum.MostLikes} = queryParam ?? {};
   const res = await axios.get(`/api/v1/members/beers`, {
     params: {
       page,
       size,
       sort,
       language,
+    },
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
     },
   });
   return res.data;

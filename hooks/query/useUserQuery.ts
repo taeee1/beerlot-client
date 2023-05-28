@@ -55,12 +55,13 @@ export const useUserReviewsQuery = (
 };
 
 export const useUserBeersQuery = (
-  queryParam: BeersWithLanguage,
+  accessToken: string,
+  queryParam?: BeersWithLanguage,
   options?: UseQueryOptions<any, FailureResponse>
 ) => {
   return useQuery({
     queryKey: userBeersQueryKey(),
-    queryFn: () => getUserLikedBeersApi(queryParam),
+    queryFn: () => getUserLikedBeersApi(accessToken, queryParam),
     enabled: false,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
