@@ -56,6 +56,7 @@ const FollowingTabPanelList = () => {
             key={feed.id}
             reviewId={Number(feed.id)}
             isRow={false}
+            isLiked={false} // Fix it
             nickname={feed.nickname}
             postingTime={feed.postingTime}
             beerName={feed.beerName}

@@ -57,6 +57,7 @@ const BeerReviews = () => {
             key={feed.id}
             reviewId={Number(feed.id)}
             isRow
+            isLiked={false} // should be modified
             nickname={feed.nickname}
             postingTime={feed.postingTime}
             beerName={feed.beerName}
