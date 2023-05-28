@@ -11,7 +11,7 @@ import {LeftBackRandom} from "../Headers/LeftBackRandom";
 
 interface BeerSearchContentProps extends ModalContentProps {
   onClickBack: () => void;
-  onChangeBeerName: (name: string) => void;
+  onChangeBeerName: (name: string, id: number) => void;
 }
 
 export const BeerSearchContent: React.FC<BeerSearchContentProps> = ({
@@ -19,9 +19,9 @@ export const BeerSearchContent: React.FC<BeerSearchContentProps> = ({
   onChangeBeerName,
   ...props
 }) => {
-  const handleClick = (name: string) => {
+  const handleClick = (name: string, id: number) => {
     onClickBack();
-    onChangeBeerName(name);
+    onChangeBeerName(name, id);
   };
 
   return (

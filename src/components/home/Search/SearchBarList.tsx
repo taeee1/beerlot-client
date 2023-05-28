@@ -10,7 +10,7 @@ import EmptySearchResult from "@/components/search/EmptySearchResult";
 import {BeerResponseType} from "@/../typedef/server/beer";
 
 interface SearchBarListProps {
-  handleClickItem?: (name: string, id?: number) => void;
+  handleClickItem?: (name: string, id: number) => void;
 }
 const SearchBarList: React.FC<SearchBarListProps> = ({handleClickItem}) => {
   const router = useRouter();

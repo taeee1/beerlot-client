@@ -1,3 +1,4 @@
+import {useCreateReviewMutation} from "@/../hooks/query/useReviewQuery";
 import {
   Box,
   Button,
@@ -11,10 +12,9 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import Cookies from "js-cookie";
-import React, {ChangeEvent, useCallback, useState} from "react";
+import React, {ChangeEvent, useState} from "react";
 import {ReviewType} from "../../../../interface/types";
 import {EditPencil} from "../../../../public/svg";
-import {postReviewWithBeerIdApi} from "../../../api/review/api";
 import {LeftCloseRandom} from "../Headers/LeftCloseRandom";
 import BeerNameSection from "./BeerNameSection";
 import {BeerPurchaseSection} from "./BeerPurchaseSection";
@@ -22,7 +22,6 @@ import {BeerRatingSection} from "./BeerRatingSection";
 import {BeerReviewTextSection} from "./BeerReviewTextSection";
 import {BeerSearchContent} from "./BeerSearchContent";
 import {ReviewCancelDrawer} from "./ReviewCancelDrawer";
-import {useCreateReviewMutation} from "@/../hooks/query/useReviewQuery";
 
 export const ReviewModal = () => {
   const [reviewInfo, setReviewInfo] = useState<ReviewType>({
@@ -33,6 +32,7 @@ export const ReviewModal = () => {
   const CloseReviewDrawer = useDisclosure();
   const [step, setStep] = useState(0);
   const [reviewInputValue, setReviewInputValue] = useState("");
+  const [beerId, setBeerId] = useState<number | null>(null);
 
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setReviewInputValue(e.target.value);
@@ -66,9 +66,11 @@ export const ReviewModal = () => {
     setStep(step - 1);
   };
 
-  const handleChangeBeerName = (name: string) => {
+  const handleChangeBeerName = (name: string, id: number) => {
     const newBeerReview = {...reviewInfo, beerName: name};
+    console.log("id", id);
     setReviewInfo(newBeerReview);
+    setBeerId(id);
   };
 
   const handleChangeRate = (rate: number) => {
@@ -89,7 +91,7 @@ export const ReviewModal = () => {
   };
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
 
-  const createReviewMutation = useCreateReviewMutation(1, accessToken);
+  const createReviewMutation = useCreateReviewMutation(beerId, accessToken);
 
   const handleClickComplete = () => {
     const reviewData = {
