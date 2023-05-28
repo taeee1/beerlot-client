@@ -11,7 +11,7 @@ import BeerReviews from "./BeerReviews";
 
 const BeerInfo = () => {
   return (
-    <Tabs colorScheme="orange">
+    <Tabs colorScheme="orange" h="full">
       <TabList px={"18px"}>
         <Tab flexGrow="1" color="orange.100">
           <Text>평가한 맥주</Text>
@@ -22,7 +22,7 @@ const BeerInfo = () => {
       </TabList>
       <Divider />
 
-      <TabPanels>
+      <TabPanels h="full">
         <TabPanel bg="yellow.100" h="full">
           <BeerReviews />
         </TabPanel>
