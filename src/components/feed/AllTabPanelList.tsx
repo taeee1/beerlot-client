@@ -27,8 +27,6 @@ export const AllTabPanelList = () => {
 
   useEffect(() => {
     likedReviewQuery.refetch();
-
-    console.log("likedReviewQuery", likedReviewQuery.data);
   }, []);
 
   useEffect(() => {
@@ -43,6 +41,7 @@ export const AllTabPanelList = () => {
         return (
           <FollowingTabPanelItem
             key={post.id}
+            isLiked={likedReviewQuery.data.contents.includes(post.id)}
             reviewId={Number(post.id)}
             postText={post.content}
             nickname={post.member.username}

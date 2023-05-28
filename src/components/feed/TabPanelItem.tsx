@@ -1,26 +1,19 @@
-import {getLeftTime} from "@/../utils/time";
-import {
-  Avatar,
-  Box,
-  Button,
-  Center,
-  Flex,
-  IconButton,
-  Text,
-} from "@chakra-ui/react";
-import {useCallback, useState} from "react";
-import {EditNote, TrashBin} from "../../../public/svg";
-import {CommonBeerImage} from "../shared/CommonBeerImage/CommonBeerImage";
-import {Rating} from "../shared/Rating";
-import ThumbsUpButton from "../shared/ThumbsUpButton";
 import {
   useReviewDislikeMutation,
   useReviewLikeMutation,
 } from "@/../hooks/query/useReviewQuery";
+import {getLeftTime} from "@/../utils/time";
+import {Avatar, Box, Center, Flex, IconButton, Text} from "@chakra-ui/react";
 import Cookies from "js-cookie";
-
+import {useCallback, useState} from "react";
+import {useQueryClient} from "react-query";
+import {EditNote, TrashBin} from "../../../public/svg";
+import {CommonBeerImage} from "../shared/CommonBeerImage/CommonBeerImage";
+import {Rating} from "../shared/Rating";
+import ThumbsUpButton from "../shared/ThumbsUpButton";
 interface FollowingTabPanelItemProps {
   reviewId: number;
+  isLiked: boolean;
   isRow: boolean;
   nickname: string;
   postingTime: string;
@@ -35,6 +28,7 @@ interface FollowingTabPanelItemProps {
 
 const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
   reviewId,
+  isLiked,
   isRow,
   nickname,
   postingTime,
@@ -46,8 +40,9 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
   isEditable,
   maxPostLength = MAX_TEXT_LENGTH_OF_REVIEW,
 }) => {
+  const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
+  const queryClient = useQueryClient();
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
-  const [isLiked, setIsLiked] = useState<boolean>(false);
   const handleToggleElipsis = () => {
     setIsExpanded(!isExpanded);
   };
@@ -56,20 +51,19 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
     postText.length > maxPostLength,
     isExpanded
   );
-  const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
 
   const reviewLikeMutation = useReviewLikeMutation(reviewId, accessToken, {
     onSuccess: () => {
-      setIsLiked(true);
-      console.log("reviewLikeMutation");
+      queryClient.invalidateQueries("userReviews");
     },
   });
+
   const reviewDislikeMutation = useReviewDislikeMutation(
     reviewId,
     accessToken,
     {
       onSuccess: () => {
-        setIsLiked(false);
+        queryClient.invalidateQueries("userReviews");
       },
     }
   );
