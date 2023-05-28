@@ -16,7 +16,11 @@ const InfoContainer: React.FC<InfoContainerProps> = ({imageSrc}) => {
       justifyContent="space-between"
       gap="30px"
     >
-      <ProfileAvatar alt="user profile photo" src={imageSrc} boxSize="76px" />
+      <ProfileAvatar
+        alt="user profile photo"
+        src={imageSrc ?? ""}
+        boxSize="76px"
+      />
 
       {/* TODO: will be added in v2 */}
       {/* <VStack>
