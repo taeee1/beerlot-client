@@ -5,7 +5,7 @@ import {
 import {getLeftTime} from "@/../utils/time";
 import {Avatar, Box, Center, Flex, IconButton, Text} from "@chakra-ui/react";
 import Cookies from "js-cookie";
-import {useCallback, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {useQueryClient} from "react-query";
 import {EditNote, TrashBin} from "../../../public/svg";
 import {CommonBeerImage} from "../shared/CommonBeerImage/CommonBeerImage";
@@ -40,6 +40,9 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
   isEditable,
   maxPostLength = MAX_TEXT_LENGTH_OF_REVIEW,
 }) => {
+  useEffect(() => {
+    console.log("isLiked", isLiked);
+  });
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const queryClient = useQueryClient();
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
