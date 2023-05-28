@@ -13,17 +13,13 @@ const BeerInfo = () => {
   return (
     <Tabs colorScheme="orange" h="full">
       <TabList px={"18px"}>
-        <Tab flexGrow="1" color="orange.100">
-          <Text>평가한 맥주</Text>
-        </Tab>
-        <Tab flexGrow="1" color="orange.100">
-          <Text>좋아요한 맥주</Text>
-        </Tab>
+        <Tab>평가한 맥주</Tab>
+        <Tab>좋아요한 맥주</Tab>
       </TabList>
       <Divider />
 
-      <TabPanels h="full">
-        <TabPanel bg="yellow.100" h="full">
+      <TabPanels bg="yellow.100" h="full">
+        <TabPanel h="full">
           <BeerReviews />
         </TabPanel>
         <TabPanel></TabPanel>
