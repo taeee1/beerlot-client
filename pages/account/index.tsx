@@ -4,8 +4,15 @@ import AccountsTemplate from "../../src/components/account/AccountsTemplate";
 
 const AccountPage = () => {
   return (
-    <Box w="full" h="full" overflowY={"scroll"} bg="gray.100">
-      <Container p={"0px"} w="full" bg="white" position="relative" maxW="450px">
+    <Box w="full" h="full" bg="gray.100" overflowY="scroll">
+      <Container
+        p={"0px"}
+        w="full"
+        h="full"
+        bg="white"
+        position="relative"
+        maxW="450px"
+      >
         <AccountsTemplate />
       </Container>
     </Box>
