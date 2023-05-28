@@ -11,7 +11,7 @@ import BeerReviews from "./BeerReviews";
 
 const BeerInfo = () => {
   return (
-    <Tabs colorScheme="orange" h="full">
+    <Tabs colorScheme="orange" h="full" w="full" defaultIndex={1} isFitted>
       <TabList px={"18px"}>
         <Tab>평가한 맥주</Tab>
         <Tab>좋아요한 맥주</Tab>
