@@ -1,12 +1,11 @@
+import Cookies from "js-cookie";
 import type {NextPage} from "next";
 import Head from "next/head";
-import HomeTemplate from "../src/components/home/HomeTemplate";
-import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import Cookies from "js-cookie";
+import {useEffect} from "react";
 import {useUserInfoQuery} from "../hooks/query/useUserQuery";
 import {filterAccessToken} from "../service/auth";
-import {access} from "fs";
+import HomeTemplate from "../src/components/home/HomeTemplate";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -16,10 +15,6 @@ const Home: NextPage = () => {
   const accessToken = filterAccessToken(cookieAccessToken, queryAccessToken);
 
   const userQuery = useUserInfoQuery(accessToken);
-
-  useEffect(() => {
-    console.log("accessToken", accessToken);
-  }, [accessToken]);
 
   useEffect(() => {
     if (isSignedUp === "false" && typeof queryAccessToken === "string") {

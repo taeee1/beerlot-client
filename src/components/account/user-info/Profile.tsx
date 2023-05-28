@@ -1,26 +1,22 @@
+import {useUserInfoQuery} from "@/../hooks/query/useUserQuery";
 import {VStack} from "@chakra-ui/react";
-import React from "react";
-import {useRecoilState} from "recoil";
-import {userInfoState} from "../../../store/atom";
+import Cookies from "js-cookie";
 import EditProfileButton from "./EditProfileButton";
 import InfoContainer from "./InfoContainer";
 import MessageContainer from "./MessageContainer";
 
 const Profile = () => {
-  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-
-  // TODO: error handling should be added
+  const accessToken = Cookies.get("beerlot-oauth-auth-request");
+  const userQuery = useUserInfoQuery(accessToken ?? "");
+  const {image_url, username, status_message} = userQuery?.data ?? {};
 
   return (
     <VStack pt={0} px="20px" pb="10px">
-      {userInfo?.image_url && <InfoContainer imageSrc={userInfo.image_url} />}
-      {userInfo?.username && userInfo.statusMessage && (
-        <MessageContainer
-          nickName={userInfo.username}
-          bio={userInfo.statusMessage}
-        />
+      {image_url && <InfoContainer imageSrc={image_url} />}
+      {username && status_message && (
+        <MessageContainer nickName={username} bio={status_message} />
       )}
-      {userInfo && <EditProfileButton />}
+      {userQuery.data && <EditProfileButton />}
     </VStack>
   );
 };

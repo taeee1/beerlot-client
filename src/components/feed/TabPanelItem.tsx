@@ -40,9 +40,6 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
   isEditable,
   maxPostLength = MAX_TEXT_LENGTH_OF_REVIEW,
 }) => {
-  useEffect(() => {
-    console.log("isLiked", isLiked);
-  });
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const queryClient = useQueryClient();
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
