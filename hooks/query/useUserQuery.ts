@@ -7,6 +7,7 @@ import {
 import {UseQueryOptions, useQuery} from "react-query";
 import {FailureResponse} from "types/api";
 import {BeersWithLanguage, ReviewsWithLanguage} from "./useReviewQuery";
+import {MemberReviewsRequest} from "@/../types/member/request";
 
 export const getUserInfoQueryKey = () => ["getUserInfo"];
 export const putUserInfoQueryKey = () => ["putUserInfo"];
@@ -41,12 +42,13 @@ export const usePutUserInfoQuery = (
 };
 
 export const useUserReviewsQuery = (
-  queryParam: ReviewsWithLanguage,
+  accessToken: string,
+  queryParam?: MemberReviewsRequest,
   options?: UseQueryOptions<any, FailureResponse>
 ) => {
   return useQuery({
     queryKey: userReviewsQueryKey(),
-    queryFn: () => getUserReviewsApi(queryParam),
+    queryFn: () => getUserReviewsApi(accessToken, queryParam),
     enabled: false,
     refetchOnMount: false,
     refetchOnWindowFocus: false,

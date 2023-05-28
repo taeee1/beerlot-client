@@ -1,4 +1,8 @@
 import {ContentType, useAllReviewsQuery} from "@/../hooks/query/useReviewQuery";
+import {
+  useUserBeersQuery,
+  useUserReviewsQuery,
+} from "@/../hooks/query/useUserQuery";
 import {Flex} from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import {useEffect, useState} from "react";
@@ -6,13 +10,10 @@ import {MOCK_FEED_FILTER_LIST} from "../../../interface/static";
 import {ReviewSortEnum} from "../../../interface/types";
 import {FeedFilter} from "./FeedFilter/FeedFilter";
 import FollowingTabPanelItem from "./TabPanelItem";
-import {LanguageType} from "@/../types/common";
-import {useUserBeersQuery} from "@/../hooks/query/useUserQuery";
 
 export const AllTabPanelList = () => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
-
-  const userBeerQuery = useUserBeersQuery(accessToken);
+  const likedReviewQuery = useUserReviewsQuery(accessToken);
   const [selectedTag, setSelectedTag] = useState<ReviewSortEnum>(
     MOCK_FEED_FILTER_LIST[0].tags[0]
   );
@@ -20,17 +21,19 @@ export const AllTabPanelList = () => {
     sort: selectedTag,
   });
 
+  const handleSelectTag = async (tag: ReviewSortEnum) => {
+    setSelectedTag(tag);
+  };
+
   useEffect(() => {
-    userBeerQuery.refetch();
+    likedReviewQuery.refetch();
+
+    console.log("likedReviewQuery", likedReviewQuery.data);
   }, []);
 
   useEffect(() => {
     allReviewsQuery.refetch();
   }, [selectedTag]);
-
-  const handleSelectTag = async (tag: ReviewSortEnum) => {
-    setSelectedTag(tag);
-  };
 
   return (
     <Flex flexDirection="column" gap={"10px"}>
