@@ -56,7 +56,7 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
     postText.length > maxPostLength,
     isExpanded
   );
-  const accessToken = Cookies.get("beerlot-oauth-auth-guest") ?? "";
+  const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
 
   const reviewLikeMutation = useReviewLikeMutation(reviewId, accessToken, {
     onSuccess: () => {
