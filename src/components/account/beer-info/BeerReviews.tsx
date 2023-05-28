@@ -1,70 +1,34 @@
+import {useUserReviewsQuery} from "@/../hooks/query/useUserQuery";
 import {Flex} from "@chakra-ui/react";
-import {v4 as uuidv4} from "uuid";
-import React from "react";
+import Cookies from "js-cookie";
+import {useEffect} from "react";
 import FollowingTabPanelItem from "../../feed/TabPanelItem";
+import {ContentType} from "@/../hooks/query/useReviewQuery";
+import {MemberReviewResponse} from "@/../types/member/response";
 
 const BeerReviews = () => {
-  const FOLLOWING_FEED_MOCK = [
-    {
-      id: uuidv4(),
-      nickname: "롱 웨이브",
-      postingTime: "2시간 전",
-      beerName: "버드와이저",
-      ratingNumber: 4,
-      imageSrc: "goat.png",
-      postText:
-        " 여윽시 내 최애 맥주.. 다시 미국 가고싶다ㅠㅠ 미국에서 먹었던 그 느낌을 다시 느끼고 싶을 때면 꼭 버드와이저를 찾게 되더라구요. 그리고 뭐니뭐니해도 버드와이저에는 감자칩이죠! 레이스랑 한 잔 하고 잡니다 :) 모두들 굿나잇!",
-      thumbsUpNumber: 22,
-    },
-    {
-      id: uuidv4(),
-      nickname: "호가든",
-      postingTime: "어제",
-      beerName: "",
-      ratingNumber: 4,
-      imageSrc: "goat.png",
-      postText: "",
-      thumbsUpNumber: 24,
-    },
-    {
-      id: uuidv4(),
-      nickname: "스텔라",
-      postingTime: "2시간 전",
-      beerName: "",
-      ratingNumber: 4,
-      imageSrc: "goat.png",
-      postText:
-        " 여윽시 내 최애 맥주.. 다시 미국 가고싶다ㅠㅠ 미국에서 먹었던 그 느낌을 다시 느끼고 싶을 때면 꼭 버드와이저를 찾게 되더라구요. 그리고 뭐니뭐니해도 버드와이저에는 감자칩이죠! 레이스랑 한 잔 하고 잡니다 :) 모두들 굿나잇!",
-      thumbsUpNumber: 22,
-    },
-    {
-      id: uuidv4(),
-      nickname: "버드와이저",
-      postingTime: "어제",
-      beerName: "호가든",
-      ratingNumber: 4,
-      imageSrc: "goat.png",
-      postText: " 여윽시 내 최애 맥주..",
-      thumbsUpNumber: 24,
-    },
-  ];
+  const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
+  const userReviewQuery = useUserReviewsQuery(accessToken);
+
+  useEffect(() => {
+    userReviewQuery.refetch();
+  }, []);
 
   return (
     <Flex flexDirection="column" gap={"10px"}>
-      {FOLLOWING_FEED_MOCK.map((feed) => {
+      {userReviewQuery?.data?.contents?.map((feed: MemberReviewResponse) => {
         return (
           <FollowingTabPanelItem
             key={feed.id}
             reviewId={Number(feed.id)}
             isRow
             isLiked={false} // should be modified
-            nickname={feed.nickname}
-            postingTime={feed.postingTime}
-            beerName={feed.beerName}
-            rate={feed.ratingNumber}
-            imageSrc={feed.imageSrc}
-            postText={feed.postText}
-            thumbsUpNumber={feed.thumbsUpNumber}
+            nickname={""} // should be modified
+            postingTime={feed.updated_at}
+            rate={feed.rate}
+            imageSrc={feed.image_url}
+            postText={feed.content}
+            thumbsUpNumber={feed.like_count}
             isEditable={true}
           />
         );

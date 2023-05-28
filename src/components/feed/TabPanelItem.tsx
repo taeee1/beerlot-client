@@ -17,7 +17,7 @@ interface FollowingTabPanelItemProps {
   isRow: boolean;
   nickname: string;
   postingTime: string;
-  beerName: string;
+  beerName?: string;
   rate: number;
   imageSrc?: string;
   postText: string;
@@ -103,7 +103,7 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
               {getLeftTime(postingTime)}
             </Text>
           </Box>
-          {!isEditable && (
+          {beerName && !isEditable && (
             <Box className="beerInfo" my={"2px"}>
               <Text textStyle="h3_bold">{beerName}</Text>
             </Box>
