@@ -24,11 +24,14 @@ export const createReviewApi = async (
   data: CreateReviewRequestType,
   accessToken: string
 ) => {
-  const response = await axios.post(`/api/v1/beers/${beerId}/reviews`, data, {
+  const url = `/api/v1/beers/${beerId}/reviews`;
+  const config = {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
-  });
+  };
+  const response = await axios.post(url, data, config);
+
   return response.data;
 };
 
