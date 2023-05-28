@@ -72,11 +72,12 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
   );
 
   const handleClickLike = useCallback(() => {
-    if (isLiked) {
-      reviewDislikeMutation.refetch();
-    } else {
-      reviewLikeMutation.refetch();
-    }
+    reviewLikeMutation.refetch();
+    // if (isLiked) {
+    //   reviewDislikeMutation.refetch();
+    // } else {
+    //   reviewLikeMutation.refetch();
+    // }
   }, [isLiked, reviewDislikeMutation, reviewLikeMutation]);
 
   return (
