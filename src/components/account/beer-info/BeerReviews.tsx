@@ -15,7 +15,12 @@ const BeerReviews = () => {
   }, []);
 
   return (
-    <Flex flexDirection="column" gap={"10px"}>
+    <Flex
+      flexDirection="column"
+      gap={"10px"}
+      h="full"
+      className="beerReviewFlex"
+    >
       {userReviewQuery?.data?.contents?.map((feed: MemberReviewResponse) => {
         return (
           <FollowingTabPanelItem

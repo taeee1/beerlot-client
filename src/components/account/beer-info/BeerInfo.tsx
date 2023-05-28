@@ -23,7 +23,7 @@ const BeerInfo = () => {
       <Divider />
 
       <TabPanels>
-        <TabPanel bg="yellow.100">
+        <TabPanel bg="yellow.100" h="full">
           <BeerReviews />
         </TabPanel>
         <TabPanel></TabPanel>
