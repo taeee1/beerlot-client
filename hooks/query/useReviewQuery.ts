@@ -44,14 +44,10 @@ export const reviewDislikeKey = () => ["reviewDisike"];
 export const useReviewLikeMutation = (
   reviewId: number,
   accessToken: string,
-  options?: UseQueryOptions<any, FailureResponse>
+  options?: UseMutationOptions<any, FailureResponse>
 ) => {
-  return useQuery({
-    queryKey: reviewLikeKey(),
-    queryFn: () => likeReviewApi(reviewId, accessToken),
-    enabled: false,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
+  return useMutation({
+    mutationFn: () => likeReviewApi(reviewId, accessToken),
     ...options,
   });
 };
@@ -59,14 +55,10 @@ export const useReviewLikeMutation = (
 export const useReviewDislikeMutation = (
   reviewId: number,
   accessToken: string,
-  options?: UseQueryOptions<any, FailureResponse>
+  options?: UseMutationOptions<any, FailureResponse>
 ) => {
-  return useQuery({
-    queryKey: reviewDislikeKey(),
-    queryFn: () => dislikeReviewApi(reviewId, accessToken),
-    enabled: false,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
+  return useMutation({
+    mutationFn: () => dislikeReviewApi(reviewId, accessToken),
     ...options,
   });
 };

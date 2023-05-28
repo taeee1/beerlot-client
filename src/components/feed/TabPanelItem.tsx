@@ -57,7 +57,7 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
 
   const reviewLikeMutation = useReviewLikeMutation(reviewId, accessToken, {
     onSuccess: () => {
-      queryClient.invalidateQueries("userReviews");
+      queryClient.invalidateQueries("userReviews"); // Replace "userReviews" with the appropriate query key
     },
   });
 
@@ -66,19 +66,17 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
     accessToken,
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("userReviews");
+        queryClient.invalidateQueries("userReviews"); // Replace "userReviews" with the appropriate query key
       },
     }
   );
 
   const handleClickLike = useCallback(() => {
-    reviewDislikeMutation.refetch();
-
-    // if (isLiked) {
-    //   reviewDislikeMutation.refetch();
-    // } else {
-    //   reviewLikeMutation.refetch();
-    // }
+    if (isLiked) {
+      reviewDislikeMutation.mutate();
+    } else {
+      reviewLikeMutation.mutate();
+    }
   }, [isLiked, reviewDislikeMutation, reviewLikeMutation]);
 
   return (
