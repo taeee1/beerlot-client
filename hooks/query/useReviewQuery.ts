@@ -111,8 +111,8 @@ export type ContentType = {
   };
 };
 export interface CreateReviewRequestType {
-  content: string;
+  content?: string;
   rate: number;
-  image_url: string;
-  buy_from: string;
+  image_url?: string;
+  buy_from?: string;
 }
