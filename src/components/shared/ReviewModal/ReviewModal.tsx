@@ -91,7 +91,10 @@ export const ReviewModal = () => {
   };
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
 
-  const createReviewMutation = useCreateReviewMutation(beerId, accessToken);
+  const createReviewMutation = useCreateReviewMutation(
+    beerId ?? 0,
+    accessToken
+  );
 
   const handleClickComplete = () => {
     const reviewData = {
