@@ -1,8 +1,5 @@
 import {ContentType, useAllReviewsQuery} from "@/../hooks/query/useReviewQuery";
-import {
-  useUserBeersQuery,
-  useUserReviewsQuery,
-} from "@/../hooks/query/useUserQuery";
+import {useUserReviewsQuery} from "@/../hooks/query/useUserQuery";
 import {Flex} from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import {useEffect, useState} from "react";
