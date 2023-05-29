@@ -46,15 +46,20 @@ const TopBeersList: React.FC<TopBeersListProps> = ({
   const handleClickLike = useCallback(
     (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, id?: number) => {
       e.stopPropagation();
-      console.log("id", id);
       if (id === undefined) return;
-      const isLiked = likedBeersList?.some((item) => item.id === id);
-      console.log("isLiked"), isLiked;
-      if (!isLiked) {
-        likeBeerMutation.mutate({beerId: id, accessToken});
-      } else {
-        dislikeBeerMutation.mutate({beerId: id, accessToken});
-      }
+      const isLikedBeer = likedBeersList?.find((item) => item.id === id);
+      console.log("isLikedBeer", isLikedBeer);
+      likeBeerMutation.mutate({beerId: id, accessToken});
+      const likedBeerIds = likedBeersList?.map((item) => item.id);
+      console.log("likedBeerIds");
+      const isLiked = likedBeerIds?.includes(id);
+      console.log("isLiked", isLiked);
+      // if (!isLiked) {
+
+      //   likeBeerMutation.mutate({beerId: id, accessToken});
+      // } else {
+      //   dislikeBeerMutation.mutate({beerId: id, accessToken});
+      // }
     },
     [accessToken, dislikeBeerMutation, likeBeerMutation, likedBeersList]
   );
