@@ -43,10 +43,7 @@ const BeerCard: React.FC<BeerCardProps> = ({
 }) => {
   const [isLiked, setIsLiked] = useState(false);
 
-  const handleClick = () => {
-    setIsLiked(!isLiked);
-    isLiked ? dislikeBeerApi(beerId) : likeBeerApi(beerId); // 데이터 저장
-  };
+  const handleClick = () => {};
 
   return (
     <VStack {...styleProps?.boxStyleProps} w="full">
