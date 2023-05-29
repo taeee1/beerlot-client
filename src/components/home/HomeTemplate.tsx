@@ -37,15 +37,18 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({username}) => {
           <Box py={"34px"}>
             <SearchInputHome />
           </Box>
-
-          {username ? (
+          <LoggedInBeersList
+            userName={username}
+            topBeersList={topBeersQuery.data}
+          />
+          {/* {username ? (
             <LoggedInBeersList
               userName={username}
               topBeersList={topBeersQuery.data}
             />
           ) : (
             <CommonBeersList topBeersList={topBeersQuery.data} />
-          )}
+          )} */}
         </Box>
       </Container>
     </Box>

@@ -1,10 +1,9 @@
 import {useUserReviewsQuery} from "@/../hooks/query/useUserQuery";
+import {MemberReviewResponse} from "@/../types/member/response";
 import {Flex} from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import {useEffect} from "react";
 import FollowingTabPanelItem from "../../feed/TabPanelItem";
-import {ContentType} from "@/../hooks/query/useReviewQuery";
-import {MemberReviewResponse} from "@/../types/member/response";
 
 const BeerReviews = () => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
