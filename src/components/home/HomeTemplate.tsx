@@ -1,13 +1,12 @@
+import {useTopBeersQuery} from "@/../hooks/query/useBeerQuery";
 import {Box, Container} from "@chakra-ui/react";
 import {useEffect} from "react";
-import {SignUpType} from "../../../interface/types";
 import {BeerResponseType} from "../../../typedef/server/beer";
 import {BlankHeader} from "../shared/Headers/BlankHeader";
 import {CommonBeersList} from "./CommonBeersList/CommonBeersList";
 import {LoggedInBeersList} from "./LoggedInBeersList/LoggedInBeersList";
 import SearchInputHome from "./SearchInputHome";
 import {WelcomeTextContent} from "./WelcomeText";
-import {useTopBeersQuery} from "@/../hooks/query/useBeerQuery";
 
 interface HomeTemplateProps {
   username?: string;
@@ -48,7 +47,7 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({username}) => {
             />
           ) : (
             <CommonBeersList topBeersList={topBeersQuery.data} />
-          )} */}
+          )}
         </Box>
       </Container>
     </Box>
