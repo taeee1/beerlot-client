@@ -5,7 +5,7 @@ import {
 import {getLeftTime} from "@/../utils/time";
 import {Avatar, Box, Center, Flex, IconButton, Text} from "@chakra-ui/react";
 import Cookies from "js-cookie";
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useState} from "react";
 import {useQueryClient} from "react-query";
 import {EditNote, TrashBin} from "../../../public/svg";
 import {CommonBeerImage} from "../shared/CommonBeerImage/CommonBeerImage";

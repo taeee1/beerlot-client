@@ -18,6 +18,7 @@ import {
 import Cookies from "js-cookie";
 import {useRouter} from "next/router";
 import React, {useCallback} from "react";
+import {useQueryClient} from "react-query";
 
 interface TopBeersListProps {
   beersList: BeerResponseType[];
@@ -29,9 +30,20 @@ const TopBeersList: React.FC<TopBeersListProps> = ({
   likedBeersList,
 }) => {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
-  const likeBeerMutation = useBeerLikeMutation();
-  const dislikeBeerMutation = useBeerDislikeMutation();
+
+  const likeBeerMutation = useBeerLikeMutation({
+    onSuccess: () => {
+      queryClient.invalidateQueries("userBeers");
+    },
+  });
+
+  const dislikeBeerMutation = useBeerDislikeMutation({
+    onSuccess: () => {
+      queryClient.invalidateQueries("userBeers");
+    },
+  });
 
   const handleClickCard = useCallback(
     (id?: number, name?: string) => {
@@ -49,8 +61,9 @@ const TopBeersList: React.FC<TopBeersListProps> = ({
       if (id === undefined) return;
 
       const likedBeerIds = likedBeersList?.map((item) => item.id);
+      console.log("likedBeerIds", likedBeerIds);
       const isLiked = likedBeerIds?.includes(id);
-
+      console.log("isLiked", isLiked);
       if (!isLiked) {
         likeBeerMutation.mutate({beerId: id, accessToken});
       } else {
