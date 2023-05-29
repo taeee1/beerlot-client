@@ -25,14 +25,14 @@ const LoggedInBeersList: React.FC<LoggedInBeersListProps> = ({
       {topBeersList && (
         <TopBeersList
           beersList={topBeersList}
-          likedBeersList={userBeersQuery?.data}
+          likedBeersList={userBeersQuery?.data?.contents}
         />
       )}
       {userName && topBeersList && (
         <RecommendedBeersList
           username={userName}
           beersList={topBeersList}
-          likedBeersList={userBeersQuery?.data}
+          likedBeersList={userBeersQuery?.data?.contents}
         />
       )}
     </>

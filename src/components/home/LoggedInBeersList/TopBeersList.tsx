@@ -1,3 +1,4 @@
+import {useBeerLikeMutation} from "@/../hooks/query/useBeerLikeMutation";
 import {BeerResponseType} from "@/../typedef/server/beer";
 import {generateBeerDetailUrl} from "@/../utils/url";
 import {CommonBeerImage} from "@/components/shared/CommonBeerImage/CommonBeerImage";
@@ -11,8 +12,9 @@ import {
   BeerCategoryTagLabel,
   BeerNameText,
 } from "@components/shared/Card/BeerCardItem";
+import Cookies from "js-cookie";
 import {useRouter} from "next/router";
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback} from "react";
 
 interface TopBeersListProps {
   beersList: BeerResponseType[];
@@ -23,11 +25,11 @@ const TopBeersList: React.FC<TopBeersListProps> = ({
   beersList,
   likedBeersList,
 }) => {
-  useEffect(() => {
-    console.log("likedBeersList", likedBeersList);
-  });
   const router = useRouter();
-  const onClick = useCallback(
+  const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
+  const likeBeerMutation = useBeerLikeMutation();
+
+  const handleClickCard = useCallback(
     (id?: number, name?: string) => {
       if (!id || !name) return; //TODO: add toast
 
@@ -35,6 +37,21 @@ const TopBeersList: React.FC<TopBeersListProps> = ({
       router.push(url);
     },
     [router]
+  );
+
+  const handleClickLike = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, id?: number) => {
+      e.preventDefault();
+      console.log("id", id);
+      if (id === undefined) return;
+      const isLiked = likedBeersList?.find((item) => item.id === id);
+      console.log("isLiked", isLiked);
+      if (!isLiked) {
+        likeBeerMutation.mutate({accessToken, beerId: id});
+      } else {
+      }
+    },
+    [accessToken, likeBeerMutation, likedBeersList]
   );
 
   return (
@@ -50,12 +67,8 @@ const TopBeersList: React.FC<TopBeersListProps> = ({
                 key={item.id}
                 mt={1}
                 pos={"relative"}
-                onClick={() => onClick(item?.id, item.name)}
+                onClick={() => handleClickCard(item?.id, item.name)}
               >
-                <Box id={"like button"} pos={"absolute"} right={4} top={4}>
-                  <LikeButton isLiked={true} aria-label="like button" />
-                </Box>
-
                 <BeerCardBody position="relative">
                   <Box position="relative">
                     {item.image_url && (
@@ -71,7 +84,7 @@ const TopBeersList: React.FC<TopBeersListProps> = ({
                   <Box position="absolute" top={0} right={0}>
                     <LikeButton
                       isLiked={true}
-                      onClick={() => console.log("like button clicked")}
+                      onClick={(e) => handleClickLike(e, item?.id)}
                       h={7}
                       aria-label="like button"
                     />

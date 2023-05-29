@@ -82,17 +82,18 @@ export const getBeerCategoriesApi = async () => {
   }
 };
 
-export const likeBeerApi = async (beerId: number) => {
-  const res = await axios.post(`/api/v1/beers/${beerId}/likes`);
+export const likeBeerApi = async (beerId: number, accessToken: string) => {
+  const config = {
+    headers: {Authorization: `Bearer ${accessToken}`},
+  };
+  const res = await axios.post(`/api/v1/beers/${beerId}/likes`, null, config);
   return res.data;
 };
 
-export const dislikeBeerApi = async (beerId: number) => {
-  try {
-    const result = await axios.delete(`/api/v1/beers/${beerId}/likes`);
-    console.log(result, "dislikeBeerApi");
-    return result;
-  } catch (error) {
-    console.error(error);
-  }
+export const dislikeBeerApi = async (beerId: number, accessToken: string) => {
+  const config = {
+    headers: {Authorization: `Bearer ${accessToken}`},
+  };
+  const res = await axios.delete(`/api/v1/beers/${beerId}/likes`, config);
+  return res.data;
 };

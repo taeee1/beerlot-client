@@ -14,18 +14,19 @@ import {useRouter} from "next/router";
 import React, {useCallback, useState} from "react";
 import {BeerResponseType} from "../../../../typedef/server/beer";
 import {useBeerLikeMutation} from "@/../hooks/query/useBeerLikeMutation";
-
+import Cookies from "js-cookie";
 interface CommonBeersListProps {
   topBeersList?: BeerResponseType[];
 }
 const CommonBeersList: React.FC<CommonBeersListProps> = ({topBeersList}) => {
   const router = useRouter();
+  const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
 
   const likeBeerMutation = useBeerLikeMutation();
   const likeBeer = useCallback(
     async (beerId: number) => {
-      await likeBeerMutation.mutateAsync(
-        {beerId},
+      await likeBeerMutation.mutate(
+        {accessToken, beerId},
         {
           onSuccess: () => {
             setIsLikeBeer(true);
@@ -38,7 +39,7 @@ const CommonBeersList: React.FC<CommonBeersListProps> = ({topBeersList}) => {
         }
       );
     },
-    [likeBeerMutation, router]
+    [accessToken, likeBeerMutation, router]
   );
 
   const dislikeBeer = useCallback((beerId: number) => {
