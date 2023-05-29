@@ -1,4 +1,7 @@
-import {useBeerLikeMutation} from "@/../hooks/query/useBeerLikeMutation";
+import {
+  useBeerDislikeMutation,
+  useBeerLikeMutation,
+} from "@/../hooks/query/useBeerLikeMutation";
 import {BeerResponseType} from "@/../typedef/server/beer";
 import {generateBeerDetailUrl} from "@/../utils/url";
 import {CommonBeerImage} from "@/components/shared/CommonBeerImage/CommonBeerImage";
@@ -28,6 +31,7 @@ const TopBeersList: React.FC<TopBeersListProps> = ({
   const router = useRouter();
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const likeBeerMutation = useBeerLikeMutation();
+  const dislikeBeerMutation = useBeerDislikeMutation();
 
   const handleClickCard = useCallback(
     (id?: number, name?: string) => {
@@ -41,17 +45,18 @@ const TopBeersList: React.FC<TopBeersListProps> = ({
 
   const handleClickLike = useCallback(
     (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, id?: number) => {
-      e.preventDefault();
+      e.stopPropagation();
       console.log("id", id);
       if (id === undefined) return;
-      const isLiked = likedBeersList?.find((item) => item.id === id);
-      console.log("isLiked", isLiked);
+      const isLiked = likedBeersList?.some((item) => item.id === id);
+      console.log("isLiked"), isLiked;
       if (!isLiked) {
-        likeBeerMutation.mutate({accessToken, beerId: id});
+        likeBeerMutation.mutate({beerId: id, accessToken});
       } else {
+        dislikeBeerMutation.mutate({beerId: id, accessToken});
       }
     },
-    [accessToken, likeBeerMutation, likedBeersList]
+    [accessToken, dislikeBeerMutation, likeBeerMutation, likedBeersList]
   );
 
   return (
