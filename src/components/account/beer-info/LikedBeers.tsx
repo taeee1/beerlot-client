@@ -61,14 +61,12 @@ const LikedBeers = () => {
     },
     [router]
   );
-  console.log({ likedBeerIds });
   const handleClickLike = useCallback(
     (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, id?: number) => {
       e.stopPropagation();
       if (id === undefined) return;
 
       const isLiked = likedBeerIds?.includes(id);
-      console.log({ isLiked });
       if (!isLiked) {
         likeBeerMutation.mutate({ beerId: id, accessToken });
       } else {
