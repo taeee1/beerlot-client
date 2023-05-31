@@ -28,7 +28,7 @@ const LikedBeers = () => {
   const likedBeerIds = useMemo(
     () =>
       userBeersQuery?.data?.contents?.map((item: BeerResponseType) => item.id),
-    []
+    [userBeersQuery?.data?.contents]
   );
 
   const likeBeerMutation = useBeerLikeMutation({
