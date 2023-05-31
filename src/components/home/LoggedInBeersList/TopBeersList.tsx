@@ -36,12 +36,21 @@ const TopBeersList: React.FC<TopBeersListProps> = ({
 
   const likeBeerMutation = useBeerLikeMutation({
     onSettled: () => {
+      console.log("settled");
+      onValidateLikedBeersList();
+    },
+    onSuccess: () => {
+      console.log("onSuccess");
       onValidateLikedBeersList();
     },
   });
 
   const dislikeBeerMutation = useBeerDislikeMutation({
     onSettled: () => {
+      onValidateLikedBeersList();
+    },
+    onSuccess: () => {
+      console.log("onSuccess");
       onValidateLikedBeersList();
     },
   });
