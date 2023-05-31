@@ -25,7 +25,7 @@ const LikedBeers = () => {
   const userBeersQuery = useUserBeersQuery(accessToken);
   const router = useRouter();
   const likedBeerIds = useMemo(
-    () => userBeersQuery.data?.map((item: BeerResponseType) => item.id),
+    () => userBeersQuery?.data?.map((item: BeerResponseType) => item.id),
     []
   );
 
