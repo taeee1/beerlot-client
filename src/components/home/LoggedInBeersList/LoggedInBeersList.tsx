@@ -22,7 +22,6 @@ const LoggedInBeersList: React.FC<LoggedInBeersListProps> = ({
 
   const handleValidateLikedBeersList = () => {
     userBeersQuery.refetch();
-    console.log("handleValidateLikedBeersList");
   };
 
   return (

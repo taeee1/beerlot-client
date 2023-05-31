@@ -17,7 +17,7 @@ import {
 } from "@components/shared/Card/BeerCardItem";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 
 interface TopBeersListProps {
   onValidateLikedBeersList: () => void;
