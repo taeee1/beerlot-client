@@ -2,11 +2,11 @@ import {
   useBeerDislikeMutation,
   useBeerLikeMutation,
 } from "@/../hooks/query/useBeerLikeMutation";
-import {BeerResponseType} from "@/../typedef/server/beer";
-import {generateBeerDetailUrl} from "@/../utils/url";
-import {CommonBeerImage} from "@/components/shared/CommonBeerImage/CommonBeerImage";
-import {LikeButton} from "@/components/shared/LikeButton";
-import {Box, HStack, Text} from "@chakra-ui/react";
+import { BeerResponseType } from "@/../typedef/server/beer";
+import { generateBeerDetailUrl } from "@/../utils/url";
+import { CommonBeerImage } from "@/components/shared/CommonBeerImage/CommonBeerImage";
+import { LikeButton } from "@/components/shared/LikeButton";
+import { Box, HStack, Text } from "@chakra-ui/react";
 import {
   BeerCard,
   BeerCardBody,
@@ -16,32 +16,33 @@ import {
   BeerNameText,
 } from "@components/shared/Card/BeerCardItem";
 import Cookies from "js-cookie";
-import {useRouter} from "next/router";
-import React, {useCallback} from "react";
-import {useQueryClient} from "react-query";
+import { useRouter } from "next/router";
+import React, { useCallback } from "react";
+import { useQueryClient } from "react-query";
 
 interface TopBeersListProps {
+  onValidateLikedBeersList: () => void;
   beersList: BeerResponseType[];
   likedBeersList: BeerResponseType[] | undefined;
 }
 
 const TopBeersList: React.FC<TopBeersListProps> = ({
+  onValidateLikedBeersList,
   beersList,
   likedBeersList,
 }) => {
   const router = useRouter();
-  const queryClient = useQueryClient();
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
 
   const likeBeerMutation = useBeerLikeMutation({
-    onSuccess: () => {
-      queryClient.invalidateQueries("userBeers");
+    onSettled: () => {
+      onValidateLikedBeersList();
     },
   });
 
   const dislikeBeerMutation = useBeerDislikeMutation({
-    onSuccess: () => {
-      queryClient.invalidateQueries("userBeers");
+    onSettled: () => {
+      onValidateLikedBeersList();
     },
   });
 
@@ -65,9 +66,9 @@ const TopBeersList: React.FC<TopBeersListProps> = ({
       const isLiked = likedBeerIds?.includes(id);
       console.log("isLiked", isLiked);
       if (!isLiked) {
-        likeBeerMutation.mutate({beerId: id, accessToken});
+        likeBeerMutation.mutate({ beerId: id, accessToken });
       } else {
-        dislikeBeerMutation.mutate({beerId: id, accessToken});
+        dislikeBeerMutation.mutate({ beerId: id, accessToken });
       }
     },
     [accessToken, dislikeBeerMutation, likeBeerMutation, likedBeersList]
