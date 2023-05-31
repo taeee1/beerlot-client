@@ -23,57 +23,59 @@ import { useCallback, useEffect, useMemo } from "react";
 const LikedBeers = () => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const userBeersQuery = useUserBeersQuery(accessToken);
-  const router = useRouter();
-  const likedBeerIds = useMemo(
-    () => userBeersQuery?.data?.map((item: BeerResponseType) => item.id),
-    []
-  );
+  console.log({ accessToken });
+  console.log(userBeersQuery.data);
+  // const router = useRouter();
+  // const likedBeerIds = useMemo(
+  //   () => userBeersQuery?.data?.map((item: BeerResponseType) => item.id),
+  //   []
+  // );
 
-  const likeBeerMutation = useBeerLikeMutation({
-    onSuccess: () => {
-      userBeersQuery.refetch();
-    },
-  });
+  // const likeBeerMutation = useBeerLikeMutation({
+  //   onSuccess: () => {
+  //     userBeersQuery.refetch();
+  //   },
+  // });
 
-  const dislikeBeerMutation = useBeerDislikeMutation({
-    onSuccess: () => {
-      userBeersQuery.refetch();
-    },
-  });
+  // const dislikeBeerMutation = useBeerDislikeMutation({
+  //   onSuccess: () => {
+  //     userBeersQuery.refetch();
+  //   },
+  // });
 
   useEffect(() => {
-    userBeersQuery.refetch();
+    userBeersQuery?.refetch();
   }, []);
 
-  const handleClickCard = useCallback(
-    (id?: number, name?: string) => {
-      if (!id || !name) return; //TODO: add toast
+  // const handleClickCard = useCallback(
+  //   (id?: number, name?: string) => {
+  //     if (!id || !name) return; //TODO: add toast
 
-      const url = generateBeerDetailUrl(id, name);
-      router.push(url);
-    },
-    [router]
-  );
+  //     const url = generateBeerDetailUrl(id, name);
+  //     router.push(url);
+  //   },
+  //   [router]
+  // );
 
-  const handleClickLike = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, id?: number) => {
-      e.stopPropagation();
-      if (id === undefined) return;
+  // const handleClickLike = useCallback(
+  //   (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, id?: number) => {
+  //     e.stopPropagation();
+  //     if (id === undefined) return;
 
-      const isLiked = likedBeerIds?.includes(id);
+  //     const isLiked = likedBeerIds?.includes(id);
 
-      if (!isLiked) {
-        likeBeerMutation.mutate({ beerId: id, accessToken });
-      } else {
-        dislikeBeerMutation.mutate({ beerId: id, accessToken });
-      }
-    },
-    [accessToken, dislikeBeerMutation, likeBeerMutation, likedBeerIds]
-  );
+  //     if (!isLiked) {
+  //       likeBeerMutation.mutate({ beerId: id, accessToken });
+  //     } else {
+  //       dislikeBeerMutation.mutate({ beerId: id, accessToken });
+  //     }
+  //   },
+  //   [accessToken, dislikeBeerMutation, likeBeerMutation, likedBeerIds]
+  // );
 
   return (
     <SimpleGrid columns={2} spacing={"16px"}>
-      {userBeersQuery?.data?.map((item: BeerResponseType) => {
+      {/* {userBeersQuery?.data?.map((item: BeerResponseType) => {
         return (
           <BeerCard
             key={item.id}
@@ -115,7 +117,7 @@ const LikedBeers = () => {
             </BeerCardFooter>
           </BeerCard>
         );
-      })}
+      })} */}
     </SimpleGrid>
   );
 };
