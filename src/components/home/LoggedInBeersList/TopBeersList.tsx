@@ -18,7 +18,6 @@ import {
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import React, { useCallback } from "react";
-import { useQueryClient } from "react-query";
 
 interface TopBeersListProps {
   onValidateLikedBeersList: () => void;
@@ -33,32 +32,31 @@ const TopBeersList: React.FC<TopBeersListProps> = ({
 }) => {
   const router = useRouter();
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
+  const likedBeerIds = useMemo(
+    () => likedBeersList?.map((item) => item.id),
+    [likedBeersList]
+  );
+
+  const checkIsLiked = (id?: number) => {
+    if (id === undefined) return false;
+    return likedBeerIds?.includes(id) ?? false;
+  };
 
   const likeBeerMutation = useBeerLikeMutation({
-    onSettled: () => {
-      console.log("settled");
-      onValidateLikedBeersList();
-    },
     onSuccess: () => {
-      console.log("onSuccess");
       onValidateLikedBeersList();
     },
   });
 
   const dislikeBeerMutation = useBeerDislikeMutation({
-    onSettled: () => {
-      onValidateLikedBeersList();
-    },
     onSuccess: () => {
-      console.log("onSuccess");
       onValidateLikedBeersList();
     },
   });
 
   const handleClickCard = useCallback(
     (id?: number, name?: string) => {
-      if (!id || !name) return; //TODO: add toast
-
+      if (!id || !name) return;
       const url = generateBeerDetailUrl(id, name);
       router.push(url);
     },
@@ -70,17 +68,15 @@ const TopBeersList: React.FC<TopBeersListProps> = ({
       e.stopPropagation();
       if (id === undefined) return;
 
-      const likedBeerIds = likedBeersList?.map((item) => item.id);
-      console.log("likedBeerIds", likedBeerIds);
       const isLiked = likedBeerIds?.includes(id);
-      console.log("isLiked", isLiked);
+
       if (!isLiked) {
         likeBeerMutation.mutate({ beerId: id, accessToken });
       } else {
         dislikeBeerMutation.mutate({ beerId: id, accessToken });
       }
     },
-    [accessToken, dislikeBeerMutation, likeBeerMutation, likedBeersList]
+    [accessToken, dislikeBeerMutation, likeBeerMutation, likedBeerIds]
   );
 
   return (
@@ -112,7 +108,7 @@ const TopBeersList: React.FC<TopBeersListProps> = ({
                   </Box>
                   <Box position="absolute" top={0} right={0}>
                     <LikeButton
-                      isLiked={true}
+                      isLiked={checkIsLiked(item?.id)}
                       onClick={(e) => handleClickLike(e, item?.id)}
                       h={7}
                       aria-label="like button"

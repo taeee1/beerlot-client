@@ -39,6 +39,7 @@ const LoggedInBeersList: React.FC<LoggedInBeersListProps> = ({
           username={userName}
           beersList={topBeersList}
           likedBeersList={userBeersQuery?.data?.contents}
+          onValidateLikedBeersList={handleValidateLikedBeersList}
         />
       )}
     </>
