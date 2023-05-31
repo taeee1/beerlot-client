@@ -23,8 +23,7 @@ import { useCallback, useEffect, useMemo } from "react";
 const LikedBeers = () => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const userBeersQuery = useUserBeersQuery(accessToken);
-  console.log({ accessToken });
-  console.log(userBeersQuery.data);
+
   const router = useRouter();
   const likedBeerIds = useMemo(
     () =>
@@ -44,6 +43,11 @@ const LikedBeers = () => {
     },
   });
 
+  const checkIsLiked = (id?: number) => {
+    if (id === undefined) return false;
+    return likedBeerIds?.includes(id) ?? false;
+  };
+
   useEffect(() => {
     userBeersQuery?.refetch();
   }, []);
@@ -57,14 +61,14 @@ const LikedBeers = () => {
     },
     [router]
   );
-
+  console.log({ likedBeerIds });
   const handleClickLike = useCallback(
     (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, id?: number) => {
       e.stopPropagation();
       if (id === undefined) return;
 
       const isLiked = likedBeerIds?.includes(id);
-
+      console.log({ isLiked });
       if (!isLiked) {
         likeBeerMutation.mutate({ beerId: id, accessToken });
       } else {
@@ -98,7 +102,7 @@ const LikedBeers = () => {
               </Box>
               <Box position="absolute" top={0} right={0}>
                 <LikeButton
-                  isLiked={true}
+                  isLiked={checkIsLiked(item?.id)}
                   onClick={(e) => handleClickLike(e, item.id)}
                   h={7}
                   aria-label="like button"
