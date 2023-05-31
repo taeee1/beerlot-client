@@ -73,7 +73,7 @@ const LikedBeers = () => {
 
   return (
     <SimpleGrid columns={2} spacing={"16px"}>
-      {userBeersQuery.data.map((item: BeerResponseType) => {
+      {userBeersQuery?.data?.map((item: BeerResponseType) => {
         return (
           <BeerCard
             key={item.id}
