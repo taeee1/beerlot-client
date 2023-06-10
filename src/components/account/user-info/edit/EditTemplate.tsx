@@ -17,39 +17,53 @@ import {
 import LeftXTitleRightComplete from "../../../shared/Headers/LeftXTitleRightComplete";
 import NicknameInput from "../../../shared/NicknameInput";
 import ProfileAvatar from "../../../shared/ProfileAvatar";
+import {POLICY_LABEL} from "@/../types/common";
 
 const EditTemplate = () => {
   const router = useRouter();
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const userQuery = useUserInfoQuery(accessToken ?? "");
-  const {
-    image_url,
-    username,
-    status_message: statusMessage,
-  } = userQuery?.data ?? {};
+  const {image_url, username, status_message: statusMessage} = userQuery?.data;
+
+  useEffect(() => {
+    console.log(image_url);
+    console.log(username);
+    console.log(statusMessage);
+  });
 
   useEffect(() => {
     userQuery.refetch();
   }, []);
 
-  const nicknameInput = useNicknameInput({initialInputState: username});
-  const bioInput = useNicknameInput({initialInputState: statusMessage});
+  const {input: nicknameInput, handleInputChange: onNicknameInputChange} =
+    useNicknameInput({
+      initialInputState: username,
+    });
+  const {input: bioInput, handleInputChange: onBioInputChange} =
+    useNicknameInput({initialInputState: statusMessage});
 
   const [imgFile, setImgFile] = useState<string>(image_url);
   const imgRef = useRef<HTMLInputElement>(null);
 
   const isValidNickname = checkValidNicknameOrOriginalNickname(
-    nicknameInput.input,
+    nicknameInput,
     username
   );
 
-  const isValidBio = checkValidBioOrOriginalBio(bioInput.input, statusMessage);
+  const isValidBio = checkValidBioOrOriginalBio(bioInput, statusMessage);
   const isChangeCompleted = checkProfileValidity(isValidNickname, isValidBio);
 
-  const {mutateAsync: putUserInfo} = useEditUserInfoMutation(accessToken, {});
+  const {mutateAsync: putUserInfo} = useEditUserInfoMutation(accessToken, {
+    username: nicknameInput ?? "",
+    status_message: bioInput ?? "",
+    image_url: imgFile,
+    agreed_policies: [
+      POLICY_LABEL.PERSONAL_INFORMATION_POLICY,
+      POLICY_LABEL.TERMS_OF_SERVICE,
+    ],
+  });
 
   const handleClickComplete = async () => {
-    if (nicknameInput.input === null || bioInput.input === null) return;
     await putUserInfo();
     router.push("/account");
   };
@@ -59,7 +73,6 @@ const EditTemplate = () => {
     const file = imgRef.current.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    console.log("reader.result", reader.result);
     reader.onloadend = () => {
       if (typeof reader.result === "string") setImgFile(reader.result);
     };
@@ -114,11 +127,11 @@ const EditTemplate = () => {
           </VStack>
           <VStack gap="px" w="100%">
             <NicknameInput
-              input={nicknameInput.input}
+              input={nicknameInput}
               isValid={isValidNickname}
-              onChange={nicknameInput.handleInputChange}
+              onChange={onNicknameInputChange}
               guideText={getNicknameHelperTextOrOriginalNickname(
-                nicknameInput.input,
+                nicknameInput,
                 username
               )}
             />
@@ -126,10 +139,10 @@ const EditTemplate = () => {
               label="소개"
               maxLength={25}
               placeholder="소개는 25자까지 입력이 가능해요!"
-              input={bioInput.input}
+              input={bioInput}
               isValid={isValidBio}
-              onChange={bioInput.handleInputChange}
-              guideText={getBioHelperText(bioInput.input)}
+              onChange={onBioInputChange}
+              guideText={getBioHelperText(bioInput)}
             />
           </VStack>
         </VStack>

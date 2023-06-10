@@ -1,18 +1,21 @@
-import {useState} from "react";
+import React, {useState} from "react";
 
-interface UseNicknameInputProps {
-  initialInputState?: string;
+interface NicknameInputProps {
+  initialInputState: string;
 }
-const useNicknameInput = ({initialInputState}: UseNicknameInputProps = {}) => {
-  const [input, setInput] = useState<string | null>(initialInputState ?? null);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+const useNicknameInput = ({initialInputState}: NicknameInputProps) => {
+  const [input, setInput] = useState<string | null>(initialInputState);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setInput(e.target.value);
   };
+
   return {
     input,
     setInput,
     handleInputChange,
   };
 };
+
 export default useNicknameInput;
