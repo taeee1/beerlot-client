@@ -39,10 +39,10 @@ const EditTemplate = () => {
 
   const {input: nicknameInput, handleInputChange: onNicknameInputChange} =
     useNicknameInput({
-      initialInputState: username ?? "",
+      initialInputState: username,
     });
   const {input: bioInput, handleInputChange: onBioInputChange} =
-    useNicknameInput({initialInputState: statusMessage ?? ""});
+    useNicknameInput({initialInputState: statusMessage});
 
   const [imgFile, setImgFile] = useState<string>("");
   const imgRef = useRef<HTMLInputElement>(null);
