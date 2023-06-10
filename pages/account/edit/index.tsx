@@ -13,7 +13,7 @@ const EditPage = () => {
         position="relative"
         maxW="450px"
       >
-        <EditTemplate />
+        {/* <EditTemplate /> */}
       </Container>
     </Box>
   );
