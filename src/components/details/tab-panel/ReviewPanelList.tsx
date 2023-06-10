@@ -95,7 +95,6 @@ const ReviewsList: React.FC<ReviewsListProps> = ({reviews}) => {
   return (
     <Flex flexDir={"column"} gap="10px">
       {reviews.map((feed) => {
-        console.log("feed", feed);
         return (
           <>
             {/* <FollowingTabPanelItem

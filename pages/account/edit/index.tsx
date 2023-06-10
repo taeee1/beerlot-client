@@ -1,17 +1,21 @@
+import EditTemplate from "@/components/account/user-info/edit/EditTemplate";
+import {Box, Container} from "@chakra-ui/react";
 import {GetServerSideProps} from "next";
-import {useRecoilState} from "recoil";
-import EditTemplate from "../../../src/components/account/user-info/edit/EditTemplate";
-import {userInfoState} from "../../../src/store/atom";
 
 const EditPage = () => {
-  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-  // TODO: setUserInfo 제거해야함.
   return (
-    <>
-      {userInfo && (
-        <EditTemplate userInfo={userInfo} setUserInfo={setUserInfo} />
-      )}
-    </>
+    <Box w="full" h="full" bg="gray.100" overflowY="scroll">
+      <Container
+        p={"0px"}
+        w="full"
+        h="full"
+        bg="white"
+        position="relative"
+        maxW="450px"
+      >
+        <EditTemplate />
+      </Container>
+    </Box>
   );
 };
 

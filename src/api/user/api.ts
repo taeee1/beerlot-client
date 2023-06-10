@@ -1,16 +1,11 @@
 import {
   BeersWithLanguage,
-  ReviewsWithLanguage,
+  UserEditRequest,
 } from "@/../hooks/query/useReviewQuery";
-import axios from "axios";
-import {
-  BeerSortEnum,
-  LANGUAGE_TYPE,
-  OAUTH_PROVIDER,
-  ReviewSortEnum,
-} from "../../../interface/types";
-import {LanguageType, ReviewSortType} from "@/../types/common";
+import {LanguageType, POLICY_LABEL, ReviewSortType} from "@/../types/common";
 import {MemberReviewsRequest} from "@/../types/member/request";
+import axios from "axios";
+import {BeerSortEnum, OAUTH_PROVIDER} from "../../../interface/types";
 
 const redirectUrl = "https://beerlot-client.vercel.app";
 
@@ -23,8 +18,15 @@ export const getUsersInfoApi = async (accessToken: string) => {
   return res.data;
 };
 
-export const putUsersInfoApi = async () => {
-  const res = await axios.put("/api/v1/members/me");
+export const putUsersInfoApi = async (
+  accessToken: string,
+  updatedInfo: UserEditRequest
+) => {
+  const res = await axios.put("/api/v1/members/me", updatedInfo, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
   return res.data;
 };
 

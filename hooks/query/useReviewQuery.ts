@@ -77,6 +77,12 @@ export type AllBeersQueryParams = {
 
 export type ReviewsWithLanguage = AllReviewsQueryParams & {language: string};
 export type BeersWithLanguage = AllBeersQueryParams & {language: string};
+export interface UserEditRequest {
+  username?: string;
+  status_message?: string;
+  image_url?: string;
+  agreed_policies?: POLICY_LABEL[];
+}
 
 export type SignupRequestType = {
   username: string;

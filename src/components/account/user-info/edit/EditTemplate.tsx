@@ -1,9 +1,12 @@
+import {
+  useEditUserInfoMutation,
+  useUserInfoQuery,
+} from "@/../hooks/query/useUserQuery";
 import {Box, Container, VStack} from "@chakra-ui/react";
+import Cookies from "js-cookie";
 import {useRouter} from "next/router";
-import React, {useRef, useState} from "react";
-import {SetterOrUpdater} from "recoil";
+import {useEffect, useRef, useState} from "react";
 import useNicknameInput from "../../../../../hooks/useNicknameInput";
-import {SignUpType} from "../../../../../interface/types";
 import {
   checkProfileValidity,
   checkValidBioOrOriginalBio,
@@ -15,19 +18,19 @@ import LeftXTitleRightComplete from "../../../shared/Headers/LeftXTitleRightComp
 import NicknameInput from "../../../shared/NicknameInput";
 import ProfileAvatar from "../../../shared/ProfileAvatar";
 
-interface EditTemplateProps {
-  userInfo: SignUpType;
-  setUserInfo: SetterOrUpdater<SignUpType | null>;
-}
-
-const EditTemplate: React.FC<EditTemplateProps> = ({userInfo, setUserInfo}) => {
+const EditTemplate = () => {
   const router = useRouter();
-  // TODO: error handling should be added
+  const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
+  const userQuery = useUserInfoQuery(accessToken ?? "");
   const {
-    image_url = `/images/default-profile.png`,
+    image_url,
     username,
-    statusMessage = "",
-  } = userInfo;
+    status_message: statusMessage,
+  } = userQuery?.data ?? {};
+
+  useEffect(() => {
+    userQuery.refetch();
+  }, []);
 
   const nicknameInput = useNicknameInput({initialInputState: username});
   const bioInput = useNicknameInput({initialInputState: statusMessage});
@@ -43,15 +46,11 @@ const EditTemplate: React.FC<EditTemplateProps> = ({userInfo, setUserInfo}) => {
   const isValidBio = checkValidBioOrOriginalBio(bioInput.input, statusMessage);
   const isChangeCompleted = checkProfileValidity(isValidNickname, isValidBio);
 
-  const handleClickComplete = () => {
-    if (nicknameInput.input === null) return;
-    if (bioInput.input === null) return;
-    setUserInfo({
-      email: userInfo?.email,
-      image_url: imgFile,
-      username: nicknameInput.input,
-      statusMessage: bioInput.input,
-    });
+  const {mutateAsync: putUserInfo} = useEditUserInfoMutation(accessToken, {});
+
+  const handleClickComplete = async () => {
+    if (nicknameInput.input === null || bioInput.input === null) return;
+    await putUserInfo();
     router.push("/account");
   };
 
@@ -100,7 +99,7 @@ const EditTemplate: React.FC<EditTemplateProps> = ({userInfo, setUserInfo}) => {
                   cursor: "pointer",
                 }}
               >
-                프로필 이미지 추가
+                프로필 사진 바꾸기
               </label>
               <input
                 className="signup-profileImg-input"

@@ -1,13 +1,18 @@
+import {MemberReviewsRequest} from "@/../types/member/request";
 import {
   getUserLikedBeersApi,
   getUserReviewsApi,
   getUsersInfoApi,
   putUsersInfoApi,
 } from "@/api/user/api";
-import {UseQueryOptions, useQuery} from "react-query";
+import {
+  MutationOptions,
+  UseQueryOptions,
+  useMutation,
+  useQuery,
+} from "react-query";
 import {FailureResponse} from "types/api";
-import {BeersWithLanguage, ReviewsWithLanguage} from "./useReviewQuery";
-import {MemberReviewsRequest} from "@/../types/member/request";
+import {BeersWithLanguage, UserEditRequest} from "./useReviewQuery";
 
 export const getUserInfoQueryKey = () => ["getUserInfo"];
 export const putUserInfoQueryKey = () => ["putUserInfo"];
@@ -28,17 +33,12 @@ export const useUserInfoQuery = (
   });
 };
 
-export const usePutUserInfoQuery = (
-  options?: UseQueryOptions<any, FailureResponse> //TODO: fix any type
+export const useEditUserInfoMutation = (
+  accessToken: string,
+  updatedInfo: UserEditRequest,
+  options?: MutationOptions<any, FailureResponse>
 ) => {
-  return useQuery({
-    queryKey: putUserInfoQueryKey(),
-    queryFn: putUsersInfoApi,
-    enabled: false,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    ...options,
-  });
+  return useMutation(() => putUsersInfoApi(accessToken, updatedInfo), options);
 };
 
 export const useUserReviewsQuery = (
