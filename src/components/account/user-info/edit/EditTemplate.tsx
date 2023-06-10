@@ -23,11 +23,10 @@ const EditTemplate = () => {
   const router = useRouter();
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const userQuery = useUserInfoQuery(accessToken ?? "");
-  const {
-    image_url,
-    username,
-    status_message: statusMessage,
-  } = userQuery?.data ?? {};
+  const {image_url, username, status_message: statusMessage} = userQuery?.data;
+  useEffect(() => {
+    console.log(userQuery.data);
+  });
 
   useEffect(() => {
     userQuery.refetch();
