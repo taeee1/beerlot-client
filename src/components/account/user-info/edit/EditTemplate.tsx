@@ -23,7 +23,7 @@ const EditTemplate = () => {
   const router = useRouter();
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const userQuery = useUserInfoQuery(accessToken ?? "");
-  const {image_url, username} = userQuery?.data;
+  const {image_url = "", username} = userQuery?.data;
   const statusMessage = ""; // TODO: fix it
   useEffect(() => {
     console.log(userQuery.data);
@@ -40,7 +40,7 @@ const EditTemplate = () => {
   const {input: bioInput, handleInputChange: onBioInputChange} =
     useNicknameInput({initialInputState: statusMessage ?? ""});
 
-  const [imgFile, setImgFile] = useState<string>(image_url ?? "");
+  const [imgFile, setImgFile] = useState<string>("");
   const imgRef = useRef<HTMLInputElement>(null);
 
   const isValidNickname = checkValidNicknameOrOriginalNickname(
