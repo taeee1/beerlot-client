@@ -5,7 +5,7 @@ interface NicknameInputProps {
 }
 
 const useNicknameInput = ({initialInputState}: NicknameInputProps) => {
-  const [input, setInput] = useState<string | null>(initialInputState);
+  const [input, setInput] = useState<string>(initialInputState);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setInput(e.target.value);

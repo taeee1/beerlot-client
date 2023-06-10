@@ -26,7 +26,7 @@ const EditTemplate = () => {
     image_url = "",
     username = "",
     status_message: statusMessage = "",
-  } = userQuery?.data;
+  } = userQuery?.data ?? {};
   const router = useRouter();
 
   useEffect(() => {
@@ -54,15 +54,7 @@ const EditTemplate = () => {
 
   const isValidBio = checkValidBioOrOriginalBio(bioInput, statusMessage);
   const isChangeCompleted = checkProfileValidity(isValidNickname, isValidBio);
-  const {mutateAsync: putUserInfo} = useEditUserInfoMutation(accessToken, {
-    username: nicknameInput ?? "",
-    status_message: bioInput ?? "",
-    image_url: imgFile,
-    agreed_policies: [
-      POLICY_LABEL.PERSONAL_INFORMATION_POLICY,
-      POLICY_LABEL.TERMS_OF_SERVICE,
-    ],
-  });
+
   const handleClickComplete = () => {
     router.push("/account");
   };
