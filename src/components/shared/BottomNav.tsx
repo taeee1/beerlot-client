@@ -20,7 +20,7 @@ export const BottomNav = () => {
       title: "search",
       displayName: "검색",
       icon: NavSearchPath,
-      url: "/search",
+      url: "/result",
     },
     {title: "feed", displayName: "피드", icon: NavFeedPath, url: "/feed"},
     {

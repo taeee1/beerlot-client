@@ -3,22 +3,27 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  InputProps,
   InputRightElement,
 } from "@chakra-ui/react";
 import React, {useRef} from "react";
 import {SEARCH_BAR_PLACEHOLDER} from "../../../interface/static";
 import {SearchGlass, WhiteCross} from "../../../public/svg";
 
-interface SearchInputProps {
+interface SearchInputProps extends InputProps {
+  onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
   onKeyPress?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  autoFocus?: boolean;
   clearValue?: () => void;
 }
 
 const SearchInput: React.FC<SearchInputProps> = ({
+  onFocus,
   onChange,
   onKeyPress,
   clearValue,
+  autoFocus = true,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const clearInput = () => {
@@ -39,11 +44,12 @@ const SearchInput: React.FC<SearchInputProps> = ({
         placeholder={SEARCH_BAR_PLACEHOLDER}
         size="sm"
         onChange={onChange}
-        autoFocus
         borderRadius="20px"
         textColor="white"
         _placeholder={{color: "inherit"}}
         focusBorderColor="inherit"
+        autoFocus={autoFocus}
+        onFocus={onFocus}
         _hover={{}}
       />
       <InputLeftElement h="full">

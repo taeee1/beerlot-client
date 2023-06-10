@@ -68,7 +68,9 @@ const SearchBarList: React.FC<SearchBarListProps> = ({handleClickItem}) => {
         clearValue={clearValue}
       />
       {isInputEmpty ? (
-        <Box w="full" h="full" />
+        <Box w="full" h="full">
+          <Text></Text>
+        </Box>
       ) : (
         <Flex flexDirection="column" h="full" w="full">
           <>

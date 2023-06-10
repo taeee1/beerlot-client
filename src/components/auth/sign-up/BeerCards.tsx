@@ -116,7 +116,7 @@ const BeerCards: React.FC<BeerCardsProps> = ({nickName, ...props}) => {
       </Box>
 
       <Text textColor="black.100" textStyle={"h1"} style={{marginTop: 0}}>
-        N개를 골라주세요!
+        5개 이상 골라주세요!
       </Text>
       <Text fontSize="12px" textColor="gray.300" textStyle={"h4"}>
         고른 맥주를 바탕으로 취향 분석 후, 맥주를 추천해드릴게요 :)

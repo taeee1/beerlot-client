@@ -46,6 +46,9 @@ const SearchResultPage = () => {
   const clearValue = () => {
     setValue("");
   };
+  const handleFocus = () => {
+    router.push("/search");
+  };
 
   const handleClickToggle = () => {
     setIsFilterListOpen(!isFilterListOpen);
@@ -126,7 +129,11 @@ const SearchResultPage = () => {
         <LeftBackTitle />
         <Box p={"68px 24px 24px"} h="full">
           <Flex gap="10px" alignItems="center" mb="10px" cursor={"pointer"}>
-            <SearchInput clearValue={clearValue} />
+            <SearchInput
+              clearValue={clearValue}
+              onFocus={handleFocus}
+              autoFocus={false}
+            />
             <Circle size="31px" bg="blue.100" onClick={handleClickToggle}>
               {isFilterListOpen ? <WhiteFilter /> : <EmptyFilter />}
             </Circle>
