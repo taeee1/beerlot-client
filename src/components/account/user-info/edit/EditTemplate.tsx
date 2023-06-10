@@ -24,10 +24,10 @@ const EditTemplate = () => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const userQuery = useUserInfoQuery(accessToken ?? "");
   const {
-    image_url = "",
-    username = "",
-    status_message: statusMessage = "",
-  } = userQuery?.data;
+    image_url,
+    username,
+    status_message: statusMessage,
+  } = userQuery?.data ?? {};
 
   useEffect(() => {
     userQuery.refetch();
@@ -40,7 +40,7 @@ const EditTemplate = () => {
   const {input: bioInput, handleInputChange: onBioInputChange} =
     useNicknameInput({initialInputState: statusMessage});
 
-  const [imgFile, setImgFile] = useState<string>(image_url);
+  const [imgFile, setImgFile] = useState<string>(image_url ?? "");
   const imgRef = useRef<HTMLInputElement>(null);
 
   const isValidNickname = checkValidNicknameOrOriginalNickname(
