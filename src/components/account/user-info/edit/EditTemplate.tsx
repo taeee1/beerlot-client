@@ -2,7 +2,8 @@ import {
   useEditUserInfoMutation,
   useUserInfoQuery,
 } from "@/../hooks/query/useUserQuery";
-import {Box, Container, VStack} from "@chakra-ui/react";
+import {POLICY_LABEL} from "@/../types/common";
+import {VStack} from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import {useRouter} from "next/router";
 import {useEffect, useRef, useState} from "react";
@@ -17,16 +18,16 @@ import {
 import LeftXTitleRightComplete from "../../../shared/Headers/LeftXTitleRightComplete";
 import NicknameInput from "../../../shared/NicknameInput";
 import ProfileAvatar from "../../../shared/ProfileAvatar";
-import {POLICY_LABEL} from "@/../types/common";
 
 const EditTemplate = () => {
-  const router = useRouter();
-  const image_url = "";
-  const username = "";
-  const statusMessage = "";
-
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const userQuery = useUserInfoQuery(accessToken ?? "");
+  const {
+    image_url = "",
+    username = "",
+    status_message: statusMessage = "",
+  } = userQuery?.data;
+  const router = useRouter();
 
   useEffect(() => {
     console.log(userQuery.data);
@@ -53,7 +54,15 @@ const EditTemplate = () => {
 
   const isValidBio = checkValidBioOrOriginalBio(bioInput, statusMessage);
   const isChangeCompleted = checkProfileValidity(isValidNickname, isValidBio);
-
+  const {mutateAsync: putUserInfo} = useEditUserInfoMutation(accessToken, {
+    username: nicknameInput ?? "",
+    status_message: bioInput ?? "",
+    image_url: imgFile,
+    agreed_policies: [
+      POLICY_LABEL.PERSONAL_INFORMATION_POLICY,
+      POLICY_LABEL.TERMS_OF_SERVICE,
+    ],
+  });
   const handleClickComplete = () => {
     router.push("/account");
   };
