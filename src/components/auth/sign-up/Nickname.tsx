@@ -14,7 +14,9 @@ import NicknameInput from "../../shared/NicknameInput";
 const Nickname = () => {
   const [_, setUserInfo] = useRecoilState(userInfoState);
   const [checkedItems, setCheckedItems] = useState([false, false]);
-  const {input, handleInputChange} = useNicknameInput();
+  const {input, handleInputChange} = useNicknameInput({
+    initialInputState: "",
+  });
 
   const isValid = checkIsValidNickname(input);
 
