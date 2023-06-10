@@ -103,6 +103,7 @@ export const DetailInfo: React.FC<DetailInfoProps> = ({
               onClick={handleClickLike}
               w="40px"
               h="40px"
+              fontSize={"28px"}
               cursor="pointer"
               aria-label="like button"
             />

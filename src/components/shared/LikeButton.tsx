@@ -24,6 +24,7 @@ export const LikeButton: React.FC<LikeButtonProps> = ({
       _hover={{}}
       _active={{}}
       p={0}
+      bg="transparent"
       {...props}
     />
   );
