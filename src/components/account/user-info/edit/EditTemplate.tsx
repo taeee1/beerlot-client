@@ -23,7 +23,8 @@ const EditTemplate = () => {
   const router = useRouter();
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const userQuery = useUserInfoQuery(accessToken ?? "");
-  const {image_url, username, status_message: statusMessage} = userQuery?.data;
+  const {image_url, username} = userQuery?.data;
+  const statusMessage = ""; // TODO: fix it
   useEffect(() => {
     console.log(userQuery.data);
   });
@@ -34,10 +35,10 @@ const EditTemplate = () => {
 
   const {input: nicknameInput, handleInputChange: onNicknameInputChange} =
     useNicknameInput({
-      initialInputState: username,
+      initialInputState: username ?? "",
     });
   const {input: bioInput, handleInputChange: onBioInputChange} =
-    useNicknameInput({initialInputState: statusMessage});
+    useNicknameInput({initialInputState: statusMessage ?? ""});
 
   const [imgFile, setImgFile] = useState<string>(image_url ?? "");
   const imgRef = useRef<HTMLInputElement>(null);
@@ -60,8 +61,7 @@ const EditTemplate = () => {
     ],
   });
 
-  const handleClickComplete = async () => {
-    await putUserInfo();
+  const handleClickComplete = () => {
     router.push("/account");
   };
 
@@ -75,17 +75,12 @@ const EditTemplate = () => {
     };
   };
 
-  const rightTitleStyleProps = {
-    isDisabled: !isChangeCompleted,
-    textColor: isChangeCompleted ? "orange.200" : "gray.200",
-  };
-
   return (
     <Box w="full" h="full" bg="gray.100">
       <Container h="full" w="full" bg="white" position="relative" maxW="450px">
         <LeftXTitleRightComplete
           title={"프로필 편집"}
-          rightTitleStyleProps={rightTitleStyleProps}
+          rightTitleStyleProps={rightTitleStyleProps(isChangeCompleted)}
           rightTitle={"완료"}
           onClickRight={handleClickComplete}
         />
@@ -149,3 +144,10 @@ const EditTemplate = () => {
 };
 
 export default EditTemplate;
+
+const rightTitleStyleProps = (isChangeCompleted: boolean) => {
+  return {
+    isDisabled: !isChangeCompleted,
+    textColor: isChangeCompleted ? "orange.200" : "gray.200",
+  };
+};
