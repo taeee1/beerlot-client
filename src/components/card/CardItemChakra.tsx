@@ -59,10 +59,6 @@ const CardItemChakra: React.FC<CardItemProps> = ({
             right="12px"
             w="27px"
             h="29px"
-            filter={
-              isLiked ? "none" : "drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5))"
-            }
-            color={isLiked ? "orange.300" : "#ffffff"}
             aria-label="like button"
           />
         </Box>

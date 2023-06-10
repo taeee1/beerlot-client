@@ -2,12 +2,12 @@ import {
   useBeerDislikeMutation,
   useBeerLikeMutation,
 } from "@/../hooks/query/useBeerLikeMutation";
-import { useUserBeersQuery } from "@/../hooks/query/useUserQuery";
-import { BeerResponseType } from "@/../typedef/server/beer";
-import { generateBeerDetailUrl } from "@/../utils/url";
-import { CommonBeerImage } from "@/components/shared/CommonBeerImage/CommonBeerImage";
-import { LikeButton } from "@/components/shared/LikeButton";
-import { Box, HStack, SimpleGrid } from "@chakra-ui/react";
+import {useUserBeersQuery} from "@/../hooks/query/useUserQuery";
+import {BeerResponseType} from "@/../typedef/server/beer";
+import {generateBeerDetailUrl} from "@/../utils/url";
+import {CommonBeerImage} from "@/components/shared/CommonBeerImage/CommonBeerImage";
+import {LikeButton} from "@/components/shared/LikeButton";
+import {Box, HStack, SimpleGrid} from "@chakra-ui/react";
 import {
   BeerCard,
   BeerCardBody,
@@ -17,8 +17,8 @@ import {
   BeerNameText,
 } from "@components/shared/Card/BeerCardItem";
 import Cookies from "js-cookie";
-import { useRouter } from "next/router";
-import { useCallback, useEffect, useMemo } from "react";
+import {useRouter} from "next/router";
+import {useCallback, useEffect, useMemo} from "react";
 
 const LikedBeers = () => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
@@ -68,9 +68,9 @@ const LikedBeers = () => {
 
       const isLiked = likedBeerIds?.includes(id);
       if (!isLiked) {
-        likeBeerMutation.mutate({ beerId: id, accessToken });
+        likeBeerMutation.mutate({beerId: id, accessToken});
       } else {
-        dislikeBeerMutation.mutate({ beerId: id, accessToken });
+        dislikeBeerMutation.mutate({beerId: id, accessToken});
       }
     },
     [accessToken, dislikeBeerMutation, likeBeerMutation, likedBeerIds]
@@ -92,8 +92,8 @@ const LikedBeers = () => {
                   <CommonBeerImage
                     src={item.image_url}
                     alt={item.name}
-                    width="175px"
-                    height="175px"
+                    width="full"
+                    height="full"
                     objectFit="cover"
                   />
                 )}
@@ -125,4 +125,4 @@ const LikedBeers = () => {
   );
 };
 
-export { LikedBeers };
+export {LikedBeers};

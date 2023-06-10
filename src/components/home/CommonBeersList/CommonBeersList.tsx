@@ -100,7 +100,7 @@ const CommonBeersList: React.FC<CommonBeersListProps> = ({topBeersList}) => {
                   </Box>
                   <Box position="absolute" top={0} right={0}>
                     <LikeButton
-                      isLiked={true}
+                      isLiked={false}
                       onClick={(e) => handleClickLike(e, item.id)}
                       h={7}
                       aria-label="like button"
