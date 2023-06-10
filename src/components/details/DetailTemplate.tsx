@@ -31,7 +31,7 @@ export const DetailTemplate = () => {
   return (
     <Box w="full" h="full" bg="gray.100" mb={"64px"} overflowY="scroll">
       <Container p={"0px"} w="full" bg="white" position="relative" maxW="450px">
-        <VStack w="full" pb="56px">
+        <VStack w="full">
           {beerInfo && (
             <DetailInfo
               beerName={beerInfo.beerName}

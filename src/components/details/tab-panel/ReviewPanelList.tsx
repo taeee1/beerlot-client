@@ -1,4 +1,12 @@
-import {Box, Container, Flex, HStack, Text, VStack} from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Container,
+  Flex,
+  HStack,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import {useState} from "react";
 import {Rating} from "../../shared/Rating";
 import {ReviewModal} from "../../shared/ReviewModal/ReviewModal";
@@ -26,14 +34,7 @@ export const ReviewPanelList: React.FC<ReviewPanelListProps> = ({rate}) => {
   return (
     <Container px="8px" py="20px" bg="yellow.100">
       <VStack px={"12px"} gap="10px" alignItems={"start"}>
-        <Box>
-          <Text textColor="black.100" as="span" textStyle={"h2_bold"}>
-            리뷰{" "}
-          </Text>
-          <Text textColor="orange.200" as="span" textStyle={"h2_bold"}>
-            {reviews.length}
-          </Text>
-        </Box>
+        <ReviewCountDisplay reviewLength={reviews.length} />
         <BeerInfoHStack
           label={"제보된 판매처"}
           desc={buyFrom}
@@ -60,29 +61,76 @@ export const ReviewPanelList: React.FC<ReviewPanelListProps> = ({rate}) => {
         <FeedFilter selectedTag={selectedTag} onClickTag={handleSelectTag} />
         {/* ALL_FEED_MOCK을 prop으로 받아서 AllTabPanelList랑 공유하기 */}
       </VStack>
-      <Flex flexDir={"column"} gap="10px">
-        {reviews &&
-          reviews.map((feed) => {
-            console.log("feed", feed);
-            return (
-              <>
-                {/* <FollowingTabPanelItem
-                  key={feed.id}
-                  isRow
-                  nickname={feed.nickname}
-                  postingTime={feed.postingTime}
-                  beerName={feed.beerName}
-                  ratingNumber={feed.ratingNumber}
-                  imageSrc={feed.imageSrc}
-                  postText={feed.postText}
-                  thumbsUpNumber={feed.thumbsUpNumber}
-                  isEditable={false}
-                /> */}
-              </>
-            );
-          })}
-      </Flex>
-      <ReviewModal />
+      {reviews && reviews.length > 0 ? (
+        <ReviewsList reviews={reviews} />
+      ) : (
+        <EmptyReviewsList />
+      )}
     </Container>
+  );
+};
+
+const EmptyReviewsList = () => {
+  return (
+    <Center
+      gap={2}
+      borderRadius={8}
+      bg={"white"}
+      flexDir={"column"}
+      py={5}
+      mt={6}
+      mx={5}
+    >
+      <Text textStyle={"h2_bold"}>아직 작성된 리뷰가 없어요😢</Text>
+      <Text textStyle={"h3"} textColor={"gray.300"}>
+        첫번째 리뷰의 주인공이 되어주실래요?
+      </Text>
+    </Center>
+  );
+};
+interface ReviewsListProps {
+  reviews: any[];
+}
+const ReviewsList: React.FC<ReviewsListProps> = ({reviews}) => {
+  return (
+    <Flex flexDir={"column"} gap="10px">
+      {reviews.map((feed) => {
+        console.log("feed", feed);
+        return (
+          <>
+            {/* <FollowingTabPanelItem
+              key={feed.id}
+              isRow
+              nickname={feed.nickname}
+              postingTime={feed.postingTime}
+              beerName={feed.beerName}
+              ratingNumber={feed.ratingNumber}
+              imageSrc={feed.imageSrc}
+              postText={feed.postText}
+              thumbsUpNumber={feed.thumbsUpNumber}
+              isEditable={false}
+            /> */}
+          </>
+        );
+      })}
+    </Flex>
+  );
+};
+interface ReviewCountDisplayProps {
+  reviewLength: number;
+}
+
+const ReviewCountDisplay: React.FC<ReviewCountDisplayProps> = ({
+  reviewLength,
+}) => {
+  return (
+    <Box>
+      <Text textColor="black.100" as="span" textStyle={"h2_bold"}>
+        리뷰{" "}
+      </Text>
+      <Text textColor="orange.200" as="span" textStyle={"h2_bold"}>
+        {reviewLength}
+      </Text>
+    </Box>
   );
 };
