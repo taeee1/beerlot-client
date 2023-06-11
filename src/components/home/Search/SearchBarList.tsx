@@ -1,14 +1,15 @@
-import React, {useEffect, useMemo, useState} from "react";
-import {Box, Container, Flex, Text} from "@chakra-ui/react";
-import {useRouter} from "next/router";
-import SearchInput from "@/components/search/SearchInput";
-import _, {debounce} from "lodash";
-import axios from "axios";
-import {useMutation} from "react-query";
+import {useUserInfoQuery} from "@/../hooks/query/useUserQuery";
 import useKeyboard from "@/../hooks/useKeyboard";
-import EmptySearchResult from "@/components/search/EmptySearchResult";
 import {BeerResponseType} from "@/../typedef/server/beer";
-
+import EmptySearchResult from "@/components/search/EmptySearchResult";
+import SearchInput from "@/components/search/SearchInput";
+import {Box, Center, Flex, Text} from "@chakra-ui/react";
+import axios from "axios";
+import Cookies from "js-cookie";
+import {debounce} from "lodash";
+import {useRouter} from "next/router";
+import React, {useEffect, useMemo, useState} from "react";
+import {useMutation} from "react-query";
 interface SearchBarListProps {
   handleClickItem?: (name: string, id: number) => void;
 }
@@ -18,6 +19,12 @@ const SearchBarList: React.FC<SearchBarListProps> = ({handleClickItem}) => {
 
   const [selectedItems, setSelectedItems] = useState([]);
   const isInputEmpty = value.length === 0;
+  const accessToken = Cookies.get("beerlot-oauth-auth-request");
+  const userQuery = useUserInfoQuery(accessToken ?? "");
+
+  useEffect(() => {
+    userQuery.refetch();
+  }, []);
 
   const searchBeer = useMutation((keyword: string) =>
     axios.get(
@@ -68,9 +75,7 @@ const SearchBarList: React.FC<SearchBarListProps> = ({handleClickItem}) => {
         clearValue={clearValue}
       />
       {isInputEmpty ? (
-        <Box w="full" h="full">
-          <Text></Text>
-        </Box>
+        <EmptySearchBox username={userQuery?.data?.username} />
       ) : (
         <Flex flexDirection="column" h="full" w="full">
           <>
@@ -107,3 +112,26 @@ const SearchBarList: React.FC<SearchBarListProps> = ({handleClickItem}) => {
 };
 
 export {SearchBarList};
+interface EmptySearchBoxProps {
+  username?: string;
+}
+
+const EmptySearchBox: React.FC<EmptySearchBoxProps> = ({username}) => {
+  return (
+    <Center mt={10}>
+      {username && (
+        <>
+          <Text display={"inline"} textStyle={"h3"} textColor={"orange.200"}>
+            {username}
+          </Text>
+          <Text display={"inline"} textStyle={"h3"} textColor={"gray.300"}>
+            님,
+          </Text>
+        </>
+      )}
+      <Text textStyle={"h3"} textColor={"gray.300"}>
+        무얼 검색하러 오셨나요 👀?
+      </Text>
+    </Center>
+  );
+};
