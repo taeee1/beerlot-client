@@ -120,14 +120,14 @@ const EmptySearchBox: React.FC<EmptySearchBoxProps> = ({username}) => {
   return (
     <Center mt={10}>
       {username && (
-        <>
+        <Box display="block">
           <Text display={"inline"} textStyle={"h3"} textColor={"orange.200"}>
             {username}
           </Text>
           <Text display={"inline"} textStyle={"h3"} textColor={"gray.300"}>
             님,
           </Text>
-        </>
+        </Box>
       )}
       <Text textStyle={"h3"} textColor={"gray.300"}>
         무얼 검색하러 오셨나요 👀?
