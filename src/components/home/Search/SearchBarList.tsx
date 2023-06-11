@@ -118,7 +118,7 @@ interface EmptySearchBoxProps {
 
 const EmptySearchBox: React.FC<EmptySearchBoxProps> = ({username}) => {
   return (
-    <Center mt={10}>
+    <Center mt={10} flexDir="column">
       {username && (
         <Box display="block">
           <Text display={"inline"} textStyle={"h3"} textColor={"orange.200"}>
