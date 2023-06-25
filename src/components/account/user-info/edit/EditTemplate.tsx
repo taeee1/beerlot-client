@@ -13,7 +13,13 @@ const EditTemplate = () => {
 
   useEffect(() => {
     userQuery.refetch();
-  }, [userQuery]);
+  }, []);
+
+  useEffect(() => {
+    console.log("image_url", image_url);
+    console.log("statusMessage", statusMessage);
+    console.log("username", username);
+  }, [image_url, statusMessage, username]);
 
   return (
     <>
