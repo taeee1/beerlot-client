@@ -1,5 +1,5 @@
 import {useEditUserInfoMutation} from "@/../hooks/query/useUserQuery";
-import useNicknameInput from "@/../hooks/useNicknameInput";
+import useInput from "@/../hooks/useNicknameInput";
 import {StackProps, VStack} from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import {
@@ -16,8 +16,8 @@ import LeftXTitleRightComplete from "@/components/shared/Headers/LeftXTitleRight
 import {useRef, useState} from "react";
 
 interface ProfileEditContentProps extends StackProps {
-  imageUrl: string;
-  statusMessage: string;
+  imageUrl: string | null;
+  statusMessage: string | null;
   username: string;
 }
 
@@ -28,7 +28,7 @@ const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
 }) => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const router = useRouter();
-  const {input: nicknameInput, onChange: onNicknameChange} = useNicknameInput({
+  const {input: nicknameInput, onChange: onNicknameChange} = useInput({
     initialInputState: username,
   });
   const [imgFile, setImgFile] = useState<string>("");
@@ -43,8 +43,8 @@ const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
       if (typeof reader.result === "string") setImgFile(reader.result);
     };
   };
-  const {input: bioInput, onChange: onBioChange} = useNicknameInput({
-    initialInputState: statusMessage,
+  const {input: bioInput, onChange: onBioChange} = useInput({
+    initialInputState: statusMessage ?? "",
   });
   const isValidNickname = checkValidNicknameOrOriginalNickname(
     nicknameInput,
@@ -75,7 +75,7 @@ const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
         <VStack>
           <ProfileAvatar
             alt="user profile photo"
-            src={imageUrl}
+            src={imageUrl ?? "/images/default_profile_img.png"}
             boxSize="100px"
           />
           <form>

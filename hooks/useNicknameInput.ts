@@ -4,7 +4,7 @@ interface NicknameInputProps {
   initialInputState: string;
 }
 
-const useNicknameInput = ({initialInputState}: NicknameInputProps) => {
+const useInput = ({initialInputState}: NicknameInputProps) => {
   const [input, setInput] = useState<string>(initialInputState);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -18,4 +18,4 @@ const useNicknameInput = ({initialInputState}: NicknameInputProps) => {
   };
 };
 
-export default useNicknameInput;
+export default useInput;

@@ -2,7 +2,7 @@ import {Box, Checkbox, Text, VStack} from "@chakra-ui/react";
 import {useRouter} from "next/router";
 import {useState} from "react";
 import {useRecoilState} from "recoil";
-import useNicknameInput from "../../../../hooks/useNicknameInput";
+import useInput from "../../../../hooks/useNicknameInput";
 import {
   checkIsValidNickname,
   getNicknameHelperText,
@@ -14,7 +14,7 @@ import NicknameInput from "../../shared/NicknameInput";
 const Nickname = () => {
   const [_, setUserInfo] = useRecoilState(userInfoState);
   const [checkedItems, setCheckedItems] = useState([false, false]);
-  const {input, onChange} = useNicknameInput({
+  const {input, onChange} = useInput({
     initialInputState: "",
   });
 

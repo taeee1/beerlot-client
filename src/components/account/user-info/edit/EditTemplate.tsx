@@ -15,18 +15,12 @@ const EditTemplate = () => {
     userQuery.refetch();
   }, []);
 
-  useEffect(() => {
-    console.log("image_url", image_url);
-    console.log("statusMessage", statusMessage);
-    console.log("username", username);
-  }, [image_url, statusMessage, username]);
-
   return (
     <>
-      {image_url && statusMessage && username && (
+      {username && (
         <ProfileEditContent
-          imageUrl={image_url}
-          statusMessage={statusMessage}
+          imageUrl={image_url ?? null}
+          statusMessage={statusMessage ?? null}
           username={username}
         />
       )}

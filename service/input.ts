@@ -8,7 +8,7 @@ export const checkValidNicknameOrOriginalNickname = (
 
 export const getNicknameHelperTextOrOriginalNickname = (
   nicknameInput: string | null,
-  originalNickname: string
+  originalNickname: string | null
 ) => {
   if (nicknameInput === originalNickname) return "";
   return getNicknameHelperText(nicknameInput);
@@ -16,7 +16,7 @@ export const getNicknameHelperTextOrOriginalNickname = (
 
 export const checkValidBioOrOriginalBio = (
   bioInput: string | null,
-  originalBio: string
+  originalBio: string | null
 ) => {
   if (bioInput === originalBio) return null;
   return checkIsValidBio(bioInput);
