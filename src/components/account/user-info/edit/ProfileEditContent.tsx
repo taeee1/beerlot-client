@@ -1,19 +1,18 @@
 import {useEditUserInfoMutation} from "@/../hooks/query/useUserQuery";
 import useInput from "@/../hooks/useNicknameInput";
+import LeftXTitleRightComplete from "@/components/shared/Headers/LeftXTitleRightComplete";
 import {StackProps, VStack} from "@chakra-ui/react";
 import Cookies from "js-cookie";
+import {useRouter} from "next/router";
+import {useRef, useState} from "react";
 import {
-  checkProfileValidity,
-  checkValidBioOrOriginalBio,
-  checkValidNicknameOrOriginalNickname,
   getBioHelperText,
   getNicknameHelperTextOrOriginalNickname,
+  isValidOrOriginalBio,
+  isValidOrOriginalNickname,
 } from "../../../../../service/input";
 import NicknameInput from "../../../shared/NicknameInput";
 import ProfileAvatar from "../../../shared/ProfileAvatar";
-import {useRouter} from "next/router";
-import LeftXTitleRightComplete from "@/components/shared/Headers/LeftXTitleRightComplete";
-import {useRef, useState} from "react";
 
 interface ProfileEditContentProps extends StackProps {
   imageUrl: string | null;
@@ -46,23 +45,24 @@ const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
   const {input: bioInput, onChange: onBioChange} = useInput({
     initialInputState: statusMessage ?? "",
   });
-  const isValidNickname = checkValidNicknameOrOriginalNickname(
-    nicknameInput,
-    username
-  );
+
   const editUserInfoMutation = useEditUserInfoMutation(accessToken, {
     onSuccess: () => {
       router.push("/account");
     },
   });
-  const isValidBio = checkValidBioOrOriginalBio(bioInput, statusMessage);
-  const isChangeCompleted = checkProfileValidity(isValidNickname, isValidBio);
+
   const handleClickComplete = () => {
     editUserInfoMutation.mutate({
       status_message: bioInput,
       image_url: imgFile,
     });
   };
+
+  const validNickname = isValidOrOriginalNickname(nicknameInput, username); // null means not changed
+  const validBio = isValidOrOriginalBio(bioInput, statusMessage); // null means not changed;
+  const isChangeCompleted = validNickname !== false && validBio !== false;
+
   return (
     <>
       <LeftXTitleRightComplete
@@ -107,7 +107,7 @@ const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
         <VStack gap="px" w="100%">
           <NicknameInput
             input={nicknameInput}
-            isValid={isValidNickname}
+            isValid={validNickname}
             onChange={onNicknameChange}
             guideText={getNicknameHelperTextOrOriginalNickname(
               nicknameInput,
@@ -119,7 +119,7 @@ const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
             maxLength={25}
             placeholder="소개는 25자까지 입력이 가능해요!"
             input={bioInput}
-            isValid={isValidBio}
+            isValid={validBio}
             onChange={onBioChange}
             guideText={getBioHelperText(bioInput)}
           />

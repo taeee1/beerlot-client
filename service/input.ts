@@ -1,9 +1,10 @@
-export const checkValidNicknameOrOriginalNickname = (
-  nicknameInput: string | null,
+// nickname
+export const isValidOrOriginalNickname = (
+  newNickname: string,
   originalNickname: string
 ) => {
-  if (nicknameInput === originalNickname) return null;
-  return checkIsValidNickname(nicknameInput);
+  if (newNickname === originalNickname) return null;
+  return checkIsValidNickname(newNickname);
 };
 
 export const getNicknameHelperTextOrOriginalNickname = (
@@ -14,48 +15,17 @@ export const getNicknameHelperTextOrOriginalNickname = (
   return getNicknameHelperText(nicknameInput);
 };
 
-export const checkValidBioOrOriginalBio = (
-  bioInput: string | null,
-  originalBio: string | null
-) => {
-  if (bioInput === originalBio) return null;
-  return checkIsValidBio(bioInput);
-};
-
-export const getBioHelperTextOrOriginalBio = (
-  bioInput: string | null,
-  originalBio: string
-) => {
-  if (bioInput === originalBio) return "";
-  return getBioHelperText(bioInput);
-};
-
-export const checkProfileValidity = (
-  isValidNickname: boolean | null,
-  isValidBio: boolean | null
-) => {
-  if (isValidNickname === false) {
-    return false;
-  }
-  if (isValidBio === false) {
-    return false;
-  }
-  return true;
-};
-
-export const checkIsValidNickname = (input: string | null) => {
-  if (input === null) return null;
-
-  if (input.length > 9) {
+export const checkIsValidNickname = (nickname: string) => {
+  if (nickname.length > 9) {
     return false;
   }
 
-  if (input.length === 0) {
+  if (nickname.length === 0) {
     return false;
   }
 
   // duplicated
-  if (input === "beerlover") {
+  if (nickname === "beerlover") {
     return false;
   }
 
@@ -78,6 +48,23 @@ export const getNicknameHelperText = (input: string | null) => {
   }
 
   return "사용할 수 있는 닉네임이에요 :)";
+};
+
+// bio
+export const isValidOrOriginalBio = (
+  bioInput: string | null,
+  originalBio: string | null
+) => {
+  if (bioInput === originalBio) return null;
+  return checkIsValidBio(bioInput);
+};
+
+export const getBioHelperTextOrOriginalBio = (
+  bioInput: string | null,
+  originalBio: string
+) => {
+  if (bioInput === originalBio) return "";
+  return getBioHelperText(bioInput);
 };
 
 export const getBioHelperText = (bio: string | null) => {
