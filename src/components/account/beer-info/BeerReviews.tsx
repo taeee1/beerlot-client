@@ -15,7 +15,11 @@ const BeerReviews = () => {
   }, []);
 
   const handleEdit = useCallback(() => {}, []);
-  const deleteReviewMutation = useDeleteReviewMutation(accessToken);
+  const deleteReviewMutation = useDeleteReviewMutation(accessToken, {
+    onSuccess: () => {
+      userReviewQuery.refetch();
+    },
+  });
 
   const handleDelete = useCallback(
     (reviewId: number) => () => {
