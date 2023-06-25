@@ -99,7 +99,10 @@ export const ReviewModal = () => {
   const handleClickComplete = () => {
     const reviewData = {
       rate: 3,
+      image_url:
+        "https://fastly.picsum.photos/id/923/200/300.jpg?hmac=eiYSYaG7v46VlrE38Amrg33bd2FzVjaCsQrLMdekyAU",
     };
+
     createReviewMutation.mutate(reviewData);
     onClose();
     setReviewInfo({
