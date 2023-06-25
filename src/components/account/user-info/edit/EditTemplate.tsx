@@ -49,17 +49,15 @@ const EditTemplate = () => {
 
   const isValidBio = checkValidBioOrOriginalBio(bioInput, statusMessage);
   const isChangeCompleted = checkProfileValidity(isValidNickname, isValidBio);
-  // const editUserInfoMutation = useEditUserInfoMutation(accessToken, {
-  //   onSuccess: () => {
-  //     router.push("/account");
-  //   },
-  // });
+  const editUserInfoMutation = useEditUserInfoMutation(accessToken, {
+    },
+  });
 
   const handleClickComplete = () => {
-    // editUserInfoMutation.mutate({
-    //   status_message: bioInput,
-    //   image_url: imgFile,
-    // });
+    editUserInfoMutation.mutate({
+      status_message: bioInput,
+      image_url: imgFile,
+    });
   };
   const handleChangeProfileImage = () => {
     if (!imgRef || !imgRef.current || !imgRef.current.files) return;
