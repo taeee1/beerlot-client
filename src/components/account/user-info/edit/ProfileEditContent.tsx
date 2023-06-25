@@ -25,7 +25,6 @@ const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
   statusMessage,
   username,
 }) => {
-  console.log("imageUrl", imageUrl);
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const router = useRouter();
   const {input: nicknameInput, onChange: onNicknameChange} = useInput({
