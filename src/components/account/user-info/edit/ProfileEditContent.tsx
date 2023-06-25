@@ -15,7 +15,7 @@ import NicknameInput from "../../../shared/NicknameInput";
 import ProfileAvatar from "../../../shared/ProfileAvatar";
 
 interface ProfileEditContentProps extends StackProps {
-  imageUrl: string | null;
+  imageUrl: string;
   statusMessage: string | null;
   username: string;
 }
@@ -25,6 +25,7 @@ const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
   statusMessage,
   username,
 }) => {
+  console.log("imageUrl", imageUrl);
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const router = useRouter();
   const {input: nicknameInput, onChange: onNicknameChange} = useInput({
