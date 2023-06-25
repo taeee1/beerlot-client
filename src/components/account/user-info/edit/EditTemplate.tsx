@@ -50,6 +50,8 @@ const EditTemplate = () => {
   const isValidBio = checkValidBioOrOriginalBio(bioInput, statusMessage);
   const isChangeCompleted = checkProfileValidity(isValidNickname, isValidBio);
   const editUserInfoMutation = useEditUserInfoMutation(accessToken, {
+    onSuccess: () => {
+      router.push("/account");
     },
   });
 
