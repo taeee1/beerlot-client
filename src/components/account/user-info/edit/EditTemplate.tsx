@@ -22,9 +22,9 @@ const EditTemplate = () => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const userQuery = useUserInfoQuery(accessToken ?? "");
   const {
-    image_url,
-    username,
-    status_message: statusMessage,
+    image_url = "",
+    username = "",
+    status_message: statusMessage = "",
   } = userQuery?.data ?? {};
   const router = useRouter();
 
