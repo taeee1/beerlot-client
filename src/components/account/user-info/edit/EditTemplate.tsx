@@ -2,7 +2,6 @@ import {
   useEditUserInfoMutation,
   useUserInfoQuery,
 } from "@/../hooks/query/useUserQuery";
-import {POLICY_LABEL} from "@/../types/common";
 import {VStack} from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import {useRouter} from "next/router";
@@ -23,15 +22,11 @@ const EditTemplate = () => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const userQuery = useUserInfoQuery(accessToken ?? "");
   const {
-    image_url = "",
-    username = "",
-    status_message: statusMessage = "",
+    image_url,
+    username,
+    status_message: statusMessage,
   } = userQuery?.data ?? {};
   const router = useRouter();
-
-  useEffect(() => {
-    console.log(userQuery.data);
-  });
 
   useEffect(() => {
     userQuery.refetch();
@@ -54,11 +49,18 @@ const EditTemplate = () => {
 
   const isValidBio = checkValidBioOrOriginalBio(bioInput, statusMessage);
   const isChangeCompleted = checkProfileValidity(isValidNickname, isValidBio);
+  const editUserInfoMutation = useEditUserInfoMutation(accessToken, {
+    onSuccess: () => {
+      router.push("/account");
+    },
+  });
 
   const handleClickComplete = () => {
-    router.push("/account");
+    editUserInfoMutation.mutate({
+      status_message: bioInput,
+      image_url: imgFile,
+    });
   };
-
   const handleChangeProfileImage = () => {
     if (!imgRef || !imgRef.current || !imgRef.current.files) return;
     const file = imgRef.current.files[0];

@@ -3,7 +3,7 @@ import {
   getUserLikedBeersApi,
   getUserReviewsApi,
   getUsersInfoApi,
-  putUsersInfoApi,
+  updateUserInfoApi,
 } from "@/api/user/api";
 import {
   MutationOptions,
@@ -12,7 +12,12 @@ import {
   useQuery,
 } from "react-query";
 import {FailureResponse} from "types/api";
-import {BeersWithLanguage, UserEditRequest} from "./useReviewQuery";
+import {
+  BeersWithLanguage,
+  UserEditRequest,
+  UserUpdateRequestType,
+} from "./useReviewQuery";
+import {access} from "fs/promises";
 
 export const getUserInfoQueryKey = () => ["getUserInfo"];
 export const putUserInfoQueryKey = () => ["putUserInfo"];
@@ -35,10 +40,13 @@ export const useUserInfoQuery = (
 
 export const useEditUserInfoMutation = (
   accessToken: string,
-  updatedInfo: UserEditRequest,
-  options?: MutationOptions<any, FailureResponse>
+  options?: MutationOptions<any, FailureResponse, UserUpdateRequestType>
 ) => {
-  return useMutation(() => putUsersInfoApi(accessToken, updatedInfo), options);
+  return useMutation({
+    mutationFn: (updatedInfo: UserUpdateRequestType) =>
+      updateUserInfoApi(accessToken, updatedInfo),
+    ...options,
+  });
 };
 
 export const useUserReviewsQuery = (

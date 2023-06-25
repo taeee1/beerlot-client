@@ -1,8 +1,8 @@
 import {
   BeersWithLanguage,
-  UserEditRequest,
+  UserUpdateRequestType,
 } from "@/../hooks/query/useReviewQuery";
-import {LanguageType, POLICY_LABEL, ReviewSortType} from "@/../types/common";
+import {LanguageType, ReviewSortType} from "@/../types/common";
 import {MemberReviewsRequest} from "@/../types/member/request";
 import axios from "axios";
 import {BeerSortEnum, OAUTH_PROVIDER} from "../../../interface/types";
@@ -18,9 +18,9 @@ export const getUsersInfoApi = async (accessToken: string) => {
   return res.data;
 };
 
-export const putUsersInfoApi = async (
+export const updateUserInfoApi = async (
   accessToken: string,
-  updatedInfo: UserEditRequest
+  updatedInfo: UserUpdateRequestType
 ) => {
   const res = await axios.put("/api/v1/members/me", updatedInfo, {
     headers: {
