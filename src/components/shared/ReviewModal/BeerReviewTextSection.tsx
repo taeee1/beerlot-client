@@ -33,7 +33,7 @@ export const BeerReviewTextSection: React.FC<BeerReviewTextSectionProps> = ({
       >
         <Textarea
           resize={"none"}
-          focusBorderColor="none"
+          focusBorderColor="transparent"
           w="full"
           border="none"
           h="full"
