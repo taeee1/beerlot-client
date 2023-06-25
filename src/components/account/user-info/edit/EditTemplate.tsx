@@ -19,7 +19,7 @@ const EditTemplate = () => {
     <>
       {username && (
         <ProfileEditContent
-          imageUrl={image_url || "/images/default_profile_img.png"}
+          imageUrl={image_url || "/images/default-profile.png"}
           statusMessage={statusMessage ?? null}
           username={username}
         />
