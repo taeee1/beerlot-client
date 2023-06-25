@@ -14,7 +14,7 @@ import NicknameInput from "../../shared/NicknameInput";
 const Nickname = () => {
   const [_, setUserInfo] = useRecoilState(userInfoState);
   const [checkedItems, setCheckedItems] = useState([false, false]);
-  const {input, handleInputChange} = useNicknameInput({
+  const {input, onChange} = useNicknameInput({
     initialInputState: "",
   });
 
@@ -53,7 +53,7 @@ const Nickname = () => {
       <NicknameInput
         input={input}
         isValid={isValid}
-        onChange={handleInputChange}
+        onChange={onChange}
         guideText={getNicknameHelperText(input)}
       />
 
