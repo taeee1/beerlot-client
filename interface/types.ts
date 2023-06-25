@@ -87,12 +87,12 @@ export type ErrorResponse = {
   timestamp: string;
 };
 
-export interface ReviewType {
+export interface ReviewInfoType {
   beerName: string | null;
   rate: number;
   place?: string | null;
   review?: string | null;
-  imgUrl?: string[] | null;
+  image_url?: string[] | null;
 }
 
 export enum ReviewSortEnum {

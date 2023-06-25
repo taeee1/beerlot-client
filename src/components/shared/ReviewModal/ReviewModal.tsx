@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import React, {ChangeEvent, useState} from "react";
-import {ReviewType} from "../../../../interface/types";
+import {ReviewInfoType} from "../../../../interface/types";
 import {EditPencil} from "../../../../public/svg";
 import {LeftCloseRandom} from "../Headers/LeftCloseRandom";
 import BeerNameSection from "./BeerNameSection";
@@ -24,7 +24,7 @@ import {BeerSearchContent} from "./BeerSearchContent";
 import {ReviewCancelDrawer} from "./ReviewCancelDrawer";
 
 export const ReviewModal = () => {
-  const [reviewInfo, setReviewInfo] = useState<ReviewType>({
+  const [reviewInfo, setReviewInfo] = useState<ReviewInfoType>({
     beerName: null,
     rate: 0,
   });
@@ -43,7 +43,7 @@ export const ReviewModal = () => {
   const {isOpen, onOpen, onClose} = useDisclosure();
 
   const handleClickLeftButton = () => {
-    // TODO: reset everything
+    // TODO: reset everything and add null type
     setReviewInfo({
       beerName: null,
       rate: 0,
@@ -59,16 +59,16 @@ export const ReviewModal = () => {
     CloseReviewDrawer.onClose();
   };
 
-  const handleWriteReview = () => {
+  const handleCreateReview = () => {
     onOpen();
   };
+
   const handleClickBack = () => {
     setStep(step - 1);
   };
 
   const handleChangeBeerName = (name: string, id: number) => {
     const newBeerReview = {...reviewInfo, beerName: name};
-    console.log("id", id);
     setReviewInfo(newBeerReview);
     setBeerId(id);
   };
@@ -97,13 +97,14 @@ export const ReviewModal = () => {
   );
 
   const handleClickComplete = () => {
-    const reviewData = {
-      rate: 3,
+    const newReviewInfo = {
+      rate: reviewInfo.rate,
+      buy_from: reviewInfo?.place ?? "",
+      content: reviewInputValue,
       image_url:
         "https://fastly.picsum.photos/id/923/200/300.jpg?hmac=eiYSYaG7v46VlrE38Amrg33bd2FzVjaCsQrLMdekyAU",
     };
-
-    createReviewMutation.mutate(reviewData);
+    createReviewMutation.mutate(newReviewInfo);
     onClose();
     setReviewInfo({
       beerName: null,
@@ -117,7 +118,7 @@ export const ReviewModal = () => {
   return (
     <Box>
       <Button
-        onClick={handleWriteReview}
+        onClick={handleCreateReview}
         w="70px"
         h="70px"
         pos="absolute"

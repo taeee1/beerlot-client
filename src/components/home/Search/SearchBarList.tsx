@@ -16,7 +16,6 @@ interface SearchBarListProps {
 const SearchBarList: React.FC<SearchBarListProps> = ({handleClickItem}) => {
   const router = useRouter();
   const [value, setValue] = useState("");
-
   const [selectedItems, setSelectedItems] = useState([]);
   const isInputEmpty = value.length === 0;
   const accessToken = Cookies.get("beerlot-oauth-auth-request");
@@ -40,8 +39,6 @@ const SearchBarList: React.FC<SearchBarListProps> = ({handleClickItem}) => {
   };
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (isEnterKey(e)) {
-      // router.push(`/result/${e.target.value}`);
-
       router.push(`/result?query=${e.target.value}`);
     }
   };
