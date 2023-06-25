@@ -75,7 +75,7 @@ const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
         <VStack>
           <ProfileAvatar
             alt="user profile photo"
-            src={imageUrl ?? "/images/default_profile_img.png"}
+            src={imageUrl || "/images/default_profile_img.png"}
             boxSize="100px"
           />
           <form>
