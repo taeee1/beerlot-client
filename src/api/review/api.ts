@@ -35,6 +35,21 @@ export const createReviewApi = async (
   return response.data;
 };
 
+// 리뷰 1개 delete
+export const deleteReviewApi = async (
+  reviewId: number,
+  accessToken: string
+) => {
+  const url = `/api/v1/reviews/${reviewId}`;
+  const config = {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
+  const response = await axios.delete(url, config);
+  return response.data;
+};
+
 // 리뷰 1개 get
 export const getReviewWitReviewBeerIdApi = async (
   beerId: number,
@@ -72,17 +87,6 @@ export const patchReviewApi = async (
   try {
     const result = await axios.patch(`/api/v1/reviews/${beerId}`, content);
     console.log(result, "postReviewWithBeerIdApi");
-    return result;
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-// 리뷰 1개 delete
-export const deleteReviewApi = async (beerId: number) => {
-  try {
-    const result = await axios.delete(`/api/api/v1/reviews/${beerId}`);
-    console.log(result, "deleteReviewApi");
     return result;
   } catch (error) {
     console.error(error);

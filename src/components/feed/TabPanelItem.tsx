@@ -22,6 +22,8 @@ interface FollowingTabPanelItemProps {
   imageSrc?: string;
   postText: string;
   thumbsUpNumber: number;
+  onEdit?: () => void;
+  onDelete?: () => void;
   isEditable: boolean;
   maxPostLength?: number;
 }
@@ -36,6 +38,8 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
   rate,
   imageSrc,
   postText,
+  onDelete,
+  onEdit,
   thumbsUpNumber,
   isEditable,
   maxPostLength = MAX_TEXT_LENGTH_OF_REVIEW,
@@ -166,11 +170,13 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
             <IconButton
               aria-label="Delete Icon"
               size="16px"
+              onClick={onDelete}
               icon={<TrashBin />}
             />
             <IconButton
               aria-label="Edit Icon"
               size="16px"
+              onClick={onEdit}
               icon={<EditNote />}
             />
           </Center>

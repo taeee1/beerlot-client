@@ -2,8 +2,9 @@ import {useUserReviewsQuery} from "@/../hooks/query/useUserQuery";
 import {MemberReviewResponse} from "@/../types/member/response";
 import {Flex} from "@chakra-ui/react";
 import Cookies from "js-cookie";
-import {useEffect} from "react";
+import {useCallback, useEffect} from "react";
 import FollowingTabPanelItem from "../../feed/TabPanelItem";
+import {useDeleteReviewMutation} from "@/../hooks/query/useReviewQuery";
 
 const BeerReviews = () => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
@@ -12,6 +13,16 @@ const BeerReviews = () => {
   useEffect(() => {
     userReviewQuery.refetch();
   }, []);
+
+  const handleEdit = useCallback(() => {}, []);
+  const deleteReviewMutation = useDeleteReviewMutation(accessToken);
+
+  const handleDelete = useCallback(
+    (reviewId: number) => () => {
+      deleteReviewMutation.mutate(reviewId);
+    },
+    [deleteReviewMutation]
+  );
 
   return (
     <Flex
@@ -34,6 +45,8 @@ const BeerReviews = () => {
             postText={feed.content}
             thumbsUpNumber={feed.like_count}
             isEditable={true}
+            onDelete={handleDelete(feed.id)}
+            onEdit={handleEdit}
           />
         );
       })}

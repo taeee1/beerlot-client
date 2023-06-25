@@ -1,11 +1,17 @@
 import {POLICY_LABEL} from "@/../interface/server/types/Auth";
 import {
   createReviewApi,
+  deleteReviewApi,
   dislikeReviewApi,
   fetchAllReviewsApi,
   likeReviewApi,
 } from "@/api/review/api";
-import {UseMutationOptions, UseQueryOptions, useQuery} from "react-query";
+import {
+  UseMutationOptions,
+  UseMutationResult,
+  UseQueryOptions,
+  useQuery,
+} from "react-query";
 import {FailureResponse} from "types/api";
 import {BeerSortEnum, ReviewSortEnum} from "../../interface/types";
 import {useMutation} from "react-query";
@@ -25,6 +31,7 @@ export const useAllReviewsQuery = (
   });
 };
 export const createReviewMutationKey = () => ["createReview"];
+export const deleteReviewMutationKey = () => ["deleteReview"];
 
 export const useCreateReviewMutation = (
   beerId: number,
@@ -38,6 +45,19 @@ export const useCreateReviewMutation = (
     ...options,
   });
 };
+
+type DeleteReviewOptions = UseMutationOptions<any, FailureResponse, number>;
+
+export const useDeleteReviewMutation = (
+  accessToken: string,
+  options?: DeleteReviewOptions
+): UseMutationResult<any, FailureResponse, number> => {
+  return useMutation<number, FailureResponse, number>(
+    (reviewId: number) => deleteReviewApi(reviewId, accessToken),
+    options
+  );
+};
+
 export const reviewLikeKey = () => ["reviewLike"];
 export const reviewDislikeKey = () => ["reviewDisike"];
 
