@@ -1,5 +1,5 @@
-import { Text } from "@chakra-ui/react";
-import { useRouter } from "next/router";
+import {Text} from "@chakra-ui/react";
+import {useRouter} from "next/router";
 
 const ContinueButton = () => {
   const router = useRouter();
@@ -7,7 +7,15 @@ const ContinueButton = () => {
     router.back();
   };
   return (
-    <Text as="u" onClick={handleClick} color="gray.300" textStyle="h3">
+    <Text
+      as="u"
+      _hover={{
+        cursor: "pointer",
+      }}
+      onClick={handleClick}
+      color="gray.300"
+      textStyle="h3"
+    >
       로그인 없이 계속하기
     </Text>
   );
