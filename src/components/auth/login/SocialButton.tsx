@@ -16,7 +16,9 @@ const SocialButton = () => {
       {socialButton.map((button) => {
         return (
           <Button
-            _hover={{}}
+            _hover={{
+              textDecoration: "none",
+            }}
             _active={{}}
             as={ChakraLink}
             href={button.href}
