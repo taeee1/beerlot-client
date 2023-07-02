@@ -1,8 +1,5 @@
-import {HStack, Text, VStack} from "@chakra-ui/react";
-import Cookies from "js-cookie";
+import {HStack, Link, Text, VStack} from "@chakra-ui/react";
 import {useRouter} from "next/router";
-import {useRecoilState} from "recoil";
-import {userInfoState} from "../../store/atom";
 import {
   NavAccountsPath,
   NavFeedPath,
@@ -29,10 +26,6 @@ export const BottomNav = () => {
     },
   ];
 
-  const handleClick = (url: string) => {
-    router.push(url);
-  };
-
   return (
     <HStack
       w="full"
@@ -53,7 +46,11 @@ export const BottomNav = () => {
             key={title}
             flexGrow={1}
             gap="1px"
-            onClick={() => handleClick(url)}
+            href={item.url}
+            as={Link}
+            _hover={{
+              textDecoration: "none",
+            }}
           >
             {icon(curColor)}
             <Text textStyle="h4" color={curColor}>
