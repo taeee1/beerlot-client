@@ -17,6 +17,7 @@ import {
 import React from "react";
 import {BeerResponseType} from "../../../../typedef/server/beer";
 import {CommonBeerImage} from "../CommonBeerImage/CommonBeerImage";
+import {getFlagByCountryName} from "@/components/home/LoggedInBeersList/beer.service";
 interface BeerCardItemProps extends CardProps {
   beerInfo: BeerResponseType;
   children: React.ReactNode | React.ReactNode[];
@@ -34,7 +35,7 @@ export const BeerCardItem: React.FC<BeerCardItemProps> = ({
       </BeerCardBody>
       <BeerCardFooter>
         <BeerNameText>{name}</BeerNameText>
-        <BeerNameText display="inline">{origin_country}</BeerNameText>
+        <BeerCountryText country={origin_country} display="inline" />
         <BeerCategoryTag>
           <BeerCategoryTagLabel>{category?.name}</BeerCategoryTagLabel>
         </BeerCategoryTag>
@@ -108,7 +109,7 @@ export const BeerCardFooter: React.FC<BeerCardFooterProps> = ({
   ...props
 }) => {
   return (
-    <CardFooter p={0} {...props} flexDir="column">
+    <CardFooter mt={1.5} p={0} {...props} flexDir="column">
       {children}
     </CardFooter>
   );
@@ -125,6 +126,24 @@ export const BeerNameText: React.FC<BeerNameTextProps> = ({
 }) => {
   return (
     <Text {...props} textStyle={"h4"} textColor="black.100">
+      {children}
+    </Text>
+  );
+};
+
+// footer
+interface BeerCountryTextProps extends TextProps {
+  country?: string;
+}
+
+export const BeerCountryText: React.FC<BeerCountryTextProps> = ({
+  country,
+  children,
+  ...props
+}) => {
+  return (
+    <Text {...props} textStyle={"h4"} textColor="black.100">
+      {getFlagByCountryName(country ?? "")}
       {children}
     </Text>
   );
@@ -147,6 +166,10 @@ export const BeerCategoryTag: React.FC<BeerCategoryTagProps> = ({
       alignItems={"center"}
       justifyContent={"center"}
       p={"0px 5px"}
+      textStyle={"h4"}
+      minH={"17px"}
+      lineHeight={"16px"}
+      ml={1.5}
       {...props}
     >
       {children}

@@ -2,22 +2,24 @@ import {
   useBeerDislikeMutation,
   useBeerLikeMutation,
 } from "@/../hooks/query/useBeerLikeMutation";
-import { BeerResponseType } from "@/../typedef/server/beer";
-import { generateBeerDetailUrl } from "@/../utils/url";
-import { CommonBeerImage } from "@/components/shared/CommonBeerImage/CommonBeerImage";
-import { LikeButton } from "@/components/shared/LikeButton";
-import { Box, HStack, Text } from "@chakra-ui/react";
+import {BeerResponseType} from "@/../typedef/server/beer";
+import {generateBeerDetailUrl} from "@/../utils/url";
+import {CommonBeerImage} from "@/components/shared/CommonBeerImage/CommonBeerImage";
+import {LikeButton} from "@/components/shared/LikeButton";
+import {Box, Flex, HStack, Text} from "@chakra-ui/react";
 import {
   BeerCard,
   BeerCardBody,
   BeerCardFooter,
   BeerCategoryTag,
   BeerCategoryTagLabel,
+  BeerCountryText,
   BeerNameText,
 } from "@components/shared/Card/BeerCardItem";
 import Cookies from "js-cookie";
-import { useRouter } from "next/router";
-import React, { useCallback, useMemo } from "react";
+import {useRouter} from "next/router";
+import React, {useCallback, useMemo} from "react";
+import {getFlagByCountryName} from "./beer.service";
 
 interface TopBeersListProps {
   onValidateLikedBeersList: () => void;
@@ -71,9 +73,9 @@ const TopBeersList: React.FC<TopBeersListProps> = ({
       const isLiked = likedBeerIds?.includes(id);
 
       if (!isLiked) {
-        likeBeerMutation.mutate({ beerId: id, accessToken });
+        likeBeerMutation.mutate({beerId: id, accessToken});
       } else {
-        dislikeBeerMutation.mutate({ beerId: id, accessToken });
+        dislikeBeerMutation.mutate({beerId: id, accessToken});
       }
     },
     [accessToken, dislikeBeerMutation, likeBeerMutation, likedBeerIds]
@@ -117,14 +119,14 @@ const TopBeersList: React.FC<TopBeersListProps> = ({
                 </BeerCardBody>
                 <BeerCardFooter>
                   <BeerNameText>{item.name}</BeerNameText>
-                  <HStack>
-                    <BeerNameText>{item.origin_country}</BeerNameText>
+                  <Flex>
+                    <BeerCountryText>{item.origin_country}</BeerCountryText>
                     <BeerCategoryTag>
                       <BeerCategoryTagLabel>
                         {item.category?.name}
                       </BeerCategoryTagLabel>
                     </BeerCategoryTag>
-                  </HStack>
+                  </Flex>
                 </BeerCardFooter>
               </BeerCard>
             );

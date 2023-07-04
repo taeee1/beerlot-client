@@ -25,3 +25,7 @@ export enum LanguageType {
   KR = "KR",
   EN = "EN",
 }
+export interface Country {
+  name: string;
+  flag: string;
+}

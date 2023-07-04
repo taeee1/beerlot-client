@@ -1,19 +1,18 @@
 import {useTopBeersQuery} from "@/../hooks/query/useBeerQuery";
 import {Box, Container} from "@chakra-ui/react";
 import {useEffect} from "react";
-import {BeerResponseType} from "../../../typedef/server/beer";
 import {BlankHeader} from "../shared/Headers/BlankHeader";
 import {CommonBeersList} from "./CommonBeersList/CommonBeersList";
 import {LoggedInBeersList} from "./LoggedInBeersList/LoggedInBeersList";
 import SearchInputHome from "./SearchInputHome";
 import {WelcomeTextContent} from "./WelcomeText";
+import {BeerResponseType} from "@/../typedef/server/beer";
 
 interface HomeTemplateProps {
   username?: string;
 }
 const HomeTemplate: React.FC<HomeTemplateProps> = ({username}) => {
   const topBeersQuery = useTopBeersQuery({
-    onSuccess: async () => {},
     onError: (error) => {
       console.error("error", error);
     },

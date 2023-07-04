@@ -14,6 +14,7 @@ import {
   BeerCardFooter,
   BeerCategoryTag,
   BeerCategoryTagLabel,
+  BeerCountryText,
   BeerNameText,
 } from "@components/shared/Card/BeerCardItem";
 import Cookies from "js-cookie";
@@ -110,7 +111,7 @@ const LikedBeers = () => {
             <BeerCardFooter>
               <BeerNameText>{item.name}</BeerNameText>
               <HStack>
-                <BeerNameText>{item.origin_country}</BeerNameText>
+                <BeerCountryText country={item.origin_country} />
                 <BeerCategoryTag>
                   <BeerCategoryTagLabel>
                     {item.category?.name}

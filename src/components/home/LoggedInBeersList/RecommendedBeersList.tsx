@@ -1,23 +1,24 @@
-import { BeerResponseType } from "@/../typedef/server/beer";
-import React, { useCallback, useEffect, useMemo } from "react";
-import { CommonBeerImage } from "@/components/shared/CommonBeerImage/CommonBeerImage";
-import { Box, HStack, Text } from "@chakra-ui/react";
+import {BeerResponseType} from "@/../typedef/server/beer";
+import React, {useCallback, useEffect, useMemo} from "react";
+import {CommonBeerImage} from "@/components/shared/CommonBeerImage/CommonBeerImage";
+import {Box, HStack, Text} from "@chakra-ui/react";
 import {
   BeerCard,
   BeerCardBody,
   BeerCardFooter,
   BeerCategoryTag,
   BeerCategoryTagLabel,
+  BeerCountryText,
   BeerNameText,
 } from "@components/shared/Card/BeerCardItem";
-import { LikeButton } from "@/components/shared/LikeButton";
-import { useRouter } from "next/router";
+import {LikeButton} from "@/components/shared/LikeButton";
+import {useRouter} from "next/router";
 import Cookies from "js-cookie";
 import {
   useBeerDislikeMutation,
   useBeerLikeMutation,
 } from "@/../hooks/query/useBeerLikeMutation";
-import { generateBeerDetailUrl } from "@/../utils/url";
+import {generateBeerDetailUrl} from "@/../utils/url";
 
 interface RecommendedBeersListProps {
   beersList: BeerResponseType[];
@@ -59,9 +60,9 @@ const RecommendedBeersList: React.FC<RecommendedBeersListProps> = ({
       const isLiked = likedBeerIds?.includes(id);
 
       if (!isLiked) {
-        likeBeerMutation.mutate({ beerId: id, accessToken });
+        likeBeerMutation.mutate({beerId: id, accessToken});
       } else {
-        dislikeBeerMutation.mutate({ beerId: id, accessToken });
+        dislikeBeerMutation.mutate({beerId: id, accessToken});
       }
     },
     [accessToken, dislikeBeerMutation, likeBeerMutation, likedBeerIds]
@@ -123,7 +124,7 @@ const RecommendedBeersList: React.FC<RecommendedBeersListProps> = ({
               <BeerCardFooter>
                 <BeerNameText>{item.name}</BeerNameText>
                 <HStack>
-                  <BeerNameText>{item.origin_country}</BeerNameText>
+                  <BeerCountryText country={item.origin_country} />
                   <BeerCategoryTag bg="orange.200">
                     <BeerCategoryTagLabel>
                       {item.category?.name}

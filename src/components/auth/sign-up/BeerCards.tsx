@@ -22,6 +22,7 @@ import {
   BeerCardFooter,
   BeerCategoryTag,
   BeerCategoryTagLabel,
+  BeerCountryText,
   BeerNameText,
 } from "../../shared/Card/BeerCardItem";
 
@@ -162,9 +163,10 @@ const BeerCards: React.FC<BeerCardsProps> = ({nickName, ...props}) => {
               <BeerCardFooter>
                 <BeerNameText>{item.name}</BeerNameText>
                 <HStack>
-                  <BeerNameText borderRadius="full">
-                    {item.origin_country}
-                  </BeerNameText>
+                  <BeerCountryText
+                    borderRadius="full"
+                    country={item.origin_country}
+                  />
                   <BeerCategoryTag bg={isSelected ? "white.100" : "orange.200"}>
                     <BeerCategoryTagLabel
                       textColor={isSelected ? "orange.200" : "white.100"}

@@ -22,6 +22,7 @@ import {
   BeerCardFooter,
   BeerCategoryTag,
   BeerCategoryTagLabel,
+  BeerCountryText,
   BeerNameText,
 } from "../../src/components/shared/Card/BeerCardItem";
 import {LeftBackTitle} from "../../src/components/shared/Headers/LeftBackTitle";
@@ -172,7 +173,7 @@ const SearchResultPage = () => {
                   <BeerCardFooter>
                     <BeerNameText>{name}</BeerNameText>
                     <HStack>
-                      <BeerNameText>{origin_country}</BeerNameText>
+                      <BeerCountryText country={origin_country} />
                       <BeerCategoryTag>
                         <BeerCategoryTagLabel>
                           {category?.name}
