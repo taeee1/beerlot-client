@@ -120,7 +120,7 @@ const TopBeersList: React.FC<TopBeersListProps> = ({
                 <BeerCardFooter>
                   <BeerNameText>{item.name}</BeerNameText>
                   <Flex>
-                    <BeerCountryText>{item.origin_country}</BeerCountryText>
+                    <BeerCountryText country={item.origin_country} />
                     <BeerCategoryTag>
                       <BeerCategoryTagLabel>
                         {item.category?.name}
