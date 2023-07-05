@@ -1,8 +1,6 @@
 import {Box, Flex, useDisclosure, VStack} from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import {useRouter} from "next/router";
-import {useRecoilState} from "recoil";
-import {userInfoState} from "../../../store/atom";
 import BottomDrawer from "../../shared/BottomDrawer";
 import {LeftBackRandom} from "../../shared/Headers/LeftBackRandom";
 import {SectionButton} from "./SectionButton";

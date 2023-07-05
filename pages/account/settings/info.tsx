@@ -24,7 +24,17 @@ const Info = () => {
             {/* title */}
             <LeftBackRandom onClick={handleClickBack} title="비어랏 정보" />
 
-            <VStack bg="gray.100" pt="70px" w="full" gap="10px">
+            <VStack
+              bg="gray.100"
+              pt="70px"
+              w="full"
+              gap="10px"
+              borderRight={"1px solid"}
+              borderRightColor={"gray.200"}
+              borderLeft={"1px solid"}
+              borderLeftColor={"gray.200"}
+              h="full"
+            >
               <VStack w="full">
                 <SectionButton title={"버전"}>
                   <Text textColor={"gray.300"} textStyle="h2">
@@ -32,7 +42,7 @@ const Info = () => {
                   </Text>
                 </SectionButton>
               </VStack>
-              <VStack w="full">
+              <VStack w="full" h="full">
                 {InfoSettingSection.map((content) => (
                   <SectionButton
                     key={content.title}
@@ -41,6 +51,14 @@ const Info = () => {
                     style={{marginTop: 0}}
                   />
                 ))}
+                <Box
+                  w="full"
+                  h="full"
+                  bg="white"
+                  style={{
+                    marginTop: 0,
+                  }}
+                />
               </VStack>
             </VStack>
           </VStack>
