@@ -1,4 +1,4 @@
-import {Box, useDisclosure, VStack} from "@chakra-ui/react";
+import {Box, Flex, useDisclosure, VStack} from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import {useRouter} from "next/router";
 import {useRecoilState} from "recoil";
@@ -8,8 +8,6 @@ import {LeftBackRandom} from "../../shared/Headers/LeftBackRandom";
 import {SectionButton} from "./SectionButton";
 
 export const SettingsTemplate = () => {
-  const [_, setUserInfo] = useRecoilState(userInfoState);
-
   const router = useRouter();
   const handleClickBack = () => {
     router.back();
@@ -111,33 +109,45 @@ export const SettingsTemplate = () => {
             },
           }}
         />
-        <VStack bg="gray.100" pt="70px" w="full" gap="10px">
-          <VStack w="full">
+        <VStack
+          bg="gray.100"
+          pt="70px"
+          w="full"
+          h="full"
+          gap="10px"
+          borderRight={"1px solid"}
+          borderRightColor={"gray.200"}
+          borderLeft={"1px solid"}
+          borderLeftColor={"gray.200"}
+        >
+          <Flex w="full" flexDir={"column"}>
             {BeerSettingSection.map(({title, href}) => (
               <SectionButton key={title} title={title} href={href} />
             ))}
-          </VStack>
-          <VStack w="full">
-            {NoticeSettingSection.map((content) => (
+          </Flex>
+          <Flex w="full" flexDir={"column"}>
+            {NoticeSettingSection.map(({title, href}) => (
+              <SectionButton key={title} title={title} href={href} />
+            ))}
+          </Flex>
+          <Flex w="full" h="full" flexDir={"column"}>
+            {usersSetting.map((item) => (
               <SectionButton
-                key={content.title}
-                title={content.title}
-                href={content.href}
+                title={item.title}
+                key={item.title}
+                onClick={item.onClick}
+                _hover={{}}
               />
             ))}
-          </VStack>
-          <VStack w="full">
-            {usersSetting.map((item) => (
-              <Box
-                onClick={item.onClick}
-                key={item.title}
-                w="full"
-                _hover={{cursor: "pointer"}}
-              >
-                <SectionButton title={item.title} />
-              </Box>
-            ))}
-          </VStack>
+            <Box
+              h="full"
+              bg={"white"}
+              w="full"
+              style={{
+                marginTop: 0,
+              }}
+            />
+          </Flex>
         </VStack>
       </VStack>
     </Box>
