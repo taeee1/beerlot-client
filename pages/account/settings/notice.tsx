@@ -24,7 +24,11 @@ const Notice = () => {
         maxW="450px"
       >
         {/* title */}
-        <LeftBackRandom onClick={handleClickBack} title="공지사항" />
+        <LeftBackRandom
+          onClick={handleClickBack}
+          title="공지사항"
+          borderBottom="none"
+        />
         <Accordion allowToggle pt="52px">
           {NoticeSettingSection.map(({title, date, content}) => (
             <AccordionItem key={title}>

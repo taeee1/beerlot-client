@@ -1,9 +1,9 @@
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import {Box, Button, Flex, FlexProps, Text} from "@chakra-ui/react";
 import React from "react";
 import BackButton from "../BackButton";
 import BeerlotTitle from "./BeerlotTitle";
 
-interface LeftBackRandomProps {
+interface LeftBackRandomProps extends FlexProps {
   title?: string;
   onClick: () => void;
 }
@@ -11,6 +11,7 @@ interface LeftBackRandomProps {
 export const LeftBackRandom: React.FC<LeftBackRandomProps> = ({
   title,
   onClick,
+  ...props
 }) => {
   return (
     <Flex
@@ -26,6 +27,7 @@ export const LeftBackRandom: React.FC<LeftBackRandomProps> = ({
       dropShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
       borderBottom="0.5px solid"
       borderBottomColor="gray.200"
+      {...props}
     >
       <Button onClick={onClick} p="0px !important" bg="trans">
         <BackButton onClick={onClick} />
