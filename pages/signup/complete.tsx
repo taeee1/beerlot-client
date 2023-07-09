@@ -1,6 +1,5 @@
-import {getSession} from "next-auth/react";
-import CompleteTemplate from "../../src/components/auth/sign-up/CompleteTemplate";
 import {GetServerSideProps} from "next";
+import CompleteTemplate from "../../src/components/auth/sign-up/CompleteTemplate";
 
 const complete = () => {
   return <CompleteTemplate />;
@@ -9,7 +8,6 @@ const complete = () => {
 export default complete;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
   const cookies = context.req.headers.cookie;
 
   if (cookies && cookies.includes("beerlot-oauth-auth-request")) {
@@ -31,8 +29,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   return {
-    props: {
-      session,
-    },
+    props: {},
   };
 };

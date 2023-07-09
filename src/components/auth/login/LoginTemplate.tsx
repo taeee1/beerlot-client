@@ -1,5 +1,4 @@
 import {Box, Center} from "@chakra-ui/react";
-import {useSession} from "next-auth/react";
 import {useRouter} from "next/router";
 import {LeftCloseRandom} from "../../shared/Headers/LeftCloseRandom";
 import ContinueButton from "./Continue";
@@ -11,7 +10,6 @@ const LoginTemplate = () => {
   const handleClose = () => {
     router.back();
   };
-  const {data: session} = useSession();
 
   return (
     <Box>
