@@ -1,6 +1,6 @@
 // nickname
 export const isValidOrOriginalNickname = (
-  newNickname: string,
+  newNickname: string | null,
   originalNickname: string
 ) => {
   if (newNickname === originalNickname) return null;
