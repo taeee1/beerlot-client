@@ -15,7 +15,7 @@ const Nickname = () => {
   const [_, setUserInfo] = useRecoilState(userInfoState);
   const [checkedItems, setCheckedItems] = useState([false, false]);
   const {input, onChange} = useInput({
-    initialInputState: "",
+    initialInputState: null,
   });
 
   const isValid = checkIsValidNickname(input);

@@ -12,12 +12,12 @@ const BeerNameSection: React.FC<BeerNameSectionProps> = ({
 }) => {
   return (
     <Flex
-      {...props}
       p="10px"
       justifyContent="space-between"
       alignItems="center"
       w="full"
       cursor={"pointer"}
+      {...props}
     >
       <VStack gap="10px" alignItems={"flex-start"}>
         <Text textStyle="h2" textColor="black.100">
@@ -31,11 +31,10 @@ const BeerNameSection: React.FC<BeerNameSectionProps> = ({
       </VStack>
 
       <IconButton
-        justifyContent="center"
-        alignItems="center"
-        size="20px"
         aria-label="right-arrow"
-        as={RightArrow}
+        icon={<RightArrow />}
+        bg={"initial"}
+        _hover={{}}
       />
     </Flex>
   );

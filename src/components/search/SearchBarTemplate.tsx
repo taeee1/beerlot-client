@@ -2,10 +2,18 @@ import {Box, Container, VStack} from "@chakra-ui/react";
 import {useRouter} from "next/router";
 import {LeftBackTitle} from "../shared/Headers/LeftBackTitle";
 
+import useKeyboard from "@/../hooks/useKeyboard";
 import {SearchBarList} from "../home/Search/SearchBarList";
 
 const SearchBarTemplate = () => {
   const router = useRouter();
+
+  const {isEnterKey} = useKeyboard();
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (isEnterKey(e)) {
+      router.push(`/result?query=${e.target.value}`);
+    }
+  };
 
   const handleClickItem = (name: string, id?: number) => {
     if (id === undefined) return;
@@ -17,7 +25,10 @@ const SearchBarTemplate = () => {
       <Container h="full" w="full" bg="white" position="relative" maxW="450px">
         <VStack pt="64px">
           <LeftBackTitle />
-          <SearchBarList handleClickItem={handleClickItem} />
+          <SearchBarList
+            handleClickItem={handleClickItem}
+            onKeyPress={handleKeyPress}
+          />
         </VStack>
       </Container>
     </Box>

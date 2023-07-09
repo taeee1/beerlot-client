@@ -12,8 +12,12 @@ import React, {useEffect, useMemo, useState} from "react";
 import {useMutation} from "react-query";
 interface SearchBarListProps {
   handleClickItem?: (name: string, id: number) => void;
+  onKeyPress?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
-const SearchBarList: React.FC<SearchBarListProps> = ({handleClickItem}) => {
+const SearchBarList: React.FC<SearchBarListProps> = ({
+  handleClickItem,
+  onKeyPress,
+}) => {
   const router = useRouter();
   const [value, setValue] = useState("");
   const [selectedItems, setSelectedItems] = useState([]);
@@ -33,14 +37,8 @@ const SearchBarList: React.FC<SearchBarListProps> = ({handleClickItem}) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     debouncedSearch(e.target.value);
   };
-  const {isEnterKey} = useKeyboard();
   const clearValue = () => {
     setValue("");
-  };
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (isEnterKey(e)) {
-      router.push(`/result?query=${e.target.value}`);
-    }
   };
 
   const debouncedSearch = useMemo(
@@ -67,7 +65,7 @@ const SearchBarList: React.FC<SearchBarListProps> = ({handleClickItem}) => {
       mt="14px"
     >
       <SearchInput
-        onKeyPress={handleKeyPress}
+        onKeyPress={onKeyPress}
         onChange={handleChange}
         clearValue={clearValue}
       />

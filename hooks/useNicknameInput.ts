@@ -1,11 +1,11 @@
 import React, {useState} from "react";
 
 interface NicknameInputProps {
-  initialInputState: string;
+  initialInputState: string | null;
 }
 
 const useInput = ({initialInputState}: NicknameInputProps) => {
-  const [input, setInput] = useState<string>(initialInputState);
+  const [input, setInput] = useState<string | null>(initialInputState);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setInput(e.target.value);

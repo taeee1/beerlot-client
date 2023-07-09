@@ -15,7 +15,8 @@ export const getNicknameHelperTextOrOriginalNickname = (
   return getNicknameHelperText(nicknameInput);
 };
 
-export const checkIsValidNickname = (nickname: string) => {
+export const checkIsValidNickname = (nickname: string | null) => {
+  if (nickname === null) return null;
   if (nickname.length > 9) {
     return false;
   }
