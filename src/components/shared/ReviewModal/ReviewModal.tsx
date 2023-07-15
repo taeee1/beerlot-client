@@ -8,11 +8,12 @@ import {
   ModalFooter,
   ModalHeader,
   Text,
-  useDisclosure,
   VStack,
+  useDisclosure,
 } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import React, {ChangeEvent, useState} from "react";
+import {useQueryClient} from "react-query";
 import {ReviewInfoType} from "../../../../interface/types";
 import {EditPencil} from "../../../../public/svg";
 import {LeftCloseRandom} from "../Headers/LeftCloseRandom";
@@ -93,7 +94,12 @@ export const ReviewModal = () => {
 
   const createReviewMutation = useCreateReviewMutation(
     beerId ?? 0,
-    accessToken
+    accessToken,
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries({queryKey: ["allReviews"]});
+      },
+    }
   );
 
   const handleClickComplete = () => {

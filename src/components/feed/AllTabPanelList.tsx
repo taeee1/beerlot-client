@@ -30,10 +30,6 @@ export const AllTabPanelList = () => {
     allReviewsQuery.refetch();
   }, [selectedTag]);
 
-  useEffect(() => {
-    console.log("likedReviewQuery.data", likedReviewQuery.data);
-  });
-
   return (
     <Flex flexDirection="column" gap={"10px"}>
       <FeedFilter selectedTag={selectedTag} onClickTag={handleSelectTag} />
