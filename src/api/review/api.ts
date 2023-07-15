@@ -120,3 +120,9 @@ export const dislikeReviewApi = async (
 
   return res.data;
 };
+
+// get one review by ID
+export const getSingleReviewApi = async (reviewId: number) => {
+  const res = await axios.get(`/api/v1/reviews/${reviewId}`);
+  return res.data;
+};

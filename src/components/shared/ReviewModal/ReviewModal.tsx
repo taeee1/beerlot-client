@@ -2,6 +2,7 @@ import {
   useAllReviewsQuery,
   useCreateReviewMutation,
 } from "@/../hooks/query/useReviewQuery";
+import {MOCK_FEED_FILTER_LIST} from "@/../interface/static";
 import {
   Box,
   Button,
@@ -16,7 +17,6 @@ import {
 } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import React, {ChangeEvent, useState} from "react";
-import {useQueryClient} from "react-query";
 import {ReviewInfoType} from "../../../../interface/types";
 import {EditPencil} from "../../../../public/svg";
 import {LeftCloseRandom} from "../Headers/LeftCloseRandom";
@@ -26,9 +26,11 @@ import {BeerRatingSection} from "./BeerRatingSection";
 import {BeerReviewTextSection} from "./BeerReviewTextSection";
 import {BeerSearchContent} from "./BeerSearchContent";
 import {ReviewCancelDrawer} from "./ReviewCancelDrawer";
-import {MOCK_FEED_FILTER_LIST} from "@/../interface/static";
 
-export const ReviewModal = () => {
+interface ReviewModalProps {
+  reviewId?: number;
+}
+export const ReviewModal: React.FC<ReviewModalProps> = ({reviewId}) => {
   const [reviewInfo, setReviewInfo] = useState<ReviewInfoType>({
     beerName: null,
     rate: 0,
@@ -38,7 +40,6 @@ export const ReviewModal = () => {
   const [step, setStep] = useState(0);
   const [reviewInputValue, setReviewInputValue] = useState("");
   const [beerId, setBeerId] = useState<number | null>(null);
-
   const allReviewsQuery = useAllReviewsQuery({
     sort: MOCK_FEED_FILTER_LIST[0].tags[0],
   });
@@ -98,13 +99,11 @@ export const ReviewModal = () => {
     setPlaceInputValue("");
   };
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
-  const queryClient = useQueryClient();
   const createReviewMutation = useCreateReviewMutation(
     beerId ?? 0,
     accessToken,
     {
       onSuccess: () => {
-        console.log("onSuccess");
         allReviewsQuery.refetch();
       },
     }

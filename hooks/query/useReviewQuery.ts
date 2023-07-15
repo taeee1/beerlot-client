@@ -4,6 +4,7 @@ import {
   deleteReviewApi,
   dislikeReviewApi,
   fetchAllReviewsApi,
+  getSingleReviewApi,
   likeReviewApi,
 } from "@/api/review/api";
 import {
@@ -17,6 +18,7 @@ import {BeerSortEnum, ReviewSortEnum} from "../../interface/types";
 import {useMutation} from "react-query";
 
 export const allReviewsQueryKey = () => ["allReviews"];
+export const ReviewQueryKey = () => ["review"];
 export const useAllReviewsQuery = (
   queryParam: AllReviewsQueryParams,
   options?: UseQueryOptions<any, FailureResponse>
@@ -82,7 +84,19 @@ export const useReviewDislikeMutation = (
     ...options,
   });
 };
-
+export const useReviewQuery = (
+  reviewId: number,
+  options?: UseQueryOptions<any, FailureResponse>
+) => {
+  return useQuery({
+    queryKey: ReviewQueryKey(),
+    queryFn: () => getSingleReviewApi(reviewId),
+    enabled: false,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    ...options,
+  });
+};
 export type AllReviewsQueryParams = {
   page?: number;
   size?: number;
