@@ -91,7 +91,7 @@ export const ReviewModal = () => {
     setPlaceInputValue("");
   };
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
-
+  const queryClient = useQueryClient();
   const createReviewMutation = useCreateReviewMutation(
     beerId ?? 0,
     accessToken,
