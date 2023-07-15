@@ -1,4 +1,7 @@
-import {useCreateReviewMutation} from "@/../hooks/query/useReviewQuery";
+import {
+  useAllReviewsQuery,
+  useCreateReviewMutation,
+} from "@/../hooks/query/useReviewQuery";
 import {
   Box,
   Button,
@@ -23,6 +26,7 @@ import {BeerRatingSection} from "./BeerRatingSection";
 import {BeerReviewTextSection} from "./BeerReviewTextSection";
 import {BeerSearchContent} from "./BeerSearchContent";
 import {ReviewCancelDrawer} from "./ReviewCancelDrawer";
+import {MOCK_FEED_FILTER_LIST} from "@/../interface/static";
 
 export const ReviewModal = () => {
   const [reviewInfo, setReviewInfo] = useState<ReviewInfoType>({
@@ -35,6 +39,9 @@ export const ReviewModal = () => {
   const [reviewInputValue, setReviewInputValue] = useState("");
   const [beerId, setBeerId] = useState<number | null>(null);
 
+  const allReviewsQuery = useAllReviewsQuery({
+    sort: MOCK_FEED_FILTER_LIST[0].tags[0],
+  });
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setReviewInputValue(e.target.value);
   };
@@ -97,7 +104,8 @@ export const ReviewModal = () => {
     accessToken,
     {
       onSuccess: () => {
-        queryClient.invalidateQueries({queryKey: ["allReviews"]});
+        console.log("onSuccess");
+        allReviewsQuery.refetch();
       },
     }
   );
