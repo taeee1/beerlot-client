@@ -16,7 +16,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import Cookies from "js-cookie";
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import {ReviewInfoType} from "../../../../interface/types";
 import {EditPencil} from "../../../../public/svg";
 import {LeftCloseRandom} from "../Headers/LeftCloseRandom";
@@ -28,17 +28,23 @@ import {BeerSearchContent} from "./BeerSearchContent";
 import {ReviewCancelDrawer} from "./ReviewCancelDrawer";
 
 interface ReviewModalProps {
-  reviewId?: number;
+  existingReviewInfo?: ReviewInfoType;
 }
-export const ReviewModal: React.FC<ReviewModalProps> = ({reviewId}) => {
-  const [reviewInfo, setReviewInfo] = useState<ReviewInfoType>({
-    beerName: null,
-    rate: 0,
-  });
+export const ReviewModal: React.FC<ReviewModalProps> = ({
+  existingReviewInfo,
+}) => {
+  const [reviewInfo, setReviewInfo] = useState<ReviewInfoType>(
+    existingReviewInfo ?? {
+      beerName: null,
+      rate: 0,
+    }
+  );
   const isCompleted = !!reviewInfo.beerName && !!reviewInfo.rate; // should contain rating stars as well
   const CloseReviewDrawer = useDisclosure();
   const [step, setStep] = useState(0);
-  const [reviewInputValue, setReviewInputValue] = useState("");
+  const [reviewInputValue, setReviewInputValue] = useState(
+    existingReviewInfo?.review ?? ""
+  );
   const [beerId, setBeerId] = useState<number | null>(null);
   const allReviewsQuery = useAllReviewsQuery({
     sort: MOCK_FEED_FILTER_LIST[0].tags[0],

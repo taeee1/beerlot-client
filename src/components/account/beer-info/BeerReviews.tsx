@@ -1,16 +1,21 @@
 import {useUserReviewsQuery} from "@/../hooks/query/useUserQuery";
 import {MemberReviewResponse} from "@/../types/member/response";
-import {Flex} from "@chakra-ui/react";
+import {Flex, useDisclosure} from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import {useCallback, useEffect, useState} from "react";
 import FollowingTabPanelItem from "../../feed/TabPanelItem";
-import {useDeleteReviewMutation} from "@/../hooks/query/useReviewQuery";
+import {
+  useDeleteReviewMutation,
+  useReviewQuery,
+} from "@/../hooks/query/useReviewQuery";
 import {ReviewModal} from "@/components/shared/ReviewModal/ReviewModal";
+import {ReviewInfoType} from "@/../interface/types";
 
 const BeerReviews = () => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const userReviewQuery = useUserReviewsQuery(accessToken);
   const [selectedReviewId, setSelectedReviewId] = useState<number | null>(null);
+  const reviewData = useReviewQuery(selectedReviewId).data;
 
   useEffect(() => {
     userReviewQuery.refetch();
@@ -32,6 +37,12 @@ const BeerReviews = () => {
     },
     [deleteReviewMutation]
   );
+  const existingRevewInfo = {
+    beerName: null, //TODO: should be fixed
+    rate: reviewData?.rate ?? 0,
+    review: reviewData?.content,
+    image_url: reviewData?.image_url,
+  } as ReviewInfoType;
 
   return (
     <Flex
@@ -59,7 +70,9 @@ const BeerReviews = () => {
           />
         );
       })}
-      <ReviewModal reviewId={selectedReviewId ?? undefined} />
+      <ReviewModal
+        existingReviewInfo={reviewData ? existingRevewInfo : undefined}
+      />
     </Flex>
   );
 };

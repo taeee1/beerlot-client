@@ -122,7 +122,11 @@ export const dislikeReviewApi = async (
 };
 
 // get one review by ID
-export const getSingleReviewApi = async (reviewId: number) => {
+export const getSingleReviewApi = async (reviewId: number | null) => {
+  if (reviewId === null) {
+    throw new Error("Review ID cannot be null.");
+  }
+
   const res = await axios.get(`/api/v1/reviews/${reviewId}`);
   return res.data;
 };

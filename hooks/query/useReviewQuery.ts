@@ -85,17 +85,33 @@ export const useReviewDislikeMutation = (
   });
 };
 export const useReviewQuery = (
-  reviewId: number,
-  options?: UseQueryOptions<any, FailureResponse>
+  reviewId: number | null,
+  options?: UseQueryOptions<SingleReviewRes, FailureResponse>
 ) => {
   return useQuery({
     queryKey: ReviewQueryKey(),
     queryFn: () => getSingleReviewApi(reviewId),
-    enabled: false,
+    enabled: reviewId !== null,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     ...options,
   });
+};
+
+export type SingleReviewRes = {
+  id: number;
+  content: string;
+  image_url: string;
+  rate: number;
+  like_count: number;
+  updated_at: string;
+  member: {
+    id: number;
+    username: string;
+    image_url: string;
+    status_message: string;
+    username_updated_at: string;
+  };
 };
 export type AllReviewsQueryParams = {
   page?: number;
