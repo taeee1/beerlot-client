@@ -41,6 +41,7 @@ export const useAllReviewsQuery = (
 };
 export const createReviewMutationKey = () => ["createReview"];
 export const deleteReviewMutationKey = () => ["deleteReview"];
+export const updateReviewMutationKey = () => ["updateReview"];
 
 export const useCreateReviewMutation = (
   beerId: number,
@@ -112,6 +113,7 @@ export const useReviewUpdateMutation = (
   options?: UseMutationOptions<any, FailureResponse>
 ) => {
   return useMutation({
+    mutationKey: updateReviewMutationKey(),
     mutationFn: () => updateReviewApi(reviewId, accessToken, content),
     ...options,
   });
