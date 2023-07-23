@@ -45,12 +45,13 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
   onClose,
 }) => {
   console.log("existingReviewInfo", existingReviewInfo);
-  const [reviewInfo, setReviewInfo] = useState<ReviewInfoType>(
-    existingReviewInfo ?? {
-      beerName: null,
-      rate: 0,
-    }
-  );
+  const [reviewInfo, setReviewInfo] = useState<ReviewInfoType>({
+    beerName: existingReviewInfo?.beerName ?? null,
+    rate: existingReviewInfo?.rate ?? 0,
+    place: existingReviewInfo?.place ?? "",
+    review: existingReviewInfo?.review ?? "",
+    image_url: existingReviewInfo?.image_url ?? [""],
+  });
   console.log("reviewInfo", reviewInfo);
   const isCompleted = !!reviewInfo.beerName && !!reviewInfo.rate; // should contain rating stars as well
   const CloseReviewDrawer = useDisclosure();
