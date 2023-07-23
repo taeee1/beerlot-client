@@ -2,7 +2,7 @@ import {
   useAllReviewsQuery,
   useCreateReviewMutation,
 } from "@/../hooks/query/useReviewQuery";
-import {MOCK_FEED_FILTER_LIST} from "@/../interface/static";
+import { MOCK_FEED_FILTER_LIST } from "@/../interface/static";
 import {
   Box,
   Button,
@@ -11,27 +11,34 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
+  ModalProps,
   Text,
   VStack,
   useDisclosure,
 } from "@chakra-ui/react";
 import Cookies from "js-cookie";
-import React, {ChangeEvent, useEffect, useState} from "react";
-import {ReviewInfoType} from "../../../../interface/types";
-import {EditPencil} from "../../../../public/svg";
-import {LeftCloseRandom} from "../Headers/LeftCloseRandom";
+import React, { ChangeEvent, useEffect, useState } from "react";
+import { ReviewInfoType } from "../../../../interface/types";
+import { EditPencil } from "../../../../public/svg";
+import { LeftCloseRandom } from "../Headers/LeftCloseRandom";
 import BeerNameSection from "./BeerNameSection";
-import {BeerPurchaseSection} from "./BeerPurchaseSection";
-import {BeerRatingSection} from "./BeerRatingSection";
-import {BeerReviewTextSection} from "./BeerReviewTextSection";
-import {BeerSearchContent} from "./BeerSearchContent";
-import {ReviewCancelDrawer} from "./ReviewCancelDrawer";
+import { BeerPurchaseSection } from "./BeerPurchaseSection";
+import { BeerRatingSection } from "./BeerRatingSection";
+import { BeerReviewTextSection } from "./BeerReviewTextSection";
+import { BeerSearchContent } from "./BeerSearchContent";
+import { ReviewCancelDrawer } from "./ReviewCancelDrawer";
 
 interface ReviewModalProps {
   existingReviewInfo?: ReviewInfoType;
+  isOpen: ModalProps["isOpen"];
+  onClose: ModalProps["onClose"];
+  onOpen: () => void;
 }
 export const ReviewModal: React.FC<ReviewModalProps> = ({
   existingReviewInfo,
+  isOpen,
+  onOpen,
+  onClose,
 }) => {
   const [reviewInfo, setReviewInfo] = useState<ReviewInfoType>(
     existingReviewInfo ?? {
@@ -54,8 +61,6 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
   };
 
   const [placeInputValue, setPlaceInputValue] = useState("");
-
-  const {isOpen, onOpen, onClose} = useDisclosure();
 
   const handleClickLeftButton = () => {
     // TODO: reset everything and add null type
@@ -83,18 +88,18 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
   };
 
   const handleChangeBeerName = (name: string, id: number) => {
-    const newBeerReview = {...reviewInfo, beerName: name};
+    const newBeerReview = { ...reviewInfo, beerName: name };
     setReviewInfo(newBeerReview);
     setBeerId(id);
   };
 
   const handleChangeRate = (rate: number) => {
-    const newBeerReview = {...reviewInfo, rate: rate};
+    const newBeerReview = { ...reviewInfo, rate: rate };
     setReviewInfo(newBeerReview);
   };
 
   const handleClickPlaceTag = (place: string | null) => {
-    const newBeerReview = {...reviewInfo, place: place};
+    const newBeerReview = { ...reviewInfo, place: place };
     setReviewInfo(newBeerReview);
   };
 
