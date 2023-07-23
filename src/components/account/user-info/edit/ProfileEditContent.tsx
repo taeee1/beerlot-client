@@ -54,7 +54,7 @@ const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
 
   const handleClickComplete = () => {
     editUserInfoMutation.mutate({
-      username: username ?? "",
+      username: nicknameInput ?? "",
       status_message: bioInput ?? "",
       image_url: imgFile,
     });
