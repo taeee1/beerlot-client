@@ -1,6 +1,6 @@
 import {
   useReviewDislikeMutation,
-  useReviewUpdateMutation,
+  useReviewLikeMutation,
 } from "@/../hooks/query/useReviewQuery";
 import { getLeftTime } from "@/../utils/time";
 import { Avatar, Box, Center, Flex, IconButton, Text } from "@chakra-ui/react";
@@ -56,7 +56,7 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
     isExpanded
   );
 
-  const reviewLikeMutation = useReviewUpdateMutation(reviewId, accessToken, {
+  const reviewLikeMutation = useReviewLikeMutation(reviewId, accessToken, {
     onSuccess: () => {
       queryClient.invalidateQueries("userReviews"); // Replace "userReviews" with the appropriate query key
     },
