@@ -28,6 +28,7 @@ import { BeerRatingSection } from "./BeerRatingSection";
 import { BeerReviewTextSection } from "./BeerReviewTextSection";
 import { BeerSearchContent } from "./BeerSearchContent";
 import { ReviewCancelDrawer } from "./ReviewCancelDrawer";
+import BeerInfo from "@/components/account/beer-info/BeerInfo";
 
 interface ReviewModalProps {
   existingReviewInfo?: ReviewInfoType;
@@ -126,11 +127,18 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
       },
     }
   );
+  const updatedReviewInfo = {
+    rate: reviewInfo.rate,
+    buy_from: reviewInfo?.place ?? "",
+    content: reviewInputValue,
+    image_url:
+      "https://fastly.picsum.photos/id/923/200/300.jpg?hmac=eiYSYaG7v46VlrE38Amrg33bd2FzVjaCsQrLMdekyAU",
+  };
 
   const updateReview = useReviewUpdateMutation(
     reviewId ?? 0,
     accessToken,
-    reviewInfo,
+    updatedReviewInfo,
     {
       onSuccess: () => {
         allReviewsQuery.refetch();

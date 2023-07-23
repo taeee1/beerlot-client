@@ -20,6 +20,7 @@ import {
   ReviewInfoType,
   ReviewPostparamType,
   ReviewSortEnum,
+  UpdatedReviewInfo,
 } from "../../interface/types";
 import { useMutation } from "react-query";
 
@@ -107,7 +108,7 @@ export const useReviewQuery = (
 export const useReviewUpdateMutation = (
   reviewId: number,
   accessToken: string,
-  content: ReviewInfoType,
+  content: UpdatedReviewInfo,
   options?: UseMutationOptions<any, FailureResponse>
 ) => {
   return useMutation({

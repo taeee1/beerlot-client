@@ -95,6 +95,8 @@ export interface ReviewInfoType {
   image_url?: string[] | null;
 }
 
+export type UpdatedReviewInfo = Omit<ReviewInfoType, "beerName">;
+
 export enum ReviewSortEnum {
   RecentlyUpdated = "RECENTLY_UPDATED",
   MostLikes = "MOST_LIKES",

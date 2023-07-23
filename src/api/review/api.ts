@@ -3,6 +3,7 @@ import {
   ReviewInfoType,
   ReviewPostparamType,
   ReviewSortEnum,
+  UpdatedReviewInfo,
 } from "../../../interface/types";
 import {
   AllReviewsQueryParams,
@@ -87,7 +88,7 @@ export const fetchAllReviewsApi = async (queryParam: AllReviewsQueryParams) => {
 export const updateReviewApi = async (
   reviewId: number,
   accessToken: string,
-  content: ReviewInfoType
+  content: UpdatedReviewInfo
 ) => {
   const config = {
     headers: { Authorization: `Bearer ${accessToken}` },
