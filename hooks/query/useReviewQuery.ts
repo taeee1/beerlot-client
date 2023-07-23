@@ -151,9 +151,10 @@ export interface UserEditRequest {
   image_url?: string;
   agreed_policies?: POLICY_LABEL[];
 }
+
 export type UserUpdateRequestType = Pick<
   UserEditRequest,
-  "status_message" | "image_url"
+  "status_message" | "image_url" | "username"
 >;
 
 export type SignupRequestType = {

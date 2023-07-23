@@ -1,10 +1,10 @@
-import {useEditUserInfoMutation} from "@/../hooks/query/useUserQuery";
+import { useEditUserInfoMutation } from "@/../hooks/query/useUserQuery";
 import useInput from "@/../hooks/useNicknameInput";
 import LeftXTitleRightComplete from "@/components/shared/Headers/LeftXTitleRightComplete";
-import {StackProps, VStack} from "@chakra-ui/react";
+import { StackProps, VStack } from "@chakra-ui/react";
 import Cookies from "js-cookie";
-import {useRouter} from "next/router";
-import {useRef, useState} from "react";
+import { useRouter } from "next/router";
+import { useRef, useState } from "react";
 import {
   getBioHelperText,
   getNicknameHelperTextOrOriginalNickname,
@@ -27,7 +27,7 @@ const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
 }) => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const router = useRouter();
-  const {input: nicknameInput, onChange: onNicknameChange} = useInput({
+  const { input: nicknameInput, onChange: onNicknameChange } = useInput({
     initialInputState: username,
   });
   const [imgFile, setImgFile] = useState<string>("");
@@ -42,7 +42,7 @@ const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
       if (typeof reader.result === "string") setImgFile(reader.result);
     };
   };
-  const {input: bioInput, onChange: onBioChange} = useInput({
+  const { input: bioInput, onChange: onBioChange } = useInput({
     initialInputState: statusMessage ?? "",
   });
 
@@ -54,6 +54,7 @@ const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
 
   const handleClickComplete = () => {
     editUserInfoMutation.mutate({
+      username: username ?? "",
       status_message: bioInput ?? "",
       image_url: imgFile,
     });
@@ -100,7 +101,7 @@ const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
               id="profileImg"
               onChange={handleChangeProfileImage}
               ref={imgRef}
-              style={{display: "none"}}
+              style={{ display: "none" }}
             />
           </form>
         </VStack>
@@ -129,7 +130,7 @@ const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
   );
 };
 
-export {ProfileEditContent};
+export { ProfileEditContent };
 
 const rightTitleStyleProps = (isChangeCompleted: boolean) => {
   return {
