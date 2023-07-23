@@ -78,6 +78,7 @@ const BeerReviews = () => {
       })}
       <ReviewModal
         existingReviewInfo={reviewData ? existingRevewInfo : undefined}
+        reviewId={selectedReviewId}
         isOpen={isOpen}
         onClose={onClose}
         onOpen={onOpen}

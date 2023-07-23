@@ -1,4 +1,4 @@
-import {POLICY_LABEL} from "@/../interface/server/types/Auth";
+import { POLICY_LABEL } from "@/../interface/server/types/Auth";
 import {
   createReviewApi,
   deleteReviewApi,
@@ -6,6 +6,7 @@ import {
   fetchAllReviewsApi,
   getSingleReviewApi,
   likeReviewApi,
+  updateReviewApi,
 } from "@/api/review/api";
 import {
   UseMutationOptions,
@@ -13,9 +14,14 @@ import {
   UseQueryOptions,
   useQuery,
 } from "react-query";
-import {FailureResponse} from "types/api";
-import {BeerSortEnum, ReviewSortEnum} from "../../interface/types";
-import {useMutation} from "react-query";
+import { FailureResponse } from "types/api";
+import {
+  BeerSortEnum,
+  ReviewInfoType,
+  ReviewPostparamType,
+  ReviewSortEnum,
+} from "../../interface/types";
+import { useMutation } from "react-query";
 
 export const allReviewsQueryKey = () => ["allReviews"];
 export const ReviewQueryKey = () => ["review"];
@@ -98,6 +104,18 @@ export const useReviewQuery = (
   });
 };
 
+export const useReviewUpdateMutation = (
+  reviewId: number,
+  accessToken: string,
+  content: ReviewInfoType,
+  options?: UseMutationOptions<any, FailureResponse>
+) => {
+  return useMutation({
+    mutationFn: () => updateReviewApi(reviewId, accessToken, content),
+    ...options,
+  });
+};
+
 export type SingleReviewRes = {
   id: number;
   content: string;
@@ -125,8 +143,8 @@ export type AllBeersQueryParams = {
   sort?: BeerSortEnum;
 };
 
-export type ReviewsWithLanguage = AllReviewsQueryParams & {language: string};
-export type BeersWithLanguage = AllBeersQueryParams & {language: string};
+export type ReviewsWithLanguage = AllReviewsQueryParams & { language: string };
+export type BeersWithLanguage = AllBeersQueryParams & { language: string };
 export interface UserEditRequest {
   username?: string;
   status_message?: string;

@@ -1,5 +1,9 @@
 import axios from "axios";
-import {ReviewPostparamType, ReviewSortEnum} from "../../../interface/types";
+import {
+  ReviewInfoType,
+  ReviewPostparamType,
+  ReviewSortEnum,
+} from "../../../interface/types";
 import {
   AllReviewsQueryParams,
   CreateReviewRequestType,
@@ -79,24 +83,23 @@ export const fetchAllReviewsApi = async (queryParam: AllReviewsQueryParams) => {
   return res.data;
 };
 
-// 맥주 1개에 대한 리뷰 리스트 post
-export const patchReviewApi = async (
-  beerId: number,
-  content: ReviewPostparamType
+// 맥주 1개에 대한 리뷰 리스트 edit
+export const updateReviewApi = async (
+  reviewId: number,
+  accessToken: string,
+  content: ReviewInfoType
 ) => {
-  try {
-    const result = await axios.patch(`/api/v1/reviews/${beerId}`, content);
-    console.log(result, "postReviewWithBeerIdApi");
-    return result;
-  } catch (error) {
-    console.error(error);
-  }
+  const config = {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  };
+  const res = await axios.patch(`/api/v1/reviews/${reviewId}`, content, config);
+  return res.data;
 };
 
 // like review
 export const likeReviewApi = async (reviewId: number, accessToken: string) => {
   const config = {
-    headers: {Authorization: `Bearer ${accessToken}`},
+    headers: { Authorization: `Bearer ${accessToken}` },
   };
   const res = await axios.post(
     `/api/v1/reviews/${reviewId}/likes`,
@@ -113,7 +116,7 @@ export const dislikeReviewApi = async (
   accessToken: string
 ) => {
   const config = {
-    headers: {Authorization: `Bearer ${accessToken}`},
+    headers: { Authorization: `Bearer ${accessToken}` },
   };
 
   const res = await axios.delete(`/api/v1/reviews/${reviewId}/likes`, config);

@@ -1,6 +1,7 @@
 import {
   useAllReviewsQuery,
   useCreateReviewMutation,
+  useReviewUpdateMutation,
 } from "@/../hooks/query/useReviewQuery";
 import { MOCK_FEED_FILTER_LIST } from "@/../interface/static";
 import {
@@ -17,7 +18,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import Cookies from "js-cookie";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { ReviewInfoType } from "../../../../interface/types";
 import { EditPencil } from "../../../../public/svg";
 import { LeftCloseRandom } from "../Headers/LeftCloseRandom";
@@ -30,22 +31,27 @@ import { ReviewCancelDrawer } from "./ReviewCancelDrawer";
 
 interface ReviewModalProps {
   existingReviewInfo?: ReviewInfoType;
+  reviewId?: number | null;
   isOpen: ModalProps["isOpen"];
   onClose: ModalProps["onClose"];
   onOpen: () => void;
 }
+
 export const ReviewModal: React.FC<ReviewModalProps> = ({
   existingReviewInfo,
+  reviewId,
   isOpen,
   onOpen,
   onClose,
 }) => {
+  console.log("existingReviewInfo", existingReviewInfo);
   const [reviewInfo, setReviewInfo] = useState<ReviewInfoType>(
     existingReviewInfo ?? {
       beerName: null,
       rate: 0,
     }
   );
+  console.log("reviewInfo", reviewInfo);
   const isCompleted = !!reviewInfo.beerName && !!reviewInfo.rate; // should contain rating stars as well
   const CloseReviewDrawer = useDisclosure();
   const [step, setStep] = useState(0);
@@ -120,6 +126,17 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
     }
   );
 
+  const updateReview = useReviewUpdateMutation(
+    reviewId ?? 0,
+    accessToken,
+    reviewInfo,
+    {
+      onSuccess: () => {
+        allReviewsQuery.refetch();
+      },
+    }
+  );
+
   const handleClickComplete = () => {
     const newReviewInfo = {
       rate: reviewInfo.rate,
@@ -128,7 +145,14 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
       image_url:
         "https://fastly.picsum.photos/id/923/200/300.jpg?hmac=eiYSYaG7v46VlrE38Amrg33bd2FzVjaCsQrLMdekyAU",
     };
-    createReviewMutation.mutate(newReviewInfo);
+    if (reviewId) {
+      console.log("reviewId", reviewId);
+      updateReview.mutate();
+    } else {
+      console.log("reviewId", reviewId);
+      createReviewMutation.mutate(newReviewInfo);
+    }
+
     onClose();
     setReviewInfo({
       beerName: null,

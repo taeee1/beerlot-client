@@ -1,15 +1,15 @@
 import {
   useReviewDislikeMutation,
-  useReviewLikeMutation,
+  useReviewUpdateMutation,
 } from "@/../hooks/query/useReviewQuery";
-import {getLeftTime} from "@/../utils/time";
-import {Avatar, Box, Center, Flex, IconButton, Text} from "@chakra-ui/react";
+import { getLeftTime } from "@/../utils/time";
+import { Avatar, Box, Center, Flex, IconButton, Text } from "@chakra-ui/react";
 import Cookies from "js-cookie";
-import {useCallback, useState} from "react";
-import {useQueryClient} from "react-query";
-import {EditNote, TrashBin} from "../../../public/svg";
-import {CommonBeerImage} from "../shared/CommonBeerImage/CommonBeerImage";
-import {Rating} from "../shared/Rating";
+import { useCallback, useState } from "react";
+import { useQueryClient } from "react-query";
+import { EditNote, TrashBin } from "../../../public/svg";
+import { CommonBeerImage } from "../shared/CommonBeerImage/CommonBeerImage";
+import { Rating } from "../shared/Rating";
 import ThumbsUpButton from "../shared/ThumbsUpButton";
 interface FollowingTabPanelItemProps {
   reviewId: number;
@@ -56,7 +56,7 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
     isExpanded
   );
 
-  const reviewLikeMutation = useReviewLikeMutation(reviewId, accessToken, {
+  const reviewLikeMutation = useReviewUpdateMutation(reviewId, accessToken, {
     onSuccess: () => {
       queryClient.invalidateQueries("userReviews"); // Replace "userReviews" with the appropriate query key
     },
