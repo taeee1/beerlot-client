@@ -95,7 +95,12 @@ export interface ReviewInfoType {
   image_url?: string[] | null;
 }
 
-export type UpdatedReviewInfo = Omit<ReviewInfoType, "beerName">;
+export type UpdatedReviewInfo = Omit<
+  ReviewInfoType,
+  "beerName" | "image_url"
+> & {
+  image_url?: string | null;
+};
 
 export enum ReviewSortEnum {
   RecentlyUpdated = "RECENTLY_UPDATED",
