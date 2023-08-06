@@ -18,6 +18,7 @@ import {useBeerReviewsQuery} from "@/../hooks/query/useReviewQuery";
 import FollowingTabPanelItem from "@/components/feed/TabPanelItem";
 import {ReviewResult} from "@/../types/review/review";
 import {roundToDecimal} from "@/../utils/number";
+import {UserReview} from "./UserReview";
 
 interface ReviewPanelListProps {
   rate: number;
@@ -54,6 +55,10 @@ export const ReviewPanelList: React.FC<ReviewPanelListProps> = ({
     <Container px="8px" py="20px" bg="yellow.100">
       <VStack px={"12px"} gap="10px" alignItems={"start"}>
         <ReviewCountDisplay reviewLength={reviews?.length} />
+        <UserReview />
+        <Text textStyle={"h2_bold"} mt={10}>
+          모든 리뷰
+        </Text>
         <BeerInfoHStack
           label={"제보된 판매처"}
           desc={buyFrom}
