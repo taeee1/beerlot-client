@@ -1,5 +1,6 @@
 import axios from "axios";
 import {
+  LANGUAGE_TYPE,
   ReviewInfoType,
   ReviewPostparamType,
   ReviewSortEnum,
@@ -75,11 +76,13 @@ export const fetchAllReviewsApi = async (queryParam: AllReviewsQueryParams) => {
     size = 10,
     sort = ReviewSortEnum.RecentlyUpdated,
   } = queryParam;
+  const language: LANGUAGE_TYPE = LANGUAGE_TYPE.KR;
   const res = await axios.get(`/api/v1/reviews`, {
     params: {
       page,
       size,
       sort,
+      language,
     },
   });
   return res.data;
