@@ -116,7 +116,7 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
           <Box className="ratingInfo" my={"2px"}>
             <Rating
               starSize={16}
-              rate={Math.round(rate)}
+              _rate={Math.round(rate)}
               styleProps={{
                 gap: "0px",
               }}

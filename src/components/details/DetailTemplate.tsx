@@ -40,6 +40,7 @@ export const DetailTemplate = () => {
               country={"country"}
               beerImg={"imageSrc"}
               beerId={beerInfo.beerId}
+              rate={beerInfo.rate}
             />
           )}
           {beerInfo && (

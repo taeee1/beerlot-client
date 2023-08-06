@@ -17,6 +17,7 @@ import {BeerInfoHStack} from "./BasicPanelList";
 import {useBeerReviewsQuery} from "@/../hooks/query/useReviewQuery";
 import FollowingTabPanelItem from "@/components/feed/TabPanelItem";
 import {ReviewResult} from "@/../types/review/review";
+import {roundToDecimal} from "@/../utils/number";
 
 interface ReviewPanelListProps {
   rate: number;
@@ -47,6 +48,8 @@ export const ReviewPanelList: React.FC<ReviewPanelListProps> = ({
     setSelectedTag(tag);
   };
 
+  const rateToUse = roundToDecimal(rate);
+
   return (
     <Container px="8px" py="20px" bg="yellow.100">
       <VStack px={"12px"} gap="10px" alignItems={"start"}>
@@ -60,13 +63,13 @@ export const ReviewPanelList: React.FC<ReviewPanelListProps> = ({
           <HStack>
             <Rating
               starSize={23}
-              rate={Math.round(rate)}
+              _rate={rateToUse}
               styleProps={{
                 gap: "0px",
               }}
             />
             <Text textStyle={"h3"} textColor="black.100">
-              {rate}
+              {rateToUse}
             </Text>
             <Text textStyle={"h3"} textColor="gray.300">
               {" "}

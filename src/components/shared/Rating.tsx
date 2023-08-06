@@ -6,15 +6,18 @@ interface RatingProps {
   starSize?: number;
   styleProps?: any;
   onClick?: (rate: number) => void;
-  rate: number;
+  _rate: number;
+  shouldRound?: boolean;
 }
 
 export const Rating: React.FC<RatingProps> = ({
   starSize = 40,
   styleProps,
-  rate,
+  _rate,
   onClick,
+  shouldRound = true,
 }) => {
+  const rate = shouldRound ? Math.round(_rate) : _rate;
   return (
     <HStack {...styleProps}>
       {[1, 2, 3, 4, 5].map((star) => {

@@ -8,6 +8,7 @@ import {useMutation} from "react-query";
 import axios from "axios";
 import {LikeButton} from "../shared/LikeButton";
 import {CommonBeerImage} from "../shared/CommonBeerImage/CommonBeerImage";
+import {roundToDecimal} from "@/../utils/number";
 interface DetailInfoProps {
   beerName: string;
   volume: number;
@@ -15,6 +16,7 @@ interface DetailInfoProps {
   country: string;
   beerImg: string;
   beerId: number;
+  rate: number;
 }
 
 export const DetailInfo: React.FC<DetailInfoProps> = ({
@@ -24,13 +26,11 @@ export const DetailInfo: React.FC<DetailInfoProps> = ({
   country,
   beerImg,
   beerId,
+  rate,
 }) => {
   const [didPassStar, setDidPassStar] = useState(false);
-  const [rate, setRate] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
-  const handleClickRate = (rate: number) => {
-    setRate(rate);
-  };
+  const rateToUse = roundToDecimal(rate);
   const id = "test-toast";
   const toastTitle = isLiked
     ? "좋아요한 맥주에서 삭제했어요!"
@@ -117,12 +117,11 @@ export const DetailInfo: React.FC<DetailInfoProps> = ({
         </HStack>
         <Center w="full">
           <Rating
-            rate={rate}
+            _rate={rateToUse}
             starSize={40}
             styleProps={{
               gap: "20px",
             }}
-            onClick={handleClickRate}
           />
         </Center>
       </VStack>

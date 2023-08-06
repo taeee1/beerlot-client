@@ -29,7 +29,7 @@ export const BeerRatingSection: React.FC<BeerRatingSectionProps> = ({
       <Text textStyle="h2" textColor="black.100">
         얼마나 맛있었나요?
       </Text>
-      <Rating starSize={24} onClick={handleChangeRate} rate={rate} />
+      <Rating starSize={24} onClick={handleChangeRate} _rate={rate} />
     </Flex>
   );
 };
