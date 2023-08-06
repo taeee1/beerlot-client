@@ -8,16 +8,19 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import {RightArrow} from "../../shared/CustomIcons/customIcons";
+import {isExternal} from "util/types";
 
 interface SectionButtonProps extends StackProps {
   title: string;
   href?: string;
+  isExternal?: boolean;
   children?: React.ReactNode;
 }
 
 export const SectionButton: React.FC<SectionButtonProps> = ({
   title,
   href,
+  isExternal,
   children,
   ...props
 }) => {
@@ -45,6 +48,7 @@ export const SectionButton: React.FC<SectionButtonProps> = ({
       }}
       borderRadius={0}
       as={href ? Link : Button}
+      isExternal={isExternal}
       {...props}
     >
       <Text textStyle={"h3"} textColor="black.100">
