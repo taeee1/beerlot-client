@@ -65,10 +65,10 @@ export const DetailTabList: React.FC<DetailTabListProps> = ({
               suitableGlass={suitableGlass}
               desc={desc}
             />
-            <ReviewPanelList rate={rate} />
+            <ReviewPanelList rate={rate} beerId={id} />
           </TabPanel>
           <TabPanel p={0}>
-            <ReviewPanelList rate={rate} />
+            <ReviewPanelList rate={rate} beerId={id} />
           </TabPanel>
         </TabPanels>
       </Tabs>

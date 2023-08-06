@@ -2,36 +2,36 @@ import {
   useReviewDislikeMutation,
   useReviewLikeMutation,
 } from "@/../hooks/query/useReviewQuery";
-import { getLeftTime } from "@/../utils/time";
-import { Avatar, Box, Center, Flex, IconButton, Text } from "@chakra-ui/react";
+import {getLeftTime} from "@/../utils/time";
+import {Avatar, Box, Center, Flex, IconButton, Text} from "@chakra-ui/react";
 import Cookies from "js-cookie";
-import { useCallback, useState } from "react";
-import { useQueryClient } from "react-query";
-import { EditNote, TrashBin } from "../../../public/svg";
-import { CommonBeerImage } from "../shared/CommonBeerImage/CommonBeerImage";
-import { Rating } from "../shared/Rating";
+import {useCallback, useState} from "react";
+import {useQueryClient} from "react-query";
+import {EditNote, TrashBin} from "../../../public/svg";
+import {CommonBeerImage} from "../shared/CommonBeerImage/CommonBeerImage";
+import {Rating} from "../shared/Rating";
 import ThumbsUpButton from "../shared/ThumbsUpButton";
 interface FollowingTabPanelItemProps {
   reviewId: number;
-  isLiked: boolean;
-  isRow: boolean;
   nickname: string;
   postingTime: string;
   beerName?: string;
   rate: number;
-  imageSrc?: string;
   postText: string;
   thumbsUpNumber: number;
+  isLiked?: boolean;
+  isEditable?: boolean;
+  isRow?: boolean;
   onEdit?: () => void;
   onDelete?: () => void;
-  isEditable: boolean;
+  imageSrc?: string;
   maxPostLength?: number;
 }
 
 const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
   reviewId,
-  isLiked,
-  isRow,
+  isLiked = false,
+  isRow = false,
   nickname,
   postingTime,
   beerName,
@@ -41,7 +41,7 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
   onDelete,
   onEdit,
   thumbsUpNumber,
-  isEditable,
+  isEditable = false,
   maxPostLength = MAX_TEXT_LENGTH_OF_REVIEW,
 }) => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";

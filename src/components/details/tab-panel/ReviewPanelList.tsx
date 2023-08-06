@@ -7,25 +7,41 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Rating} from "../../shared/Rating";
-import {ReviewModal} from "../../shared/ReviewModal/ReviewModal";
 
+import {FeedFilter} from "@/components/feed/FeedFilter/FeedFilter";
 import {MOCK_FEED_FILTER_LIST} from "../../../../interface/static";
 import {ReviewSortEnum} from "../../../../interface/types";
 import {BeerInfoHStack} from "./BasicPanelList";
-import {FeedFilter} from "@/components/feed/FeedFilter/FeedFilter";
+import {useBeerReviewsQuery} from "@/../hooks/query/useReviewQuery";
+import FollowingTabPanelItem from "@/components/feed/TabPanelItem";
+import {ReviewResult} from "@/../types/review/review";
 
 interface ReviewPanelListProps {
   rate: number;
+  beerId: number;
 }
 
-export const ReviewPanelList: React.FC<ReviewPanelListProps> = ({rate}) => {
-  const [reviews, setReviews] = useState([]);
+export const ReviewPanelList: React.FC<ReviewPanelListProps> = ({
+  beerId,
+  rate,
+}) => {
   const buyFrom = "buyFrom";
+
   const [selectedTag, setSelectedTag] = useState<ReviewSortEnum>(
     MOCK_FEED_FILTER_LIST[0].tags[0]
   );
+
+  const {data, refetch} = useBeerReviewsQuery(
+    {beerId, sort: selectedTag},
+    {enabled: false}
+  );
+  const reviews = data?.contents;
+
+  useEffect(() => {
+    refetch();
+  }, [selectedTag, refetch]);
 
   const handleSelectTag = (tag: ReviewSortEnum) => {
     setSelectedTag(tag);
@@ -34,7 +50,7 @@ export const ReviewPanelList: React.FC<ReviewPanelListProps> = ({rate}) => {
   return (
     <Container px="8px" py="20px" bg="yellow.100">
       <VStack px={"12px"} gap="10px" alignItems={"start"}>
-        <ReviewCountDisplay reviewLength={reviews.length} />
+        <ReviewCountDisplay reviewLength={reviews?.length} />
         <BeerInfoHStack
           label={"제보된 판매처"}
           desc={buyFrom}
@@ -61,7 +77,7 @@ export const ReviewPanelList: React.FC<ReviewPanelListProps> = ({rate}) => {
         <FeedFilter selectedTag={selectedTag} onClickTag={handleSelectTag} />
         {/* ALL_FEED_MOCK을 prop으로 받아서 AllTabPanelList랑 공유하기 */}
       </VStack>
-      {reviews && reviews.length > 0 ? (
+      {reviews && reviews?.length > 0 ? (
         <ReviewsList reviews={reviews} />
       ) : (
         <EmptyReviewsList />
@@ -89,26 +105,27 @@ const EmptyReviewsList = () => {
   );
 };
 interface ReviewsListProps {
-  reviews: any[];
+  reviews: ReviewResult[];
 }
 const ReviewsList: React.FC<ReviewsListProps> = ({reviews}) => {
   return (
     <Flex flexDir={"column"} gap="10px">
-      {reviews.map((feed) => {
+      {reviews?.map((review) => {
         return (
           <>
-            {/* <FollowingTabPanelItem
-              key={feed.id}
+            <FollowingTabPanelItem
+              key={review.id}
               isRow
-              nickname={feed.nickname}
-              postingTime={feed.postingTime}
-              beerName={feed.beerName}
-              ratingNumber={feed.ratingNumber}
-              imageSrc={feed.imageSrc}
-              postText={feed.postText}
-              thumbsUpNumber={feed.thumbsUpNumber}
+              reviewId={review.id}
+              nickname={""}
+              postingTime={review.updated_at}
+              beerName={review.beer?.name}
+              rate={review.rate}
+              imageSrc={review.image_url}
+              postText={review.content}
+              thumbsUpNumber={review.like_count}
               isEditable={false}
-            /> */}
+            />
           </>
         );
       })}

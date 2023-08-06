@@ -9,6 +9,7 @@ import {
   AllReviewsQueryParams,
   CreateReviewRequestType,
 } from "@/../hooks/query/useReviewQuery";
+import {BeerReviewsQueryParams} from "@/../typedef/server/beer";
 
 // 맥주 1개에 대한 리뷰 리스트 post
 export const postReviewWithBeerIdApi = async (
@@ -84,6 +85,28 @@ export const fetchAllReviewsApi = async (queryParam: AllReviewsQueryParams) => {
   return res.data;
 };
 
+// 맥주 1개에 대한 리뷰 리스트 get
+export const fetchBeerReviewsApi = async (
+  queryParams: BeerReviewsQueryParams
+) => {
+  const {
+    beerId,
+    page = 1,
+    size = 10,
+    sort = ReviewSortEnum.RecentlyUpdated,
+  } = queryParams;
+
+  const res = await axios.get(`/api/v1/beers/${beerId}/reviews`, {
+    params: {
+      page,
+      size,
+      sort,
+    },
+  });
+
+  return res.data;
+};
+
 // 맥주 1개에 대한 리뷰 리스트 edit
 export const updateReviewApi = async (
   reviewId: number,
@@ -91,7 +114,7 @@ export const updateReviewApi = async (
   content: UpdatedReviewInfo
 ) => {
   const config = {
-    headers: { Authorization: `Bearer ${accessToken}` },
+    headers: {Authorization: `Bearer ${accessToken}`},
   };
   const res = await axios.patch(`/api/v1/reviews/${reviewId}`, content, config);
   return res.data;
@@ -100,7 +123,7 @@ export const updateReviewApi = async (
 // like review
 export const likeReviewApi = async (reviewId: number, accessToken: string) => {
   const config = {
-    headers: { Authorization: `Bearer ${accessToken}` },
+    headers: {Authorization: `Bearer ${accessToken}`},
   };
   const res = await axios.post(
     `/api/v1/reviews/${reviewId}/likes`,
@@ -117,7 +140,7 @@ export const dislikeReviewApi = async (
   accessToken: string
 ) => {
   const config = {
-    headers: { Authorization: `Bearer ${accessToken}` },
+    headers: {Authorization: `Bearer ${accessToken}`},
   };
 
   const res = await axios.delete(`/api/v1/reviews/${reviewId}/likes`, config);
