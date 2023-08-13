@@ -1,18 +1,5 @@
+import {Flex, Text} from "@chakra-ui/react";
 import React from "react";
-import {
-  Box,
-  Button,
-  Flex,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  Text,
-  Textarea,
-  useDisclosure,
-  VStack,
-} from "@chakra-ui/react";
 import {Rating} from "../Rating";
 
 interface BeerRatingSectionProps {
@@ -29,7 +16,12 @@ export const BeerRatingSection: React.FC<BeerRatingSectionProps> = ({
       <Text textStyle="h2" textColor="black.100">
         얼마나 맛있었나요?
       </Text>
-      <Rating starSize={24} onClick={handleChangeRate} _rate={rate} />
+      <Rating
+        starSize={23}
+        onClick={handleChangeRate}
+        buttonSize={"xs"}
+        _rate={rate}
+      />
     </Flex>
   );
 };

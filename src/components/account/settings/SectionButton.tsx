@@ -8,7 +8,6 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import {RightArrow} from "../../shared/CustomIcons/customIcons";
-import {isExternal} from "util/types";
 
 interface SectionButtonProps extends StackProps {
   title: string;

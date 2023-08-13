@@ -120,6 +120,8 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
               styleProps={{
                 gap: "0px",
               }}
+              w={4}
+              h={4}
             />
           </Box>
 

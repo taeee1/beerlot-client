@@ -1,44 +1,67 @@
-import {HStack, IconButton} from "@chakra-ui/react";
+import {ButtonProps, Flex, IconButton, IconButtonProps} from "@chakra-ui/react";
 import React from "react";
-import {EmptyStar, FullStar} from "../../../public/svg";
+import {EmptyStarIcon, FullStarIcon} from "./CustomIcons/customIcons";
 
 interface RatingProps {
   starSize?: number;
+  buttonSize?: IconButtonProps["size"];
   styleProps?: any;
   onClick?: (rate: number) => void;
   _rate: number;
   shouldRound?: boolean;
+  w?: ButtonProps["w"];
+  width?: ButtonProps["width"];
+  h?: ButtonProps["h"];
+  height?: ButtonProps["height"];
 }
 
 export const Rating: React.FC<RatingProps> = ({
-  starSize = 40,
+  starSize,
+  buttonSize,
   styleProps,
   _rate,
   onClick,
+  w,
+  width,
+  h,
+  height,
   shouldRound = true,
 }) => {
+  console.log({buttonSize});
+  const minW = w ?? width ?? undefined;
+  const minH = h ?? height ?? undefined;
   const rate = shouldRound ? Math.round(_rate) : _rate;
   return (
-    <HStack {...styleProps}>
+    <Flex {...styleProps}>
       {[1, 2, 3, 4, 5].map((star) => {
         return (
           <IconButton
-            _notFirst={{marginInlineStart: 0}}
-            disabled={onClick ? false : true}
-            cursor="pointer"
-            _hover={{}}
-            _focus={{}}
             key={star}
             bg="initial"
             aria-label="star"
-            boxShadow={"none"}
-            fontSize={`${starSize}px`}
-            as={star <= rate ? FullStar : EmptyStar}
-            size={`${starSize}px`}
+            fontSize={starSize ? `${starSize}px` : undefined}
+            icon={
+              star <= rate ? (
+                <FullStarIcon color={"orange.200"} />
+              ) : (
+                <EmptyStarIcon color={"gray.200"} />
+              )
+            }
             onClick={onClick ? () => onClick(star) : undefined}
+            sx={{
+              marginInlineStart: 0,
+            }}
+            size={buttonSize}
+            p={0}
+            _hover={{}}
+            _focus={{}}
+            minW={minW}
+            w={minW}
+            minH={minH}
+            h={minH}
           />
         );
       })}
-    </HStack>
+    </Flex>
   );
 };

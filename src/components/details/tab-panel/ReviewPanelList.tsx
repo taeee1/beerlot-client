@@ -68,6 +68,7 @@ export const ReviewPanelList: React.FC<ReviewPanelListProps> = ({
           <HStack>
             <Rating
               starSize={23}
+              buttonSize={"xs"}
               _rate={rateToUse}
               styleProps={{
                 gap: "0px",

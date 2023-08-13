@@ -88,3 +88,31 @@ export const OrangeCircleCheck = createIcon({
   displayName: "Group_37",
   viewBox: "0 0 80 80",
 });
+
+export const FullStarIcon = createIcon({
+  displayName: "FullStarIcon",
+  viewBox: "0 0 40 40",
+  d: "M20 3.333l5.15 10.434 11.516 1.683-8.333 8.117L30.3 35.033 20 29.617 9.7 35.033l1.966-11.466-8.333-8.117 11.517-1.683L20 3.333z",
+});
+
+export const EmptyStarIcon = createIcon({
+  displayName: "EmptyStarIcon",
+  viewBox: "0 0 40 40",
+  path: (
+    <svg
+      width="40"
+      height="40"
+      viewBox="0 0 40 40"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M19.9997 3.33333L25.1497 13.7667L36.6663 15.45L28.333 23.5667L30.2997 35.0333L19.9997 29.6167L9.69967 35.0333L11.6663 23.5667L3.33301 15.45L14.8497 13.7667L19.9997 3.33333Z"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
+});
