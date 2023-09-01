@@ -1,11 +1,14 @@
-import {ContentType, useAllReviewsQuery} from "@/../hooks/query/useReviewQuery";
-import {useUserReviewsQuery} from "@/../hooks/query/useUserQuery";
-import {Flex} from "@chakra-ui/react";
+import {
+  ContentType,
+  useAllReviewsQuery,
+} from "@/../hooks/query/useReviewQuery";
+import { useUserReviewsQuery } from "@/../hooks/query/useUserQuery";
+import { Flex } from "@chakra-ui/react";
 import Cookies from "js-cookie";
-import {useEffect, useState} from "react";
-import {MOCK_FEED_FILTER_LIST} from "../../../interface/static";
-import {ReviewSortEnum} from "../../../interface/types";
-import {FeedFilter} from "./FeedFilter/FeedFilter";
+import { useEffect, useState } from "react";
+import { MOCK_FEED_FILTER_LIST } from "../../../interface/static";
+import { ReviewSortEnum } from "../../../interface/types";
+import { FeedFilter } from "./FeedFilter/FeedFilter";
 import FollowingTabPanelItem from "./TabPanelItem";
 
 export const AllTabPanelList = () => {
@@ -47,7 +50,6 @@ export const AllTabPanelList = () => {
             rate={post.rate}
             imageSrc={post.image_url}
             thumbsUpNumber={post.like_count}
-            isRow
             isEditable={false}
           />
         );

@@ -7,18 +7,18 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import {useEffect, useState} from "react";
-import {Rating} from "../../shared/Rating";
+import { useEffect, useState } from "react";
+import { Rating } from "../../shared/Rating";
 
-import {FeedFilter} from "@/components/feed/FeedFilter/FeedFilter";
-import {MOCK_FEED_FILTER_LIST} from "../../../../interface/static";
-import {ReviewSortEnum} from "../../../../interface/types";
-import {BeerInfoHStack} from "./BasicPanelList";
-import {useBeerReviewsQuery} from "@/../hooks/query/useReviewQuery";
+import { FeedFilter } from "@/components/feed/FeedFilter/FeedFilter";
+import { MOCK_FEED_FILTER_LIST } from "../../../../interface/static";
+import { ReviewSortEnum } from "../../../../interface/types";
+import { BeerInfoHStack } from "./BasicPanelList";
+import { useBeerReviewsQuery } from "@/../hooks/query/useReviewQuery";
 import FollowingTabPanelItem from "@/components/feed/TabPanelItem";
-import {ReviewResult} from "@/../types/review/review";
-import {roundToDecimal} from "@/../utils/number";
-import {UserReview} from "./UserReview";
+import { ReviewResult } from "@/../types/review/review";
+import { roundToDecimal } from "@/../utils/number";
+import { UserReview } from "./UserReview";
 
 interface ReviewPanelListProps {
   rate: number;
@@ -35,9 +35,9 @@ export const ReviewPanelList: React.FC<ReviewPanelListProps> = ({
     MOCK_FEED_FILTER_LIST[0].tags[0]
   );
 
-  const {data, refetch} = useBeerReviewsQuery(
-    {beerId, sort: selectedTag},
-    {enabled: false}
+  const { data, refetch } = useBeerReviewsQuery(
+    { beerId, sort: selectedTag },
+    { enabled: false }
   );
   const reviews = data?.contents;
 
@@ -116,7 +116,7 @@ const EmptyReviewsList = () => {
 interface ReviewsListProps {
   reviews: ReviewResult[];
 }
-const ReviewsList: React.FC<ReviewsListProps> = ({reviews}) => {
+const ReviewsList: React.FC<ReviewsListProps> = ({ reviews }) => {
   return (
     <Flex flexDir={"column"} gap="10px">
       {reviews?.map((review) => {
@@ -124,7 +124,6 @@ const ReviewsList: React.FC<ReviewsListProps> = ({reviews}) => {
           <>
             <FollowingTabPanelItem
               key={review.id}
-              isRow
               reviewId={review.id}
               nickname={""}
               postingTime={review.updated_at}

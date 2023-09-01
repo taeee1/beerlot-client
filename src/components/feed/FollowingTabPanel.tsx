@@ -1,5 +1,5 @@
-import {Flex} from "@chakra-ui/react";
-import {v4 as uuidv4} from "uuid";
+import { Flex } from "@chakra-ui/react";
+import { v4 as uuidv4 } from "uuid";
 import FollowingTabPanelItem from "./TabPanelItem";
 
 const FollowingTabPanelList = () => {
@@ -50,12 +50,11 @@ const FollowingTabPanelList = () => {
 
   return (
     <Flex flexDirection="column" gap={"10px"}>
-      {FOLLOWING_FEED_MOCK.map((feed) => {
+      {/* {FOLLOWING_FEED_MOCK.map((feed) => {
         return (
           <FollowingTabPanelItem
             key={feed.id}
             reviewId={Number(feed.id)}
-            isRow={false}
             isLiked={false} // Fix it
             nickname={feed.nickname}
             postingTime={feed.postingTime}
@@ -67,7 +66,7 @@ const FollowingTabPanelList = () => {
             isEditable={false}
           />
         );
-      })}
+      })} */}
     </Flex>
   );
 };

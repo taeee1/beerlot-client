@@ -1,6 +1,11 @@
-import {ButtonProps, Flex, IconButton, IconButtonProps} from "@chakra-ui/react";
+import {
+  ButtonProps,
+  Flex,
+  IconButton,
+  IconButtonProps,
+} from "@chakra-ui/react";
 import React from "react";
-import {EmptyStarIcon, FullStarIcon} from "./CustomIcons/customIcons";
+import { EmptyStarIcon, FullStarIcon } from "./CustomIcons/customIcons";
 
 interface RatingProps {
   starSize?: number;
@@ -27,7 +32,6 @@ export const Rating: React.FC<RatingProps> = ({
   height,
   shouldRound = true,
 }) => {
-  console.log({buttonSize});
   const minW = w ?? width ?? undefined;
   const minH = h ?? height ?? undefined;
   const rate = shouldRound ? Math.round(_rate) : _rate;

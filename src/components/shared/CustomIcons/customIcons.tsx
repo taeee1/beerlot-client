@@ -1,4 +1,4 @@
-import {createIcon} from "@chakra-ui/react";
+import { createIcon } from "@chakra-ui/react";
 
 export const HeartEmpty = createIcon({
   displayName: "HeartEmpty",
@@ -114,5 +114,19 @@ export const EmptyStarIcon = createIcon({
         strokeLinejoin="round"
       />
     </svg>
+  ),
+});
+
+export const ThumbsUpIcon = createIcon({
+  displayName: "ThumbsUpIcon",
+  viewBox: "0 0 14 14",
+  path: (
+    <path
+      fill="none"
+      d="M4.08341 12.8333H2.33341C2.024 12.8333 1.72725 12.7104 1.50846 12.4916C1.28966 12.2728 1.16675 11.9761 1.16675 11.6667V7.58332C1.16675 7.2739 1.28966 6.97716 1.50846 6.75837C1.72725 6.53957 2.024 6.41666 2.33341 6.41666H4.08341M8.16675 5.24999V2.91666C8.16675 2.45253 7.98237 2.00741 7.65418 1.67922C7.326 1.35103 6.88088 1.16666 6.41675 1.16666L4.08341 6.41666V12.8333H10.6634C10.9448 12.8365 11.2178 12.7379 11.4322 12.5557C11.6466 12.3734 11.7879 12.1199 11.8301 11.8417L12.6351 6.59166C12.6605 6.42445 12.6492 6.25372 12.602 6.0913C12.5549 5.92889 12.473 5.77866 12.362 5.65104C12.251 5.52342 12.1136 5.42145 11.9593 5.3522C11.805 5.28295 11.6375 5.24807 11.4684 5.24999H8.16675Z"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   ),
 });

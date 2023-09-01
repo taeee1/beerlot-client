@@ -62,7 +62,6 @@ const BeerReviews = () => {
           <FollowingTabPanelItem
             key={feed.id}
             reviewId={Number(feed.id)}
-            isRow
             isLiked={false} // should be modified
             nickname={""} // should be modified
             postingTime={feed.updated_at}
