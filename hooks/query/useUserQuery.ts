@@ -1,6 +1,7 @@
-import {MemberReviewsRequest} from "@/../types/member/request";
+import { MemberReviewsRequest } from "@/../types/member/request";
 import {
   getUserLikedBeersApi,
+  getUserLikedReviewsApi,
   getUserReviewsApi,
   getUsersInfoApi,
   updateUserInfoApi,
@@ -11,13 +12,13 @@ import {
   useMutation,
   useQuery,
 } from "react-query";
-import {FailureResponse} from "types/api";
+import { FailureResponse } from "types/api";
 import {
   BeersWithLanguage,
   UserEditRequest,
   UserUpdateRequestType,
 } from "./useReviewQuery";
-import {access} from "fs/promises";
+import { access } from "fs/promises";
 
 export const getUserInfoQueryKey = () => ["getUserInfo"];
 export const putUserInfoQueryKey = () => ["putUserInfo"];
@@ -73,6 +74,20 @@ export const useUserBeersQuery = (
     queryKey: userBeersQueryKey(),
     queryFn: () => getUserLikedBeersApi(accessToken, queryParam),
     enabled: false,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    ...options,
+  });
+};
+
+export const useUserLikedReviewsQuery = (
+  accessToken: string,
+  options?: UseQueryOptions<number[], FailureResponse>
+) => {
+  return useQuery({
+    queryKey: ["userLikedReviews", accessToken],
+    queryFn: () => getUserLikedReviewsApi(accessToken),
+    enabled: !!accessToken,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     ...options,

@@ -2,10 +2,10 @@ import {
   BeersWithLanguage,
   UserUpdateRequestType,
 } from "@/../hooks/query/useReviewQuery";
-import {LanguageType, ReviewSortType} from "@/../types/common";
-import {MemberReviewsRequest} from "@/../types/member/request";
+import { LanguageType, ReviewSortType } from "@/../types/common";
+import { MemberReviewsRequest } from "@/../types/member/request";
 import axios from "axios";
-import {BeerSortEnum, OAUTH_PROVIDER} from "../../../interface/types";
+import { BeerSortEnum, OAUTH_PROVIDER } from "../../../interface/types";
 
 const redirectUrl = "https://beerlot-client.vercel.app";
 
@@ -59,7 +59,11 @@ export const getUserLikedBeersApi = async (
   queryParam?: BeersWithLanguage,
   language: LanguageType = LanguageType.KR
 ) => {
-  const {page = 1, size = 10, sort = BeerSortEnum.MostLikes} = queryParam ?? {};
+  const {
+    page = 1,
+    size = 10,
+    sort = BeerSortEnum.MostLikes,
+  } = queryParam ?? {};
   const res = await axios.get(`/api/v1/members/beers`, {
     params: {
       page,
@@ -71,6 +75,16 @@ export const getUserLikedBeersApi = async (
       Authorization: `Bearer ${accessToken}`,
     },
   });
+  return res.data;
+};
+
+export const getUserLikedReviewsApi = async (accessToken: string) => {
+  const res = await axios.get("/api/v1/members/reviews/likes", {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
   return res.data;
 };
 
