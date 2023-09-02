@@ -16,7 +16,7 @@ import FollowingTabPanelItem from "./TabPanelItem";
 
 export const AllTabPanelList = () => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
-  const { data: likedReviewsList } = useUserLikedReviewsQuery(accessToken);
+  const likedReviewsListQuery = useUserLikedReviewsQuery(accessToken);
   const [selectedTag, setSelectedTag] = useState<ReviewSortEnum>(
     MOCK_FEED_FILTER_LIST[0].tags[0]
   );
@@ -29,6 +29,10 @@ export const AllTabPanelList = () => {
   };
 
   useEffect(() => {
+    likedReviewsListQuery.refetch();
+  }, [allReviewsQuery?.data]);
+
+  useEffect(() => {
     allReviewsQuery.refetch();
   }, [selectedTag]);
 
@@ -37,15 +41,10 @@ export const AllTabPanelList = () => {
       <FeedFilter selectedTag={selectedTag} onClickTag={handleSelectTag} />
       {/* ALL_FEED_MOCK을 prop으로 받아서 AllTabPanelList랑 공유하기 */}
       {allReviewsQuery?.data?.contents?.map((post: ContentType) => {
-        console.log(
-          post.id,
-          likedReviewsList,
-          likedReviewsList?.includes(post.id)
-        );
         return (
           <FollowingTabPanelItem
             key={post.id}
-            isLiked={likedReviewsList?.includes(post.id)}
+            isLiked={likedReviewsListQuery.data?.includes(post.id)}
             reviewId={Number(post.id)}
             postText={post.content}
             nickname={post.member.username}
