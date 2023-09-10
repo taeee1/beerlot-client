@@ -63,7 +63,7 @@ const BeerReviews = () => {
             key={feed.id}
             reviewId={Number(feed.id)}
             isLiked={false} // should be modified
-            nickname={""} // should be modified
+            nickname={feed.beer.name} // should be modified
             postingTime={feed.updated_at}
             rate={feed.rate}
             imageSrc={feed.image_url}

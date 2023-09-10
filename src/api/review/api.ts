@@ -1,16 +1,15 @@
-import axios from "axios";
-import {
-  LANGUAGE_TYPE,
-  ReviewInfoType,
-  ReviewPostparamType,
-  ReviewSortEnum,
-  UpdatedReviewInfo,
-} from "../../../interface/types";
 import {
   AllReviewsQueryParams,
   CreateReviewRequestType,
 } from "@/../hooks/query/useReviewQuery";
-import {BeerReviewsQueryParams} from "@/../typedef/server/beer";
+import { BeerReviewsQueryParams } from "@/../typedef/server/beer";
+import axios from "axios";
+import {
+  LANGUAGE_TYPE,
+  ReviewPostparamType,
+  ReviewSortEnum,
+  UpdatedReviewInfo,
+} from "../../../interface/types";
 
 // 맥주 1개에 대한 리뷰 리스트 post
 export const postReviewWithBeerIdApi = async (
@@ -117,7 +116,7 @@ export const updateReviewApi = async (
   content: UpdatedReviewInfo
 ) => {
   const config = {
-    headers: {Authorization: `Bearer ${accessToken}`},
+    headers: { Authorization: `Bearer ${accessToken}` },
   };
   const res = await axios.patch(`/api/v1/reviews/${reviewId}`, content, config);
   return res.data;
@@ -126,7 +125,7 @@ export const updateReviewApi = async (
 // like review
 export const likeReviewApi = async (reviewId: number, accessToken: string) => {
   const config = {
-    headers: {Authorization: `Bearer ${accessToken}`},
+    headers: { Authorization: `Bearer ${accessToken}` },
   };
   const res = await axios.post(
     `/api/v1/reviews/${reviewId}/likes`,
@@ -143,7 +142,7 @@ export const dislikeReviewApi = async (
   accessToken: string
 ) => {
   const config = {
-    headers: {Authorization: `Bearer ${accessToken}`},
+    headers: { Authorization: `Bearer ${accessToken}` },
   };
 
   const res = await axios.delete(`/api/v1/reviews/${reviewId}/likes`, config);
