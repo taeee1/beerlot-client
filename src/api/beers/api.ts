@@ -1,4 +1,4 @@
-import {BeerFilterRequestType} from "@/types/api";
+import { BeerFilterRequestType } from "@/types/api";
 import axios from "axios";
 import {
   CategoryType,
@@ -46,7 +46,7 @@ export const fetchTopBeersApi = async () => {
 export const getSingleBeerInfoApi = async (id: number) => {
   const language: LANGUAGE_TYPE = LANGUAGE_TYPE.KR;
   try {
-    const {data}: {data: SingleBeerResultType} = await axios.get(
+    const { data }: { data: SingleBeerResultType } = await axios.get(
       `/api/v1/beers/${id}?language=${language}`
     );
     console.log(data, "getSingleBeerInfoApi");
@@ -84,7 +84,7 @@ export const getBeerCategoriesApi = async () => {
 
 export const likeBeerApi = async (beerId: number, accessToken: string) => {
   const config = {
-    headers: {Authorization: `Bearer ${accessToken}`},
+    headers: { Authorization: `Bearer ${accessToken}` },
   };
   const res = await axios.post(`/api/v1/beers/${beerId}/likes`, null, config);
   return res.data;
@@ -92,7 +92,7 @@ export const likeBeerApi = async (beerId: number, accessToken: string) => {
 
 export const dislikeBeerApi = async (beerId: number, accessToken: string) => {
   const config = {
-    headers: {Authorization: `Bearer ${accessToken}`},
+    headers: { Authorization: `Bearer ${accessToken}` },
   };
   const res = await axios.delete(`/api/v1/beers/${beerId}/likes`, config);
   return res.data;

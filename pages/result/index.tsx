@@ -1,6 +1,6 @@
-import {useBeersQuery} from "@/../hooks/query/useBeerQuery";
-import {generateBeerDetailUrl} from "@/../utils/url";
-import {CommonBeerImage} from "@/components/shared/CommonBeerImage/CommonBeerImage";
+import { useBeersQuery } from "@/../hooks/query/useBeerQuery";
+import { generateBeerDetailUrl } from "@/../utils/url";
+import { CommonBeerImage } from "@/components/shared/CommonBeerImage/CommonBeerImage";
 import {
   Box,
   Circle,
@@ -9,12 +9,12 @@ import {
   HStack,
   SimpleGrid,
 } from "@chakra-ui/react";
-import {useRouter} from "next/router";
-import {useCallback, useEffect, useState} from "react";
-import {MOCK_CATEGORY_FILTER_LIST} from "../../interface/static";
-import {CategoryFilterListType, CategoryTitle} from "../../interface/types";
-import {EmptyFilter, WhiteFilter} from "../../public/svg";
-import {SearchFilterList} from "../../src/components/result/filter/search-filter-list/SearchFilterList";
+import { useRouter } from "next/router";
+import { useCallback, useEffect, useState } from "react";
+import { MOCK_CATEGORY_FILTER_LIST } from "../../interface/static";
+import { CategoryFilterListType, CategoryTitle } from "../../interface/types";
+import { EmptyFilter, WhiteFilter } from "../../public/svg";
+import { SearchFilterList } from "../../src/components/result/filter/search-filter-list/SearchFilterList";
 import SearchInput from "../../src/components/search/SearchInput";
 import {
   BeerCard,
@@ -25,16 +25,22 @@ import {
   BeerCountryText,
   BeerNameText,
 } from "../../src/components/shared/Card/BeerCardItem";
-import {LeftBackTitle} from "../../src/components/shared/Headers/LeftBackTitle";
+import { LeftBackTitle } from "../../src/components/shared/Headers/LeftBackTitle";
+import { useFetcBeerSearchCategoriesQuery } from "../../hooks/query/useFilterQuery";
 
 const SearchResultPage = () => {
   const router = useRouter();
-  const {query} = router.query;
+  const { query } = router.query;
   const [isFilterListOpen, setIsFilterListOpen] = useState<boolean>(true);
   const [value, setValue] = useState<string>("");
   const [selectedFilters, setSelectedFilter] = useState<
     CategoryFilterListType[]
   >([]);
+  const { data, refetch } = useFetcBeerSearchCategoriesQuery();
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   const SearchBeerQuery = useBeersQuery({
     keyword: typeof query === "string" ? query : "",
@@ -73,7 +79,7 @@ const SearchResultPage = () => {
     if (selectedObjList === undefined) {
       setSelectedFilter([
         ...selectedFilters,
-        {title: targetTitle, tags: [targetTag]},
+        { title: targetTitle, tags: [targetTag] },
       ]);
 
       return;
@@ -82,7 +88,7 @@ const SearchResultPage = () => {
     if (isSingleMode) {
       const newSelectedFilter = selectedFilters.map((obj) => {
         if (obj.title === targetTitle) {
-          return {title: targetTitle, tags: [targetTag]};
+          return { title: targetTitle, tags: [targetTag] };
         }
         return obj;
       });
@@ -99,7 +105,7 @@ const SearchResultPage = () => {
       );
       const newSelectedFilter = selectedFilters.map((obj) => {
         if (obj.title === targetTitle) {
-          return {title: targetTitle, tags: [...newSelectedTagList]};
+          return { title: targetTitle, tags: [...newSelectedTagList] };
         }
         return obj;
       });
@@ -110,7 +116,7 @@ const SearchResultPage = () => {
     const newSelectedTagList = [...selectedObjList.tags, targetTag];
     const newSelectedFilter = selectedFilters.map((obj) => {
       if (obj.title === targetTitle) {
-        return {title: targetTitle, tags: [...newSelectedTagList]};
+        return { title: targetTitle, tags: [...newSelectedTagList] };
       }
       return obj;
     });
@@ -149,7 +155,8 @@ const SearchResultPage = () => {
           />
           <SimpleGrid columns={2} spacing={"16px"} mt={"8px"}>
             {SearchBeerQuery.data?.contents?.map((beerItems: any) => {
-              const {id, name, origin_country, image_url, category} = beerItems;
+              const { id, name, origin_country, image_url, category } =
+                beerItems;
               return (
                 <BeerCard
                   key={beerItems.id}
