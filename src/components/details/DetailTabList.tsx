@@ -7,9 +7,9 @@ import {
   Tabs,
   Text,
 } from "@chakra-ui/react";
-import React, {useState} from "react";
-import {BasicPanelList} from "./tab-panel/BasicPanelList";
-import {ReviewPanelList} from "./tab-panel/ReviewPanelList";
+import React, { useState } from "react";
+import { BasicPanelList } from "./tab-panel/BasicPanelList";
+import { ReviewPanelList } from "./tab-panel/ReviewPanelList";
 
 interface DetailTabListProps {
   id: number;
@@ -18,7 +18,7 @@ interface DetailTabListProps {
   calories: number;
   suitableGlass: string;
   desc: string;
-  buyFrom: string[]; // FIXME: should be array
+  buyFrom: string[];
   rate: number;
 }
 
@@ -65,10 +65,10 @@ export const DetailTabList: React.FC<DetailTabListProps> = ({
               suitableGlass={suitableGlass}
               desc={desc}
             />
-            <ReviewPanelList rate={rate} beerId={id} />
+            <ReviewPanelList rate={rate} beerId={id} buyFrom={buyFrom} />
           </TabPanel>
           <TabPanel p={0}>
-            <ReviewPanelList rate={rate} beerId={id} />
+            <ReviewPanelList rate={rate} beerId={id} buyFrom={buyFrom} />
           </TabPanel>
         </TabPanels>
       </Tabs>

@@ -23,14 +23,14 @@ import { UserReview } from "./UserReview";
 interface ReviewPanelListProps {
   rate: number;
   beerId: number;
+  buyFrom: string[];
 }
 
 export const ReviewPanelList: React.FC<ReviewPanelListProps> = ({
   beerId,
   rate,
+  buyFrom,
 }) => {
-  const buyFrom = "buyFrom";
-
   const [selectedTag, setSelectedTag] = useState<ReviewSortEnum>(
     MOCK_FEED_FILTER_LIST[0].tags[0]
   );
@@ -59,11 +59,17 @@ export const ReviewPanelList: React.FC<ReviewPanelListProps> = ({
         <Text textStyle={"h2_bold"} mt={10}>
           모든 리뷰
         </Text>
-        <BeerInfoHStack
-          label={"제보된 판매처"}
-          desc={buyFrom}
-          flexBasis={"81px"}
-        />
+        <BeerInfoHStack label={"제보된 판매처"} flexBasis={"81px"}>
+          <HStack>
+            {buyFrom?.map((buyFrom) => {
+              return (
+                <Text textStyle={"h3"} key={buyFrom} textColor="black.100">
+                  {buyFrom}
+                </Text>
+              );
+            })}
+          </HStack>
+        </BeerInfoHStack>
         <BeerInfoHStack label={"평균 별점"} flexBasis={"81px"}>
           <HStack>
             <Rating
