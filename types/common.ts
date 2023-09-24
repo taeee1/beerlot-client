@@ -20,6 +20,11 @@ export enum ReviewSortType {
   HIGH_RATE = "HIGH_RATE",
   LOW_RATE = "LOW_RATE",
 }
+export enum BeerSortType {
+  MOST_LIKES = "MOST_LIKES",
+  HIGH_RATE = "HIGH_RATE",
+  MOST_REVIEWS = "MOST_REVIEWS",
+}
 
 export enum LanguageType {
   KR = "KR",

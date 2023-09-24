@@ -5,6 +5,7 @@ import {
   LANGUAGE_TYPE,
   ReviewSortEnum,
 } from "../../../interface/types";
+import { BeerSortType } from "../../../types/common";
 
 export const getNewAccessTokenWithRefreshToken = async () => {
   try {
@@ -22,7 +23,7 @@ export const fetchBeersApi = async (params: BeerFilterRequestType) => {
       language: language,
       page: params.page || 1,
       size: params.size || 10,
-      sort: params.sort || ReviewSortEnum.MostLikes,
+      sort: params.sort || BeerSortType.MOST_LIKES,
       keyword: params.keyword || undefined,
       categories: params.categories || undefined,
       countries: params.countries || undefined,

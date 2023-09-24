@@ -1,3 +1,5 @@
+import { BeerSortType } from "../../types/common";
+
 export interface FailureResponse {
   response: {
     data: string;
@@ -9,7 +11,7 @@ export interface FailureResponse {
 export type BeerFilterRequestType = {
   page?: number;
   size?: number;
-  sort?: string;
+  sort?: BeerSortType;
   keyword?: string;
   categories?: number[];
   countries?: string[];
