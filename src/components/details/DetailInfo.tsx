@@ -2,13 +2,13 @@ import { roundToDecimal } from "@/../utils/number";
 import { Box, Center, HStack, Text, VStack, useToast } from "@chakra-ui/react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useMutation } from "react-query";
 import {
   useBeerDislikeMutation,
   useBeerLikeMutation,
 } from "../../../hooks/query/useBeerLikeMutation";
-import { useUserBeersQuery } from "../../../hooks/query/useUserQuery";
+import { useUserLikedBeersQuery } from "../../../hooks/query/useUserQuery";
 import { BeerResponseType } from "../../../typedef/server/beer";
 import { CommonBeerImage } from "../shared/CommonBeerImage/CommonBeerImage";
 import { LeftBackBeerNameRightHeart } from "../shared/Headers/LeftBackBeerNameRightHeart";
@@ -39,14 +39,18 @@ export const DetailInfo: React.FC<DetailInfoProps> = ({
   const rateToUse = roundToDecimal(rate);
   const toastId = "test-toast";
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
-  const userBeersQuery = useUserBeersQuery(accessToken);
+  const userBeersQuery = useUserLikedBeersQuery(accessToken);
+
+  useEffect(() => {
+    userBeersQuery.refetch();
+  }, []);
+
   const likedBeersList = userBeersQuery?.data?.contents;
   const likedBeerIds = useMemo(
     () => likedBeersList?.map((item: BeerResponseType) => item.id),
     [likedBeersList]
   );
   const isLikedBeer = likedBeerIds?.includes(beerId);
-
   const likeBeerMutation = useBeerLikeMutation({
     onSuccess: () => {
       userBeersQuery.refetch();

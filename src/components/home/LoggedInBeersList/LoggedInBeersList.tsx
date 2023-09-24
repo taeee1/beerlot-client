@@ -1,9 +1,9 @@
-import React, {useEffect} from "react";
-import {BeerResponseType} from "../../../../typedef/server/beer";
+import React, { useEffect } from "react";
+import { BeerResponseType } from "../../../../typedef/server/beer";
 import RecommendedBeersList from "./RecommendedBeersList";
 import TopBeersList from "./TopBeersList";
 import Cookies from "js-cookie";
-import {useUserBeersQuery} from "@/../hooks/query/useUserQuery";
+import { useUserLikedBeersQuery } from "@/../hooks/query/useUserQuery";
 
 interface LoggedInBeersListProps {
   topBeersList?: BeerResponseType[];
@@ -14,7 +14,7 @@ const LoggedInBeersList: React.FC<LoggedInBeersListProps> = ({
   userName,
 }) => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
-  const userBeersQuery = useUserBeersQuery(accessToken);
+  const userBeersQuery = useUserLikedBeersQuery(accessToken);
 
   useEffect(() => {
     userBeersQuery.refetch();
@@ -45,4 +45,4 @@ const LoggedInBeersList: React.FC<LoggedInBeersListProps> = ({
   );
 };
 
-export {LoggedInBeersList};
+export { LoggedInBeersList };

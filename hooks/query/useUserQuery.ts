@@ -65,7 +65,7 @@ export const useUserReviewsQuery = (
   });
 };
 
-export const useUserBeersQuery = (
+export const useUserLikedBeersQuery = (
   accessToken: string,
   queryParam?: BeersWithLanguage,
   options?: UseQueryOptions<any, FailureResponse>
