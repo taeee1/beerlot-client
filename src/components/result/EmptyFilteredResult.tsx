@@ -32,7 +32,6 @@ export const EmptyFilteredResult = () => {
           <Link
             href={`mailto:?subject=${BEERLOT_EMAIL}`}
             textStyle="h3_bold"
-            as={"span"}
             color={"orange.300"}
           >
             👉 맥주 제보하기 👈
