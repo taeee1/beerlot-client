@@ -1,4 +1,4 @@
-import {POLICY_LABEL} from "@/../interface/server/types/Auth";
+import { POLICY_LABEL } from "@/../interface/server/types/Auth";
 import {
   createReviewApi,
   deleteReviewApi,
@@ -15,7 +15,7 @@ import {
   UseQueryOptions,
   useQuery,
 } from "react-query";
-import {FailureResponse} from "types/api";
+import { FailureResponse } from "types/api";
 import {
   BeerSortEnum,
   ReviewInfoType,
@@ -23,8 +23,8 @@ import {
   ReviewSortEnum,
   UpdatedReviewInfo,
 } from "../../interface/types";
-import {useMutation} from "react-query";
-import {BeerReviewsQueryParams} from "@/../typedef/server/beer";
+import { useMutation } from "react-query";
+import { BeerReviewsQueryParams } from "@/../typedef/server/beer";
 
 export const allReviewsQueryKey = () => ["allReviews"];
 export const ReviewQueryKey = () => ["review"];
@@ -148,8 +148,8 @@ export type AllBeersQueryParams = {
   sort?: BeerSortEnum;
 };
 
-export type ReviewsWithLanguage = AllReviewsQueryParams & {language: string};
-export type BeersWithLanguage = AllBeersQueryParams & {language: string};
+export type ReviewsWithLanguage = AllReviewsQueryParams & { language: string };
+export type BeersWithLanguage = AllBeersQueryParams & { language: string };
 export interface UserEditRequest {
   username?: string;
   status_message?: string;
@@ -176,6 +176,10 @@ export type AllReviewsQueryResponse = {
 export type ContentType = {
   id: number;
   content: string;
+  beer: {
+    id: number;
+    name: string;
+  };
   image_url: string;
   rate: number;
   like_count: number;

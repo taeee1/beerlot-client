@@ -49,7 +49,7 @@ export const AllTabPanelList = () => {
             postText={post.content}
             nickname={post.member.username}
             postingTime={post.updated_at}
-            beerName={"MOCK_BEER_NAME"}
+            beerName={post.beer.name}
             rate={post.rate}
             imageSrc={post.image_url}
             thumbsUpNumber={post.like_count}
