@@ -12,7 +12,7 @@ export const EmptyFilteredResult = () => {
       <Text color="gray.300" textAlign={"center"} textStyle="h3">
         다른 키워드로 검색해보세요!
         <br />
-        ex) OB라거 오비라거
+        {`ex) OB라거 > 오비라거`}
       </Text>
       <Box
         p={4}
