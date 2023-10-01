@@ -1,9 +1,9 @@
-import {Button, Center, Link, Text} from "@chakra-ui/react";
-import {useRouter} from "next/router";
-import {LeftBackRandom} from "../../shared/Headers/LeftBackRandom";
+import { Button, Center, Link, Text } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { LeftBackRandom } from "../../shared/Headers/LeftBackRandom";
+import { BEERLOT_EMAIL } from "../../../../interface/static";
 
 export const InquiryTemplate = () => {
-  const beerlotEmail = process.env.NEXT_PUBLIC_INQUIRY_EMAIL;
   const router = useRouter();
 
   const handleClickBack = () => {
@@ -19,10 +19,10 @@ export const InquiryTemplate = () => {
           문의사항은 자세히 적어주실수록 좋아요 :)
         </Text>
         <Button
-          _hover={{textDecoration: "none"}}
+          _hover={{ textDecoration: "none" }}
           mt="24px"
           as={Link}
-          href={`mailto:?subject=${beerlotEmail}`}
+          href={`mailto:?subject=${BEERLOT_EMAIL}`}
           py={"10px"}
           px={"73px"}
           h="fit-content"

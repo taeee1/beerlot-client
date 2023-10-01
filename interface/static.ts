@@ -1,11 +1,12 @@
 import { v4 as uuidv4 } from "uuid";
+import { Country } from "../types/common";
 import {
-  CategoryFilterListType,
   CategoryTitle,
   ReviewCategoryFilterListType,
   ReviewSortEnum,
 } from "./types";
-import { Country } from "../types/common";
+
+export const BEERLOT_EMAIL = process.env.NEXT_PUBLIC_INQUIRY_EMAIL;
 
 export const WELCOME_MESSAGE_FIRST = "👋 어서와요 ";
 export const WELCOME_MESSAGE_SECOND = "오늘은 어떤 맥주를 마셔볼까요?";
@@ -73,11 +74,11 @@ export const ALL_FEED_MOCK = [
   },
 ];
 
-export const MOCK_CATEGORY_FILTER_LIST: CategoryFilterListType[] = [
-  {
-    title: CategoryTitle.BEER_TYPE,
-    tags: ["IPA", "필스너", "스타우트"],
-  },
+export const MOCK_CATEGORY_FILTER_LIST = [
+  // {
+  //   title: CategoryTitle.BEER_TYPE,
+  //   tags: ["IPA", "필스너", "스타우트"],
+  // },
   { title: CategoryTitle.BEER_COUNTRY, tags: ["독일", "미국", "일본"] },
 ];
 

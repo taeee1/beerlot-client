@@ -1,5 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { useFetcBeerSearchCategoriesQuery } from "../../../../../hooks/query/useFilterQuery";
 import {
   MIN_MAX_BEER_VOLUME_SLIDER,
   MOCK_CATEGORY_FILTER_LIST,
@@ -21,13 +22,14 @@ import {
 interface SearchFilterListExpandedProps {
   isFilterListOpen: boolean;
   selectedFilters: CategoryFilterListType[];
-  onClickToggle: () => void;
-  onClickTag: (targetTitle: CategoryTitle, targetTag: string) => void;
+  onClickTag: (targetTitle: CategoryTitle, targetTag: string | number) => void;
 }
 
 export const SearchFilterListExpanded: React.FC<
   SearchFilterListExpandedProps
-> = ({ isFilterListOpen, selectedFilters, onClickToggle, onClickTag }) => {
+> = ({ isFilterListOpen, selectedFilters, onClickTag }) => {
+  const { data: beerTypes } = useFetcBeerSearchCategoriesQuery();
+
   const [beerVolume, setBeerVolume] = useState<number[]>([
     MIN_MAX_BEER_VOLUME_SLIDER[0],
     MIN_MAX_BEER_VOLUME_SLIDER[1],
@@ -40,6 +42,9 @@ export const SearchFilterListExpanded: React.FC<
   const selectedSort = selectedFilters.find(
     (filter) => filter.title === CategoryTitle.SORT_CRITERIA
   );
+  const selectedBeerType = selectedFilters.find(
+    (filter) => filter.title === CategoryTitle.BEER_TYPE
+  );
 
   return (
     <Box>
@@ -48,7 +53,6 @@ export const SearchFilterListExpanded: React.FC<
           title={"정렬 기준"}
           selectedFilters={selectedFilters}
           isFilterListOpen={isFilterListOpen}
-          flexShrink={0}
         />
         <SearchFilterRowOptionsWrapper>
           {Object.keys(sortTags).map((tag) => {
@@ -69,6 +73,30 @@ export const SearchFilterListExpanded: React.FC<
           })}
         </SearchFilterRowOptionsWrapper>
       </SearchFilterRowWrapper>
+      <SearchFilterRowWrapper>
+        <SearchFilterRowOptionsWrapper>
+          <SearchFilterTag
+            title={CategoryTitle.BEER_TYPE}
+            selectedFilters={selectedFilters}
+            isFilterListOpen={isFilterListOpen}
+          />
+          {beerTypes?.map(({ name, id }) => {
+            const isSelected = selectedBeerType?.tags.includes(id);
+            return (
+              <SearchFilterRowOption
+                key={id}
+                textColor={isSelected ? "black.100" : "gray.200"}
+                textStyle={isSelected ? "h4_bold" : "h4"}
+                onClick={() => {
+                  onClickTag(CategoryTitle.BEER_TYPE, id);
+                }}
+              >
+                {name}
+              </SearchFilterRowOption>
+            );
+          })}
+        </SearchFilterRowOptionsWrapper>
+      </SearchFilterRowWrapper>
       {MOCK_CATEGORY_FILTER_LIST.map((filterObj) => {
         const { title, tags } = filterObj;
         return (
@@ -77,7 +105,6 @@ export const SearchFilterListExpanded: React.FC<
               title={title}
               selectedFilters={selectedFilters}
               isFilterListOpen={isFilterListOpen}
-              flexShrink={0}
             />
             <SearchFilterRowOptionsWrapper>
               {tags.map((tag: string) => {
@@ -108,7 +135,6 @@ export const SearchFilterListExpanded: React.FC<
           title={"도수"}
           selectedFilters={selectedFilters}
           isFilterListOpen={isFilterListOpen}
-          flexShrink={0}
         />
         <SearchFilterRowOptionsWrapper>
           <SearchFilterRangeRow

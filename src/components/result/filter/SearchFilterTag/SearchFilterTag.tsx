@@ -3,10 +3,10 @@ import {
   RightChevron,
 } from "@/components/shared/CustomIcons/customIcons";
 import FilterTag from "@/components/shared/Filters/FilterTag";
-import {ButtonProps, Icon} from "@chakra-ui/react";
+import { ButtonProps, Icon } from "@chakra-ui/react";
 import React from "react";
-import {CategoryFilterListType} from "../../../../../interface/types";
-import {checkIsSelectedCategoryTitle} from "../../../../../utils/array";
+import { CategoryFilterListType } from "../../../../../interface/types";
+import { checkIsSelectedCategoryTitle } from "../../../../../utils/array";
 
 interface SearchFilterTagProps extends ButtonProps {
   title: string;
@@ -24,7 +24,6 @@ const SearchFilterTag: React.FC<SearchFilterTagProps> = ({
 }) => {
   return (
     <FilterTag
-      {...props}
       tagText={title}
       borderRadius="15px"
       pl="5px"
@@ -39,6 +38,8 @@ const SearchFilterTag: React.FC<SearchFilterTagProps> = ({
           : "yellow.200"
       }
       onClick={onClick}
+      flexShrink={0}
+      {...props}
     >
       <Icon
         as={isFilterListOpen ? RightChevron : DownChevron}
@@ -50,4 +51,4 @@ const SearchFilterTag: React.FC<SearchFilterTagProps> = ({
   );
 };
 
-export {SearchFilterTag};
+export { SearchFilterTag };

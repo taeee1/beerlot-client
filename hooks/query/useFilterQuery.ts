@@ -5,12 +5,11 @@ import { LANGUAGE_TYPE } from "../../interface/types";
 
 export const useFetcBeerSearchCategoriesQuery = (
   queryParam?: LANGUAGE_TYPE,
-  options?: UseQueryOptions<Category, FailureResponse>
+  options?: UseQueryOptions<Category[], FailureResponse>
 ) => {
   return useQuery({
     queryKey: ["beerFilter"],
     queryFn: () => fetchCategoriesApi(queryParam),
-    enabled: false,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     ...options,

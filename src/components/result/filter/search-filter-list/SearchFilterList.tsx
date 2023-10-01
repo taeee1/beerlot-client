@@ -12,7 +12,7 @@ interface SearchFilterListProps {
   isFilterListOpen: boolean;
   selectedFilters: CategoryFilterListType[];
   onClickToggle: () => void;
-  onClickTag: (targetTitle: CategoryTitle, targetTag: string) => void;
+  onClickTag: (targetTitle: CategoryTitle, targetTag: string | number) => void;
 }
 
 export const SearchFilterList: React.FC<SearchFilterListProps> = ({
@@ -27,10 +27,10 @@ export const SearchFilterList: React.FC<SearchFilterListProps> = ({
         <SearchFilterListExpanded
           selectedFilters={selectedFilters}
           isFilterListOpen={isFilterListOpen}
-          onClickToggle={onClickToggle}
           onClickTag={onClickTag}
         />
       ) : (
+        // TODO: fix bug that when not opened, it should display all the categories
         <BeerSearchCategoriesForClosedFilter
           selectedFilters={selectedFilters}
           onClickToggle={onClickToggle}
