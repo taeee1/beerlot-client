@@ -1,6 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import React, { useState } from "react";
-import { MIN_MAX_BEER_VOLUME_SLIDER } from "../../../../../interface/static";
+import React from "react";
 import {
   CategoryFilterListType,
   CategoryTitle,
@@ -13,6 +12,8 @@ interface SearchFilterListProps {
   selectedFilters: CategoryFilterListType[];
   onClickToggle: () => void;
   onClickTag: (targetTitle: CategoryTitle, targetTag: string | number) => void;
+  beerVolume: number[];
+  onChangeBeerVolume: (value: number[]) => void;
 }
 
 export const SearchFilterList: React.FC<SearchFilterListProps> = ({
@@ -20,6 +21,8 @@ export const SearchFilterList: React.FC<SearchFilterListProps> = ({
   selectedFilters,
   onClickToggle,
   onClickTag,
+  beerVolume,
+  onChangeBeerVolume,
 }) => {
   return (
     <Box>
@@ -28,13 +31,15 @@ export const SearchFilterList: React.FC<SearchFilterListProps> = ({
           selectedFilters={selectedFilters}
           isFilterListOpen={isFilterListOpen}
           onClickTag={onClickTag}
+          beerVolume={beerVolume}
+          onChangeBeerVolume={onChangeBeerVolume}
         />
       ) : (
-        // TODO: fix bug that when not opened, it should display all the categories
         <BeerSearchCategoriesForClosedFilter
           selectedFilters={selectedFilters}
           onClickToggle={onClickToggle}
           isFilterListOpen={isFilterListOpen}
+          beerVolume={beerVolume}
         />
       )}
     </Box>

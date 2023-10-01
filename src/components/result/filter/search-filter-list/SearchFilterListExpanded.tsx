@@ -1,10 +1,8 @@
+import { isBeerVolumeWithinRange } from "@/components/home/LoggedInBeersList/beer.service";
 import { Box } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React from "react";
 import { useFetcBeerSearchCategoriesQuery } from "../../../../../hooks/query/useFilterQuery";
-import {
-  MIN_MAX_BEER_VOLUME_SLIDER,
-  MOCK_CATEGORY_FILTER_LIST,
-} from "../../../../../interface/static";
+import { MOCK_CATEGORY_FILTER_LIST } from "../../../../../interface/static";
 import {
   BeerSortEnum,
   CategoryFilterListType,
@@ -23,17 +21,21 @@ interface SearchFilterListExpandedProps {
   isFilterListOpen: boolean;
   selectedFilters: CategoryFilterListType[];
   onClickTag: (targetTitle: CategoryTitle, targetTag: string | number) => void;
+  beerVolume: number[];
+  onChangeBeerVolume: (value: number[]) => void;
 }
 
 export const SearchFilterListExpanded: React.FC<
   SearchFilterListExpandedProps
-> = ({ isFilterListOpen, selectedFilters, onClickTag }) => {
+> = ({
+  isFilterListOpen,
+  selectedFilters,
+  onClickTag,
+  beerVolume,
+  onChangeBeerVolume,
+}) => {
   const { data: beerTypes } = useFetcBeerSearchCategoriesQuery();
 
-  const [beerVolume, setBeerVolume] = useState<number[]>([
-    MIN_MAX_BEER_VOLUME_SLIDER[0],
-    MIN_MAX_BEER_VOLUME_SLIDER[1],
-  ]);
   const sortTags = {
     좋아요순: BeerSortEnum.MostLikes,
     별점순: BeerSortEnum.HighRate,
@@ -135,11 +137,12 @@ export const SearchFilterListExpanded: React.FC<
           title={"도수"}
           selectedFilters={selectedFilters}
           isFilterListOpen={isFilterListOpen}
+          isSelected={isBeerVolumeWithinRange(beerVolume)}
         />
         <SearchFilterRowOptionsWrapper>
           <SearchFilterRangeRow
             beerVolume={beerVolume}
-            onChange={setBeerVolume}
+            onChange={onChangeBeerVolume}
           />
         </SearchFilterRowOptionsWrapper>
       </SearchFilterRowWrapper>

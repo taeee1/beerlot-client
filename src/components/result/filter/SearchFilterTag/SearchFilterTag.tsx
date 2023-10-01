@@ -13,6 +13,7 @@ interface SearchFilterTagProps extends ButtonProps {
   selectedFilters: CategoryFilterListType[];
   isFilterListOpen: boolean;
   onClick?: () => void;
+  isSelected?: boolean;
 }
 
 const SearchFilterTag: React.FC<SearchFilterTagProps> = ({
@@ -20,8 +21,14 @@ const SearchFilterTag: React.FC<SearchFilterTagProps> = ({
   selectedFilters,
   isFilterListOpen,
   onClick,
+  isSelected,
   ...props
 }) => {
+  const selected =
+    isSelected === undefined
+      ? checkIsSelectedCategoryTitle(selectedFilters, title)
+      : isSelected;
+
   return (
     <FilterTag
       tagText={title}
@@ -32,11 +39,7 @@ const SearchFilterTag: React.FC<SearchFilterTagProps> = ({
       h="full"
       alignItems={"center"}
       justifyContent={"center"}
-      bg={
-        checkIsSelectedCategoryTitle(selectedFilters, title)
-          ? "yellow.300"
-          : "yellow.200"
-      }
+      bg={selected ? "yellow.300" : "yellow.200"}
       onClick={onClick}
       flexShrink={0}
       {...props}

@@ -81,6 +81,12 @@ export const MOCK_CATEGORY_FILTER_LIST = [
   // },
   { title: CategoryTitle.BEER_COUNTRY, tags: ["독일", "미국", "일본"] },
 ];
+export const MOCK_CATEGORY_FILTER_TITLE = [
+  CategoryTitle.SORT_CRITERIA,
+  CategoryTitle.BEER_TYPE,
+  CategoryTitle.BEER_COUNTRY,
+  CategoryTitle.BEER_DEGREE,
+];
 
 export const textMain = "#000000";
 
@@ -184,8 +190,8 @@ export const BeerDetailMock = {
   desc: "미국을 대표하는 맥주로, 매년 미국에서 판매량 1위를 놓치지 않는 앤하이저부시의 대표적인 상품! ",
 };
 
-const MAX_BEER_VOLUME_SLIDER = 10;
-const MIN_BEER_VOLUME_SLIDER = 0;
+export const MAX_BEER_VOLUME_SLIDER = 10;
+export const MIN_BEER_VOLUME_SLIDER = 0;
 
 export const MIN_MAX_BEER_VOLUME_SLIDER = [
   MIN_BEER_VOLUME_SLIDER,

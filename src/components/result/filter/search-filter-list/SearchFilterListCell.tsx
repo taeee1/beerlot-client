@@ -2,11 +2,15 @@ import { HStack, StackProps, Text, TextProps } from "@chakra-ui/react";
 import React from "react";
 import {
   MIN_MAX_BEER_VOLUME_SLIDER,
-  MOCK_CATEGORY_FILTER_LIST,
+  MOCK_CATEGORY_FILTER_TITLE,
 } from "../../../../../interface/static";
+import {
+  CategoryFilterListType,
+  CategoryTitle,
+} from "../../../../../interface/types";
 import { VolumeSlider } from "../../../shared/Filters/VolumeSlider";
 import { SearchFilterTag } from "../SearchFilterTag/SearchFilterTag";
-import { CategoryFilterListType } from "../../../../../interface/types";
+import { isBeerVolumeWithinRange } from "@/components/home/LoggedInBeersList/beer.service";
 
 export const SearchFilterRowWrapper: React.FC<StackProps> = ({ children }) => {
   return (
@@ -42,7 +46,7 @@ export const SearchFilterRowOptionsWrapper: React.FC<StackProps> = ({
 
 interface SearchFilterRangeRowProps {
   beerVolume: number[];
-  onChange: React.Dispatch<React.SetStateAction<number[]>>;
+  onChange: (value: number[]) => void;
 }
 
 export const SearchFilterRangeRow: React.FC<SearchFilterRangeRowProps> = ({
@@ -84,15 +88,15 @@ interface BeerSearchCategoriesForClosedFilterProps {
   isFilterListOpen: boolean;
   selectedFilters: CategoryFilterListType[];
   onClickToggle: () => void;
+  beerVolume: number[];
 }
 
 export const BeerSearchCategoriesForClosedFilter: React.FC<
   BeerSearchCategoriesForClosedFilterProps
-> = ({ isFilterListOpen, selectedFilters, onClickToggle }) => {
+> = ({ isFilterListOpen, selectedFilters, onClickToggle, beerVolume }) => {
   return (
     <HStack>
-      {MOCK_CATEGORY_FILTER_LIST.map((filterObj) => {
-        const { title } = filterObj;
+      {MOCK_CATEGORY_FILTER_TITLE.map((title) => {
         return (
           <SearchFilterTag
             key={title}
@@ -100,6 +104,11 @@ export const BeerSearchCategoriesForClosedFilter: React.FC<
             selectedFilters={selectedFilters}
             onClick={onClickToggle}
             isFilterListOpen={isFilterListOpen}
+            isSelected={
+              title === CategoryTitle.BEER_DEGREE
+                ? isBeerVolumeWithinRange(beerVolume)
+                : undefined
+            }
           />
         );
       })}
