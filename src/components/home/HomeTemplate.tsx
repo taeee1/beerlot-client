@@ -1,21 +1,55 @@
-import {useTopBeersQuery} from "@/../hooks/query/useBeerQuery";
-import {Box, Container} from "@chakra-ui/react";
-import {useEffect} from "react";
-import {BlankHeader} from "../shared/Headers/BlankHeader";
-import {CommonBeersList} from "./CommonBeersList/CommonBeersList";
-import {LoggedInBeersList} from "./LoggedInBeersList/LoggedInBeersList";
+import {
+  singleBeerFetchKey,
+  useRecommendedBeersQuery,
+  useTopBeersQuery,
+} from "@/../hooks/query/useBeerQuery";
+import { Box, Container } from "@chakra-ui/react";
+import { useEffect } from "react";
+import { BlankHeader } from "../shared/Headers/BlankHeader";
+import { CommonBeersList } from "./CommonBeersList/CommonBeersList";
+import { LoggedInBeersList } from "./LoggedInBeersList/LoggedInBeersList";
 import SearchInputHome from "./SearchInputHome";
-import {WelcomeTextContent} from "./WelcomeText";
-import {BeerResponseType} from "@/../typedef/server/beer";
+import { WelcomeTextContent } from "./WelcomeText";
+import { BeerResponseType } from "@/../typedef/server/beer";
+import Cookies from "js-cookie";
+import { useQueries } from "react-query";
+import { fetchSingleBeerInfoApi } from "@/api/beers/api";
+import { LANGUAGE_TYPE } from "../../../interface/types";
 
 interface HomeTemplateProps {
   username?: string;
 }
-const HomeTemplate: React.FC<HomeTemplateProps> = ({username}) => {
+const HomeTemplate: React.FC<HomeTemplateProps> = ({ username }) => {
+  const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
+
   const topBeersQuery = useTopBeersQuery({
     onError: (error) => {
       console.error("error", error);
     },
+  });
+  const { data: recommendBeers } = useRecommendedBeersQuery(accessToken);
+
+  // Ensure recommendBeers.id exists and fallback to empty array if not
+  const recommendedBeersId =
+    recommendBeers?.id && recommendBeers.id.length > 0
+      ? recommendBeers.id
+      : [1, 2];
+
+  // Fetch data for each beer ID
+  const recommendedBeersData = useQueries(
+    recommendedBeersId.map((beerId) => ({
+      queryKey: singleBeerFetchKey(beerId),
+      queryFn: () =>
+        fetchSingleBeerInfoApi({
+          id: beerId,
+          language: LANGUAGE_TYPE.KR,
+        }),
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      enabled: !!beerId,
+    }))
+  ).map((query, index) => {
+    return { id: recommendedBeersId[index], ...query.data };
   });
 
   useEffect(() => {
@@ -40,9 +74,10 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({username}) => {
             <LoggedInBeersList
               userName={username}
               topBeersList={topBeersQuery.data}
+              recommendedBeerList={recommendedBeersData}
             />
           ) : (
-            <CommonBeersList topBeersList={topBeersQuery.data} />
+            <CommonBeersList beersList={topBeersQuery.data} />
           )}
         </Box>
       </Container>

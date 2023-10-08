@@ -1,6 +1,19 @@
-import {BeerFilterRequestType, FailureResponse} from "types/api";
-import {fetchBeersApi, fetchTopBeersApi} from "api/beers/api";
-import {UseQueryOptions, useQuery} from "react-query";
+import { BeerFilterRequestType, FailureResponse } from "types/api";
+import {
+  fetchBeersApi,
+  fetchRecommendedBeers,
+  fetchSingleBeerInfoApi,
+  fetchTopBeersApi,
+} from "api/beers/api";
+import { UseQueryOptions, useQuery } from "react-query";
+import { recommendedBeersState } from "@/store/atom";
+import { LANGUAGE_TYPE } from "../../interface/types";
+import { LanguageType } from "../../types/common";
+import {
+  BeerResponseType,
+  RecommendedBeersResponse,
+  SingelBeerFetchResponseType,
+} from "../../typedef/server/beer";
 
 export const topBeersQueryKey = () => ["topBeers"];
 
@@ -29,6 +42,46 @@ export const useBeersQuery = (
     enabled: false,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
+    ...options,
+  });
+};
+
+export const recommendedBeersKey = () => ["recommendedBeers"];
+
+export const useRecommendedBeersQuery = (
+  accessToken: string,
+  options?: UseQueryOptions<RecommendedBeersResponse, FailureResponse>
+) => {
+  return useQuery({
+    queryKey: recommendedBeersKey(),
+    queryFn: () => fetchRecommendedBeers(accessToken),
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    enabled: !!accessToken,
+    ...options,
+  });
+};
+
+export const singleBeerFetchKey = (beerId: number) => [
+  "singleBeerFetchKey",
+  beerId,
+];
+
+export const useSingleBeerFetchQuery = (
+  beerId: number,
+  language?: LANGUAGE_TYPE,
+  options?: UseQueryOptions<SingelBeerFetchResponseType, FailureResponse>
+) => {
+  return useQuery({
+    queryKey: singleBeerFetchKey(beerId),
+    queryFn: () =>
+      fetchSingleBeerInfoApi({
+        id: beerId,
+        language: language || LANGUAGE_TYPE.KR,
+      }),
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    enabled: !!beerId,
     ...options,
   });
 };

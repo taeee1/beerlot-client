@@ -1,11 +1,8 @@
 import { BeerFilterRequestType } from "@/types/api";
 import axios from "axios";
-import {
-  CategoryType,
-  LANGUAGE_TYPE,
-  ReviewSortEnum,
-} from "../../../interface/types";
+import { CategoryType, LANGUAGE_TYPE } from "../../../interface/types";
 import { BeerSortType } from "../../../types/common";
+import { SingelBeerFetchResponseType } from "../../../typedef/server/beer";
 
 export const getNewAccessTokenWithRefreshToken = async () => {
   try {
@@ -55,11 +52,23 @@ export const getSingleBeerInfoApi = async (id: number) => {
     const { data }: { data: SingleBeerResultType } = await axios.get(
       `/api/v1/beers/${id}?language=${language}`
     );
-    console.log(data, "getSingleBeerInfoApi");
     return data;
   } catch (error) {
     console.error(error);
   }
+};
+
+export const fetchSingleBeerInfoApi = async ({
+  id,
+  language = LANGUAGE_TYPE.KR,
+}: {
+  id: number;
+  language?: LANGUAGE_TYPE;
+}) => {
+  const res = await axios.get<SingelBeerFetchResponseType>(
+    `/api/v1/beers/${id}?language=${language}`
+  );
+  return res.data;
 };
 
 export interface SingleBeerResultType extends ServerSingleBeerResultType {
@@ -101,5 +110,13 @@ export const dislikeBeerApi = async (beerId: number, accessToken: string) => {
     headers: { Authorization: `Bearer ${accessToken}` },
   };
   const res = await axios.delete(`/api/v1/beers/${beerId}/likes`, config);
+  return res.data;
+};
+
+export const fetchRecommendedBeers = async (accessToken: string) => {
+  const config = {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  };
+  const res = await axios.get(`/api/v1/beers/recommend`, config);
   return res.data;
 };

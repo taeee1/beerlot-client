@@ -1,7 +1,10 @@
-import {BeerResponseType} from "@/../typedef/server/beer";
-import React, {useCallback, useEffect, useMemo} from "react";
-import {CommonBeerImage} from "@/components/shared/CommonBeerImage/CommonBeerImage";
-import {Box, HStack, Text} from "@chakra-ui/react";
+import {
+  BeerResponseType,
+  SingelBeerFetchResponseType,
+} from "@/../typedef/server/beer";
+import React, { useCallback, useEffect, useMemo } from "react";
+import { CommonBeerImage } from "@/components/shared/CommonBeerImage/CommonBeerImage";
+import { Box, HStack, Text } from "@chakra-ui/react";
 import {
   BeerCard,
   BeerCardBody,
@@ -11,17 +14,17 @@ import {
   BeerCountryText,
   BeerNameText,
 } from "@components/shared/Card/BeerCardItem";
-import {LikeButton} from "@/components/shared/LikeButton";
-import {useRouter} from "next/router";
+import { LikeButton } from "@/components/shared/LikeButton";
+import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import {
   useBeerDislikeMutation,
   useBeerLikeMutation,
 } from "@/../hooks/query/useBeerLikeMutation";
-import {generateBeerDetailUrl} from "@/../utils/url";
+import { generateBeerDetailUrl } from "@/../utils/url";
 
 interface RecommendedBeersListProps {
-  beersList: BeerResponseType[];
+  beersList: (SingelBeerFetchResponseType | undefined)[];
   likedBeersList: BeerResponseType[] | undefined;
   username: string;
   onValidateLikedBeersList: () => void;
@@ -36,7 +39,7 @@ const RecommendedBeersList: React.FC<RecommendedBeersListProps> = ({
   const router = useRouter();
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const likedBeerIds = useMemo(
-    () => likedBeersList?.map((item) => item.id),
+    () => likedBeersList?.map((item) => item?.id),
     [likedBeersList]
   );
 
@@ -60,9 +63,9 @@ const RecommendedBeersList: React.FC<RecommendedBeersListProps> = ({
       const isLiked = likedBeerIds?.includes(id);
 
       if (!isLiked) {
-        likeBeerMutation.mutate({beerId: id, accessToken});
+        likeBeerMutation.mutate({ beerId: id, accessToken });
       } else {
-        dislikeBeerMutation.mutate({beerId: id, accessToken});
+        dislikeBeerMutation.mutate({ beerId: id, accessToken });
       }
     },
     [accessToken, dislikeBeerMutation, likeBeerMutation, likedBeerIds]
@@ -81,6 +84,7 @@ const RecommendedBeersList: React.FC<RecommendedBeersListProps> = ({
     },
     [router]
   );
+  if (beersList.includes(undefined)) return null;
 
   return (
     <>
@@ -93,47 +97,50 @@ const RecommendedBeersList: React.FC<RecommendedBeersListProps> = ({
       </Text>
       <HStack overflowX={"auto"} w="full" gap={"12px"}>
         {beersList &&
-          beersList.map((item) => (
-            <BeerCard
-              key={item.id}
-              mt={1}
-              borderColor={"orange.200"}
-              onClick={() => handleClickCard(item?.id, item.name)}
-            >
-              <BeerCardBody position="relative">
-                <Box position="relative">
-                  {item.image_url && (
-                    <CommonBeerImage
-                      src={item.image_url}
-                      alt={item.name}
-                      width="124px"
-                      height="128px"
-                      objectFit="cover"
+          beersList.map((item) => {
+            console.log("item");
+            return (
+              <BeerCard
+                key={item?.id}
+                mt={1}
+                borderColor={"orange.200"}
+                onClick={() => handleClickCard(item?.id, item?.name)}
+              >
+                <BeerCardBody position="relative">
+                  <Box position="relative">
+                    {item?.image_url && (
+                      <CommonBeerImage
+                        src={item?.image_url}
+                        alt={item?.name}
+                        width="124px"
+                        height="128px"
+                        objectFit="cover"
+                      />
+                    )}
+                  </Box>
+                  <Box position="absolute" top={0} right={0}>
+                    <LikeButton
+                      isLiked={checkIsLiked(item?.id)}
+                      onClick={(e) => handleClickLike(e, item?.id)}
+                      h={7}
+                      aria-label="like button"
                     />
-                  )}
-                </Box>
-                <Box position="absolute" top={0} right={0}>
-                  <LikeButton
-                    isLiked={checkIsLiked(item?.id)}
-                    onClick={(e) => handleClickLike(e, item?.id)}
-                    h={7}
-                    aria-label="like button"
-                  />
-                </Box>
-              </BeerCardBody>
-              <BeerCardFooter>
-                <BeerNameText>{item.name}</BeerNameText>
-                <HStack>
-                  <BeerCountryText country={item.origin_country} />
-                  <BeerCategoryTag bg="orange.200">
-                    <BeerCategoryTagLabel>
-                      {item.category?.name}
-                    </BeerCategoryTagLabel>
-                  </BeerCategoryTag>
-                </HStack>
-              </BeerCardFooter>
-            </BeerCard>
-          ))}
+                  </Box>
+                </BeerCardBody>
+                <BeerCardFooter>
+                  <BeerNameText>{item?.name}</BeerNameText>
+                  <HStack>
+                    <BeerCountryText country={item?.origin_country} />
+                    <BeerCategoryTag bg="orange.200">
+                      <BeerCategoryTagLabel>
+                        {item?.category?.name}
+                      </BeerCategoryTagLabel>
+                    </BeerCategoryTag>
+                  </HStack>
+                </BeerCardFooter>
+              </BeerCard>
+            );
+          })}
       </HStack>
     </>
   );

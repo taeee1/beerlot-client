@@ -1,7 +1,7 @@
-import {generateBeerDetailUrl} from "@/../utils/url";
-import {CommonBeerImage} from "@/components/shared/CommonBeerImage/CommonBeerImage";
-import {LikeButton} from "@/components/shared/LikeButton";
-import {Box, HStack, SimpleGrid, Text} from "@chakra-ui/react";
+import { generateBeerDetailUrl } from "@/../utils/url";
+import { CommonBeerImage } from "@/components/shared/CommonBeerImage/CommonBeerImage";
+import { LikeButton } from "@/components/shared/LikeButton";
+import { Box, HStack, SimpleGrid, Text } from "@chakra-ui/react";
 import {
   BeerCard,
   BeerCardBody,
@@ -11,15 +11,15 @@ import {
   BeerCountryText,
   BeerNameText,
 } from "@components/shared/Card/BeerCardItem";
-import {useRouter} from "next/router";
-import React, {useCallback, useState} from "react";
-import {BeerResponseType} from "../../../../typedef/server/beer";
-import {useBeerLikeMutation} from "@/../hooks/query/useBeerLikeMutation";
+import { useRouter } from "next/router";
+import React, { useCallback, useState } from "react";
+import { BeerResponseType } from "../../../../typedef/server/beer";
+import { useBeerLikeMutation } from "@/../hooks/query/useBeerLikeMutation";
 import Cookies from "js-cookie";
 interface CommonBeersListProps {
-  topBeersList?: BeerResponseType[];
+  beersList?: BeerResponseType[];
 }
-const CommonBeersList: React.FC<CommonBeersListProps> = ({topBeersList}) => {
+const CommonBeersList: React.FC<CommonBeersListProps> = ({ beersList }) => {
   const router = useRouter();
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
 
@@ -27,12 +27,12 @@ const CommonBeersList: React.FC<CommonBeersListProps> = ({topBeersList}) => {
   const likeBeer = useCallback(
     async (beerId: number) => {
       await likeBeerMutation.mutate(
-        {accessToken, beerId},
+        { accessToken, beerId },
         {
           onSuccess: () => {
             setIsLikeBeer(true);
           },
-          onError: ({response}) => {
+          onError: ({ response }) => {
             if (response.status === 403) {
               router.push("/login");
             }
@@ -78,8 +78,8 @@ const CommonBeersList: React.FC<CommonBeersListProps> = ({topBeersList}) => {
       </Text>
 
       <SimpleGrid columns={2} spacing={"16px"}>
-        {topBeersList &&
-          topBeersList.map((item) => {
+        {beersList &&
+          beersList.map((item) => {
             return (
               <BeerCard
                 key={item.id}
@@ -127,4 +127,4 @@ const CommonBeersList: React.FC<CommonBeersListProps> = ({topBeersList}) => {
   );
 };
 
-export {CommonBeersList};
+export { CommonBeersList };
