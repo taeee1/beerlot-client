@@ -55,9 +55,18 @@ const SearchResultPage = () => {
     (filter) => filter.title === CategoryTitle.BEER_TYPE
   )?.tags;
 
+  const _selectedCountries = selectedFilters.find(
+    (filter) => filter.title === CategoryTitle.BEER_COUNTRY
+  )?.tags;
+
   const selectedBeerTypes = _selectedBeerTypes
     ? (_selectedBeerTypes as number[])
     : [];
+
+  const selectedCountries = _selectedCountries
+    ? (_selectedCountries as string[])
+    : [];
+
   const [beerVolume, setBeerVolume] = useState<number[]>(
     MIN_MAX_BEER_VOLUME_SLIDER
   );
@@ -68,6 +77,7 @@ const SearchResultPage = () => {
     keyword: typeof query === "string" ? query : "",
     sort: selectedSort,
     categories: selectedBeerTypes,
+    countries: selectedCountries,
     volume_min: beerVolume[0],
     volume_max: beerVolume[1],
   });

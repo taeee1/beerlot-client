@@ -1,15 +1,19 @@
-import { Category, fetchCategoriesApi } from "@/api/filter/api";
+import {
+  Category,
+  fetchCategoriesApi,
+  fetchCountriesApi,
+} from "@/api/filter/api";
 import { FailureResponse } from "@/types/api";
 import { UseQueryOptions, useQuery } from "react-query";
 import { LANGUAGE_TYPE } from "../../interface/types";
 
-export const useFetchBeerSearchCategoriesQuery = (
+export const useFetchCountriesQuery = (
   queryParam?: LANGUAGE_TYPE,
-  options?: UseQueryOptions<Category[], FailureResponse>
+  options?: UseQueryOptions<string[], FailureResponse>
 ) => {
   return useQuery({
-    queryKey: ["beerFilter"],
-    queryFn: () => fetchCategoriesApi(queryParam),
+    queryKey: ["countries"],
+    queryFn: () => fetchCountriesApi(queryParam),
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     ...options,

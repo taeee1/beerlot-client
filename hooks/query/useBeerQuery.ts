@@ -1,4 +1,3 @@
-import { BeerFilterRequestType, FailureResponse } from "types/api";
 import {
   fetchBeersApi,
   fetchRecommendedBeers,
@@ -6,11 +5,9 @@ import {
   fetchTopBeersApi,
 } from "api/beers/api";
 import { UseQueryOptions, useQuery } from "react-query";
-import { recommendedBeersState } from "@/store/atom";
+import { BeerFilterRequestType, FailureResponse } from "types/api";
 import { LANGUAGE_TYPE } from "../../interface/types";
-import { LanguageType } from "../../types/common";
 import {
-  BeerResponseType,
   RecommendedBeersResponse,
   SingelBeerFetchResponseType,
 } from "../../typedef/server/beer";

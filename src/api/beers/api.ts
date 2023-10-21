@@ -27,7 +27,11 @@ export const fetchBeersApi = async (params: BeerFilterRequestType) => {
           ? String(params.categories.join(","))
           : undefined
         : undefined,
-      countries: params.countries || undefined,
+      countries: Array.isArray(params.countries)
+        ? params.countries.length > 0
+          ? String(params.countries.join(","))
+          : undefined
+        : undefined,
       volume_min:
         params.volume_min !== undefined ? params.volume_min : undefined,
       volume_max: params.volume_max || undefined,

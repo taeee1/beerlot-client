@@ -1,14 +1,12 @@
 import { isBeerVolumeWithinRange } from "@/components/home/LoggedInBeersList/beer.service";
 import { Box } from "@chakra-ui/react";
 import React from "react";
-import { useFetcBeerSearchCategoriesQuery } from "../../../../../hooks/query/useFilterQuery";
-import { MOCK_CATEGORY_FILTER_LIST } from "../../../../../interface/static";
+import { useFetchBeerSearchCategoriesQuery } from "../../../../../hooks/query/useFilterQuery";
 import {
   BeerSortEnum,
   CategoryFilterListType,
   CategoryTitle,
 } from "../../../../../interface/types";
-import { checkSelectedFilter } from "../../../../../service/filter";
 import { SearchFilterTag } from "../SearchFilterTag/SearchFilterTag";
 import {
   SearchFilterRangeRow,
@@ -16,6 +14,7 @@ import {
   SearchFilterRowOptionsWrapper,
   SearchFilterRowWrapper,
 } from "./SearchFilterListCell";
+import { useFetchCountriesQuery } from "../../../../../hooks/query/useCountriesQuery";
 
 interface SearchFilterListExpandedProps {
   isFilterListOpen: boolean;
@@ -34,7 +33,8 @@ export const SearchFilterListExpanded: React.FC<
   beerVolume,
   onChangeBeerVolume,
 }) => {
-  const { data: beerTypes } = useFetcBeerSearchCategoriesQuery();
+  const { data: beerTypes } = useFetchBeerSearchCategoriesQuery();
+  const { data: countreis } = useFetchCountriesQuery();
 
   const sortTags = {
     좋아요순: BeerSortEnum.MostLikes,
@@ -46,6 +46,10 @@ export const SearchFilterListExpanded: React.FC<
   );
   const selectedBeerType = selectedFilters.find(
     (filter) => filter.title === CategoryTitle.BEER_TYPE
+  );
+
+  const selectedCountries = selectedFilters.find(
+    (filter) => filter.title === CategoryTitle.BEER_COUNTRY
   );
 
   return (
@@ -99,39 +103,31 @@ export const SearchFilterListExpanded: React.FC<
           })}
         </SearchFilterRowOptionsWrapper>
       </SearchFilterRowWrapper>
-      {MOCK_CATEGORY_FILTER_LIST.map((filterObj) => {
-        const { title, tags } = filterObj;
-        return (
-          <SearchFilterRowWrapper key={title}>
-            <SearchFilterTag
-              title={title}
-              selectedFilters={selectedFilters}
-              isFilterListOpen={isFilterListOpen}
-            />
-            <SearchFilterRowOptionsWrapper>
-              {tags.map((tag: string) => {
-                const isSelected = checkSelectedFilter(
-                  selectedFilters,
-                  title,
-                  tag
-                );
-                return (
-                  <SearchFilterRowOption
-                    key={tag}
-                    textColor={isSelected ? "black.100" : "gray.200"}
-                    textStyle={isSelected ? "h4_bold" : "h4"}
-                    onClick={() => {
-                      onClickTag(title, tag);
-                    }}
-                  >
-                    {tag}
-                  </SearchFilterRowOption>
-                );
-              })}
-            </SearchFilterRowOptionsWrapper>
-          </SearchFilterRowWrapper>
-        );
-      })}
+      <SearchFilterRowWrapper>
+        <SearchFilterRowOptionsWrapper>
+          <SearchFilterTag
+            title={CategoryTitle.BEER_COUNTRY}
+            selectedFilters={selectedFilters}
+            isFilterListOpen={isFilterListOpen}
+          />
+          {countreis?.map((name) => {
+            const isSelected = selectedCountries?.tags.includes(name);
+            return (
+              <SearchFilterRowOption
+                key={name}
+                textColor={isSelected ? "black.100" : "gray.200"}
+                textStyle={isSelected ? "h4_bold" : "h4"}
+                onClick={() => {
+                  onClickTag(CategoryTitle.BEER_COUNTRY, name);
+                }}
+              >
+                {name}
+              </SearchFilterRowOption>
+            );
+          })}
+        </SearchFilterRowOptionsWrapper>
+      </SearchFilterRowWrapper>
+
       <SearchFilterRowWrapper>
         <SearchFilterTag
           title={"도수"}
