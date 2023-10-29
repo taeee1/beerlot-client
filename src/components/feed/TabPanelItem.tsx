@@ -56,7 +56,7 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
 
   const reviewLikeMutation = useReviewLikeMutation(reviewId, accessToken, {
     onSuccess: () => {
-      queryClient.invalidateQueries("allReviews");
+      queryClient.invalidateQueries("useReviewLikeMutation");
     },
   });
 
@@ -65,7 +65,7 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
     accessToken,
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("allReviews");
+        queryClient.invalidateQueries("useReviewLikeMutation");
       },
     }
   );

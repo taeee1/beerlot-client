@@ -85,7 +85,7 @@ export const useUserLikedReviewsQuery = (
   options?: UseQueryOptions<number[], FailureResponse>
 ) => {
   return useQuery({
-    queryKey: ["userLikedReviews", accessToken],
+    queryKey: ["userLikedReviews"],
     queryFn: () => fetchUserLikedReviews(accessToken),
     enabled: !!accessToken,
     refetchOnMount: false,
