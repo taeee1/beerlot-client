@@ -16,7 +16,30 @@ export interface BeerReviewsQueryParams {
   size?: number;
   sort?: ReviewSortEnum;
 }
-export type SingelBeerFetchResponseType = BeerResponseType;
+
+type BeerDetail = {
+  id: number;
+  name: string;
+  origin_country: string;
+  image_url: string;
+  category: {
+    id: number;
+    name: string;
+  };
+  created_at?: null;
+  description?: string;
+  brewery?: string;
+  origin_city?: string;
+  volume?: number;
+  calorie?: number;
+  calorie_unit?: number;
+  buy_from?: string[];
+  like_count?: number;
+  review_count?: number;
+  rate?: number;
+};
+
+export type SingelBeerFetchResponseType = BeerDetail;
 
 export type RecommendedBeersResponse = {
   id: number[];
