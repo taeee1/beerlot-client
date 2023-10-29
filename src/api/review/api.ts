@@ -109,16 +109,19 @@ export const fetchBeerReviewsApi = async (
   return res.data;
 };
 
-// 맥주 1개에 대한 리뷰 리스트 edit
 export const updateReviewApi = async (
   reviewId: number,
   accessToken: string,
-  content: UpdatedReviewInfo
+  newContent: UpdatedReviewInfo
 ) => {
   const config = {
     headers: { Authorization: `Bearer ${accessToken}` },
   };
-  const res = await axios.patch(`/api/v1/reviews/${reviewId}`, content, config);
+  const res = await axios.patch(
+    `/api/v1/reviews/${reviewId}`,
+    newContent,
+    config
+  );
   return res.data;
 };
 
@@ -136,7 +139,6 @@ export const likeReviewApi = async (reviewId: number, accessToken: string) => {
   return res.data;
 };
 
-// dislike review
 export const dislikeReviewApi = async (
   reviewId: number,
   accessToken: string
@@ -144,9 +146,7 @@ export const dislikeReviewApi = async (
   const config = {
     headers: { Authorization: `Bearer ${accessToken}` },
   };
-
   const res = await axios.delete(`/api/v1/reviews/${reviewId}/likes`, config);
-
   return res.data;
 };
 

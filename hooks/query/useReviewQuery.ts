@@ -15,7 +15,7 @@ import {
   UseQueryOptions,
   useQuery,
 } from "react-query";
-import { FailureResponse } from "types/api";
+import { DefaultResponse, FailureResponse } from "types/api";
 import {
   BeerSortEnum,
   ReviewInfoType,
@@ -87,7 +87,7 @@ export const useReviewLikeMutation = (
 export const useReviewDislikeMutation = (
   reviewId: number,
   accessToken: string,
-  options?: UseMutationOptions<any, FailureResponse>
+  options?: UseMutationOptions<DefaultResponse, FailureResponse>
 ) => {
   return useMutation({
     mutationFn: () => dislikeReviewApi(reviewId, accessToken),
@@ -112,12 +112,12 @@ export const useReviewQuery = (
 export const useReviewUpdateMutation = (
   reviewId: number,
   accessToken: string,
-  content: UpdatedReviewInfo,
+  newContent: UpdatedReviewInfo,
   options?: UseMutationOptions<any, FailureResponse>
 ) => {
   return useMutation({
     mutationKey: updateReviewMutationKey(),
-    mutationFn: () => updateReviewApi(reviewId, accessToken, content),
+    mutationFn: () => updateReviewApi(reviewId, accessToken, newContent),
     ...options,
   });
 };
