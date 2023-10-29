@@ -46,18 +46,6 @@ export const fetchTopBeersApi = async () => {
   return res.data;
 };
 
-export const getSingleBeerInfoApi = async (id: number) => {
-  const language: LANGUAGE_TYPE = LANGUAGE_TYPE.KR;
-  try {
-    const { data }: { data: SingleBeerResultType } = await axios.get(
-      `/api/v1/beers/${id}?language=${language}`
-    );
-    return data;
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 export const fetchSingleBeerInfoApi = async ({
   id,
   language = LANGUAGE_TYPE.KR,

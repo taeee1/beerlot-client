@@ -1,13 +1,8 @@
 import { Box, Container, VStack } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import {
-  getSingleBeerInfoApi,
-  SingleBeerResultType,
-} from "../../api/beers/api";
+import { useSingleBeerFetchQuery } from "../../../hooks/query/useBeerQuery";
 import { DetailInfo } from "./DetailInfo";
 import { DetailTabList } from "./DetailTabList";
-import { useSingleBeerFetchQuery } from "../../../hooks/query/useBeerQuery";
 
 export const DetailTemplate = () => {
   const router = useRouter();
