@@ -22,11 +22,7 @@ interface HomeTemplateProps {
 const HomeTemplate: React.FC<HomeTemplateProps> = ({ username }) => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
 
-  const topBeersQuery = useTopBeersQuery({
-    onError: (error) => {
-      console.error("error", error);
-    },
-  });
+  const topBeersQuery = useTopBeersQuery({});
   const { data: recommendBeers } = useRecommendedBeersQuery(accessToken);
 
   // Ensure recommendBeers.id exists and fallback to empty array if not

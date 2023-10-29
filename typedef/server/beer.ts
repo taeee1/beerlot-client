@@ -1,5 +1,6 @@
 import { ReviewSortEnum } from "@/../interface/types";
 
+// should be incompatible with BeerDetail
 export interface BeerResponseType {
   id?: number;
   name?: string;
@@ -17,14 +18,15 @@ export interface BeerReviewsQueryParams {
   sort?: ReviewSortEnum;
 }
 
+// should be incompatible with BeerResponseType
 type BeerDetail = {
   id: number;
-  name: string;
-  origin_country: string;
-  image_url: string;
-  category: {
-    id: number;
-    name: string;
+  name?: string;
+  origin_country?: string;
+  image_url?: string;
+  category?: {
+    id?: number;
+    name?: string;
   };
   created_at?: null;
   description?: string;
@@ -81,3 +83,5 @@ type Response = {
   nextPage?: null;
   totalPages: number;
 };
+
+export type TopBeersType = BeerResponseType[];
