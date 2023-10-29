@@ -78,7 +78,7 @@ export const getUserLikedBeersApi = async (
   return res.data;
 };
 
-export const getUserLikedReviewsApi = async (accessToken: string) => {
+export const fetchUserLikedReviews = async (accessToken: string) => {
   const res = await axios.get("/api/v1/members/reviews/likes", {
     headers: {
       Authorization: `Bearer ${accessToken}`,

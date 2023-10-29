@@ -1,8 +1,4 @@
-import {
-  Category,
-  fetchCategoriesApi,
-  fetchCountriesApi,
-} from "@/api/filter/api";
+import { fetchCountriesApi } from "@/api/filter/api";
 import { FailureResponse } from "@/types/api";
 import { UseQueryOptions, useQuery } from "react-query";
 import { LANGUAGE_TYPE } from "../../interface/types";

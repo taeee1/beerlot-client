@@ -98,7 +98,6 @@ const RecommendedBeersList: React.FC<RecommendedBeersListProps> = ({
       <HStack overflowX={"auto"} w="full" gap={"12px"}>
         {beersList &&
           beersList.map((item) => {
-            console.log("item");
             return (
               <BeerCard
                 key={item?.id}

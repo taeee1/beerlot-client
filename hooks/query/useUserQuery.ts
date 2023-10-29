@@ -1,7 +1,7 @@
 import { MemberReviewsRequest } from "@/../types/member/request";
 import {
   getUserLikedBeersApi,
-  getUserLikedReviewsApi,
+  fetchUserLikedReviews,
   getUserReviewsApi,
   getUsersInfoApi,
   updateUserInfoApi,
@@ -86,7 +86,7 @@ export const useUserLikedReviewsQuery = (
 ) => {
   return useQuery({
     queryKey: ["userLikedReviews", accessToken],
-    queryFn: () => getUserLikedReviewsApi(accessToken),
+    queryFn: () => fetchUserLikedReviews(accessToken),
     enabled: !!accessToken,
     refetchOnMount: false,
     refetchOnWindowFocus: false,

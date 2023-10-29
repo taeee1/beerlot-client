@@ -1,12 +1,12 @@
-import {FailureResponse} from "@/types/api";
-import {dislikeBeerApi, likeBeerApi} from "api/beers/api";
-import {UseMutationOptions, useMutation} from "react-query";
+import { FailureResponse } from "@/types/api";
+import { dislikeBeerApi, likeBeerApi } from "api/beers/api";
+import { UseMutationOptions, useMutation } from "react-query";
 
 export const useBeerLikeMutation = (
   options?: UseMutationOptions<
     any,
     FailureResponse,
-    {beerId: number; accessToken: string}
+    { beerId: number; accessToken: string }
   >
 ) => {
   const mutationFn = async ({
@@ -22,7 +22,7 @@ export const useBeerLikeMutation = (
   return useMutation<
     any,
     FailureResponse,
-    {beerId: number; accessToken: string}
+    { beerId: number; accessToken: string }
   >(mutationFn, options);
 };
 
@@ -30,7 +30,7 @@ export const useBeerDislikeMutation = (
   options?: UseMutationOptions<
     any,
     FailureResponse,
-    {beerId: number; accessToken: string}
+    { beerId: number; accessToken: string }
   >
 ) => {
   const mutationFn = async ({
@@ -46,6 +46,6 @@ export const useBeerDislikeMutation = (
   return useMutation<
     any,
     FailureResponse,
-    {beerId: number; accessToken: string}
+    { beerId: number; accessToken: string }
   >(mutationFn, options);
 };

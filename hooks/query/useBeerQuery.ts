@@ -8,14 +8,16 @@ import { UseQueryOptions, useQuery } from "react-query";
 import { BeerFilterRequestType, FailureResponse } from "types/api";
 import { LANGUAGE_TYPE } from "../../interface/types";
 import {
+  BeersResponseType,
   RecommendedBeersResponse,
   SingelBeerFetchResponseType,
+  TopBeersType,
 } from "../../typedef/server/beer";
 
 export const topBeersQueryKey = () => ["topBeers"];
 
 export const useTopBeersQuery = (
-  options?: UseQueryOptions<any, FailureResponse> //TODO: fix any type
+  options?: UseQueryOptions<TopBeersType, FailureResponse>
 ) => {
   return useQuery({
     queryKey: topBeersQueryKey(),
@@ -31,7 +33,7 @@ export const beersQueryKey = () => ["beers"];
 
 export const useBeersQuery = (
   queryParam: BeerFilterRequestType,
-  options?: UseQueryOptions<any, FailureResponse> //TODO: fix any type
+  options?: UseQueryOptions<BeersResponseType, FailureResponse>
 ) => {
   return useQuery({
     queryKey: beersQueryKey(),

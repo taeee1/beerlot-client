@@ -139,7 +139,6 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
     updatedReviewInfo,
     {
       onSuccess: () => {
-        console.log("onSuccess");
         allReviewsQuery.refetch();
       },
     }

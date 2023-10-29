@@ -1,5 +1,5 @@
-import {atom} from "recoil";
-import {BeerResultType, SignUpType} from "../../interface/types";
+import { atom } from "recoil";
+import { BeerResultType, SignUpType } from "../../interface/types";
 
 export const likedBeerState = atom({
   key: "likedBeerState",

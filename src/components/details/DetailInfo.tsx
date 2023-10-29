@@ -1,9 +1,7 @@
 import { roundToDecimal } from "@/../utils/number";
 import { Box, Center, HStack, Text, VStack, useToast } from "@chakra-ui/react";
-import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useEffect, useMemo, useState } from "react";
-import { useMutation } from "react-query";
 import {
   useBeerDislikeMutation,
   useBeerLikeMutation,

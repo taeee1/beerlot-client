@@ -5,12 +5,8 @@ import { BeerSortType } from "../../../types/common";
 import { SingelBeerFetchResponseType } from "../../../typedef/server/beer";
 
 export const getNewAccessTokenWithRefreshToken = async () => {
-  try {
-    const result = await axios.get(`/api/v1/auth/refresh`);
-    console.log(result);
-  } catch (error) {
-    console.error(error);
-  }
+  const res = await axios.get("/api/v1/auth/refresh");
+  return res.data;
 };
 
 export const fetchBeersApi = async (params: BeerFilterRequestType) => {
@@ -48,18 +44,6 @@ export const fetchTopBeersApi = async () => {
     },
   });
   return res.data;
-};
-
-export const getSingleBeerInfoApi = async (id: number) => {
-  const language: LANGUAGE_TYPE = LANGUAGE_TYPE.KR;
-  try {
-    const { data }: { data: SingleBeerResultType } = await axios.get(
-      `/api/v1/beers/${id}?language=${language}`
-    );
-    return data;
-  } catch (error) {
-    console.error(error);
-  }
 };
 
 export const fetchSingleBeerInfoApi = async ({

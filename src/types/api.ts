@@ -18,3 +18,8 @@ export type BeerFilterRequestType = {
   volume_min?: number;
   volume_max?: number;
 };
+
+export type DefaultResponse = {
+  message: string;
+  status: number;
+};
