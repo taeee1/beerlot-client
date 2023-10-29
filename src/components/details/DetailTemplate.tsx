@@ -15,11 +15,11 @@ export const DetailTemplate = () => {
         <VStack w="full">
           {beerInfo && (
             <DetailInfo
-              beerName={beerInfo.name}
+              beerName={beerInfo?.name ?? ""}
               volume={beerInfo?.volume ?? 0}
-              category={beerInfo.category.name}
-              country={beerInfo.origin_country}
-              beerImg={beerInfo.image_url}
+              category={beerInfo?.category?.name ?? ""}
+              country={beerInfo?.origin_country ?? ""}
+              beerImg={beerInfo?.image_url ?? ""}
               beerId={beerInfo?.id}
               rate={beerInfo.rate ?? 0}
             />
@@ -27,7 +27,7 @@ export const DetailTemplate = () => {
           {beerInfo && (
             <DetailTabList
               id={beerInfo.id}
-              city={beerInfo.origin_country}
+              city={beerInfo?.origin_country ?? ""}
               brewary={beerInfo.brewery ?? ""}
               calories={beerInfo.calorie ?? 0}
               suitableGlass={"suitableGlass"}

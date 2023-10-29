@@ -94,6 +94,7 @@ export const useReviewDislikeMutation = (
     ...options,
   });
 };
+
 export const useReviewQuery = (
   reviewId: number | null,
   options?: UseQueryOptions<SingleReviewRes, FailureResponse>
