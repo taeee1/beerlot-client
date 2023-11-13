@@ -1,4 +1,4 @@
-import { MemberReviewsRequest } from "@/../types/member/request";
+import { Member, MemberReviewsRequest } from "@/../types/member/request";
 import {
   getUserLikedBeersApi,
   fetchUserLikedReviews,
@@ -27,7 +27,7 @@ export const userBeersQueryKey = () => ["userBeers"];
 
 export const useUserInfoQuery = (
   accessToken: string,
-  options?: UseQueryOptions<any, FailureResponse> //TODO: fix any type
+  options?: UseQueryOptions<Member, FailureResponse>
 ) => {
   return useQuery({
     queryKey: getUserInfoQueryKey(),
@@ -41,7 +41,7 @@ export const useUserInfoQuery = (
 
 export const useEditUserInfoMutation = (
   accessToken: string,
-  options?: MutationOptions<any, FailureResponse, UserUpdateRequestType>
+  options?: MutationOptions<Member, FailureResponse, UserUpdateRequestType>
 ) => {
   return useMutation({
     mutationFn: (updatedInfo: UserUpdateRequestType) =>

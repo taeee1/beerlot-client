@@ -1,6 +1,7 @@
 import {
   ButtonProps,
   Flex,
+  FlexProps,
   IconButton,
   IconButtonProps,
 } from "@chakra-ui/react";
@@ -10,7 +11,7 @@ import { EmptyStarIcon, FullStarIcon } from "./CustomIcons/customIcons";
 interface RatingProps {
   starSize?: number;
   buttonSize?: IconButtonProps["size"];
-  styleProps?: any;
+  styleProps?: FlexProps;
   onClick?: (rate: number) => void;
   _rate: number;
   shouldRound?: boolean;

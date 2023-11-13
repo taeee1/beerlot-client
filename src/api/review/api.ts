@@ -6,24 +6,9 @@ import { BeerReviewsQueryParams } from "@/../typedef/server/beer";
 import axios from "axios";
 import {
   LANGUAGE_TYPE,
-  ReviewPostparamType,
   ReviewSortEnum,
   UpdatedReviewInfo,
 } from "../../../interface/types";
-
-// 맥주 1개에 대한 리뷰 리스트 post
-export const postReviewWithBeerIdApi = async (
-  beerId: number,
-  content: ReviewPostparamType
-) => {
-  try {
-    const result = await axios.post(`/api/v1/beers/${beerId}/reviews`, content);
-    console.log(result, "postReviewWithBeerIdApi");
-    return result;
-  } catch (error) {
-    console.error(error);
-  }
-};
 
 export const createReviewApi = async (
   beerId: number,
@@ -56,19 +41,6 @@ export const deleteReviewApi = async (
   return response.data;
 };
 
-// 리뷰 1개 get
-export const getReviewWitReviewBeerIdApi = async (
-  beerId: number,
-  content: ReviewPostparamType
-) => {
-  try {
-    const result = await axios.get(`/api/v1/reviews/${beerId}`);
-    return result;
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 export const fetchAllReviewsApi = async (queryParam: AllReviewsQueryParams) => {
   const {
     page = 1,
@@ -87,7 +59,6 @@ export const fetchAllReviewsApi = async (queryParam: AllReviewsQueryParams) => {
   return res.data;
 };
 
-// 맥주 1개에 대한 리뷰 리스트 get
 export const fetchBeerReviewsApi = async (
   queryParams: BeerReviewsQueryParams
 ) => {

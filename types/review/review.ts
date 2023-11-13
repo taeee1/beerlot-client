@@ -1,3 +1,5 @@
+import { PageRequest } from "../../typedef/server/beer";
+
 export interface ReviewResult {
   id: number;
   content: string;
@@ -8,7 +10,14 @@ export interface ReviewResult {
   member: Member;
   beer: Beer;
 }
-
+export interface BeerReviewsResponse {
+  contents: ReviewResult[];
+  nextPage?: number;
+  page?: number;
+  totalPages?: number;
+  pageRequest?: PageRequest;
+  totalElements?: number;
+}
 export interface Member {
   id: number;
   username: string;

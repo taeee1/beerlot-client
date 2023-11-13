@@ -54,7 +54,7 @@ export const ReviewPanelList: React.FC<ReviewPanelListProps> = ({
   return (
     <Container px="8px" py="20px" bg="yellow.100">
       <VStack px={"12px"} gap="10px" alignItems={"start"}>
-        <ReviewCountDisplay reviewLength={reviews?.length} />
+        <ReviewCountDisplay reviewLength={reviews?.length ?? 0} />
         <UserReview />
         <Text textStyle={"h2_bold"} mt={10}>
           모든 리뷰
@@ -122,6 +122,7 @@ const EmptyReviewsList = () => {
 interface ReviewsListProps {
   reviews: ReviewResult[];
 }
+
 const ReviewsList: React.FC<ReviewsListProps> = ({ reviews }) => {
   return (
     <Flex flexDir={"column"} gap="10px">

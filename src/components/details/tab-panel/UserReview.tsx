@@ -1,7 +1,6 @@
-import {ReviewResult} from "@/../types/review/review";
-import {Button, Flex, Text, VStack} from "@chakra-ui/react";
-import {useRouter} from "next/router";
+import { Button, Flex, Text } from "@chakra-ui/react";
 import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
 export const UserReview = () => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request");

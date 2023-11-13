@@ -68,7 +68,7 @@ type Beer = {
   created_at?: null;
 };
 
-type PageRequest = {
+export type PageRequest = {
   page: number;
   size: number;
   sort: string;

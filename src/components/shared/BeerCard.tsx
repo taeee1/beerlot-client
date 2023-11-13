@@ -8,11 +8,8 @@ import {
   TextProps,
   VStack,
 } from "@chakra-ui/react";
-import axios from "axios";
-import React, {useState} from "react";
-import {useMutation} from "react-query";
-import {dislikeBeerApi, likeBeerApi} from "../../api/beers/api";
-import {LikeButton} from "./LikeButton";
+import React, { useState } from "react";
+import { LikeButton } from "./LikeButton";
 
 interface BeerCardProps {
   styleProps?: styleProps;

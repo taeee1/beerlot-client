@@ -75,16 +75,6 @@ export interface ServerSingleBeerResultType {
   volume: number;
 }
 
-export const getBeerCategoriesApi = async () => {
-  try {
-    const result: CategoryType[] = await axios.get(`/api/v1/categories`);
-    console.log(result, "getBeerCategoriesApi");
-    return result;
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 export const likeBeerApi = async (beerId: number, accessToken: string) => {
   const config = {
     headers: { Authorization: `Bearer ${accessToken}` },

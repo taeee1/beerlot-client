@@ -193,7 +193,7 @@ const SearchResultPage = () => {
 
           {SearchBeerQuery.data ? (
             <SimpleGrid columns={2} spacing={"16px"} mt={"8px"}>
-              {SearchBeerQuery.data?.contents?.map((beerItems: any) => {
+              {SearchBeerQuery.data?.contents?.map((beerItems) => {
                 const { id, name, origin_country, image_url, category } =
                   beerItems;
                 return (
