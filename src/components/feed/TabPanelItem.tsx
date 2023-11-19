@@ -11,6 +11,7 @@ import { EditNote, TrashBin } from "../../../public/svg";
 import { CommonBeerImage } from "../shared/CommonBeerImage/CommonBeerImage";
 import { Rating } from "../shared/Rating";
 import { ThumbsUpButton } from "../shared/ThumbsUpButton";
+import { useRouter } from "next/router";
 interface FollowingTabPanelItemProps {
   reviewId: number;
   nickname: string;
@@ -25,6 +26,7 @@ interface FollowingTabPanelItemProps {
   onDelete?: () => void;
   imageSrc?: string;
   maxPostLength?: number;
+  token?: string;
 }
 
 const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
@@ -41,6 +43,7 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
   thumbsUpNumber,
   isEditable = false,
   maxPostLength = MAX_TEXT_LENGTH_OF_REVIEW,
+  token,
 }) => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const queryClient = useQueryClient();
@@ -69,15 +72,19 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
       },
     }
   );
+  const router = useRouter();
 
-  const handleClickLike = useCallback(() => {
+  const handleClickLike = () => {
+    if (!token) {
+      router.push("/login");
+      return;
+    }
     if (isLiked) {
       reviewDislikeMutation.mutate();
     } else {
       reviewLikeMutation.mutate();
     }
-  }, [isLiked, reviewDislikeMutation, reviewLikeMutation]);
-
+  };
   return (
     <Box p={3} bg="white">
       <Box display="flex" justifyContent="space-between" gap={1}>

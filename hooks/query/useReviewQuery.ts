@@ -37,7 +37,6 @@ export const useAllReviewsQuery = (
   return useQuery({
     queryKey: allReviewsQueryKey(),
     queryFn: () => fetchAllReviewsApi(queryParam),
-    enabled: false,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     ...options,

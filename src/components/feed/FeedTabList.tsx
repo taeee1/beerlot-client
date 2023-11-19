@@ -6,8 +6,8 @@ import {
   TabPanels,
   Tabs,
 } from "@chakra-ui/react";
-import {AllTabPanelList} from "./AllTabPanelList";
-import {UpcomingFeed} from "./UpcomingFeed";
+import { AllTabPanelList } from "./AllTabPanelList";
+import { UpcomingFeed } from "./UpcomingFeed";
 
 export const FeedTabList = () => (
   <Tabs
@@ -27,8 +27,6 @@ export const FeedTabList = () => (
     <TabPanels bg="yellow.100" h="full">
       <TabPanel h="full">
         <UpcomingFeed />
-        {/* TODO: V2 팔로잉 추가 시  */}
-        {/* <FollowingTabPanelList /> */}
       </TabPanel>
       <TabPanel>
         <AllTabPanelList />

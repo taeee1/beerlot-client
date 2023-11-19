@@ -2,10 +2,7 @@ import {
   ContentType,
   useAllReviewsQuery,
 } from "@/../hooks/query/useReviewQuery";
-import {
-  useUserLikedReviewsQuery,
-  useUserReviewsQuery,
-} from "@/../hooks/query/useUserQuery";
+import { useUserLikedReviewsQuery } from "@/../hooks/query/useUserQuery";
 import { Flex } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
@@ -27,11 +24,6 @@ export const AllTabPanelList = () => {
   const handleSelectTag = async (tag: ReviewSortEnum) => {
     setSelectedTag(tag);
   };
-
-  useEffect(() => {
-    likedReviewsListQuery.refetch();
-  }, [allReviewsQuery?.data]);
-
   useEffect(() => {
     allReviewsQuery.refetch();
   }, [selectedTag]);
@@ -54,6 +46,7 @@ export const AllTabPanelList = () => {
             imageSrc={post.image_url}
             thumbsUpNumber={post.like_count}
             isEditable={false}
+            token={accessToken}
           />
         );
       })}
