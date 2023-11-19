@@ -7,15 +7,14 @@ import {
   VStack,
   Image as ChakraImage,
 } from "@chakra-ui/react";
-import {useRouter} from "next/router";
-import React, {useEffect} from "react";
-import {useRecoilState} from "recoil";
-import {POLICY_LABEL} from "../../../../interface/server/types/Auth";
-import {checkSelected} from "../../../../utils/array";
-import {chosenBeerIdsState} from "../../../store/atom";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { POLICY_LABEL } from "../../../../interface/server/types/Auth";
+import { checkSelected } from "../../../../utils/array";
+import { chosenBeerIdsState } from "../../../store/atom";
 import Cookies from "js-cookie";
 
-import {mockData} from "../../home/HomeTemplate";
 import {
   BeerCard,
   BeerCardBody,
@@ -27,38 +26,16 @@ import {
 } from "../../shared/Card/BeerCardItem";
 
 import FloatingButton from "../../shared/FloatingButton";
-import {CommonBeerImage} from "@/components/shared/CommonBeerImage/CommonBeerImage";
-import {useSignupQuery} from "@/../hooks/query/useAuthQuery";
+import { CommonBeerImage } from "@/components/shared/CommonBeerImage/CommonBeerImage";
+import { useSignupQuery } from "@/../hooks/query/useAuthQuery";
 
 interface BeerCardsProps extends StackProps {
   nickName: string;
 }
 
-const BeerCards: React.FC<BeerCardsProps> = ({nickName, ...props}) => {
+const BeerCards: React.FC<BeerCardsProps> = ({ nickName, ...props }) => {
   const [chosenBeerIds, setChosenBeerIds] = useRecoilState(chosenBeerIdsState);
   const isFullfilled = chosenBeerIds && chosenBeerIds.length > 0;
-  const top10Beers = [
-    mockData,
-    mockData,
-    mockData,
-    mockData,
-    mockData,
-    mockData,
-    mockData,
-    mockData,
-    mockData,
-    mockData,
-    mockData,
-    mockData,
-    mockData,
-    mockData,
-    mockData,
-    mockData,
-    mockData,
-    mockData,
-    mockData,
-    mockData,
-  ];
 
   // 여기서 전역에서 들고 있는 데이터를 꺼내다 써야 함.
   // 즉 이 전 단계에서 recoil에 데이터를 set해야함.
@@ -116,7 +93,7 @@ const BeerCards: React.FC<BeerCardsProps> = ({nickName, ...props}) => {
         </Text>
       </Box>
 
-      <Text textColor="black.100" textStyle={"h1"} style={{marginTop: 0}}>
+      <Text textColor="black.100" textStyle={"h1"} style={{ marginTop: 0 }}>
         5개 이상 골라주세요!
       </Text>
       <Text fontSize="12px" textColor="gray.300" textStyle={"h4"}>
@@ -124,7 +101,8 @@ const BeerCards: React.FC<BeerCardsProps> = ({nickName, ...props}) => {
       </Text>
 
       <SimpleGrid columns={3} spacingX="10px" spacingY="25px">
-        {top10Beers.map((item) => {
+        {/* TODO: Connect api */}
+        {/* {top10Beers.map((item) => {
           const isSelected = item.id ? chosenBeerIds.includes(item.id) : false;
           return (
             <BeerCard
@@ -155,7 +133,7 @@ const BeerCards: React.FC<BeerCardsProps> = ({nickName, ...props}) => {
                       width="175px"
                       height="175px"
                       objectFit="cover"
-                      style={{borderRadius: "6px"}}
+                      style={{ borderRadius: "6px" }}
                     />
                   )}
                 </Box>
@@ -178,7 +156,7 @@ const BeerCards: React.FC<BeerCardsProps> = ({nickName, ...props}) => {
               </BeerCardFooter>
             </BeerCard>
           );
-        })}
+        })} */}
       </SimpleGrid>
       <FloatingButton
         pos="sticky"

@@ -57,8 +57,6 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({ username }) => {
       <Container p={"0px"} bg="white" maxW="450px" h="full">
         <Box p="64px 24px 24px" pt="64px">
           <BlankHeader />
-          {/* TODO: v2 alarm feature */}
-          {/* <RightBellHeader /> */}
 
           <WelcomeTextContent username={username} />
 
@@ -73,7 +71,10 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({ username }) => {
               recommendedBeerList={recommendedBeersData}
             />
           ) : (
-            <CommonBeersList beersList={topBeersQuery.data} />
+            <CommonBeersList
+              beersList={topBeersQuery.data}
+              loading={topBeersQuery.isFetching || topBeersQuery.isLoading}
+            />
           )}
         </Box>
       </Container>
@@ -82,14 +83,3 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({ username }) => {
 };
 
 export default HomeTemplate;
-
-export const mockData: BeerResponseType = {
-  id: 1,
-  name: "Pale Ale",
-  origin_country: "USA",
-  image_url: "/images/preview-beer.png",
-  category: {
-    id: 1,
-    name: "아메리칸 에일",
-  },
-};
