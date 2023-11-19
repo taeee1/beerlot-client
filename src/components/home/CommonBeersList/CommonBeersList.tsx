@@ -1,7 +1,14 @@
 import { generateBeerDetailUrl } from "@/../utils/url";
 import { CommonBeerImage } from "@/components/shared/CommonBeerImage/CommonBeerImage";
 import { LikeButton } from "@/components/shared/LikeButton";
-import { Box, HStack, SimpleGrid, Skeleton, Text } from "@chakra-ui/react";
+import {
+  Box,
+  HStack,
+  SimpleGrid,
+  Skeleton,
+  SkeletonText,
+  Text,
+} from "@chakra-ui/react";
 import {
   BeerCard,
   BeerCardBody,
@@ -40,53 +47,36 @@ const CommonBeersList: React.FC<CommonBeersListProps> = ({
     [router]
   );
 
+  const _beersList = loading
+    ? Array(MOCK_BEERS_SKELETON_NUMBER).fill("")
+    : beersList;
+
   return (
     <>
       <Text textColor="black.100" textStyle={"h2_bold"}>
         🔥 인기맥주 TOP10 🔥
       </Text>
-      {loading ? (
-        <SimpleGrid columns={2} spacing={"16px"}>
-          {Array(MOCK_BEERS_SKELETON_NUMBER)
-            .fill("")
-            .map((_, index) => (
-              <BeerCard key={index} mt={1} w="full">
-                <Skeleton
-                  width="175px"
-                  height="175px"
-                  objectFit="cover"
-                  bg={"gray.100"}
-                />
-                <BeerCardFooter>
-                  <Skeleton bg={"gray.100"} w={"full"} h={"19px"} />
-                  <Skeleton bg={"gray.100"} w={"full"} h={"17px"} mt={"2px"} />
-                </BeerCardFooter>
-              </BeerCard>
-            ))}
-        </SimpleGrid>
-      ) : (
-        <SimpleGrid columns={2} spacing={"16px"}>
-          {beersList &&
-            beersList.map((item) => {
-              return (
-                <BeerCard
-                  key={item.id}
-                  mt={1}
-                  w="full"
-                  onClick={() => handleClickCard(item?.id, item.name)}
-                >
-                  <BeerCardBody w="full" h="full" position={"relative"}>
-                    <Box position="relative">
-                      {item.image_url && (
-                        <CommonBeerImage
-                          src={item.image_url}
-                          alt={item.name}
-                          width="175px"
-                          height="175px"
-                          objectFit="cover"
-                        />
-                      )}
-                    </Box>
+      <SimpleGrid columns={2} spacing={"16px"}>
+        {_beersList?.map((item) => {
+          return (
+            <BeerCard
+              key={item.id}
+              mt={1}
+              w="full"
+              onClick={() => handleClickCard(item?.id, item.name)}
+            >
+              <Skeleton isLoaded={!loading}>
+                <BeerCardBody w="full" h="full" position={"relative"}>
+                  <Box position="relative">
+                    <CommonBeerImage
+                      src={item.image_url}
+                      alt={item.name}
+                      width="175px"
+                      height="175px"
+                      objectFit="cover"
+                    />
+                  </Box>
+                  {!loading && (
                     <Box position="absolute" top={0} right={0}>
                       <LikeButton
                         isLiked={false}
@@ -95,23 +85,34 @@ const CommonBeersList: React.FC<CommonBeersListProps> = ({
                         aria-label="like button"
                       />
                     </Box>
-                  </BeerCardBody>
-                  <BeerCardFooter>
-                    <BeerNameText>{item.name}</BeerNameText>
-                    <HStack>
-                      <BeerCountryText country={item.origin_country} />
-                      <BeerCategoryTag>
-                        <BeerCategoryTagLabel>
-                          {item.category?.name}
-                        </BeerCategoryTagLabel>
-                      </BeerCategoryTag>
-                    </HStack>
-                  </BeerCardFooter>
-                </BeerCard>
-              );
-            })}
-        </SimpleGrid>
-      )}
+                  )}
+                </BeerCardBody>
+              </Skeleton>
+
+              <BeerCardFooter>
+                <SkeletonText
+                  noOfLines={1}
+                  skeletonHeight={"17px"}
+                  isLoaded={!loading}
+                >
+                  <BeerNameText>{item.name}</BeerNameText>
+                </SkeletonText>
+
+                <Skeleton mt={"2px"} isLoaded={!loading}>
+                  <HStack>
+                    <BeerCountryText country={item.origin_country} />
+                    <BeerCategoryTag>
+                      <BeerCategoryTagLabel>
+                        {item.category?.name}
+                      </BeerCategoryTagLabel>
+                    </BeerCategoryTag>
+                  </HStack>
+                </Skeleton>
+              </BeerCardFooter>
+            </BeerCard>
+          );
+        })}
+      </SimpleGrid>
     </>
   );
 };
