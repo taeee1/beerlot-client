@@ -36,8 +36,24 @@ export const fetchBeersApi = async (params: BeerFilterRequestType) => {
   return res.data;
 };
 
+const { GoogleAuth } = require("google-auth-library");
+
+async function getIdTokenFromMetadataServer() {
+  const googleAuth = new GoogleAuth();
+  const targetAudience =
+    "https://beerlot-client.vercel.app/api/v1/beers/top?language=KR";
+
+  const client = await googleAuth.getIdTokenClient(targetAudience);
+  console.log("client", client);
+  const res = await client.idTokenProvider.fetchIdToken(targetAudience);
+  console.log("Generated ID token.", res);
+  return res;
+}
+
 export const fetchTopBeersApi = async () => {
   const language: LANGUAGE_TYPE = LANGUAGE_TYPE.KR;
+  const test = await getIdTokenFromMetadataServer();
+  console.log("test", test);
   const res = await axios.get("/api/v1/beers/top", {
     params: {
       language: language,
