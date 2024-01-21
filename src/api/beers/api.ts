@@ -3,8 +3,6 @@ import axios from "axios";
 import { CategoryType, LANGUAGE_TYPE } from "../../../interface/types";
 import { BeerSortType } from "../../../types/common";
 import { SingelBeerFetchResponseType } from "../../../typedef/server/beer";
-const { GoogleAuth } = require("google-auth-library");
-const targetAudience = "https://beerlot-client.vercel.app/";
 
 export const getNewAccessTokenWithRefreshToken = async () => {
   const res = await axios.get("/api/v1/auth/refresh");
@@ -39,25 +37,13 @@ export const fetchBeersApi = async (params: BeerFilterRequestType) => {
 };
 
 export const fetchTopBeersApi = async () => {
-  // ID 토큰을 얻습니다.
-  const res = await fetch("/api/token");
-  console.log("res", res);
-  const { idToken } = await res.json();
-  console.log("idToken", idToken);
-  // 얻어낸 ID 토큰을 사용해 요청을 보냅니다.
-  const response = await axios.get(
-    "https://beerlot-client.vercel.app/api/v1/beers/top",
-    {
-      headers: {
-        Authorization: `Bearer ${idToken}`,
-      },
-      params: {
-        language: "KR",
-      },
-    }
-  );
-
-  return response.data;
+  const language: LANGUAGE_TYPE = LANGUAGE_TYPE.KR;
+  const res = await axios.get("/api/v1/beers/top", {
+    params: {
+      language: language,
+    },
+  });
+  return res.data;
 };
 
 export const fetchSingleBeerInfoApi = async ({
