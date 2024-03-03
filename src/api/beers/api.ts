@@ -1,9 +1,8 @@
 import { BeerFilterRequestType } from "@/types/api";
 import axios from "axios";
-import { GoogleAuth, OAuth2Client } from "google-auth-library";
-import { LANGUAGE_TYPE } from "../../../interface/types";
-import { SingelBeerFetchResponseType } from "../../../typedef/server/beer";
+import { CategoryType, LANGUAGE_TYPE } from "../../../interface/types";
 import { BeerSortType } from "../../../types/common";
+import { SingelBeerFetchResponseType } from "../../../typedef/server/beer";
 
 export const getNewAccessTokenWithRefreshToken = async () => {
   const res = await axios.get("/api/v1/auth/refresh");
@@ -37,36 +36,14 @@ export const fetchBeersApi = async (params: BeerFilterRequestType) => {
   return res.data;
 };
 
-const url = "https://beerlot-core-api-lopbi5pmwq-du.a.run.app/";
-const targetAudience = "https://beerlot-core-api-lopbi5pmwq-du.a.run.app/";
-
-const googleAuth: GoogleAuth = new GoogleAuth();
-let client: OAuth2Client | null = null;
-
-export const fetchTopBeersApi = async (): Promise<any> => {
+export const fetchTopBeersApi = async () => {
   const language: LANGUAGE_TYPE = LANGUAGE_TYPE.KR;
-
-  try {
-    try {
-      client = client || (await googleAuth.getIdTokenClient(targetAudience));
-    } catch (err) {
-      console.error("GoogleAuth.getIdTokenClient Error: ", err);
-      throw new Error("Google Authentication Failed");
-    }
-
-    const res = await client.request({
-      url: `/api/v1/beers/top`,
-      params: {
-        language,
-      },
-    });
-
-    console.info(res.data);
-    return res.data;
-  } catch (err) {
-    console.error(err);
-    return Promise.reject(err);
-  }
+  const res = await axios.get("/api/v1/beers/top", {
+    params: {
+      language: language,
+    },
+  });
+  return res.data;
 };
 
 export const fetchSingleBeerInfoApi = async ({
