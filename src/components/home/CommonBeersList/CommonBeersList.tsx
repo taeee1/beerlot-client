@@ -19,8 +19,9 @@ import {
   BeerNameText,
 } from "@components/shared/Card/BeerCardItem";
 import { useRouter } from "next/router";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { BeerResponseType } from "../../../../typedef/server/beer";
+import ReactGA from "react-ga";
 interface CommonBeersListProps {
   beersList?: BeerResponseType[];
   loading: boolean;
@@ -36,6 +37,16 @@ const CommonBeersList: React.FC<CommonBeersListProps> = ({
     router.push("/login");
     e.stopPropagation();
   };
+  // TODO: move to env
+  const REACT_APP_GA_TRACKING_ID = "G-TTNFK5BWQG";
+
+  const gaTrackingId = REACT_APP_GA_TRACKING_ID;
+  ReactGA.initialize(gaTrackingId, { debug: true });
+
+  useEffect(() => {
+    ReactGA.pageview("beerlot GA test");
+    console.log("page view logging");
+  }, []);
 
   const handleClickCard = useCallback(
     (id?: number, name?: string) => {
