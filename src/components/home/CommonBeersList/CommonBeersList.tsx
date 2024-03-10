@@ -21,7 +21,7 @@ import {
 import { useRouter } from "next/router";
 import React, { useCallback, useEffect } from "react";
 import { BeerResponseType } from "../../../../typedef/server/beer";
-import ReactGA from "react-ga";
+import ReactGA from "react-ga4";
 interface CommonBeersListProps {
   beersList?: BeerResponseType[];
   loading: boolean;
@@ -41,10 +41,14 @@ const CommonBeersList: React.FC<CommonBeersListProps> = ({
   const REACT_APP_GA_TRACKING_ID = "G-TTNFK5BWQG";
 
   const gaTrackingId = REACT_APP_GA_TRACKING_ID;
-  ReactGA.initialize(gaTrackingId, { debug: true });
+  ReactGA.initialize(gaTrackingId, {
+    gtagOptions: {
+      debug_mode: true,
+    },
+  });
 
   useEffect(() => {
-    ReactGA.pageview("beerlot GA test");
+    ReactGA.send({ hitType: "pageview" });
     console.log("page view logging");
   }, []);
 

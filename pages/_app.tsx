@@ -6,14 +6,18 @@ import { RecoilRoot } from "recoil";
 import { BottomNav } from "../src/components/shared/BottomNav";
 import "../styles/globals.css";
 import { theme } from "../styles/theme";
-import ReactGA from "react-ga";
+import ReactGA from "react-ga4";
 
 // TODO: move to env
 const REACT_APP_GA_TRACKING_ID = "G-TTNFK5BWQG";
 
 const gaTrackingId = REACT_APP_GA_TRACKING_ID;
-ReactGA.initialize(gaTrackingId, { debug: true });
-ReactGA.pageview("test beerlot GA");
+ReactGA.initialize(gaTrackingId, {
+  gtagOptions: {
+    debug_mode: true,
+  },
+});
+ReactGA.send({ hitType: "pageview" });
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const queryClient = new QueryClient();
