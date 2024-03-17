@@ -53,8 +53,8 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({ username }) => {
   }, []);
 
   return (
-    <Box w="full" h="full" bg="gray.100" overflowY="scroll">
-      <Container p={"0px"} bg="white" maxW="450px" h="full">
+    <Box w="full" h="calc(100vh - 57px)" bg="gray.100" overflowY="scroll">
+      <Container p={"0px"} bg="white" maxW="450px" minH={"100vh"}>
         <Box p="64px 24px 24px" pt="64px">
           <BlankHeader />
 

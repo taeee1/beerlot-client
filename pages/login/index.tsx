@@ -1,18 +1,11 @@
-import {Box, Container} from "@chakra-ui/react";
-import {GetServerSideProps} from "next";
-import {LoginTemplate} from "../../src/components/auth/login/LoginTemplate";
+import { Box, Container } from "@chakra-ui/react";
+import { GetServerSideProps } from "next";
+import { LoginTemplate } from "../../src/components/auth/login/LoginTemplate";
 
 const Login = () => {
   return (
-    <Box w="full" h="full" bg="gray.100">
-      <Container
-        p={"0px"}
-        h="full"
-        w="full"
-        bg="white"
-        position="relative"
-        maxW="450px"
-      >
+    <Box w="full" bg="gray.100" h={"100vh"} minH={"100vh"}>
+      <Container p={"0px"} h="full" w="full" bg="white" maxW="450px">
         <LoginTemplate />
       </Container>
     </Box>

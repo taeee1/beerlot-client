@@ -133,15 +133,8 @@ const SearchResultPage = () => {
   };
 
   return (
-    <Box w="full" h="full" bg="gray.100" overflowY="scroll">
-      <Container
-        p={"0px"}
-        w="full"
-        bg="white"
-        position="relative"
-        maxW="450px"
-        h="full"
-      >
+    <Box w="full" h="100vh" bg="gray.100" overflowY="scroll">
+      <Container p={"0px"} minH={"100vh"} bg="white" maxW="450px">
         <LeftBackTitle />
         <Box p={"68px 24px 24px"} h="full">
           <Flex gap="10px" alignItems="center" mb="10px" cursor={"pointer"}>
