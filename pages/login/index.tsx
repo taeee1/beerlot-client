@@ -11,7 +11,7 @@ const Login = () => {
         w="full"
         bg="white"
         maxW="450px"
-        pos={"relative"}
+        position={"relative"}
       >
         <LoginTemplate />
       </Container>
