@@ -86,7 +86,16 @@ const TopBeersList: React.FC<TopBeersListProps> = ({
       <Text textColor="black.100" textStyle={"h2_bold"}>
         🔥 인기맥주 TOP10 🔥
       </Text>
-      <HStack overflowY={"auto"} w="full" gap={"12px"}>
+      <HStack
+        overflowY={"auto"}
+        w="full"
+        gap={"12px"}
+        sx={{
+          "::-webkit-scrollbar": {
+            display: "none",
+          },
+        }}
+      >
         {beersList &&
           beersList.map((item) => {
             return (
