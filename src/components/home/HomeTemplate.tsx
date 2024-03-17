@@ -3,18 +3,17 @@ import {
   useRecommendedBeersQuery,
   useTopBeersQuery,
 } from "@/../hooks/query/useBeerQuery";
+import { fetchSingleBeerInfoApi } from "@/api/beers/api";
 import { Box, Container } from "@chakra-ui/react";
+import Cookies from "js-cookie";
 import { useEffect } from "react";
+import { useQueries } from "react-query";
+import { LANGUAGE_TYPE } from "../../../interface/types";
 import { BlankHeader } from "../shared/Headers/BlankHeader";
 import { CommonBeersList } from "./CommonBeersList/CommonBeersList";
 import { LoggedInBeersList } from "./LoggedInBeersList/LoggedInBeersList";
 import SearchInputHome from "./SearchInputHome";
 import { WelcomeTextContent } from "./WelcomeText";
-import { BeerResponseType } from "@/../typedef/server/beer";
-import Cookies from "js-cookie";
-import { useQueries } from "react-query";
-import { fetchSingleBeerInfoApi } from "@/api/beers/api";
-import { LANGUAGE_TYPE } from "../../../interface/types";
 
 interface HomeTemplateProps {
   username?: string;

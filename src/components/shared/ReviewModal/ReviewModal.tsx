@@ -29,6 +29,7 @@ import { BeerReviewTextSection } from "./BeerReviewTextSection";
 import { BeerSearchContent } from "./BeerSearchContent";
 import { ReviewCancelDrawer } from "./ReviewCancelDrawer";
 import BeerInfo from "@/components/account/beer-info/BeerInfo";
+import { useRouter } from "next/router";
 
 interface ReviewModalProps {
   existingReviewInfo?: ReviewInfoType;
@@ -53,12 +54,14 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
     image_url: existingReviewInfo?.image_url ?? [""],
   });
   const isCompleted = !!reviewInfo.beerName && !!reviewInfo.rate; // should contain rating stars as well
+  const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const CloseReviewDrawer = useDisclosure();
   const [step, setStep] = useState(0);
   const [reviewInputValue, setReviewInputValue] = useState(
     existingReviewInfo?.review ?? ""
   );
   const [beerId, setBeerId] = useState<number | null>(null);
+  const router = useRouter();
   const allReviewsQuery = useAllReviewsQuery({
     sort: MOCK_FEED_FILTER_LIST[0].tags[0],
   });
@@ -86,6 +89,10 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
   };
 
   const handleCreateReview = () => {
+    if (!accessToken) {
+      router.push("/login");
+      return;
+    }
     onOpen();
   };
 
@@ -115,7 +122,6 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
   const clearInput = () => {
     setPlaceInputValue("");
   };
-  const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const createReviewMutation = useCreateReviewMutation(
     beerId ?? 0,
     accessToken,
@@ -181,6 +187,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
         bg="orange.300"
         bottom={5}
         right={5}
+        _hover={{}}
       >
         {/* TODO: should be replaced */}
         <EditPencil />

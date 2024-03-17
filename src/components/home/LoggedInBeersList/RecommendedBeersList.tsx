@@ -95,7 +95,16 @@ const RecommendedBeersList: React.FC<RecommendedBeersListProps> = ({
         </Text>
         님께 추천해요 🍻
       </Text>
-      <HStack overflowX={"auto"} w="full" gap={"12px"}>
+      <HStack
+        overflowX={"auto"}
+        w="full"
+        gap={"12px"}
+        sx={{
+          "&::-webkit-scrollbar": { display: "none" }, // 크롬, 사파리, 오페라를 위한 설정
+          scrollbarWidth: "none", // 파이어폭스를 위한 설정
+          "-ms-overflow-style": "none", // IE와 엣지를 위한 설정
+        }}
+      >
         {beersList &&
           beersList.map((item) => {
             return (

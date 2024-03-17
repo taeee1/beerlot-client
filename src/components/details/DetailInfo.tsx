@@ -13,6 +13,7 @@ import { LeftBackBeerNameRightHeart } from "../shared/Headers/LeftBackBeerNameRi
 import { LeftBackTitle } from "../shared/Headers/LeftBackTitle";
 import { LikeButton } from "../shared/LikeButton";
 import { Rating } from "../shared/Rating";
+import { useRouter } from "next/router";
 
 interface DetailInfoProps {
   beerName: string;
@@ -38,6 +39,7 @@ export const DetailInfo: React.FC<DetailInfoProps> = ({
   const toastId = "test-toast";
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const userBeersQuery = useUserLikedBeersQuery(accessToken);
+  const router = useRouter();
 
   useEffect(() => {
     userBeersQuery.refetch();
@@ -91,6 +93,10 @@ export const DetailInfo: React.FC<DetailInfoProps> = ({
   });
 
   const handleClickLike = () => {
+    if (!accessToken) {
+      router.push("/login");
+      return;
+    }
     toast();
     if (!isLikedBeer) {
       likeBeerMutation.mutate({ beerId: beerId, accessToken });

@@ -2,11 +2,11 @@ import {
   useBeerDislikeMutation,
   useBeerLikeMutation,
 } from "@/../hooks/query/useBeerLikeMutation";
-import {BeerResponseType} from "@/../typedef/server/beer";
-import {generateBeerDetailUrl} from "@/../utils/url";
-import {CommonBeerImage} from "@/components/shared/CommonBeerImage/CommonBeerImage";
-import {LikeButton} from "@/components/shared/LikeButton";
-import {Box, Flex, HStack, Text} from "@chakra-ui/react";
+import { BeerResponseType } from "@/../typedef/server/beer";
+import { generateBeerDetailUrl } from "@/../utils/url";
+import { CommonBeerImage } from "@/components/shared/CommonBeerImage/CommonBeerImage";
+import { LikeButton } from "@/components/shared/LikeButton";
+import { Box, Flex, HStack, Text } from "@chakra-ui/react";
 import {
   BeerCard,
   BeerCardBody,
@@ -17,9 +17,9 @@ import {
   BeerNameText,
 } from "@components/shared/Card/BeerCardItem";
 import Cookies from "js-cookie";
-import {useRouter} from "next/router";
-import React, {useCallback, useMemo} from "react";
-import {getFlagByCountryName} from "./beer.service";
+import { useRouter } from "next/router";
+import React, { useCallback, useMemo } from "react";
+import { getFlagByCountryName } from "./beer.service";
 
 interface TopBeersListProps {
   onValidateLikedBeersList: () => void;
@@ -73,9 +73,9 @@ const TopBeersList: React.FC<TopBeersListProps> = ({
       const isLiked = likedBeerIds?.includes(id);
 
       if (!isLiked) {
-        likeBeerMutation.mutate({beerId: id, accessToken});
+        likeBeerMutation.mutate({ beerId: id, accessToken });
       } else {
-        dislikeBeerMutation.mutate({beerId: id, accessToken});
+        dislikeBeerMutation.mutate({ beerId: id, accessToken });
       }
     },
     [accessToken, dislikeBeerMutation, likeBeerMutation, likedBeerIds]
@@ -86,7 +86,7 @@ const TopBeersList: React.FC<TopBeersListProps> = ({
       <Text textColor="black.100" textStyle={"h2_bold"}>
         🔥 인기맥주 TOP10 🔥
       </Text>
-      <HStack overflowX={"auto"} w="full" gap={"12px"}>
+      <HStack overflowY={"auto"} w="full" gap={"12px"}>
         {beersList &&
           beersList.map((item) => {
             return (
