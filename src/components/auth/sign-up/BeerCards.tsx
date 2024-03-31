@@ -28,6 +28,8 @@ import {
 import FloatingButton from "../../shared/FloatingButton";
 import { CommonBeerImage } from "@/components/shared/CommonBeerImage/CommonBeerImage";
 import { useSignupQuery } from "@/../hooks/query/useAuthQuery";
+import { useBeersQuery } from "../../../../hooks/query/useBeerQuery";
+import { BeerSortType } from "../../../../types/common";
 
 interface BeerCardsProps extends StackProps {
   nickName: string;
@@ -75,6 +77,14 @@ const BeerCards: React.FC<BeerCardsProps> = ({ nickName, ...props }) => {
     setChosenBeerIds(newChosenBeers);
   };
 
+  const SearchBeerQuery = useBeersQuery({
+    sort: BeerSortType.MOST_LIKES,
+  });
+
+  useEffect(() => {
+    SearchBeerQuery.refetch();
+  }, []);
+
   return (
     <VStack
       mt="48px"
@@ -102,7 +112,7 @@ const BeerCards: React.FC<BeerCardsProps> = ({ nickName, ...props }) => {
 
       <SimpleGrid columns={3} spacingX="10px" spacingY="25px">
         {/* TODO: Connect api */}
-        {/* {top10Beers.map((item) => {
+        {SearchBeerQuery.data?.contents.map((item) => {
           const isSelected = item.id ? chosenBeerIds.includes(item.id) : false;
           return (
             <BeerCard
@@ -156,7 +166,7 @@ const BeerCards: React.FC<BeerCardsProps> = ({ nickName, ...props }) => {
               </BeerCardFooter>
             </BeerCard>
           );
-        })} */}
+        })}
       </SimpleGrid>
       <FloatingButton
         pos="sticky"
