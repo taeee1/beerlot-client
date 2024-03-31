@@ -7,7 +7,7 @@ import { MemberReviewsRequest } from "@/../types/member/request";
 import axios from "axios";
 import { BeerSortEnum, OAUTH_PROVIDER } from "../../../interface/types";
 
-const redirectUrl = "https://beerlot-client.vercel.app";
+const redirectUrl = "https://beerlot.info";
 
 export const getUsersInfoApi = async (accessToken: string) => {
   const res = await axios.get("/api/v1/members/me", {
