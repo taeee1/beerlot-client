@@ -1,5 +1,5 @@
 import { useBeersQuery } from "@/../hooks/query/useBeerQuery";
-import { Box, Circle, Container, Flex } from "@chakra-ui/react";
+import { Box, Center, Circle, Container, Flex } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { MIN_MAX_BEER_VOLUME_SLIDER } from "../../interface/static";
@@ -153,10 +153,13 @@ const SearchResultPage = () => {
             onChangeBeerVolume={handleChangeBeerVolume}
           />
 
-          <SearchResult
-            loading={SearchBeerQuery.isLoading || SearchBeerQuery.isFetching}
-            beers={SearchBeerQuery.data?.contents}
-          />
+          <Center>
+            <SearchResult
+              loading={SearchBeerQuery.isLoading || SearchBeerQuery.isFetching}
+              beers={SearchBeerQuery.data?.contents}
+            />
+          </Center>
+
           <Box h="64px" />
         </Box>
       </Container>

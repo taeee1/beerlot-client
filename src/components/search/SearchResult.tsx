@@ -1,6 +1,6 @@
 import { EmptyFilteredResult } from "@/components/result/EmptyFilteredResult";
 import { CommonBeerImage } from "@/components/shared/CommonBeerImage/CommonBeerImage";
-import { Box, HStack, SimpleGrid } from "@chakra-ui/react";
+import { Box, Center, HStack, SimpleGrid } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React from "react";
 import {
@@ -14,6 +14,7 @@ import {
 } from "../shared/Card/BeerCardItem";
 import { BeerResponseType } from "../../../typedef/server/beer";
 import { generateBeerDetailUrl } from "../../../utils/url";
+import { BeerlotLoading } from "../shared/Loading";
 
 interface SearchResultProps {
   loading: boolean;
@@ -31,7 +32,12 @@ export const SearchResult: React.FC<SearchResultProps> = ({
     router.push(url);
   };
 
-  if (loading) return <div>loading...</div>;
+  if (loading)
+    return (
+      <Center py={48}>
+        <BeerlotLoading />
+      </Center>
+    );
 
   if (beers && beers.length === 0) return <EmptyFilteredResult />;
 
