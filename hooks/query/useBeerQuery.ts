@@ -4,7 +4,7 @@ import {
   fetchSingleBeerInfoApi,
   fetchTopBeersApi,
 } from "api/beers/api";
-import { UseQueryOptions, useQuery } from "react-query";
+import { UseQueryOptions, useInfiniteQuery, useQuery } from "react-query";
 import { BeerFilterRequestType, FailureResponse } from "types/api";
 import { LANGUAGE_TYPE } from "../../interface/types";
 import {
