@@ -1,6 +1,6 @@
-import {IconButton} from "@chakra-ui/react";
-import {useRouter} from "next/router";
-import {BeerlotLogoDefault} from "../../../../public/svg";
+import { IconButton } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { BeerlotLogoDefault } from "../../../../public/svg";
 
 const BeerlotTitle = () => {
   const router = useRouter();
@@ -16,8 +16,8 @@ const BeerlotTitle = () => {
       _hover={{}}
       _active={{}}
       cursor="pointer"
-      w="82px"
-      h="34px"
+      w="94px"
+      h="20px"
       as={BeerlotLogoDefault}
       aria-label="beerlot-logo"
       onClick={handleClick}
