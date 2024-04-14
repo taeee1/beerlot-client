@@ -2,7 +2,7 @@ import { EmptyFilteredResult } from "@/components/result/EmptyFilteredResult";
 import { CommonBeerImage } from "@/components/shared/CommonBeerImage/CommonBeerImage";
 import { Box, Center, HStack, SimpleGrid } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useMemo } from "react";
 import {
   BeerCard,
   BeerCardBody,
@@ -15,6 +15,13 @@ import {
 import { BeerResponseType } from "../../../typedef/server/beer";
 import { generateBeerDetailUrl } from "../../../utils/url";
 import { BeerlotLoading } from "../shared/Loading";
+import { LikeButton } from "../shared/LikeButton";
+import Cookies from "js-cookie";
+import { useUserLikedBeersQuery } from "../../../hooks/query/useUserQuery";
+import {
+  useBeerDislikeMutation,
+  useBeerLikeMutation,
+} from "../../../hooks/query/useBeerLikeMutation";
 
 interface SearchResultProps {
   loading: boolean;
@@ -30,6 +37,44 @@ export const SearchResult: React.FC<SearchResultProps> = ({
   const handleClickCard = (id: number, name: string) => {
     const url = generateBeerDetailUrl(id, name);
     router.push(url);
+  };
+
+  const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
+
+  const userBeersQuery = useUserLikedBeersQuery(accessToken);
+  const likedBeersList = userBeersQuery?.data?.contents;
+  const likedBeerIds = useMemo(
+    () => likedBeersList?.map((item: BeerResponseType) => item.id),
+    [likedBeersList]
+  );
+
+  const likeBeerMutation = useBeerLikeMutation({
+    onSuccess: () => {
+      userBeersQuery.refetch();
+    },
+  });
+
+  const dislikeBeerMutation = useBeerDislikeMutation({
+    onSuccess: () => {
+      userBeersQuery.refetch();
+    },
+  });
+
+  const handleClickLike = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    id: number
+  ) => {
+    e.stopPropagation();
+    if (!accessToken) {
+      router.push("/login");
+      return;
+    }
+    const isLikedBeer = likedBeerIds?.includes(id);
+    if (!isLikedBeer) {
+      likeBeerMutation.mutate({ beerId: id, accessToken });
+    } else {
+      dislikeBeerMutation.mutate({ beerId: id, accessToken });
+    }
   };
 
   if (loading)
@@ -69,6 +114,15 @@ export const SearchResult: React.FC<SearchResultProps> = ({
                     objectFit="cover"
                   />
                 )}
+              </Box>
+              <Box position="absolute" top={0} right={0}>
+                <LikeButton
+                  isLiked={false}
+                  onClick={(e) => handleClickLike(e, id)}
+                  w={8}
+                  h={7}
+                  aria-label="like button"
+                />
               </Box>
             </BeerCardBody>
             <BeerCardFooter>
