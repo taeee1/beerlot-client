@@ -1,18 +1,20 @@
-import {Box, Container, Flex, Center, Icon, Text} from "@chakra-ui/react";
-import {LeftBackCompleteCircles} from "../../shared/Headers/LeftBackCompleteCircles";
-import {useRecoilState} from "recoil";
-import {userInfoState} from "../../../store/atom";
+import { Box, Center, Container, Flex, Icon, Text } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { OrangeCheckCircle } from "../../../../public/svg";
 import FloatingButton from "../../shared/FloatingButton";
-import {useRouter} from "next/router";
-import {OrangeCircleCheck} from "../../shared/CustomIcons/customIcons";
-import {OrangeCheckCircle} from "../../../../public/svg";
+import { LeftBackCompleteCircles } from "../../shared/Headers/LeftBackCompleteCircles";
+import { SignUpType } from "../../../../interface/types";
 
-const CompleteTemplate = () => {
-  const [userInfo] = useRecoilState(userInfoState);
+interface CompleteTemplateProps {
+  userInfo: SignUpType;
+}
+
+const CompleteTemplate: React.FC<CompleteTemplateProps> = ({ userInfo }) => {
   const router = useRouter();
   const handleClickComplete = () => {
     router.push(`/`);
   };
+
   return (
     <Box w="full" h="full" bg="gray.100" overflowY={"scroll"}>
       <Container bg="white" maxW="450px" pos="relative" h="full">

@@ -1,36 +1,34 @@
-import {Box, Checkbox, Text, VStack} from "@chakra-ui/react";
-import {useRouter} from "next/router";
-import {useState} from "react";
-import {useRecoilState} from "recoil";
+import { Box, Checkbox, Text, VStack } from "@chakra-ui/react";
+import { useState } from "react";
 import useInput from "../../../../hooks/useNicknameInput";
+import { SignUpType } from "../../../../interface/types";
 import {
   checkIsValidNickname,
   getNicknameHelperText,
 } from "../../../../service/input";
-import {userInfoState} from "../../../store/atom";
 import FloatingButton from "../../shared/FloatingButton";
 import NicknameInput from "../../shared/NicknameInput";
 
-const Nickname = () => {
-  const [_, setUserInfo] = useRecoilState(userInfoState);
+interface NicknameProps {
+  setUserInfo: (key: keyof SignUpType, value: string) => void;
+  onNext: () => void;
+}
+
+const Nickname: React.FC<NicknameProps> = ({ onNext, setUserInfo }) => {
   const [checkedItems, setCheckedItems] = useState([false, false]);
-  const {input, onChange} = useInput({
+  const { input, onChange } = useInput({
     initialInputState: null,
   });
 
   const isValid = checkIsValidNickname(input);
 
   const allChecked = checkedItems.every(Boolean);
-  const isReadyForNextStep = allChecked && isValid === true;
-  const router = useRouter();
+  const isReadyForNextStep = allChecked && !!isValid;
 
   const handleClick = () => {
     if (!input) return;
-    setUserInfo({
-      email: "beer.lover@email.com",
-      username: input,
-    });
-    router.push(`/signup/beers`);
+    setUserInfo("username", input);
+    onNext();
   };
 
   return (

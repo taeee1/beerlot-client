@@ -74,8 +74,8 @@ export interface CategoryType {
 export type RecoilState = "hasValue" | "loading" | "hasError";
 
 export type SignUpType = {
-  email: string;
-  username: string;
+  email?: string;
+  username?: string;
   statusMessage?: string;
   image_url?: string;
 };

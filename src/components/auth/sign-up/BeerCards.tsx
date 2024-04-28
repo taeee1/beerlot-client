@@ -5,15 +5,11 @@ import {
   StackProps,
   Text,
   VStack,
-  Image as ChakraImage,
 } from "@chakra-ui/react";
+import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-import { useRecoilState } from "recoil";
 import { POLICY_LABEL } from "../../../../interface/server/types/Auth";
-import { checkSelected } from "../../../../utils/array";
-import { chosenBeerIdsState } from "../../../store/atom";
-import Cookies from "js-cookie";
 
 import {
   BeerCard,
@@ -25,18 +21,24 @@ import {
   BeerNameText,
 } from "../../shared/Card/BeerCardItem";
 
-import FloatingButton from "../../shared/FloatingButton";
-import { CommonBeerImage } from "@/components/shared/CommonBeerImage/CommonBeerImage";
 import { useSignupQuery } from "@/../hooks/query/useAuthQuery";
+import { CommonBeerImage } from "@/components/shared/CommonBeerImage/CommonBeerImage";
 import { useBeersQuery } from "../../../../hooks/query/useBeerQuery";
 import { BeerSortType } from "../../../../types/common";
+import FloatingButton from "../../shared/FloatingButton";
 
 interface BeerCardsProps extends StackProps {
   username: string;
+  chosenBeerIds: number[];
+  updateChooseBeerIds: (beerId: number) => void;
 }
 
-const BeerCards: React.FC<BeerCardsProps> = ({ username, ...props }) => {
-  const [chosenBeerIds, setChosenBeerIds] = useRecoilState(chosenBeerIdsState);
+const BeerCards: React.FC<BeerCardsProps> = ({
+  chosenBeerIds,
+  updateChooseBeerIds,
+  username,
+  ...props
+}) => {
   const isFullfilled = chosenBeerIds && chosenBeerIds.length > 0;
 
   const signupInfo = {
@@ -61,17 +63,6 @@ const BeerCards: React.FC<BeerCardsProps> = ({ username, ...props }) => {
 
   const handleClickComplete = () => {
     signupQuery.refetch();
-  };
-
-  const handleClickBeer = (newBeerId: number | undefined) => {
-    if (!newBeerId) return;
-    let newChosenBeers = [...chosenBeerIds];
-    if (checkSelected(newBeerId, newChosenBeers)) {
-      newChosenBeers = newChosenBeers.filter((id) => id !== newBeerId);
-    } else {
-      newChosenBeers.push(newBeerId);
-    }
-    setChosenBeerIds(newChosenBeers);
   };
 
   const SearchBeerQuery = useBeersQuery({
@@ -118,7 +109,7 @@ const BeerCards: React.FC<BeerCardsProps> = ({ username, ...props }) => {
               w="full"
               borderColor={"orange.200"}
               cursor="pointer"
-              onClick={() => handleClickBeer(item?.id)}
+              onClick={() => updateChooseBeerIds(item.id)}
               filter={
                 isSelected
                   ? "drop-shadow(0px 8px 16px rgba(0, 0, 0, 0.3))"

@@ -1,4 +1,4 @@
-import {GetServerSideProps} from "next";
+import { GetServerSideProps } from "next";
 import React from "react";
 import SignUpTemplate from "../../src/components/auth/sign-up/SignUpTemplate";
 
