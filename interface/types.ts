@@ -71,8 +71,6 @@ export interface CategoryType {
   parent: TagsType;
 }
 
-export type RecoilState = "hasValue" | "loading" | "hasError";
-
 export type SignUpType = {
   email?: string;
   username?: string;
