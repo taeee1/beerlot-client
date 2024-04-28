@@ -32,27 +32,25 @@ import { useBeersQuery } from "../../../../hooks/query/useBeerQuery";
 import { BeerSortType } from "../../../../types/common";
 
 interface BeerCardsProps extends StackProps {
-  nickName: string;
+  username: string;
 }
 
-const BeerCards: React.FC<BeerCardsProps> = ({ nickName, ...props }) => {
+const BeerCards: React.FC<BeerCardsProps> = ({ username, ...props }) => {
   const [chosenBeerIds, setChosenBeerIds] = useRecoilState(chosenBeerIdsState);
   const isFullfilled = chosenBeerIds && chosenBeerIds.length > 0;
 
-  // 여기서 전역에서 들고 있는 데이터를 꺼내다 써야 함.
-  // 즉 이 전 단계에서 recoil에 데이터를 set해야함.
-  const MOCK_AUTH = {
-    username: "태희",
-    status_message: "나는 태희다",
-    image_url: "https://picsum.photos/200/300?grayscale",
+  const signupInfo = {
+    username: username,
+    image_url: "",
     agreed_policies: [
       POLICY_LABEL.PERSONAL_INFORMATION_POLICY,
       POLICY_LABEL.TERMS_OF_SERVICE,
     ],
   };
+
   const accessToken = Cookies.get("beerlot-oauth-auth-guest") ?? "";
   const router = useRouter();
-  const signupQuery = useSignupQuery(MOCK_AUTH, accessToken, {
+  const signupQuery = useSignupQuery(signupInfo, accessToken, {
     onSettled: () => {
       Cookies.set("beerlot-oauth-auth-request", accessToken);
 
@@ -96,7 +94,7 @@ const BeerCards: React.FC<BeerCardsProps> = ({ nickName, ...props }) => {
     >
       <Box>
         <Text display="inline" textStyle={"h1"} textColor="orange.200">
-          {nickName}
+          {username}
         </Text>
         <Text display="inline" textStyle={"h1"}>
           님의 최애맥주

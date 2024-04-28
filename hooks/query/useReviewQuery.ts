@@ -165,10 +165,10 @@ export type UserUpdateRequestType = Pick<
 >;
 
 export type SignupRequestType = {
-  username: string;
-  status_message: string;
-  image_url: string;
-  agreed_policies: POLICY_LABEL[];
+  username?: string;
+  status_message?: string;
+  image_url?: string;
+  agreed_policies?: POLICY_LABEL[];
 };
 
 export type AllReviewsQueryResponse = {
