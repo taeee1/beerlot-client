@@ -3,8 +3,8 @@ import { LeftBackCompleteCircles } from "../../shared/Headers/LeftBackCompleteCi
 import Nickname from "./Nickname";
 import { useState } from "react";
 import CompleteTemplate from "./CompleteTemplate";
-import BeerCards from "./BeerCards";
 import { SignUpType } from "../../../../interface/types";
+import BeerTasteSelection from "./BeerTasteSelection";
 
 const SignUpTemplate = () => {
   const [step, setStep] = useState<"nickname" | "beers" | "complete">(
@@ -45,10 +45,11 @@ const SignUpTemplate = () => {
             <Nickname setUserInfo={updateUserInfo} onNext={handleNext} />
           )}
           {step === "beers" && (
-            <BeerCards
+            <BeerTasteSelection
               username={userInfo.username ?? ""}
               chosenBeerIds={chosenBeerIds}
               updateChooseBeerIds={updateChooseBeerIds}
+              onNext={handleNext}
             />
           )}
           {step === "complete" && <CompleteTemplate userInfo={userInfo} />}

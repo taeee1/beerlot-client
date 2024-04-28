@@ -7,7 +7,6 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import Cookies from "js-cookie";
-import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { POLICY_LABEL } from "../../../../interface/server/types/Auth";
 
@@ -27,15 +26,17 @@ import { useBeersQuery } from "../../../../hooks/query/useBeerQuery";
 import { BeerSortType } from "../../../../types/common";
 import FloatingButton from "../../shared/FloatingButton";
 
-interface BeerCardsProps extends StackProps {
+interface BeerTasteSelectionProps extends StackProps {
   username: string;
   chosenBeerIds: number[];
   updateChooseBeerIds: (beerId: number) => void;
+  onNext: () => void;
 }
 
-const BeerCards: React.FC<BeerCardsProps> = ({
+const BeerTasteSelection: React.FC<BeerTasteSelectionProps> = ({
   chosenBeerIds,
   updateChooseBeerIds,
+  onNext,
   username,
   ...props
 }) => {
@@ -50,14 +51,12 @@ const BeerCards: React.FC<BeerCardsProps> = ({
   };
 
   const accessToken = Cookies.get("beerlot-oauth-auth-guest") ?? "";
-  const router = useRouter();
   const signupQuery = useSignupQuery(signupInfo, accessToken, {
-    onSettled: () => {
+    onSuccess: () => {
       Cookies.set("beerlot-oauth-auth-request", accessToken);
 
       Cookies.remove("beerlot-oauth-auth-guest");
-
-      router.push(`/signup/complete`);
+      onNext();
     },
   });
 
@@ -170,4 +169,4 @@ const BeerCards: React.FC<BeerCardsProps> = ({
   );
 };
 
-export default BeerCards;
+export default BeerTasteSelection;
