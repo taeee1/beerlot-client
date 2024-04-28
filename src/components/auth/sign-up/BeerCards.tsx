@@ -41,7 +41,6 @@ const BeerCards: React.FC<BeerCardsProps> = ({ username, ...props }) => {
 
   const signupInfo = {
     username: username,
-    image_url: "",
     agreed_policies: [
       POLICY_LABEL.PERSONAL_INFORMATION_POLICY,
       POLICY_LABEL.TERMS_OF_SERVICE,
