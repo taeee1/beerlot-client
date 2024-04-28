@@ -1,27 +1,24 @@
-import {useUserInfoQuery} from "@/../hooks/query/useUserQuery";
-import useKeyboard from "@/../hooks/useKeyboard";
-import {BeerResponseType} from "@/../typedef/server/beer";
-import EmptySearchResult from "@/components/search/EmptySearchResult";
+import { useBeersQuery } from "@/../hooks/query/useBeerQuery";
+import { useUserInfoQuery } from "@/../hooks/query/useUserQuery";
 import SearchInput from "@/components/search/SearchInput";
-import {Box, Center, Flex, Text} from "@chakra-ui/react";
-import axios from "axios";
+import { Flex } from "@chakra-ui/react";
 import Cookies from "js-cookie";
-import {debounce} from "lodash";
-import {useRouter} from "next/router";
-import React, {useEffect, useMemo, useState} from "react";
-import {useMutation} from "react-query";
+import React, { useEffect, useState } from "react";
+import { SearchResultHandler } from "./SearchResultHandler";
+
 interface SearchBarListProps {
   handleClickItem?: (name: string, id: number) => void;
   onKeyPress?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
+
 const SearchBarList: React.FC<SearchBarListProps> = ({
   handleClickItem,
   onKeyPress,
 }) => {
-  const router = useRouter();
-  const [value, setValue] = useState("");
-  const [selectedItems, setSelectedItems] = useState([]);
-  const isInputEmpty = value.length === 0;
+  const [input, setInput] = useState("");
+  const [debouncedInput, setDebouncedInput] = useState("");
+
+  // user
   const accessToken = Cookies.get("beerlot-oauth-auth-request");
   const userQuery = useUserInfoQuery(accessToken ?? "");
 
@@ -29,31 +26,35 @@ const SearchBarList: React.FC<SearchBarListProps> = ({
     userQuery.refetch();
   }, []);
 
-  const searchBeer = useMutation((keyword: string) =>
-    axios.get(
-      `/api/v1/beers?keyword=${keyword}&page=1&size=10&sort=MOST_LIKES&language=KR`
-    )
-  );
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    debouncedSearch(e.target.value);
-  };
-  const clearValue = () => {
-    setValue("");
-  };
-
-  const debouncedSearch = useMemo(
-    () =>
-      debounce((value) => {
-        setValue(value);
-        searchBeer.mutate(value);
-      }, 200),
-    [searchBeer]
-  );
-
+  // Debouncing input
   useEffect(() => {
-    const newSelectedItem = searchBeer.data?.data.contents;
-    setSelectedItems(newSelectedItem);
-  }, [searchBeer, searchBeer.data?.data.contents]);
+    const timer = setTimeout(() => {
+      setDebouncedInput(input);
+    }, 200); // 500ms의 딜레이
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [input]);
+
+  const { data, isLoading } = useBeersQuery(
+    {
+      keyword: debouncedInput,
+    },
+    {
+      enabled: !!debouncedInput,
+    }
+  );
+
+  const searchResult = data?.contents;
+
+  const clearValue = () => {
+    setInput("");
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+  };
 
   return (
     <Flex
@@ -69,64 +70,17 @@ const SearchBarList: React.FC<SearchBarListProps> = ({
         onChange={handleChange}
         clearValue={clearValue}
       />
-      {isInputEmpty ? (
-        <EmptySearchBox username={userQuery?.data?.username} />
-      ) : (
-        <Flex flexDirection="column" h="full" w="full">
-          <>
-            {selectedItems?.length > 0 ? (
-              selectedItems.map((beerItems: BeerResponseType) => {
-                return (
-                  <Box
-                    borderBottom="1px solid"
-                    borderColor="gray.200"
-                    py="10px"
-                    px="15px"
-                    key={beerItems.id}
-                    onClick={() => {
-                      if (beerItems.id && beerItems.name) {
-                        handleClickItem?.(beerItems.name, beerItems.id);
-                      }
-                    }}
-                    cursor="pointer"
-                  >
-                    <Text textStyle="h2" key={beerItems.id}>
-                      {beerItems.name}
-                    </Text>
-                  </Box>
-                );
-              })
-            ) : (
-              <EmptySearchResult inputValue={value} />
-            )}
-          </>
-        </Flex>
-      )}
+      <Flex flexDirection="column" h="full" w="full">
+        <SearchResultHandler
+          input={debouncedInput}
+          username={userQuery.data?.username}
+          searchResult={searchResult}
+          isLoading={isLoading}
+          onClickBeerCard={handleClickItem}
+        />
+      </Flex>
     </Flex>
   );
 };
 
-export {SearchBarList};
-interface EmptySearchBoxProps {
-  username?: string;
-}
-
-const EmptySearchBox: React.FC<EmptySearchBoxProps> = ({username}) => {
-  return (
-    <Center mt={10} flexDir="column" gap={1}>
-      {username && (
-        <Box display="block">
-          <Text display={"inline"} textStyle={"h3"} textColor={"orange.200"}>
-            {username}
-          </Text>
-          <Text display={"inline"} textStyle={"h3"} textColor={"gray.300"}>
-            님,
-          </Text>
-        </Box>
-      )}
-      <Text textStyle={"h3"} textColor={"gray.300"}>
-        무얼 검색하러 오셨나요 👀?
-      </Text>
-    </Center>
-  );
-};
+export { SearchBarList };

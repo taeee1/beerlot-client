@@ -36,7 +36,7 @@ export const useBeersQuery = (
   options?: UseQueryOptions<BeersResponseType, FailureResponse>
 ) => {
   return useQuery({
-    queryKey: beersQueryKey(),
+    queryKey: ["beers", queryParam.keyword],
     queryFn: () => fetchBeersApi(queryParam),
     enabled: false,
     refetchOnMount: false,
