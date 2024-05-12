@@ -198,7 +198,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
         onClickLeftButton={handleClickLeftButton}
         onClickRightButton={handleClickRightButton}
       />
-      <Modal onClose={onClose} size={"full"} isOpen={isOpen}>
+      <Modal onClose={onClose} size={"full"} isOpen={isOpen} autoFocus={false}>
         {step === 0 && (
           <ModalContent px="20px" pb="40px" maxW="452px" bg="white">
             <ModalHeader pt="46px">

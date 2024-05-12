@@ -6,9 +6,9 @@ import {
   InputProps,
   InputRightElement,
 } from "@chakra-ui/react";
-import React, {useRef} from "react";
-import {SEARCH_BAR_PLACEHOLDER} from "../../../interface/static";
-import {SearchGlass, WhiteCross} from "../../../public/svg";
+import React, { useRef } from "react";
+import { SEARCH_BAR_PLACEHOLDER } from "../../../interface/static";
+import { SearchGlass, WhiteCross } from "../../../public/svg";
 
 interface SearchInputProps extends InputProps {
   onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
@@ -23,7 +23,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
   onChange,
   onKeyPress,
   clearValue,
-  autoFocus = true,
+  autoFocus = false,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const clearInput = () => {
@@ -46,7 +46,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
         onChange={onChange}
         borderRadius="20px"
         textColor="white"
-        _placeholder={{color: "inherit"}}
+        _placeholder={{ color: "inherit" }}
         focusBorderColor="inherit"
         autoFocus={autoFocus}
         onFocus={onFocus}
