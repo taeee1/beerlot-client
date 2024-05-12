@@ -205,6 +205,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
         autoFocus={false}
         initialFocusRef={undefined}
         finalFocusRef={undefined}
+        trapFocus={false}
       >
         {step === 0 && (
           <ModalContent px="20px" pb="40px" maxW="452px" bg="white">
