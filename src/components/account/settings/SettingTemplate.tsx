@@ -1,9 +1,9 @@
-import {Box, Flex, useDisclosure, VStack} from "@chakra-ui/react";
+import { Box, Flex, useDisclosure, VStack } from "@chakra-ui/react";
 import Cookies from "js-cookie";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 import BottomDrawer from "../../shared/BottomDrawer";
-import {LeftBackRandom} from "../../shared/Headers/LeftBackRandom";
-import {SectionButton} from "./SectionButton";
+import { LeftBackRandom } from "../../shared/Headers/LeftBackRandom";
+import { SectionButton } from "./SectionButton";
 
 export const SettingsTemplate = () => {
   const router = useRouter();
@@ -118,13 +118,13 @@ export const SettingsTemplate = () => {
           borderLeft={"1px solid"}
           borderLeftColor={"gray.200"}
         >
-          <Flex w="full" flexDir={"column"}>
+          {/* <Flex w="full" flexDir={"column"}>
             {BeerSettingSection.map(({title, href}) => (
               <SectionButton key={title} title={title} href={href} />
             ))}
-          </Flex>
+          </Flex> */}
           <Flex w="full" flexDir={"column"}>
-            {NoticeSettingSection.map(({title, href}) => (
+            {NoticeSettingSection.map(({ title, href }) => (
               <SectionButton key={title} title={title} href={href} />
             ))}
           </Flex>
@@ -153,7 +153,7 @@ export const SettingsTemplate = () => {
 };
 
 export const BeerSettingSection = [
-  {title: "최애맥주 변경", href: "/account/settings/favoritebeer"},
+  { title: "최애맥주 변경", href: "/account/settings/favoritebeer" },
 ];
 
 export const NoticeSettingSection = [
@@ -165,5 +165,5 @@ export const NoticeSettingSection = [
     title: "문의하기",
     href: "/account/settings/inquiry",
   },
-  {title: "비어랏 정보", href: "/account/settings/info"},
+  { title: "비어랏 정보", href: "/account/settings/info" },
 ];
