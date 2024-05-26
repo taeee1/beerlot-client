@@ -60,7 +60,7 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
   const reviewLikeMutation = useReviewLikeMutation(reviewId, accessToken, {
     onSuccess: () => {
       console.log("onSuccess like button");
-      queryClient.invalidateQueries("userLikedReviews");
+      queryClient.invalidateQueries(["userLikedReviews"]);
     },
   });
 
@@ -70,7 +70,7 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
     {
       onSuccess: () => {
         console.log("onSuccess dislike button");
-        queryClient.invalidateQueries("userLikedReviews");
+        queryClient.invalidateQueries(["userLikedReviews"]);
       },
     }
   );
