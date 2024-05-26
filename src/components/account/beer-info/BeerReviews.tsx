@@ -2,7 +2,10 @@ import {
   useDeleteReviewMutation,
   useReviewQuery,
 } from "@/../hooks/query/useReviewQuery";
-import { useUserReviewsQuery } from "@/../hooks/query/useUserQuery";
+import {
+  useUserLikedReviewsQuery,
+  useUserReviewsQuery,
+} from "@/../hooks/query/useUserQuery";
 import { ReviewInfoType } from "@/../interface/types";
 import { MemberReviewResponse } from "@/../types/member/response";
 import { ReviewModal } from "@/components/shared/ReviewModal/ReviewModal";
@@ -17,6 +20,7 @@ const BeerReviews = () => {
   const [selectedReviewId, setSelectedReviewId] = useState<number | null>(null);
   const reviewData = useReviewQuery(selectedReviewId).data;
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const likedReviewsListQuery = useUserLikedReviewsQuery(accessToken);
 
   useEffect(() => {
     userReviewQuery.refetch();
@@ -62,8 +66,8 @@ const BeerReviews = () => {
           <FollowingTabPanelItem
             key={feed.id}
             reviewId={Number(feed.id)}
-            isLiked={false} // should be modified
-            nickname={feed.beer.name} // should be modified
+            isLiked={likedReviewsListQuery.data?.includes(feed.id)}
+            nickname={feed.beer.name}
             postingTime={feed.updated_at}
             rate={feed.rate}
             imageSrc={feed.image_url}
@@ -72,6 +76,7 @@ const BeerReviews = () => {
             isEditable={true}
             onDelete={handleDelete(feed.id)}
             onEdit={() => handleEdit(feed.id)}
+            token={accessToken}
           />
         );
       })}
