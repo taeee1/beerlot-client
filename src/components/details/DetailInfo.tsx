@@ -52,7 +52,6 @@ export const DetailInfo: React.FC<DetailInfoProps> = ({
   );
 
   const isLikedBeer = likedBeerIds?.includes(beerId);
-  const [localIsLiked, setLocalIsLiked] = useState(isLikedBeer);
   const likeBeerMutation = useBeerLikeMutation({
     onSuccess: () => {
       userBeersQuery.refetch();
