@@ -50,6 +50,7 @@ export const DetailInfo: React.FC<DetailInfoProps> = ({
     () => likedBeersList?.map((item: BeerResponseType) => item.id),
     [likedBeersList]
   );
+
   const isLikedBeer = likedBeerIds?.includes(beerId);
   const likeBeerMutation = useBeerLikeMutation({
     onSuccess: () => {
