@@ -46,6 +46,7 @@ export const SearchResult: React.FC<SearchResultProps> = ({
   });
 
   const likedBeersList = userBeersQuery?.data?.contents;
+
   const likedBeerIds = useMemo(
     () => likedBeersList?.map((item: BeerResponseType) => item.id),
     [likedBeersList]
@@ -79,8 +80,7 @@ export const SearchResult: React.FC<SearchResultProps> = ({
       dislikeBeerMutation.mutate({ beerId: id, accessToken });
     }
   };
-
-  if (loading || !likedBeersList)
+  if (loading || (accessToken && !likedBeersList))
     return (
       <Center py={48}>
         <BeerlotLoading />
