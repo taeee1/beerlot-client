@@ -159,10 +159,8 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
         "https://fastly.picsum.photos/id/923/200/300.jpg?hmac=eiYSYaG7v46VlrE38Amrg33bd2FzVjaCsQrLMdekyAU",
     };
     if (reviewId) {
-      console.log("reviewId", reviewId);
       updateReview.mutate();
     } else {
-      console.log("reviewId", reviewId);
       createReviewMutation.mutate(newReviewInfo);
     }
 
@@ -182,11 +180,11 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
         onClick={handleCreateReview}
         w="70px"
         h="70px"
-        pos="absolute"
+        pos="fixed"
         borderRadius="full"
         bg="orange.300"
-        bottom={5}
-        right={5}
+        bottom={100}
+        right={"10vw"}
         _hover={{}}
       >
         {/* TODO: should be replaced */}

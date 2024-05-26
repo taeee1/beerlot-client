@@ -1,4 +1,4 @@
-import {FeedTemplate} from "../../src/components/feed/FeedTemplate";
+import { FeedTemplate } from "../../src/components/feed/FeedTemplate";
 
 const Feed = () => {
   return <FeedTemplate />;

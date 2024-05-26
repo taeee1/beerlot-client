@@ -7,15 +7,8 @@ export const FeedTemplate = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box w="full" h="full" bg="gray.100">
-      <Container
-        p={"0px"}
-        h="full"
-        w="full"
-        bg="white"
-        position="relative"
-        maxW="450px"
-      >
+    <Box w="full" h="100vh" bg="gray.100" overflowY={"auto"}>
+      <Container p={0} bg="white" maxW="450px" h={"full"}>
         <CenteredTitle />
         {/* v2에서 알람 추가 */}
         {/* <TitleRightBellHeader /> */}

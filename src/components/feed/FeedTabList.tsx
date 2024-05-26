@@ -24,8 +24,8 @@ export const FeedTabList = () => (
     </TabList>
     <Divider />
 
-    <TabPanels bg="yellow.100" h="full">
-      <TabPanel h="full">
+    <TabPanels bg="yellow.100" h={"full"}>
+      <TabPanel>
         <UpcomingFeed />
       </TabPanel>
       <TabPanel>
