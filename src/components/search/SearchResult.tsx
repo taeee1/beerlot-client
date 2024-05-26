@@ -73,7 +73,6 @@ export const SearchResult: React.FC<SearchResultProps> = ({
       return;
     }
     const isLikedBeer = likedBeerIds?.includes(id) ?? false;
-    console.log("isLikedBeer: ", isLikedBeer);
     if (!isLikedBeer) {
       likeBeerMutation.mutate({ beerId: id, accessToken });
     } else {
@@ -81,7 +80,7 @@ export const SearchResult: React.FC<SearchResultProps> = ({
     }
   };
 
-  if (loading)
+  if (loading || !likedBeersList)
     return (
       <Center py={48}>
         <BeerlotLoading />

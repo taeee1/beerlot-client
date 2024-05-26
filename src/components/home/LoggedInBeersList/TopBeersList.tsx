@@ -39,11 +39,6 @@ const TopBeersList: React.FC<TopBeersListProps> = ({
     [likedBeersList]
   );
 
-  const checkIsLiked = (id?: number) => {
-    if (id === undefined) return false;
-    return likedBeerIds?.includes(id) ?? false;
-  };
-
   const likeBeerMutation = useBeerLikeMutation({
     onSuccess: () => {
       onValidateLikedBeersList();
@@ -119,7 +114,7 @@ const TopBeersList: React.FC<TopBeersListProps> = ({
                   </Box>
                   <Box position="absolute" top={0} right={0}>
                     <LikeButton
-                      isLiked={checkIsLiked(item?.id)}
+                      isLiked={likedBeerIds?.includes(item.id) ?? false}
                       onClick={(e) => handleClickLike(e, item?.id)}
                       h={7}
                       aria-label="like button"

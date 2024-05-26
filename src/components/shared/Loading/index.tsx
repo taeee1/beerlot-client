@@ -10,7 +10,14 @@ const animationKeyframes = {
 
 export const BeerlotLoading = () => {
   return (
-    <HStack gap={8} w={"full"} h={"full"} __css={animationKeyframes}>
+    <HStack
+      gap={8}
+      w={"full"}
+      h={"full"}
+      justifyContent={"center"}
+      alignItems={"center"}
+      __css={animationKeyframes}
+    >
       <HStack gap={1}>
         <Image
           src={"/images/b_can.png"}
