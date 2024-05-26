@@ -2,6 +2,7 @@ import {
   ButtonProps,
   Flex,
   FlexProps,
+  Icon,
   IconButton,
   IconButtonProps,
 } from "@chakra-ui/react";
@@ -36,6 +37,31 @@ export const Rating: React.FC<RatingProps> = ({
   const minW = w ?? width ?? undefined;
   const minH = h ?? height ?? undefined;
   const rate = shouldRound ? Math.round(_rate) : _rate;
+
+  if (!onClick) {
+    return (
+      <Flex {...styleProps}>
+        {[1, 2, 3, 4, 5].map((star) => {
+          return (
+            <Icon
+              key={star}
+              as={star <= rate ? FullStarIcon : EmptyStarIcon}
+              color={star <= rate ? "orange.200" : "gray.200"}
+              fontSize={starSize ? `${starSize}px` : undefined}
+              sx={{
+                marginInlineStart: 0,
+              }}
+              minW={minW}
+              w={minW}
+              minH={minH}
+              h={minH}
+            />
+          );
+        })}
+      </Flex>
+    );
+  }
+
   return (
     <Flex {...styleProps}>
       {[1, 2, 3, 4, 5].map((star) => {
