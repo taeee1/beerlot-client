@@ -69,7 +69,8 @@ export const SearchResult: React.FC<SearchResultProps> = ({
       router.push("/login");
       return;
     }
-    const isLikedBeer = likedBeerIds?.includes(id);
+    console.log(likedBeerIds, id);
+    const isLikedBeer = likedBeerIds?.includes(id) ?? false;
     if (!isLikedBeer) {
       likeBeerMutation.mutate({ beerId: id, accessToken });
     } else {
