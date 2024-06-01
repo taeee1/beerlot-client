@@ -1,18 +1,16 @@
 import React from "react";
 import BottomDrawer from "../BottomDrawer";
-interface ReviewCancelDrawerProps {
+
+interface ReviewExitConfirmationDrawerProps {
   isOpen: boolean;
   onClose: () => void;
   onClickLeftButton: () => void;
   onClickRightButton: () => void;
 }
 
-const ReviewCancelDrawer: React.FC<ReviewCancelDrawerProps> = ({
-  onClickLeftButton,
-  onClickRightButton,
-  isOpen,
-  onClose,
-}) => {
+const ReviewExitConfirmationDrawer: React.FC<
+  ReviewExitConfirmationDrawerProps
+> = ({ onClickLeftButton, onClickRightButton, isOpen, onClose }) => {
   return (
     <BottomDrawer
       headerText={"정말로 나가실 건가요?"}
@@ -45,4 +43,4 @@ const ReviewCancelDrawer: React.FC<ReviewCancelDrawerProps> = ({
   );
 };
 
-export {ReviewCancelDrawer};
+export { ReviewExitConfirmationDrawer };
