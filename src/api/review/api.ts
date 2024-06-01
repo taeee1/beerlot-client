@@ -126,7 +126,11 @@ export const getSingleReviewApi = async (reviewId: number | null) => {
   if (reviewId === null) {
     throw new Error("Review ID cannot be null.");
   }
-
-  const res = await axios.get(`/api/v1/reviews/${reviewId}`);
+  const language: LANGUAGE_TYPE = LANGUAGE_TYPE.KR;
+  const res = await axios.get(`/api/v1/reviews/${reviewId}`, {
+    params: {
+      language,
+    },
+  });
   return res.data;
 };

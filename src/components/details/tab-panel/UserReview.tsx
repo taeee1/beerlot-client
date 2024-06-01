@@ -1,4 +1,5 @@
-import { Button, Flex, Text } from "@chakra-ui/react";
+import { ReviewModal } from "@/components/shared/ReviewModal/ReviewModal";
+import { Button, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 
@@ -6,12 +7,12 @@ export const UserReview = () => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request");
   const router = useRouter();
   const userReview = null; // TODO: This should be replaced into real data from API
-
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const handleButtonClick = () => {
     if (!accessToken) {
       router.push("/login");
     } else {
-      router.push("/feed");
+      onOpen();
     }
   };
 
@@ -52,6 +53,7 @@ export const UserReview = () => {
             리뷰 작성하기
           </Button>
         </Flex>
+        <ReviewModal isModalOpen={isOpen} onCloseModal={onClose} />
       </>
     );
   }

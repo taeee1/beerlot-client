@@ -2,29 +2,29 @@ import {
   useDeleteReviewMutation,
   useReviewQuery,
 } from "@/../hooks/query/useReviewQuery";
-import {
-  useUserLikedReviewsQuery,
-  useUserReviewsQuery,
-} from "@/../hooks/query/useUserQuery";
+import { useUserLikedReviewsQuery } from "@/../hooks/query/useUserQuery";
 import { ReviewInfoType } from "@/../interface/types";
 import { MemberReviewResponse } from "@/../types/member/response";
 import { ReviewModal } from "@/components/shared/ReviewModal/ReviewModal";
 import { Flex, useDisclosure } from "@chakra-ui/react";
 import Cookies from "js-cookie";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import FollowingTabPanelItem from "../../feed/TabPanelItem";
 
-const BeerReviews = () => {
+interface BeerReviewsProps {
+  userReviews: MemberReviewResponse[];
+  onResetReviews: () => void;
+}
+
+const BeerReviews: React.FC<BeerReviewsProps> = ({
+  userReviews,
+  onResetReviews,
+}) => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
-  const userReviewQuery = useUserReviewsQuery(accessToken);
   const [selectedReviewId, setSelectedReviewId] = useState<number | null>(null);
   const reviewData = useReviewQuery(selectedReviewId).data;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const likedReviewsListQuery = useUserLikedReviewsQuery(accessToken);
-
-  useEffect(() => {
-    userReviewQuery.refetch();
-  }, []);
 
   const handleEdit = useCallback(
     (reviewId: number) => {
@@ -36,7 +36,7 @@ const BeerReviews = () => {
 
   const deleteReviewMutation = useDeleteReviewMutation(accessToken, {
     onSuccess: () => {
-      userReviewQuery.refetch();
+      onResetReviews();
     },
   });
 
@@ -61,7 +61,7 @@ const BeerReviews = () => {
       h="full"
       className="beerReviewFlex"
     >
-      {userReviewQuery?.data?.contents?.map((feed: MemberReviewResponse) => {
+      {userReviews?.map((feed: MemberReviewResponse) => {
         return (
           <FollowingTabPanelItem
             key={feed.id}

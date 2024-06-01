@@ -1,7 +1,7 @@
 import { Member, MemberReviewsRequest } from "@/../types/member/request";
 import {
-  getUserLikedBeersApi,
   fetchUserLikedReviews,
+  getUserLikedBeersApi,
   getUserReviewsApi,
   getUsersInfoApi,
   updateUserInfoApi,
@@ -13,12 +13,7 @@ import {
   useQuery,
 } from "react-query";
 import { FailureResponse } from "types/api";
-import {
-  BeersWithLanguage,
-  UserEditRequest,
-  UserUpdateRequestType,
-} from "./useReviewQuery";
-import { access } from "fs/promises";
+import { BeersWithLanguage, UserUpdateRequestType } from "./useReviewQuery";
 
 export const getUserInfoQueryKey = () => ["getUserInfo"];
 export const putUserInfoQueryKey = () => ["putUserInfo"];
@@ -32,9 +27,6 @@ export const useUserInfoQuery = (
   return useQuery({
     queryKey: getUserInfoQueryKey(),
     queryFn: () => getUsersInfoApi(accessToken),
-    enabled: false,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
     ...options,
   });
 };
@@ -58,9 +50,6 @@ export const useUserReviewsQuery = (
   return useQuery({
     queryKey: userReviewsQueryKey(),
     queryFn: () => getUserReviewsApi(accessToken, queryParam),
-    enabled: false,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
     ...options,
   });
 };
