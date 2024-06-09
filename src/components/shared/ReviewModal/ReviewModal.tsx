@@ -3,6 +3,7 @@ import {
   useReviewUpdateMutation,
 } from "@/../hooks/query/useReviewQuery";
 import {
+  Center,
   Modal,
   ModalContent,
   ModalProps,
@@ -14,8 +15,10 @@ import { ReviewInfoType } from "../../../../interface/types";
 import { BeerReviewContent } from "./BeerReviewContent";
 import { BeerSearchContent } from "./BeerSearchContent";
 import { ReviewExitConfirmationDrawer } from "./ReviewExitConfirmationDrawer";
+import { BeerlotLoading } from "../Loading";
 
 interface ReviewModalProps {
+  isLoading?: boolean;
   existingReviewInfo?: ReviewInfoType;
   reviewId?: number | null;
   isModalOpen: ModalProps["isOpen"];
@@ -24,6 +27,7 @@ interface ReviewModalProps {
 
 export const ReviewModal: React.FC<ReviewModalProps> = ({
   existingReviewInfo,
+  isLoading,
   reviewId,
   isModalOpen,
   onCloseModal,
@@ -33,8 +37,8 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
     onOpen: onOpenReviewDrawer,
     isOpen: isOpenReviewDrawer,
   } = useDisclosure();
-
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
+  console.log("existingReviewInfo", existingReviewInfo);
   const [reviewInfo, setReviewInfo] = useState<ReviewInfoType>({
     beerName: existingReviewInfo?.beerName ?? null,
     rate: existingReviewInfo?.rate ?? 0,
@@ -42,6 +46,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
     review: existingReviewInfo?.review ?? "",
     image_url: existingReviewInfo?.image_url ?? [""],
   });
+  console.log("reviewInfo", reviewInfo);
 
   const isCompleted = !!reviewInfo.beerName && !!reviewInfo.rate;
 
@@ -125,7 +130,12 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
     <>
       <Modal onClose={onCloseModal} size={"full"} isOpen={isModalOpen}>
         <ModalContent px="20px" pb="40px" maxW="450px" bg="white">
-          {step === 0 && (
+          {isLoading && (
+            <Center flex={1}>
+              <BeerlotLoading />
+            </Center>
+          )}
+          {!isLoading && step === 0 && (
             <BeerReviewContent
               onOpenDrawer={onOpenReviewDrawer}
               reviewInfo={reviewInfo}
@@ -139,7 +149,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
             />
           )}
 
-          {step === 1 && (
+          {!isLoading && step === 1 && (
             <BeerSearchContent
               onClickBack={() => {
                 setStep(step - 1);

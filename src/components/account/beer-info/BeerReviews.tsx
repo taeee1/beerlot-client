@@ -22,7 +22,8 @@ const BeerReviews: React.FC<BeerReviewsProps> = ({
 }) => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const [selectedReviewId, setSelectedReviewId] = useState<number | null>(null);
-  const reviewData = useReviewQuery(selectedReviewId).data;
+  const reviewQuery = useReviewQuery(selectedReviewId);
+  const reviewData = reviewQuery.data;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const likedReviewsListQuery = useUserLikedReviewsQuery(accessToken);
 
@@ -54,6 +55,8 @@ const BeerReviews: React.FC<BeerReviewsProps> = ({
     image_url: reviewData?.image_url,
   } as ReviewInfoType;
 
+  console.log("existingRevewInfo", existingRevewInfo);
+
   return (
     <Flex
       flexDirection="column"
@@ -82,6 +85,7 @@ const BeerReviews: React.FC<BeerReviewsProps> = ({
       })}
       <ReviewModal
         existingReviewInfo={reviewData ? existingRevewInfo : undefined}
+        isLoading={reviewQuery.isLoading}
         reviewId={selectedReviewId}
         isModalOpen={isOpen}
         onCloseModal={onClose}
