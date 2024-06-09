@@ -42,12 +42,9 @@ const BeerReviews: React.FC<BeerReviewsProps> = ({
     },
   });
 
-  const handleDelete = useCallback(
-    (reviewId: number) => () => {
-      deleteReviewMutation.mutate(reviewId);
-    },
-    [deleteReviewMutation]
-  );
+  const handleDelete = (reviewId: number) => {
+    deleteReviewMutation.mutate(reviewId);
+  };
 
   const existingRevewInfo = {
     beerName: null, //TODO: should be fixed
