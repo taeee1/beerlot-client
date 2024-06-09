@@ -9,6 +9,7 @@ import {
   DrawerHeader,
   DrawerOverlay,
   HStack,
+  ModalHeaderProps,
   Text,
   TextProps,
 } from "@chakra-ui/react";
@@ -21,6 +22,7 @@ interface BottomDrawerProps {
   leftButtonStyle?: ButtonProps;
   rightButtonStyle?: ButtonProps;
   bodyTextStyle?: TextProps;
+  headerTextStyle?: ModalHeaderProps;
   bodyText?: string;
   headerText?: string;
   leftButtonText?: string;
@@ -33,6 +35,7 @@ const BottomDrawer: React.FC<BottomDrawerProps> = ({
   bodyText,
   boxStyle,
   bodyTextStyle,
+  headerTextStyle,
   leftButtonText,
   rightButtonText,
   leftButtonStyle,
@@ -42,7 +45,9 @@ const BottomDrawer: React.FC<BottomDrawerProps> = ({
     <Drawer placement={"bottom"} onClose={onClose} isOpen={isOpen}>
       <DrawerOverlay bg={"rgba(0, 0, 0, 0.3)"} />
       <DrawerContent {...boxStyle}>
-        <DrawerHeader textAlign={"center"}>{headerText}</DrawerHeader>
+        <DrawerHeader textAlign={"center"} {...headerTextStyle}>
+          {headerText}
+        </DrawerHeader>
         {bodyText && (
           <DrawerBody w="full">
             <Text {...bodyTextStyle} whiteSpace={"pre-wrap"}>

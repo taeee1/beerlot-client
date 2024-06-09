@@ -10,6 +10,7 @@ import { Flex, useDisclosure } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import { useCallback, useState } from "react";
 import FollowingTabPanelItem from "../../feed/TabPanelItem";
+import { ReviewDeleteConfirmationDrawer } from "@/components/shared/ReviewModal/ReviewDeleteConfirmationDrawer";
 
 interface BeerReviewsProps {
   userReviews: MemberReviewResponse[];
@@ -55,7 +56,11 @@ const BeerReviews: React.FC<BeerReviewsProps> = ({
     image_url: reviewData?.image_url,
   } as ReviewInfoType;
 
-  console.log("existingRevewInfo", existingRevewInfo);
+  const {
+    isOpen: isOpenDeleteConfirmation,
+    onOpen: onOpenDeleteConfirmation,
+    onClose: onCloseDeleteConfirmation,
+  } = useDisclosure();
 
   return (
     <Flex
@@ -66,23 +71,37 @@ const BeerReviews: React.FC<BeerReviewsProps> = ({
     >
       {userReviews?.map((feed: MemberReviewResponse) => {
         return (
-          <FollowingTabPanelItem
-            key={feed.id}
-            reviewId={Number(feed.id)}
-            isLiked={likedReviewsListQuery.data?.includes(feed.id)}
-            nickname={feed.beer.name}
-            postingTime={feed.updated_at}
-            rate={feed.rate}
-            imageSrc={feed.image_url}
-            postText={feed.content}
-            thumbsUpNumber={feed.like_count}
-            isEditable={true}
-            onDelete={handleDelete(feed.id)}
-            onEdit={() => handleEdit(feed.id)}
-            token={accessToken}
-          />
+          <>
+            <FollowingTabPanelItem
+              key={feed.id}
+              reviewId={Number(feed.id)}
+              isLiked={likedReviewsListQuery.data?.includes(feed.id)}
+              nickname={feed.beer.name}
+              postingTime={feed.updated_at}
+              rate={feed.rate}
+              imageSrc={feed.image_url}
+              postText={feed.content}
+              thumbsUpNumber={feed.like_count}
+              isEditable={true}
+              onDelete={onOpenDeleteConfirmation}
+              onEdit={() => handleEdit(feed.id)}
+              token={accessToken}
+            />
+            <ReviewDeleteConfirmationDrawer
+              isOpen={isOpenDeleteConfirmation}
+              onClose={onCloseDeleteConfirmation}
+              onClickLeftButton={() => {
+                onCloseDeleteConfirmation();
+              }}
+              onClickRightButton={() => {
+                handleDelete(feed.id);
+                onCloseDeleteConfirmation();
+              }}
+            />
+          </>
         );
       })}
+
       <ReviewModal
         existingReviewInfo={reviewData ? existingRevewInfo : undefined}
         isLoading={reviewQuery.isLoading}
