@@ -23,6 +23,7 @@ const Nickname: React.FC<NicknameProps> = ({ onNext, setUserInfo }) => {
   const [isDuplicated, setIsDuplicated] = useState(false);
   const { mutate: checkUsername } = useCheckUsernameMutation({
     onSuccess: (data) => {
+      console.log("onSuccess", data.response);
       setIsDuplicated(data.response === "N");
     },
     onError: () => {
@@ -35,7 +36,7 @@ const Nickname: React.FC<NicknameProps> = ({ onNext, setUserInfo }) => {
   const allChecked = checkedItems.every(Boolean);
   const isReadyForNextStep = allChecked && !!isValid;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e);
     const value = e.target.value;
 

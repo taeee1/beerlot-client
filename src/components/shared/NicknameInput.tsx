@@ -29,6 +29,7 @@ const NicknameInput: React.FC<NicknameInputProps> = ({
   onBlur,
   maxLength,
 }) => {
+  console.log("isDuplicated from NicknameInput component", isDuplicated);
   return (
     <FormControl>
       <FormLabel
