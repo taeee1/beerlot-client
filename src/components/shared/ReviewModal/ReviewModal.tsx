@@ -1,64 +1,70 @@
 import {
-  useCreateReviewMutation,
-  useReviewUpdateMutation,
-} from "@/../hooks/query/useReviewQuery";
-import {
-  Center,
   Modal,
   ModalContent,
   ModalProps,
   useDisclosure,
 } from "@chakra-ui/react";
-import Cookies from "js-cookie";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { ReviewInfoType } from "../../../../interface/types";
 import { BeerReviewContent } from "./BeerReviewContent";
 import { BeerSearchContent } from "./BeerSearchContent";
 import { ReviewExitConfirmationDrawer } from "./ReviewExitConfirmationDrawer";
-import { BeerlotLoading } from "../Loading";
 
 interface ReviewModalProps {
-  isLoading?: boolean;
-  existingReviewInfo?: ReviewInfoType;
-  reviewId?: number | null;
   isModalOpen: ModalProps["isOpen"];
   onCloseModal: ModalProps["onClose"];
+  onComplete: () => void;
+  onChangeReviewInfo: (data: ReviewInfoType) => void;
+  reviewInfo: ReviewInfoType;
 }
 
+// TODO: remove this comment
+// id query 끝남.
+// 만약 existing data가 있다면, existing data를 없다면 initial Data를 가져옴
+
 export const ReviewModal: React.FC<ReviewModalProps> = ({
-  existingReviewInfo,
-  isLoading,
-  reviewId,
   isModalOpen,
+  reviewInfo,
+  onChangeReviewInfo,
   onCloseModal,
+  onComplete,
 }) => {
   const {
-    onClose: onCloseReviewDrawer,
-    onOpen: onOpenReviewDrawer,
-    isOpen: isOpenReviewDrawer,
+    onClose: onCloseConfirmDrawer,
+    onOpen: onOpenConfirmDrawer,
+    isOpen: isOpenConfirmDrawer,
   } = useDisclosure();
-  const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
-  console.log("existingReviewInfo", existingReviewInfo);
-  const [reviewInfo, setReviewInfo] = useState<ReviewInfoType>({
-    beerName: existingReviewInfo?.beerName ?? null,
-    rate: existingReviewInfo?.rate ?? 0,
-    place: existingReviewInfo?.place ?? "",
-    review: existingReviewInfo?.review ?? "",
-    image_url: existingReviewInfo?.image_url ?? [""],
-  });
-  console.log("reviewInfo", reviewInfo);
 
   const isCompleted = !!reviewInfo.beerName && !!reviewInfo.rate;
-
   const [step, setStep] = useState(0);
   const [reviewInputValue, setReviewInputValue] = useState(
-    existingReviewInfo?.review ?? ""
+    reviewInfo.review ?? ""
   );
   const [beerId, setBeerId] = useState<number | null>(null);
 
+  const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setReviewInputValue(e.target.value);
+  };
+
+  const handleChangeBeerName = (name: string, id: number) => {
+    const newBeerReview = { ...reviewInfo, beerName: name };
+    onChangeReviewInfo(newBeerReview);
+    setBeerId(id);
+  };
+
+  const handleChangeRate = (rate: number) => {
+    const newBeerReview = { ...reviewInfo, rate: rate };
+    onChangeReviewInfo(newBeerReview);
+  };
+
+  const handleClickPlaceTag = (place: string | null) => {
+    const newBeerReview = { ...reviewInfo, place: place };
+    onChangeReviewInfo(newBeerReview);
+  };
+
   useEffect(() => {
     return () => {
-      setReviewInfo({
+      onChangeReviewInfo({
         beerName: null,
         rate: 0,
         place: null,
@@ -67,89 +73,27 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
       onCloseModal();
       setReviewInputValue("");
     };
-  }, [onCloseModal]);
-
-  const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setReviewInputValue(e.target.value);
-  };
-
-  const handleChangeBeerName = (name: string, id: number) => {
-    const newBeerReview = { ...reviewInfo, beerName: name };
-    setReviewInfo(newBeerReview);
-    setBeerId(id);
-  };
-
-  const handleChangeRate = (rate: number) => {
-    const newBeerReview = { ...reviewInfo, rate: rate };
-    setReviewInfo(newBeerReview);
-  };
-
-  const handleClickPlaceTag = (place: string | null) => {
-    const newBeerReview = { ...reviewInfo, place: place };
-    setReviewInfo(newBeerReview);
-  };
-
-  const createReviewMutation = useCreateReviewMutation(
-    beerId ?? 0,
-    accessToken
-  );
-
-  const updatedReviewInfo = {
-    rate: reviewInfo.rate,
-    buy_from: reviewInfo?.place ?? "",
-    content: reviewInputValue,
-    image_url:
-      // TODO: update to real data
-      "https://fastly.picsum.photos/id/923/200/300.jpg?hmac=eiYSYaG7v46VlrE38Amrg33bd2FzVjaCsQrLMdekyAU",
-  };
-
-  const updateReview = useReviewUpdateMutation(
-    reviewId ?? 0,
-    accessToken,
-    updatedReviewInfo
-  );
-
-  const handleClickComplete = () => {
-    const newReviewInfo = {
-      rate: reviewInfo.rate,
-      buy_from: reviewInfo?.place ?? "",
-      content: reviewInputValue,
-      image_url:
-        "https://fastly.picsum.photos/id/923/200/300.jpg?hmac=eiYSYaG7v46VlrE38Amrg33bd2FzVjaCsQrLMdekyAU",
-    };
-    if (reviewId) {
-      updateReview.mutate();
-    } else {
-      createReviewMutation.mutate(newReviewInfo);
-    }
-
-    onCloseModal();
-  };
+  }, [onChangeReviewInfo, onCloseModal]);
 
   return (
     <>
       <Modal onClose={onCloseModal} size={"full"} isOpen={isModalOpen}>
         <ModalContent px="20px" pb="40px" maxW="450px" bg="white">
-          {isLoading && (
-            <Center flex={1}>
-              <BeerlotLoading />
-            </Center>
-          )}
-          {!isLoading && step === 0 && (
+          {step === 0 && (
             <BeerReviewContent
-              onOpenDrawer={onOpenReviewDrawer}
+              onOpenDrawer={onOpenConfirmDrawer}
               reviewInfo={reviewInfo}
               onNext={() => setStep(1)}
               handleChangeRate={handleChangeRate}
               handleClickPlaceTag={handleClickPlaceTag}
               handleInputChange={handleInputChange}
               reviewInputValue={reviewInputValue}
-              handleClickComplete={handleClickComplete}
+              handleClickComplete={onComplete}
               isCompleted={isCompleted}
             />
           )}
 
-          {!isLoading && step === 1 && (
+          {step === 1 && (
             <BeerSearchContent
               onClickBack={() => {
                 setStep(step - 1);
@@ -161,13 +105,13 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
       </Modal>
 
       <ReviewExitConfirmationDrawer
-        isOpen={isOpenReviewDrawer}
-        onClose={onCloseReviewDrawer}
+        isOpen={isOpenConfirmDrawer}
+        onClose={onCloseConfirmDrawer}
         onClickLeftButton={() => {
-          onCloseReviewDrawer();
+          onCloseConfirmDrawer();
           onCloseModal();
         }}
-        onClickRightButton={onCloseReviewDrawer}
+        onClickRightButton={onCloseConfirmDrawer}
       />
     </>
   );

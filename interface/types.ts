@@ -43,7 +43,7 @@ export interface BeerResultType {
   description: string;
   country: CountryType;
   volume: number;
-  image_url: string;
+  image_url: string[];
   category: CategoryType;
   tags: TagsType[];
   like_count: number;
@@ -93,12 +93,7 @@ export interface ReviewInfoType {
   image_url?: string[] | null;
 }
 
-export type UpdatedReviewInfo = Omit<
-  ReviewInfoType,
-  "beerName" | "image_url"
-> & {
-  image_url?: string | null;
-};
+export type UpdatedReviewInfo = Omit<ReviewInfoType, "beerName">;
 
 export enum ReviewSortEnum {
   RecentlyUpdated = "RECENTLY_UPDATED",
@@ -140,6 +135,6 @@ export enum OAUTH_PROVIDER {
 export interface ReviewPostparamType {
   content?: string;
   rate: number;
-  image_url?: string;
+  image_url?: string[];
   buy_from?: string[];
 }

@@ -1,16 +1,13 @@
-import {
-  useDeleteReviewMutation,
-  useReviewQuery,
-} from "@/../hooks/query/useReviewQuery";
+import { useDeleteReviewMutation } from "@/../hooks/query/useReviewQuery";
 import { useUserLikedReviewsQuery } from "@/../hooks/query/useUserQuery";
-import { ReviewInfoType } from "@/../interface/types";
 import { MemberReviewResponse } from "@/../types/member/response";
+import { ReviewDeleteConfirmationDrawer } from "@/components/shared/ReviewModal/ReviewDeleteConfirmationDrawer";
 import { ReviewModal } from "@/components/shared/ReviewModal/ReviewModal";
 import { Flex, useDisclosure } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import { useCallback, useState } from "react";
 import FollowingTabPanelItem from "../../feed/TabPanelItem";
-import { ReviewDeleteConfirmationDrawer } from "@/components/shared/ReviewModal/ReviewDeleteConfirmationDrawer";
+import { ReviewModalWrapper } from "@/components/shared/ReviewModal/ReviewModalWrapper";
 
 interface BeerReviewsProps {
   userReviews: MemberReviewResponse[];
@@ -23,13 +20,13 @@ const BeerReviews: React.FC<BeerReviewsProps> = ({
 }) => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const [selectedReviewId, setSelectedReviewId] = useState<number | null>(null);
-  const reviewQuery = useReviewQuery(selectedReviewId);
-  const reviewData = reviewQuery.data;
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const likedReviewsListQuery = useUserLikedReviewsQuery(accessToken);
 
   const handleEdit = useCallback(
     (reviewId: number) => {
+      console.log("reviewId", reviewId);
       setSelectedReviewId(reviewId);
       onOpen();
     },
@@ -46,13 +43,6 @@ const BeerReviews: React.FC<BeerReviewsProps> = ({
     deleteReviewMutation.mutate(reviewId);
   };
 
-  const existingRevewInfo = {
-    beerName: null, //TODO: should be fixed
-    rate: reviewData?.rate ?? 0,
-    review: reviewData?.content,
-    image_url: reviewData?.image_url,
-  } as ReviewInfoType;
-
   const {
     isOpen: isOpenDeleteConfirmation,
     onOpen: onOpenDeleteConfirmation,
@@ -67,6 +57,7 @@ const BeerReviews: React.FC<BeerReviewsProps> = ({
       className="beerReviewFlex"
     >
       {userReviews?.map((feed: MemberReviewResponse) => {
+        console.log("feed", feed);
         return (
           <>
             <FollowingTabPanelItem
@@ -99,9 +90,7 @@ const BeerReviews: React.FC<BeerReviewsProps> = ({
         );
       })}
 
-      <ReviewModal
-        existingReviewInfo={reviewData ? existingRevewInfo : undefined}
-        isLoading={reviewQuery.isLoading}
+      <ReviewModalWrapper
         reviewId={selectedReviewId}
         isModalOpen={isOpen}
         onCloseModal={onClose}

@@ -5,12 +5,12 @@ import {
   Container,
   useDisclosure,
 } from "@chakra-ui/react";
-import { CenteredTitle } from "../shared/Headers/CenteredTitle";
-import { ReviewModal } from "../shared/ReviewModal/ReviewModal";
-import { FeedTabList } from "./FeedTabList";
-import { EditPencil } from "../../../public/svg";
-import { useRouter } from "next/router";
 import Cookies from "js-cookie";
+import { useRouter } from "next/router";
+import { EditPencil } from "../../../public/svg";
+import { CenteredTitle } from "../shared/Headers/CenteredTitle";
+import { ReviewModalWrapper } from "../shared/ReviewModal/ReviewModalWrapper";
+import { FeedTabList } from "./FeedTabList";
 
 export const FeedTemplate = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -32,7 +32,7 @@ export const FeedTemplate = () => {
         <FeedTabList />
 
         <ReviewModalTriggerButton onClick={handleOpenReviewModal} />
-        <ReviewModal isModalOpen={isOpen} onCloseModal={onClose} />
+        <ReviewModalWrapper isModalOpen={isOpen} onCloseModal={onClose} />
       </Container>
     </Box>
   );

@@ -122,8 +122,8 @@ export const dislikeReviewApi = async (
 };
 
 // get one review by ID
-export const getSingleReviewApi = async (reviewId: number | null) => {
-  if (reviewId === null) {
+export const getSingleReviewApi = async (reviewId?: number | null) => {
+  if (reviewId === null || reviewId === undefined) {
     throw new Error("Review ID cannot be null.");
   }
   const language: LANGUAGE_TYPE = LANGUAGE_TYPE.KR;

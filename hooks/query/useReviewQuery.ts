@@ -47,14 +47,25 @@ export const deleteReviewMutationKey = () => ["deleteReview"];
 export const updateReviewMutationKey = () => ["updateReview"];
 
 export const useCreateReviewMutation = (
-  beerId: number,
   accessToken: string,
-  options?: UseMutationOptions<any, FailureResponse, CreateReviewRequestType>
+  options?: UseMutationOptions<
+    any,
+    FailureResponse,
+    {
+      beerId: number;
+      data: CreateReviewRequestType;
+    }
+  >
 ) => {
   return useMutation({
     mutationKey: createReviewMutationKey(),
-    mutationFn: (data: CreateReviewRequestType) =>
-      createReviewApi(beerId, data, accessToken),
+    mutationFn: ({
+      beerId,
+      data,
+    }: {
+      beerId: number;
+      data: CreateReviewRequestType;
+    }) => createReviewApi(beerId, data, accessToken),
     ...options,
   });
 };
@@ -97,36 +108,46 @@ export const useReviewDislikeMutation = (
 };
 
 export const useReviewQuery = (
-  reviewId: number | null,
+  reviewId?: number | null,
   options?: UseQueryOptions<SingleReviewRes, FailureResponse>
 ) => {
   return useQuery({
-    queryKey: ReviewQueryKey(),
+    queryKey: [reviewId],
     queryFn: () => getSingleReviewApi(reviewId),
-    enabled: reviewId !== null,
+    enabled: reviewId !== null && reviewId !== undefined,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     ...options,
   });
 };
+interface UpdateReviewMutationVariables {
+  reviewId: number;
+  newContent: UpdatedReviewInfo;
+}
 
 export const useReviewUpdateMutation = (
-  reviewId: number,
   accessToken: string,
-  newContent: UpdatedReviewInfo,
-  options?: UseMutationOptions<any, FailureResponse>
+  options?: UseMutationOptions<
+    any,
+    FailureResponse,
+    UpdateReviewMutationVariables
+  >
 ) => {
   return useMutation({
     mutationKey: updateReviewMutationKey(),
-    mutationFn: () => updateReviewApi(reviewId, accessToken, newContent),
+    mutationFn: ({ reviewId, newContent }) => {
+      return updateReviewApi(reviewId, accessToken, newContent);
+    },
     ...options,
   });
 };
 
+// TODO: beername 호환성 확인
 export type SingleReviewRes = {
   id: number;
+  beerName: string | null;
   content: string;
-  image_url: string;
+  image_url: string[];
   rate: number;
   like_count: number;
   updated_at: string;
@@ -195,7 +216,7 @@ export type ContentType = {
 export interface CreateReviewRequestType {
   content?: string;
   rate: number;
-  image_url?: string;
+  image_url?: string[] | null;
   buy_from?: string;
 }
 
