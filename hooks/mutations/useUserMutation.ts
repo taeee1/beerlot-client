@@ -20,6 +20,7 @@ export const useCheckUsernameMutation = (
 ): UseMutationResult<CheckUsernameResponse, FailureResponse, string> => {
   return useMutation({
     mutationFn: (username: string) => {
+      console.log("api check", checkUsernameApi(username));
       return checkUsernameApi(username);
     },
     ...options,
