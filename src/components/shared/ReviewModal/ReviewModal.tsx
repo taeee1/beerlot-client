@@ -13,14 +13,10 @@ import { ReviewExitConfirmationDrawer } from "./ReviewExitConfirmationDrawer";
 interface ReviewModalProps {
   isModalOpen: ModalProps["isOpen"];
   onCloseModal: ModalProps["onClose"];
-  onComplete: () => void;
+  onComplete: (beerId: number | null) => void;
   onChangeReviewInfo: (data: ReviewInfoType) => void;
   reviewInfo: ReviewInfoType;
 }
-
-// TODO: remove this comment
-// id query 끝남.
-// 만약 existing data가 있다면, existing data를 없다면 initial Data를 가져옴
 
 export const ReviewModal: React.FC<ReviewModalProps> = ({
   isModalOpen,
@@ -42,6 +38,9 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
   );
   const [beerId, setBeerId] = useState<number | null>(null);
 
+  const handleComplete = () => {
+    onComplete(beerId);
+  };
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setReviewInputValue(e.target.value);
   };
@@ -88,7 +87,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
               handleClickPlaceTag={handleClickPlaceTag}
               handleInputChange={handleInputChange}
               reviewInputValue={reviewInputValue}
-              handleClickComplete={onComplete}
+              handleClickComplete={handleComplete}
               isCompleted={isCompleted}
             />
           )}
