@@ -31,7 +31,7 @@ const Nickname: React.FC<NicknameProps> = ({ onNext, setUserInfo }) => {
   });
 
   console.log("isDuplicated", isDuplicated);
-  const isValid = checkIsValidNickname(input) && !isDuplicated;
+  const isValid = checkIsValidNickname(input);
   const allChecked = checkedItems.every(Boolean);
   const isReadyForNextStep = allChecked && !!isValid;
 
@@ -39,13 +39,7 @@ const Nickname: React.FC<NicknameProps> = ({ onNext, setUserInfo }) => {
     onChange(e);
     const value = e.target.value;
 
-    if (checkIsValidNickname(value)) {
-      console.log("first if");
-      checkUsername(value);
-    } else {
-      console.log("else");
-      setIsDuplicated(false);
-    }
+    checkUsername(value);
   };
 
   const handleClick = () => {
@@ -74,8 +68,9 @@ const Nickname: React.FC<NicknameProps> = ({ onNext, setUserInfo }) => {
       <NicknameInput
         input={input}
         isValid={isValid}
+        isDuplicated={isDuplicated}
         onChange={handleChange}
-        guideText={getNicknameHelperText(input, isDuplicated)}
+        guideText={getNicknameHelperText(input)}
       />
 
       <Box px="8px" w="100%">

@@ -9,11 +9,10 @@ export const isValidOrOriginalNickname = (
 
 export const getNicknameHelperTextOrOriginalNickname = (
   nicknameInput: string | null,
-  originalNickname: string | null,
-  isDuplicated: boolean
+  originalNickname: string | null
 ) => {
   if (nicknameInput === originalNickname) return "";
-  return getNicknameHelperText(nicknameInput, isDuplicated);
+  return getNicknameHelperText(nicknameInput);
 };
 
 export const checkIsValidNickname = (nickname: string | null) => {
@@ -29,10 +28,7 @@ export const checkIsValidNickname = (nickname: string | null) => {
   return true;
 };
 
-export const getNicknameHelperText = (
-  input: string | null,
-  isDuplicated: boolean
-) => {
+export const getNicknameHelperText = (input: string | null) => {
   if (input === null) return "";
   if (input.length > 9) {
     return "닉네임은 9자 이내로 만들 수 있어요!";
@@ -40,10 +36,6 @@ export const getNicknameHelperText = (
 
   if (input.length === 0) {
     return "닉네임을 정해주세요!";
-  }
-
-  if (isDuplicated) {
-    return "이미 사용 중인 닉네임이에요 :(";
   }
 
   return "사용할 수 있는 닉네임이에요 :)";

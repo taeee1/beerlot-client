@@ -1,10 +1,16 @@
-import {FormControl, FormHelperText, FormLabel, Input} from "@chakra-ui/react";
+import {
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  Input,
+} from "@chakra-ui/react";
 import React from "react";
 
 interface NicknameInputProps {
   input: string | null;
   label?: string;
   isValid?: boolean | null;
+  isDuplicated?: boolean;
   guideText?: string;
   placeholder?: string;
   maxLength?: number;
@@ -15,6 +21,7 @@ interface NicknameInputProps {
 const NicknameInput: React.FC<NicknameInputProps> = ({
   label = "닉네임",
   isValid = null,
+  isDuplicated = false,
   guideText = "",
   placeholder = "",
   input = "닉네임은 9자 이내로 만들 수 있어요!",
@@ -27,7 +34,11 @@ const NicknameInput: React.FC<NicknameInputProps> = ({
       <FormLabel
         textStyle="h3"
         textColor={
-          isValid === null ? "gray.300" : isValid ? "orange.200" : "red.100"
+          isValid === null
+            ? "gray.300"
+            : isValid && !isDuplicated
+            ? "orange.200"
+            : "red.100"
         }
       >
         {label}
@@ -46,7 +57,11 @@ const NicknameInput: React.FC<NicknameInputProps> = ({
         border="none"
         borderBottom="1px solid"
         borderBottomColor={
-          isValid === null ? "gray.300" : isValid ? "orange.200" : "red.100"
+          isValid === null
+            ? "gray.300"
+            : isValid && !isDuplicated
+            ? "orange.200"
+            : "red.100"
         }
         onBlur={onBlur}
         _focusVisible={{}}
@@ -59,7 +74,7 @@ const NicknameInput: React.FC<NicknameInputProps> = ({
           textStyle="h4"
           textColor={isValid ? "orange.200" : "red.100"}
         >
-          {guideText}
+          {isDuplicated ? "이미 사용 중인 닉네임이에요 :(" : guideText}
         </FormHelperText>
       )}
     </FormControl>

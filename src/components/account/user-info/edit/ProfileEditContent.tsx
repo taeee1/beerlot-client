@@ -123,11 +123,11 @@ const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
           <NicknameInput
             input={nicknameInput}
             isValid={validNickname}
+            isDuplicated={isDuplicated}
             onChange={handleChange}
             guideText={getNicknameHelperTextOrOriginalNickname(
               nicknameInput,
-              username,
-              isDuplicated
+              username
             )}
           />
           <NicknameInput
