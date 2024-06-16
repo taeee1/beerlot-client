@@ -21,7 +21,7 @@ const Nickname: React.FC<NicknameProps> = ({ onNext, setUserInfo }) => {
     initialInputState: null,
   });
   const [isDuplicated, setIsDuplicated] = useState(false);
-  const { mutate: checkUsername } = useCheckUsernameMutation({
+  const { mutate: checkUsername, isLoading } = useCheckUsernameMutation({
     onSuccess: (data) => {
       console.log("onSuccess", data.result);
       setIsDuplicated(data.result === "N");
@@ -31,7 +31,6 @@ const Nickname: React.FC<NicknameProps> = ({ onNext, setUserInfo }) => {
     },
   });
 
-  console.log("isDuplicated", isDuplicated);
   const isValid = checkIsValidNickname(input);
   const allChecked = checkedItems.every(Boolean);
   const isReadyForNextStep = allChecked && !!isValid && !isDuplicated;
@@ -63,6 +62,7 @@ const Nickname: React.FC<NicknameProps> = ({ onNext, setUserInfo }) => {
         boxShadow={
           isReadyForNextStep ? "0px 8px 16px rgba(0, 0, 0, 0.3)" : "none"
         }
+        isLoading={isLoading}
         _hover={{}}
       />
 
