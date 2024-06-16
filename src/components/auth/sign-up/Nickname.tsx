@@ -30,6 +30,7 @@ const Nickname: React.FC<NicknameProps> = ({ onNext, setUserInfo }) => {
     },
   });
 
+  console.log("isDuplicated", isDuplicated);
   const isValid = checkIsValidNickname(input) && !isDuplicated;
   const allChecked = checkedItems.every(Boolean);
   const isReadyForNextStep = allChecked && !!isValid;
@@ -39,8 +40,10 @@ const Nickname: React.FC<NicknameProps> = ({ onNext, setUserInfo }) => {
     const value = e.target.value;
 
     if (checkIsValidNickname(value)) {
+      console.log("first if");
       checkUsername(value);
     } else {
+      console.log("else");
       setIsDuplicated(false);
     }
   };
