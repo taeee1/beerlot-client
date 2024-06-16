@@ -13,6 +13,7 @@ import {
 } from "../../../../../service/input";
 import NicknameInput from "../../../shared/NicknameInput";
 import ProfileAvatar from "../../../shared/ProfileAvatar";
+import { useCheckUsernameMutation } from "../../../../../hooks/mutations/useUserMutation";
 
 interface ProfileEditContentProps extends StackProps {
   imageUrl: string;
@@ -32,7 +33,20 @@ const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
   });
   const [imgFile, setImgFile] = useState<string>("");
   const imgRef = useRef<HTMLInputElement>(null);
-
+  const [isDuplicated, setIsDuplicated] = useState(false);
+  const { mutate: checkUsername } = useCheckUsernameMutation({
+    onSuccess: (data) => {
+      setIsDuplicated(data.response === "N");
+    },
+    onError: () => {
+      setIsDuplicated(true);
+    },
+  });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onNicknameChange(e);
+    const value = e.target.value;
+    checkUsername(value);
+  };
   const handleChangeProfileImage = () => {
     if (!imgRef || !imgRef.current || !imgRef.current.files) return;
     const file = imgRef.current.files[0];
@@ -109,10 +123,11 @@ const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
           <NicknameInput
             input={nicknameInput}
             isValid={validNickname}
-            onChange={onNicknameChange}
+            onChange={handleChange}
             guideText={getNicknameHelperTextOrOriginalNickname(
               nicknameInput,
-              username
+              username,
+              isDuplicated
             )}
           />
           <NicknameInput

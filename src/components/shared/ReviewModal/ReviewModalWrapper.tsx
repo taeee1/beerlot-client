@@ -46,10 +46,11 @@ export const ReviewModalWrapper: React.FC<ReviewModalWrapperProps> = ({
 
   const { mutate: updateReview } = useReviewUpdateMutation(accessToken);
 
-  const handleComplete = (beerId: number) => {
+  const handleComplete = (beerId: number | null) => {
     if (reviewId !== undefined && reviewId !== null) {
       updateReview({ reviewId, newContent: reviewInfo });
     } else {
+      if (beerId === null) return;
       createReview({
         beerId: beerId,
         data: reviewInfo,
