@@ -81,7 +81,7 @@ export const SettingsTemplate = () => {
             borderRadius: "10px 10px 0px 0px",
           }}
           bodyText={
-            "그동안 비어랏에 기록하신 내용이 전부 사라질 거에요. 좋아요한 맥주들, 하나하나 남겼던 리뷰들 전부요! 그래도 떠나셔야 한다면, 사용하시는 동안 즐거우셨길 바라요. \n\n p.s. 맥주 마시다가 생각나면 언제든 다시 돌아와요 :)"
+            "떠나신다니 아쉽네요 😢\n맥주 마시다가 생각나면 언제든 다시 돌아와요 :)"
           }
           bodyTextStyle={{
             textColor: "gray.300",
