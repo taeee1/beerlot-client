@@ -8,6 +8,7 @@ import {
 } from "../../../../service/input";
 import FloatingButton from "../../shared/FloatingButton";
 import NicknameInput from "../../shared/NicknameInput";
+import { useCheckUsernameMutation } from "../../../../hooks/mutations/useUserMutation";
 
 interface NicknameProps {
   setUserInfo: (key: keyof SignUpType, value: string) => void;
@@ -19,11 +20,30 @@ const Nickname: React.FC<NicknameProps> = ({ onNext, setUserInfo }) => {
   const { input, onChange } = useInput({
     initialInputState: null,
   });
+  const [isDuplicated, setIsDuplicated] = useState(false);
+  const { mutate: checkUsername } = useCheckUsernameMutation({
+    onSuccess: (data) => {
+      setIsDuplicated(data.response === "N");
+    },
+    onError: () => {
+      setIsDuplicated(true);
+    },
+  });
 
-  const isValid = checkIsValidNickname(input);
-
+  const isValid = checkIsValidNickname(input) && !isDuplicated;
   const allChecked = checkedItems.every(Boolean);
   const isReadyForNextStep = allChecked && !!isValid;
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(e);
+    const value = e.target.value;
+
+    if (checkIsValidNickname(value)) {
+      checkUsername(value);
+    } else {
+      setIsDuplicated(false);
+    }
+  };
 
   const handleClick = () => {
     if (!input) return;
@@ -51,8 +71,8 @@ const Nickname: React.FC<NicknameProps> = ({ onNext, setUserInfo }) => {
       <NicknameInput
         input={input}
         isValid={isValid}
-        onChange={onChange}
-        guideText={getNicknameHelperText(input)}
+        onChange={handleChange}
+        guideText={getNicknameHelperText(input, isDuplicated)}
       />
 
       <Box px="8px" w="100%">

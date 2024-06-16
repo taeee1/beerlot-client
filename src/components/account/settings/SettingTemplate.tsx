@@ -94,7 +94,7 @@ export const SettingsTemplate = () => {
             px: "39px",
             onClick: () => {
               console.log("네 떠날래요 클릭됨");
-              // signout logic
+              // withdraw logic
             },
           }}
           rightButtonText={"아뇨, 더 있을래요"}

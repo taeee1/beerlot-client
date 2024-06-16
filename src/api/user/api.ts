@@ -91,3 +91,10 @@ export const fetchUserLikedReviews = async (accessToken: string) => {
 export const generateSocialLoginUrl = (provider: OAUTH_PROVIDER) => {
   return `https://beerlot-core-api-lopbi5pmwq-du.a.run.app/api/v1/auth/authorize/${provider}?redirect-url=${redirectUrl}`;
 };
+
+export const checkUsernameApi = async (username: string) => {
+  const res = await axios.post("/api/v1/members/check-username", {
+    username: username,
+  });
+  return res.data;
+};
