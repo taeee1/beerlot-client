@@ -76,7 +76,8 @@ const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
 
   const validNickname = isValidOrOriginalNickname(nicknameInput, username); // null means not changed
   const validBio = isValidOrOriginalBio(bioInput, statusMessage); // null means not changed;
-  const isChangeCompleted = validNickname !== false && validBio !== false;
+  const isChangeCompleted =
+    validNickname !== false && validBio !== false && isDuplicated !== true;
 
   return (
     <>

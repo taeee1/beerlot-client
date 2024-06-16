@@ -73,7 +73,7 @@ const NicknameInput: React.FC<NicknameInputProps> = ({
         <FormHelperText
           marginTop={1}
           textStyle="h4"
-          textColor={isValid ? "orange.200" : "red.100"}
+          textColor={isValid && !isDuplicated ? "orange.200" : "red.100"}
         >
           {isDuplicated ? "이미 사용 중인 닉네임이에요 :(" : guideText}
         </FormHelperText>

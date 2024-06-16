@@ -34,7 +34,7 @@ const Nickname: React.FC<NicknameProps> = ({ onNext, setUserInfo }) => {
   console.log("isDuplicated", isDuplicated);
   const isValid = checkIsValidNickname(input);
   const allChecked = checkedItems.every(Boolean);
-  const isReadyForNextStep = allChecked && !!isValid;
+  const isReadyForNextStep = allChecked && !!isValid && !isDuplicated;
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e);
