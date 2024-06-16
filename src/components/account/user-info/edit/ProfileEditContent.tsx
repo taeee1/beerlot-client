@@ -36,7 +36,7 @@ const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
   const [isDuplicated, setIsDuplicated] = useState(false);
   const { mutate: checkUsername } = useCheckUsernameMutation({
     onSuccess: (data) => {
-      setIsDuplicated(data.response === "N");
+      setIsDuplicated(data.result === "N");
     },
     onError: () => {
       setIsDuplicated(true);

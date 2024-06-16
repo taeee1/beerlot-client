@@ -12,7 +12,7 @@ export enum BooleanString {
 }
 
 interface CheckUsernameResponse {
-  response: BooleanString;
+  result: BooleanString;
 }
 
 export const useCheckUsernameMutation = (

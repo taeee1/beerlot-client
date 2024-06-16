@@ -23,8 +23,8 @@ const Nickname: React.FC<NicknameProps> = ({ onNext, setUserInfo }) => {
   const [isDuplicated, setIsDuplicated] = useState(false);
   const { mutate: checkUsername } = useCheckUsernameMutation({
     onSuccess: (data) => {
-      console.log("onSuccess", data.response);
-      setIsDuplicated(data.response === "N");
+      console.log("onSuccess", data.result);
+      setIsDuplicated(data.result === "N");
     },
     onError: () => {
       setIsDuplicated(true);

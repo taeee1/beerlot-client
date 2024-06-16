@@ -96,5 +96,5 @@ export const checkUsernameApi = async (username: string) => {
   const res = await axios.post("/api/v1/members/check-username", {
     username: username,
   });
-  return res.data.result;
+  return res.data;
 };
