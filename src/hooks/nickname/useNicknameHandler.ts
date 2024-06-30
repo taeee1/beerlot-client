@@ -13,12 +13,16 @@ export const useNicknameHandler = (prevUsername: string) => {
   };
 
   const handleCheckUsername = (newUsername: string) => {
-    if (newUsername === prevUsername) return;
+    if (newUsername === prevUsername) {
+      setIsUsernameTaken(false);
+      return;
+    }
     checkUsernameTaken(usernameInput);
   };
 
   const { mutate: checkUsernameTaken } = useCheckUsernameMutation({
-    onSuccess: (data) => {
+    onSuccess: (data, variable) => {
+      console.log("data", data, "variable", variable);
       setIsUsernameTaken(data.taken);
     },
   });
