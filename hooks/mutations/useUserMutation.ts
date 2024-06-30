@@ -7,7 +7,7 @@ import {
 import { FailureResponse } from "types/api";
 
 interface CheckUsernameResponse {
-  taken: boolean;
+  taken: string;
 }
 
 export const useCheckUsernameMutation = (

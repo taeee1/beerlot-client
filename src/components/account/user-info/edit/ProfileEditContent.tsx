@@ -30,7 +30,6 @@ export const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
     usernameGuideText,
     isUsernameTouched,
   } = useNicknameHandler(username);
-
   /**
    * image
    */
