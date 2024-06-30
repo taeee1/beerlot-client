@@ -4,8 +4,8 @@ import {
   FormLabel,
   Input,
   Text,
+  Flex,
 } from "@chakra-ui/react";
-import { Flex } from "antd";
 import React from "react";
 
 interface Props {
