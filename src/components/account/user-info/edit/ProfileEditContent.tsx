@@ -36,10 +36,10 @@ const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
   const [isDuplicated, setIsDuplicated] = useState(false);
   const { mutate: checkUsername } = useCheckUsernameMutation({
     onSuccess: (data) => {
-      setIsDuplicated(data.result === "N");
+      setIsDuplicated(data.taken);
     },
     onError: () => {
-      setIsDuplicated(true);
+      setIsDuplicated(false);
     },
   });
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
