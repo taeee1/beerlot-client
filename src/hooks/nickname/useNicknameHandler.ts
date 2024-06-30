@@ -17,7 +17,7 @@ export const useNicknameHandler = (prevUsername: string) => {
       setIsUsernameTaken(false);
       return;
     }
-    checkUsernameTaken(usernameInput);
+    checkUsernameTaken(newUsername);
   };
 
   const { mutate: checkUsernameTaken } = useCheckUsernameMutation({
