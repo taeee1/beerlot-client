@@ -1,52 +1,43 @@
 import { useEditUserInfoMutation } from "@/../hooks/query/useUserQuery";
-import useInput from "@/../hooks/useNicknameInput";
 import LeftXTitleRightComplete from "@/components/shared/Headers/LeftXTitleRightComplete";
+import { useNicknameHandler } from "@/hooks/nickname/useNicknameHandler";
 import { StackProps, VStack } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
-import {
-  getBioHelperText,
-  getNicknameHelperTextOrOriginalNickname,
-  isValidOrOriginalBio,
-  isValidOrOriginalNickname,
-} from "../../../../../service/input";
-import NicknameInput from "../../../shared/NicknameInput";
+import { MAX_BIO_LENGTH, useBioHandler } from "@/hooks/bio/useBioHandler";
+import CommonValidationInput from "../../../shared/CommonValidationInput";
 import ProfileAvatar from "../../../shared/ProfileAvatar";
-import { useCheckUsernameMutation } from "../../../../../hooks/mutations/useUserMutation";
 
 interface ProfileEditContentProps extends StackProps {
   imageUrl: string;
-  statusMessage: string | null;
   username: string;
+  statusMessage?: string;
 }
 
-const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
+export const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
   imageUrl,
-  statusMessage,
   username,
+  statusMessage,
 }) => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const router = useRouter();
-  const { input: nicknameInput, onChange: onNicknameChange } = useInput({
-    initialInputState: username,
-  });
+
+  const {
+    usernameInput,
+    validNickname,
+    onChangeUsername,
+    usernameGuideText,
+    isUsernameTouched,
+  } = useNicknameHandler(username);
+
+  /**
+   * image
+   */
+
   const [imgFile, setImgFile] = useState<string>("");
   const imgRef = useRef<HTMLInputElement>(null);
-  const [isDuplicated, setIsDuplicated] = useState(false);
-  const { mutate: checkUsername } = useCheckUsernameMutation({
-    onSuccess: (data) => {
-      setIsDuplicated(data.taken);
-    },
-    onError: () => {
-      setIsDuplicated(false);
-    },
-  });
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onNicknameChange(e);
-    const value = e.target.value;
-    checkUsername(value);
-  };
+
   const handleChangeProfileImage = () => {
     if (!imgRef || !imgRef.current || !imgRef.current.files) return;
     const file = imgRef.current.files[0];
@@ -56,10 +47,14 @@ const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
       if (typeof reader.result === "string") setImgFile(reader.result);
     };
   };
-  const { input: bioInput, onChange: onBioChange } = useInput({
-    initialInputState: statusMessage ?? "",
-  });
 
+  /** bio */
+  const { bioInput, onChangeBio, validBio, bioGuidText, hasTouchedBio } =
+    useBioHandler(statusMessage);
+
+  /**
+   * onSubmit
+   */
   const editUserInfoMutation = useEditUserInfoMutation(accessToken, {
     onSuccess: () => {
       router.push("/account");
@@ -68,16 +63,13 @@ const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
 
   const handleClickComplete = () => {
     editUserInfoMutation.mutate({
-      username: nicknameInput ?? "",
+      username: usernameInput ?? "",
       status_message: bioInput ?? "",
       image_url: imgFile,
     });
   };
 
-  const validNickname = isValidOrOriginalNickname(nicknameInput, username); // null means not changed
-  const validBio = isValidOrOriginalBio(bioInput, statusMessage); // null means not changed;
-  const isChangeCompleted =
-    validNickname !== false && validBio !== false && isDuplicated !== true;
+  const isChangeCompleted = validNickname && validBio !== false;
 
   return (
     <>
@@ -121,32 +113,27 @@ const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
           </form>
         </VStack>
         <VStack gap="px" w="100%">
-          <NicknameInput
-            input={nicknameInput}
+          <CommonValidationInput
+            input={usernameInput}
             isValid={validNickname}
-            isDuplicated={isDuplicated}
-            onChange={handleChange}
-            guideText={getNicknameHelperTextOrOriginalNickname(
-              nicknameInput,
-              username
-            )}
+            isTouched={isUsernameTouched}
+            onChange={onChangeUsername}
+            guideText={usernameGuideText}
           />
-          <NicknameInput
+          <CommonValidationInput
             label="소개"
-            maxLength={25}
             placeholder="소개는 25자까지 입력이 가능해요!"
             input={bioInput}
+            isTouched={hasTouchedBio}
             isValid={validBio}
-            onChange={onBioChange}
-            guideText={getBioHelperText(bioInput)}
+            onChange={onChangeBio}
+            guideText={bioGuidText}
           />
         </VStack>
       </VStack>
     </>
   );
 };
-
-export { ProfileEditContent };
 
 const rightTitleStyleProps = (isChangeCompleted: boolean) => {
   return {

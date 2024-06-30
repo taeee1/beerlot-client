@@ -1,31 +1,33 @@
-import {useUserInfoQuery} from "@/../hooks/query/useUserQuery";
+import { useUserInfoQuery } from "@/../hooks/query/useUserQuery";
+import { BeerlotLoading } from "@/components/shared/Loading";
 import Cookies from "js-cookie";
-import {useEffect} from "react";
-import {ProfileEditContent} from "./ProfileEditContent";
-const EditTemplate = () => {
+import { ProfileEditContent } from "./ProfileEditContent";
+
+export const EditTemplate = () => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
-  const userQuery = useUserInfoQuery(accessToken ?? "");
+  const userQuery = useUserInfoQuery(accessToken ?? "", {
+    enabled: !!accessToken,
+  });
+
+  const loading = userQuery.isLoading;
+
   const {
     image_url,
     username,
     status_message: statusMessage,
   } = userQuery?.data ?? {};
 
-  useEffect(() => {
-    userQuery.refetch();
-  }, []);
+  if (loading) return <BeerlotLoading />;
 
   return (
     <>
       {username && (
         <ProfileEditContent
           imageUrl={image_url || "/images/default-profile.png"}
-          statusMessage={statusMessage ?? null}
+          statusMessage={statusMessage}
           username={username}
         />
       )}
     </>
   );
 };
-
-export default EditTemplate;

@@ -1,11 +1,4 @@
 // nickname
-export const isValidOrOriginalNickname = (
-  newNickname: string | null,
-  originalNickname: string
-) => {
-  if (newNickname === originalNickname) return null;
-  return checkIsValidNickname(newNickname);
-};
 
 export const getNicknameHelperTextOrOriginalNickname = (
   nicknameInput: string | null,

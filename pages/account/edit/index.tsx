@@ -1,6 +1,6 @@
-import EditTemplate from "@/components/account/user-info/edit/EditTemplate";
-import {Box, Container} from "@chakra-ui/react";
-import {GetServerSideProps} from "next";
+import { EditTemplate } from "@/components/account/user-info/edit/EditTemplate";
+import { Box, Container } from "@chakra-ui/react";
+import { GetServerSideProps } from "next";
 
 const EditPage = () => {
   return (

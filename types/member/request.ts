@@ -13,11 +13,11 @@ export interface MemberRequest {
 }
 
 export interface Member {
-  id: number;
-  username: string;
-  image_url: string;
-  status_message: string;
-  username_updated_at: string;
+  id?: number;
+  username?: string;
+  image_url?: string;
+  status_message?: string;
+  username_updated_at?: string;
 }
 
 export interface MemberReviewsRequest {

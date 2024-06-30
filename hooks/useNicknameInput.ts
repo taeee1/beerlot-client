@@ -1,10 +1,10 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 interface NicknameInputProps {
   initialInputState: string | null;
 }
 
-const useInput = ({initialInputState}: NicknameInputProps) => {
+export const useInput = ({ initialInputState }: NicknameInputProps) => {
   const [input, setInput] = useState<string | null>(initialInputState);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -17,5 +17,3 @@ const useInput = ({initialInputState}: NicknameInputProps) => {
     onChange,
   };
 };
-
-export default useInput;
