@@ -9,6 +9,7 @@ import FloatingButton from "../../shared/FloatingButton";
 import CommonValidationInput from "../../shared/CommonValidationInput";
 import { useCheckUsernameMutation } from "../../../../hooks/mutations/useUserMutation";
 import { useInput } from "../../../../hooks/useNicknameInput";
+import { useNicknameHandler } from "@/hooks/nickname/useNicknameHandler";
 
 interface NicknameProps {
   setUserInfo: (key: keyof SignUpType, value: string) => void;
@@ -16,34 +17,25 @@ interface NicknameProps {
 }
 
 const Nickname: React.FC<NicknameProps> = ({ onNext, setUserInfo }) => {
+  /**
+   * nickname
+   */
+  const {
+    usernameInput,
+    validNickname,
+    onChangeUsername,
+    usernameGuideText,
+    isUsernameTouched,
+    isCheckingDuplication,
+  } = useNicknameHandler("");
+
   const [checkedItems, setCheckedItems] = useState([false, false]);
-  const { input, onChange } = useInput({
-    initialInputState: null,
-  });
-  const [isDuplicated, setIsDuplicated] = useState(false);
-  const { mutate: checkUsername, isLoading } = useCheckUsernameMutation({
-    onSuccess: (data) => {
-      setIsDuplicated(data.taken === "true" ? true : false);
-    },
-    onError: () => {
-      setIsDuplicated(false);
-    },
-  });
-
-  const isValid = checkIsValidNickname(input);
   const allChecked = checkedItems.every(Boolean);
-  const isReadyForNextStep = allChecked && !!isValid && !isDuplicated;
-
-  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e);
-    const value = e.target.value;
-
-    checkUsername(value);
-  };
+  const isReadyForNextStep = allChecked && !!validNickname;
 
   const handleClick = () => {
-    if (!input) return;
-    setUserInfo("username", input);
+    if (!usernameInput) return;
+    setUserInfo("username", usernameInput);
     onNext();
   };
 
@@ -61,15 +53,16 @@ const Nickname: React.FC<NicknameProps> = ({ onNext, setUserInfo }) => {
         boxShadow={
           isReadyForNextStep ? "0px 8px 16px rgba(0, 0, 0, 0.3)" : "none"
         }
-        isLoading={isLoading}
+        isLoading={isCheckingDuplication}
         _hover={{}}
       />
 
       <CommonValidationInput
-        input={input}
-        isValid={isValid}
-        onChange={handleChange}
-        guideText={getNicknameHelperText(input)}
+        input={usernameInput}
+        isValid={validNickname}
+        isTouched={isUsernameTouched}
+        onChange={onChangeUsername}
+        guideText={usernameGuideText}
       />
 
       <Box px="8px" w="100%">

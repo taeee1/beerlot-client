@@ -20,12 +20,13 @@ export const useNicknameHandler = (prevUsername: string) => {
     checkUsernameTaken(newUsername);
   };
 
-  const { mutate: checkUsernameTaken } = useCheckUsernameMutation({
-    onSuccess: (data, variable) => {
-      console.log("data", data, "variable", variable);
-      setIsUsernameTaken(data.taken === "true" ? true : false);
-    },
-  });
+  const { mutate: checkUsernameTaken, isLoading: isCheckingDuplication } =
+    useCheckUsernameMutation({
+      onSuccess: (data, variable) => {
+        console.log("data", data, "variable", variable);
+        setIsUsernameTaken(data.taken === "true" ? true : false);
+      },
+    });
 
   const validNickname =
     !isTouched ||
@@ -56,6 +57,7 @@ export const useNicknameHandler = (prevUsername: string) => {
     isUsernameTouched: isTouched,
     validNickname,
     usernameGuideText,
+    isCheckingDuplication,
   };
 };
 
