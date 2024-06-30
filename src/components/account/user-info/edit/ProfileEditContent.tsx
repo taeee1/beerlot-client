@@ -122,6 +122,7 @@ export const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
           <CommonValidationInput
             label="소개"
             placeholder="소개는 25자까지 입력이 가능해요!"
+            maxLength={MAX_BIO_LENGTH}
             input={bioInput}
             isTouched={hasTouchedBio}
             isValid={validBio}
