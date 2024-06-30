@@ -8,10 +8,10 @@ import React from "react";
 
 interface Props {
   input: string | null;
-  label?: string;
-  isValid?: boolean | null;
+  isValid: boolean;
   isTouched?: boolean;
   guideText?: string;
+  label?: string;
   placeholder?: string;
   maxLength?: number;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -20,7 +20,7 @@ interface Props {
 
 const CommonValidationInput: React.FC<Props> = ({
   label = "닉네임",
-  isValid = null,
+  isValid,
   isTouched,
   guideText = "",
   placeholder = "",
@@ -62,7 +62,9 @@ const CommonValidationInput: React.FC<Props> = ({
         <FormHelperText
           marginTop={1}
           textStyle="h4"
-          textColor={!isTouched ? "orange.200" : "red.100"}
+          textColor={
+            !isTouched ? "gray.300" : isValid ? "orange.200" : "red.100"
+          }
         >
           {guideText}
         </FormHelperText>
