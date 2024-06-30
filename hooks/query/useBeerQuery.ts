@@ -56,7 +56,6 @@ export const useRecommendedBeersQuery = (
     queryFn: () => fetchRecommendedBeers(accessToken),
     refetchOnMount: false,
     refetchOnWindowFocus: false,
-    enabled: !!accessToken,
     ...options,
   });
 };

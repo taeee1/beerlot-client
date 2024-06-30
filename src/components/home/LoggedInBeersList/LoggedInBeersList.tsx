@@ -51,7 +51,7 @@ const LoggedInBeersList: React.FC<LoggedInBeersListProps> = ({
           onValidateLikedBeersList={handleValidateLikedBeersList}
         />
       )}
-      {userName && recommendedBeerList && (
+      {userName && recommendedBeerList && recommendedBeerList.length > 0 && (
         <RecommendedBeersList
           username={userName}
           beersList={recommendedBeerList}

@@ -22,17 +22,17 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({ username }) => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
 
   const topBeersQuery = useTopBeersQuery({});
-  const { data: recommendBeers } = useRecommendedBeersQuery(accessToken);
+  const { data: recommendBeers } = useRecommendedBeersQuery(accessToken, {
+    enabled: !!accessToken,
+  });
 
   // Ensure recommendBeers.id exists and fallback to empty array if not
-  const recommendedBeersId =
-    recommendBeers?.id && recommendBeers.id.length > 0
-      ? recommendBeers.id
-      : [1, 2];
+  const recommendedBeersIdList =
+    recommendBeers?.id && recommendBeers.id.length > 0 ? recommendBeers.id : [];
 
   // Fetch data for each beer ID
   const recommendedBeersData = useQueries(
-    recommendedBeersId.map((beerId) => ({
+    recommendedBeersIdList.map((beerId) => ({
       queryKey: singleBeerFetchKey(beerId),
       queryFn: () =>
         fetchSingleBeerInfoApi({
@@ -44,7 +44,7 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({ username }) => {
       enabled: !!beerId,
     }))
   ).map((query, index) => {
-    return { id: recommendedBeersId[index], ...query.data };
+    return { id: recommendedBeersIdList[index], ...query.data };
   });
 
   useEffect(() => {
