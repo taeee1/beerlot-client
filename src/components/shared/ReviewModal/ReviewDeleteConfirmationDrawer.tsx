@@ -34,7 +34,6 @@ const ReviewDeleteConfirmationDrawer: React.FC<
       leftButtonStyle={{
         w: "full",
         py: "10px",
-        px: "39px",
         onClick: onClickLeftButton,
       }}
       rightButtonText={"삭제하기"}
@@ -42,7 +41,6 @@ const ReviewDeleteConfirmationDrawer: React.FC<
         w: "full",
         bg: "blue.100",
         py: "10px",
-        px: "22px",
         onClick: onClickRightButton,
       }}
     />
