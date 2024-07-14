@@ -27,7 +27,7 @@ const ReviewDeleteConfirmationDrawer: React.FC<
         justifyContent: "center",
         w: "full",
         bg: "white",
-        p: "38px 20px 34px 21px",
+        py: "38px 34px",
         borderRadius: "10px 10px 0px 0px",
       }}
       leftButtonText={"취소"}

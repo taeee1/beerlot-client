@@ -43,7 +43,7 @@ export const SettingsTemplate = () => {
             gap: "50px",
             w: "full",
             bg: "white",
-            p: "38px 20px 34px 21px",
+            py: "38px 34px",
             borderRadius: "10px 10px 0px 0px",
           }}
           leftButtonText={"취소"}
@@ -77,7 +77,7 @@ export const SettingsTemplate = () => {
             gap: "15px",
             w: "full",
             bg: "white",
-            p: "30px 20px 37px 21px",
+            py: "30px 37px",
             borderRadius: "10px 10px 0px 0px",
           }}
           bodyText={
