@@ -13,36 +13,14 @@ const ReviewDeleteConfirmationDrawer: React.FC<
 > = ({ onClickLeftButton, onClickRightButton, isOpen, onClose }) => {
   return (
     <BottomDrawer
-      headerText={"리뷰를 삭제하시겠어요?"}
-      bodyText={"삭제한 리뷰는 복구할 수 없어요!"}
-      bodyTextStyle={{
-        textAlign: "center",
-      }}
-      headerTextStyle={{
-        p: 0,
-      }}
+      headerLabel={"리뷰를 삭제하시겠어요?"}
+      bodyLabel={"삭제한 리뷰는 복구할 수 없어요!"}
       onClose={onClose}
       isOpen={isOpen}
-      boxStyle={{
-        justifyContent: "center",
-        w: "full",
-        bg: "white",
-        py: "38px 34px",
-        borderRadius: "10px 10px 0px 0px",
-      }}
-      leftButtonText={"취소"}
-      leftButtonStyle={{
-        w: "full",
-        py: "10px",
-        onClick: onClickLeftButton,
-      }}
-      rightButtonText={"삭제하기"}
-      rightButtonStyle={{
-        w: "full",
-        bg: "blue.100",
-        py: "10px",
-        onClick: onClickRightButton,
-      }}
+      cancelLabel={"취소"}
+      onCancel={onClickLeftButton}
+      confirmLabel={"삭제하기"}
+      onConfirm={onClickRightButton}
     />
   );
 };

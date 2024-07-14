@@ -27,6 +27,24 @@ export const SettingsTemplate = () => {
       },
     },
   ];
+  const handleCanecelLogout = () => {
+    LogoutDrawer.onClose();
+  };
+  const handleLogout = () => {
+    router.push("/");
+    Cookies.remove("beerlot-oauth-auth-request");
+  };
+  const handleCancelSignout = () => {
+    SignOut.onClose();
+  };
+
+  const handleSignout = () => {
+    // TODO: 탈퇴 로직 구현 필요
+    console.log("네 떠날래요 클릭됨");
+    handleLogout();
+    router.push("/");
+    SignOut.onClose();
+  };
 
   return (
     <Box h="full">
@@ -35,77 +53,28 @@ export const SettingsTemplate = () => {
         <LeftBackRandom onClick={handleClickBack} title="설정" />
         {/* LOGOUT drawer */}
         <BottomDrawer
-          headerText={"로그아웃 하시겠어요?"}
+          headerLabel={"로그아웃 하시겠어요?"}
           onClose={LogoutDrawer.onClose}
           isOpen={LogoutDrawer.isOpen}
-          boxStyle={{
-            justifyContent: "center",
-            gap: "50px",
-            w: "full",
-            bg: "white",
-            py: "38px 34px",
-            borderRadius: "10px 10px 0px 0px",
-          }}
-          leftButtonText={"취소"}
-          leftButtonStyle={{
-            w: "full",
-            py: "10px",
-            px: "39px",
-            onClick: () => {
-              LogoutDrawer.onClose();
-            },
-          }}
-          rightButtonText={"로그아웃"}
-          rightButtonStyle={{
-            w: "full",
-            py: "10px",
-            px: "22px",
-            onClick: () => {
-              console.log("logout clicked");
-              router.push("/");
-              Cookies.remove("beerlot-oauth-auth-request");
-            },
-          }}
+          cancelLabel={"취소"}
+          onCancel={handleCanecelLogout}
+          confirmLabel={"로그아웃"}
+          onConfirm={handleLogout}
         />
+
         {/* SIGNOUT drawer */}
         <BottomDrawer
-          headerText={"정말 비어랏을 떠나시는 건가요?"}
+          headerLabel={"정말 비어랏을 떠나시는 건가요?"}
           onClose={SignOut.onClose}
           isOpen={SignOut.isOpen}
-          boxStyle={{
-            justifyContent: "center",
-            gap: "15px",
-            w: "full",
-            bg: "white",
-            py: "30px 37px",
-            borderRadius: "10px 10px 0px 0px",
-          }}
-          bodyText={
+          bodyLabel={
             "떠나신다니 아쉽네요 😢\n맥주 마시다가 생각나면 언제든 다시 돌아와요 :)"
           }
-          bodyTextStyle={{
-            textColor: "gray.300",
-            textAlign: "center",
-          }}
-          leftButtonText={"네, 떠날래요"}
-          leftButtonStyle={{
-            w: "full",
-            py: "10px",
-            px: "39px",
-            onClick: () => {
-              console.log("네 떠날래요 클릭됨");
-              // withdraw logic
-            },
-          }}
-          rightButtonText={"아뇨, 더 있을래요"}
-          rightButtonStyle={{
-            w: "full",
-            py: "10px",
-            px: "22px",
-            onClick: () => {
-              SignOut.onClose();
-            },
-          }}
+          reversed
+          cancelLabel={"네, 떠날래요"}
+          onCancel={handleSignout}
+          confirmLabel={"아뇨, 더 있을래요"}
+          onConfirm={handleCancelSignout}
         />
         <VStack
           bg="gray.100"
@@ -118,11 +87,6 @@ export const SettingsTemplate = () => {
           borderLeft={"1px solid"}
           borderLeftColor={"gray.200"}
         >
-          {/* <Flex w="full" flexDir={"column"}>
-            {BeerSettingSection.map(({title, href}) => (
-              <SectionButton key={title} title={title} href={href} />
-            ))}
-          </Flex> */}
           <Flex w="full" flexDir={"column"}>
             {NoticeSettingSection.map(({ title, href }) => (
               <SectionButton key={title} title={title} href={href} />

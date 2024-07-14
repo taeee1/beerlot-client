@@ -1,4 +1,4 @@
-import {extendTheme} from "@chakra-ui/react";
+import { extendTheme } from "@chakra-ui/react";
 
 export const theme = extendTheme({
   components: {
@@ -73,22 +73,23 @@ export const theme = extendTheme({
       fontWeight: "500",
       fontSize: "16px",
       letterSpacing: "0.01px",
-      lineHeight: "19px",
+      lineHeight: "24px",
     },
     h2_bold: {
       fontWeight: "700",
+      lineHeight: "24px",
       fontSize: "16px",
       letterSpacing: "0.01px",
     },
     h3: {
       fontWeight: "500",
       fontSize: "14px",
-      lineHeight: "24px",
+      lineHeight: "20px",
       letterSpacing: "0.01px",
     },
     h3_bold: {
       fontWeight: "700",
-      lineHeight: "24px",
+      lineHeight: "20px",
       fontSize: "14px",
       letterSpacing: "0.01px",
     },
