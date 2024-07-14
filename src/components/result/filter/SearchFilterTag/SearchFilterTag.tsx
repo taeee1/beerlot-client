@@ -33,8 +33,8 @@ const SearchFilterTag: React.FC<SearchFilterTagProps> = ({
     <FilterTag
       tagText={title}
       borderRadius="15px"
-      pl="5px"
-      px={"0px"}
+      pl={2}
+      pr={0}
       py="1.5px"
       h="full"
       alignItems={"center"}
