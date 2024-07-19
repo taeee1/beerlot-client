@@ -1,16 +1,22 @@
-import React, { useState } from "react";
+import React, { useDeferredValue, useEffect, useState } from "react";
+import { useDebounce } from "../shared/useDebounce";
 import { useCheckUsernameMutation } from "../../../hooks/mutations/useUserMutation";
 
 export const useNicknameHandler = (prevUsername: string) => {
   const [usernameInput, setUsernameInput] = useState<string>(prevUsername);
   const [isUsernameTaken, setIsUsernameTaken] = useState<boolean>(false);
   const [isTouched, setIsTouched] = useState<boolean>(false);
+  const debouncedUsername = useDebounce(usernameInput, 500);
+  const deferredUsername = useDeferredValue(debouncedUsername);
 
   const onChangeUsername = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (!isTouched) setIsTouched(true);
     setUsernameInput(e.target.value);
-    handleCheckUsername(e.target.value);
   };
+
+  useEffect(() => {
+    handleCheckUsername(deferredUsername);
+  }, [deferredUsername]);
 
   const handleCheckUsername = (newUsername: string) => {
     if (newUsername === prevUsername) {
