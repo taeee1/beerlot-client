@@ -6,7 +6,7 @@ export const useNicknameHandler = (prevUsername: string) => {
   const [usernameInput, setUsernameInput] = useState<string>(prevUsername);
   const [isUsernameTaken, setIsUsernameTaken] = useState<boolean>(false);
   const [isTouched, setIsTouched] = useState<boolean>(false);
-  const debouncedUsername = useDebounce(usernameInput, 500);
+  const debouncedUsername = useDebounce(usernameInput, 200);
   const deferredUsername = useDeferredValue(debouncedUsername);
 
   const onChangeUsername = (e: React.ChangeEvent<HTMLInputElement>): void => {
