@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { useUploadMediaMutation } from "../../../../../hooks/mutations/useUploadMediaMutation";
 import ProfileAvatar from "../../../shared/ProfileAvatar";
 import { set } from "lodash";
+import { Skeleton, SkeletonCircle } from "@chakra-ui/react";
 
 interface ProfileUploadAvatarProps {
   imageUrl: string;
@@ -14,7 +15,7 @@ export const ProfileUploadAvatar: React.FC<ProfileUploadAvatarProps> = ({
   setImageUrl,
 }) => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
-  const { mutate } = useUploadMediaMutation({
+  const { mutate, isLoading } = useUploadMediaMutation({
     onSuccess: (data: { urls: string[] }) => {
       const newUrl = data.urls[0];
       setImageUrl(newUrl);
@@ -42,36 +43,42 @@ export const ProfileUploadAvatar: React.FC<ProfileUploadAvatarProps> = ({
 
   return (
     <>
-      <ProfileAvatar
-        alt="user profile photo"
-        src={imageUrl || "/images/default-profile.png"}
-        boxSize="100px"
-      />
-      <form>
-        <label
-          className="signup-profileImg-label"
-          htmlFor="profileImg"
-          style={{
-            color: "#FEA801",
-            fontWeight: "700",
-            lineHeight: "24px",
-            fontSize: "14px",
-            letterSpacing: "0.01px",
-            cursor: "pointer",
-          }}
-        >
-          프로필 사진 바꾸기
-        </label>
-        <input
-          className="signup-profileImg-input"
-          type="file"
-          accept="image/*"
-          id="profileImg"
-          onChange={handleChangeProfileImage}
-          ref={imgRef}
-          style={{ display: "none" }}
+      {isLoading ? (
+        <SkeletonCircle size="100" />
+      ) : (
+        <ProfileAvatar
+          alt="user profile photo"
+          src={imageUrl || "/images/default-profile.png"}
+          boxSize="100px"
         />
-      </form>
+      )}
+      <Skeleton isLoaded={!isLoading}>
+        <form>
+          <label
+            className="signup-profileImg-label"
+            htmlFor="profileImg"
+            style={{
+              color: "#FEA801",
+              fontWeight: "700",
+              lineHeight: "24px",
+              fontSize: "14px",
+              letterSpacing: "0.01px",
+              cursor: "pointer",
+            }}
+          >
+            프로필 사진 바꾸기
+          </label>
+          <input
+            className="signup-profileImg-input"
+            type="file"
+            accept="image/*"
+            id="profileImg"
+            onChange={handleChangeProfileImage}
+            ref={imgRef}
+            style={{ display: "none" }}
+          />
+        </form>
+      </Skeleton>
     </>
   );
 };
