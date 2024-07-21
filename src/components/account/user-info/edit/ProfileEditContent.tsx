@@ -1,40 +1,27 @@
 import { useEditUserInfoMutation } from "@/../hooks/query/useUserQuery";
 import LeftXTitleRightComplete from "@/components/shared/Headers/LeftXTitleRightComplete";
+import { MAX_BIO_LENGTH, useBioHandler } from "@/hooks/bio/useBioHandler";
 import { useNicknameHandler } from "@/hooks/nickname/useNicknameHandler";
 import { StackProps, VStack } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import { useRef, useState } from "react";
-import { MAX_BIO_LENGTH, useBioHandler } from "@/hooks/bio/useBioHandler";
+import { useState } from "react";
 import CommonValidationInput from "../../../shared/CommonValidationInput";
-import ProfileAvatar from "../../../shared/ProfileAvatar";
-import axios from "axios";
-import { useUploadMediaMutation } from "../../../../../hooks/mutations/useUploadMediaMutation";
+import { ProfileUploadAvatar } from "./ProfileUploadAvatar";
 
 interface ProfileEditContentProps extends StackProps {
-  imageUrl: string;
+  existingImageURl: string;
   username: string;
   statusMessage?: string;
 }
 
 export const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
-  imageUrl,
+  existingImageURl,
   username,
   statusMessage,
 }) => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const router = useRouter();
-  const { mutate } = useUploadMediaMutation({
-    onSuccess: (
-      data: { files: string[] },
-      variables: { directory: string; formData: FormData; accessToken: string }
-    ) => {
-      console.log("onSuccess", data);
-    },
-    onError: (error: any) => {
-      console.error("onError", error);
-    },
-  });
 
   const {
     usernameInput,
@@ -43,39 +30,15 @@ export const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
     usernameGuideText,
     isUsernameTouched,
   } = useNicknameHandler(username);
-  /**
-   * image
-   */
 
-  const [imgFile, setImgFile] = useState<string>("");
-  const imgRef = useRef<HTMLInputElement>(null);
+  // image
+  const [imageUrl, setImageUrl] = useState<string>(existingImageURl);
 
-  const handleChangeProfileImage = async () => {
-    if (!imgRef || !imgRef.current || !imgRef.current.files) return;
-    const file = imgRef.current.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      if (typeof reader.result === "string") setImgFile(reader.result);
-    };
-
-    const formData = new FormData();
-    formData.append("files", file);
-    const res = mutate({
-      directory: "profile",
-      formData,
-      accessToken,
-    });
-    console.log("Res", res);
-  };
-
-  /** bio */
+  // bio
   const { bioInput, onChangeBio, validBio, bioGuidText, hasTouchedBio } =
     useBioHandler(statusMessage);
 
-  /**
-   * onSubmit
-   */
+  // submit
   const editUserInfoMutation = useEditUserInfoMutation(accessToken, {
     onSuccess: () => {
       router.push("/account");
@@ -86,7 +49,7 @@ export const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
     editUserInfoMutation.mutate({
       username: usernameInput ?? "",
       status_message: bioInput ?? "",
-      image_url: imgFile,
+      image_url: imageUrl,
     });
   };
 
@@ -102,36 +65,7 @@ export const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
       />
       <VStack px="30px" py="10px" gap="32px" pt="50px">
         <VStack>
-          <ProfileAvatar
-            alt="user profile photo"
-            src={imageUrl || "/images/default-profile.png"}
-            boxSize="100px"
-          />
-          <form>
-            <label
-              className="signup-profileImg-label"
-              htmlFor="profileImg"
-              style={{
-                color: "#FEA801",
-                fontWeight: "700",
-                lineHeight: "24px",
-                fontSize: "14px",
-                letterSpacing: "0.01px",
-                cursor: "pointer",
-              }}
-            >
-              프로필 사진 바꾸기
-            </label>
-            <input
-              className="signup-profileImg-input"
-              type="file"
-              accept="image/*"
-              id="profileImg"
-              onChange={handleChangeProfileImage}
-              ref={imgRef}
-              style={{ display: "none" }}
-            />
-          </form>
+          <ProfileUploadAvatar imageUrl={imageUrl} setImageUrl={setImageUrl} />
         </VStack>
         <VStack gap="px" w="100%">
           <CommonValidationInput
