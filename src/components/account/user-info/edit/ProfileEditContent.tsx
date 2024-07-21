@@ -8,6 +8,8 @@ import { useRef, useState } from "react";
 import { MAX_BIO_LENGTH, useBioHandler } from "@/hooks/bio/useBioHandler";
 import CommonValidationInput from "../../../shared/CommonValidationInput";
 import ProfileAvatar from "../../../shared/ProfileAvatar";
+import axios from "axios";
+import { useUploadMediaMutation } from "../../../../../hooks/mutations/useUploadMediaMutation";
 
 interface ProfileEditContentProps extends StackProps {
   imageUrl: string;
@@ -22,6 +24,17 @@ export const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
 }) => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const router = useRouter();
+  const { mutate } = useUploadMediaMutation({
+    onSuccess: (
+      data: { files: string[] },
+      variables: { directory: string; formData: FormData; accessToken: string }
+    ) => {
+      console.log("onSuccess", data);
+    },
+    onError: (error: any) => {
+      console.error("onError", error);
+    },
+  });
 
   const {
     usernameInput,
@@ -37,7 +50,7 @@ export const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
   const [imgFile, setImgFile] = useState<string>("");
   const imgRef = useRef<HTMLInputElement>(null);
 
-  const handleChangeProfileImage = () => {
+  const handleChangeProfileImage = async () => {
     if (!imgRef || !imgRef.current || !imgRef.current.files) return;
     const file = imgRef.current.files[0];
     const reader = new FileReader();
@@ -45,6 +58,15 @@ export const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
     reader.onloadend = () => {
       if (typeof reader.result === "string") setImgFile(reader.result);
     };
+
+    const formData = new FormData();
+    formData.append("files", file);
+    const res = mutate({
+      directory: "profile",
+      formData,
+      accessToken,
+    });
+    console.log("Res", res);
   };
 
   /** bio */
