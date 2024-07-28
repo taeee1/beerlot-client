@@ -30,7 +30,8 @@ export const ReviewModalWrapper: React.FC<ReviewModalWrapperProps> = ({
   const [reviewInfo, setReviewInfo] = useState<ReviewInfoType>({
     beerName: null,
     rate: 0,
-    place: null,
+    buy_from: null,
+    content: "",
   });
 
   useEffect(() => {
@@ -38,7 +39,7 @@ export const ReviewModalWrapper: React.FC<ReviewModalWrapperProps> = ({
       setReviewInfo({
         beerName: existingReviewData.beerName,
         rate: existingReviewData.rate,
-        review: existingReviewData.content,
+        content: existingReviewData.content,
         image_url: existingReviewData.image_url,
       });
     }

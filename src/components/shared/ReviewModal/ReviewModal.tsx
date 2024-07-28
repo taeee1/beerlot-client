@@ -34,7 +34,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
   const isCompleted = !!reviewInfo.beerName && !!reviewInfo.rate;
   const [step, setStep] = useState(0);
   const [reviewInputValue, setReviewInputValue] = useState(
-    reviewInfo.review ?? ""
+    reviewInfo.content ?? ""
   );
   const [beerId, setBeerId] = useState<number | null>(null);
 
@@ -43,6 +43,8 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
   };
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setReviewInputValue(e.target.value);
+    const newBeerReview = { ...reviewInfo, content: e.target.value };
+    onChangeReviewInfo(newBeerReview);
   };
 
   const handleChangeBeerName = (name: string, id: number) => {
@@ -66,7 +68,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
       onChangeReviewInfo({
         beerName: null,
         rate: 0,
-        place: null,
+        buy_from: null,
       });
       setStep(0);
       onCloseModal();

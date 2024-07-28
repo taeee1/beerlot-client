@@ -214,10 +214,10 @@ export type ContentType = {
   };
 };
 export interface CreateReviewRequestType {
-  content?: string;
   rate: number;
+  buy_from?: string[] | null;
+  content?: string | null;
   image_url?: string[] | null;
-  buy_from?: string;
 }
 
 export const beerReviewsQueryKey = (beerId: number) => ["beerReviews", beerId];

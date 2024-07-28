@@ -1,4 +1,3 @@
-import { ReviewModal } from "@/components/shared/ReviewModal/ReviewModal";
 import { ReviewModalWrapper } from "@/components/shared/ReviewModal/ReviewModalWrapper";
 import { Button, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import Cookies from "js-cookie";

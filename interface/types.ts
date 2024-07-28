@@ -88,8 +88,8 @@ export type ErrorResponse = {
 export interface ReviewInfoType {
   beerName: string | null;
   rate: number;
-  place?: string | null;
-  review?: string | null;
+  buy_from?: string[] | null;
+  content?: string | null;
   image_url?: string[] | null;
 }
 

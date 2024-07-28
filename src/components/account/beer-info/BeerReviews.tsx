@@ -2,12 +2,11 @@ import { useDeleteReviewMutation } from "@/../hooks/query/useReviewQuery";
 import { useUserLikedReviewsQuery } from "@/../hooks/query/useUserQuery";
 import { MemberReviewResponse } from "@/../types/member/response";
 import { ReviewDeleteConfirmationDrawer } from "@/components/shared/ReviewModal/ReviewDeleteConfirmationDrawer";
-import { ReviewModal } from "@/components/shared/ReviewModal/ReviewModal";
+import { ReviewModalWrapper } from "@/components/shared/ReviewModal/ReviewModalWrapper";
 import { Flex, useDisclosure } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import { useCallback, useState } from "react";
 import FollowingTabPanelItem from "../../feed/TabPanelItem";
-import { ReviewModalWrapper } from "@/components/shared/ReviewModal/ReviewModalWrapper";
 
 interface BeerReviewsProps {
   userReviews: MemberReviewResponse[];
@@ -57,7 +56,6 @@ const BeerReviews: React.FC<BeerReviewsProps> = ({
       className="beerReviewFlex"
     >
       {userReviews?.map((feed: MemberReviewResponse) => {
-        console.log("feed", feed);
         return (
           <>
             <FollowingTabPanelItem

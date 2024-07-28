@@ -8,8 +8,8 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import {ReviewInfoType} from "../../../../interface/types";
-import {CrossXBlack, WhiteCross} from "../../../../public/svg";
+import { ReviewInfoType } from "../../../../interface/types";
+import { CrossXBlack, WhiteCross } from "../../../../public/svg";
 
 interface BeerPurchaseSectionProps {
   reviewInfo: ReviewInfoType;
@@ -37,7 +37,7 @@ export const BeerPurchaseSection: React.FC<BeerPurchaseSectionProps> = ({
         </Text>
       </Box>
       <HStack w="full" gap="10px" justify={"space-between"}>
-        {reviewInfo.place ? (
+        {reviewInfo.buy_from ? (
           <HStack>
             <Tag
               justifyContent="row"
@@ -48,10 +48,10 @@ export const BeerPurchaseSection: React.FC<BeerPurchaseSectionProps> = ({
               cursor="pointer"
             >
               <Text textStyle={"h2"} textColor="orange.200">
-                {reviewInfo.place}
+                {reviewInfo.buy_from}
               </Text>
             </Tag>
-            {reviewInfo.place === "기타" && (
+            {reviewInfo.buy_from === "기타" && (
               <HStack
                 px={"0px"}
                 py={"2px"}
@@ -69,7 +69,7 @@ export const BeerPurchaseSection: React.FC<BeerPurchaseSectionProps> = ({
                   borderRadius={"none"}
                   focusBorderColor="none"
                   placeholder="직접 입력해주세요!"
-                  _placeholder={{color: "orange.100"}}
+                  _placeholder={{ color: "orange.100" }}
                   color="orange.200"
                   textStyle={"h2"}
                 />
@@ -109,7 +109,7 @@ export const BeerPurchaseSection: React.FC<BeerPurchaseSectionProps> = ({
           </Flex>
         )}
 
-        {reviewInfo.place && (
+        {reviewInfo.buy_from && (
           <IconButton
             bg="initial"
             size={"24px"}
