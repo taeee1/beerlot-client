@@ -51,7 +51,7 @@ export const BeerPurchaseSection: React.FC<BeerPurchaseSectionProps> = ({
                 {reviewInfo.buy_from}
               </Text>
             </Tag>
-            {reviewInfo.buy_from === "기타" && (
+            {reviewInfo.buy_from.includes("기타") && (
               <HStack
                 px={"0px"}
                 py={"2px"}
