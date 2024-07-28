@@ -33,13 +33,6 @@ const SearchFilterTag: React.FC<SearchFilterTagProps> = ({
     <Box position="sticky" left={0} bg="white" zIndex={1}>
       <FilterTag
         tagText={title}
-        borderRadius="15px"
-        pl={2}
-        pr={0}
-        py="1.5px"
-        h="full"
-        alignItems={"center"}
-        justifyContent={"center"}
         bg={selected ? "yellow.300" : "yellow.200"}
         onClick={onClick}
         flexShrink={0}
@@ -47,8 +40,8 @@ const SearchFilterTag: React.FC<SearchFilterTagProps> = ({
       >
         <Icon
           as={isFilterListOpen ? RightChevron : DownChevron}
-          w="19px"
-          h="19px"
+          w={5}
+          h={5}
           color="black.100"
         />
       </FilterTag>
