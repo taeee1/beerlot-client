@@ -1,15 +1,16 @@
-import {Flex, FlexProps, IconButton, Text, VStack} from "@chakra-ui/react";
-import {ReviewInfoType} from "../../../../interface/types";
-import {RightArrow} from "../CustomIcons/customIcons";
+import { Flex, FlexProps, IconButton, Text, VStack } from "@chakra-ui/react";
+import { RightArrow } from "../CustomIcons/customIcons";
+import { CreateReviewRequestTypeV2 } from "@/api/review/typedef";
 
 interface BeerNameSectionProps extends FlexProps {
-  reviewInfo: ReviewInfoType;
+  reviewInfo: CreateReviewRequestTypeV2;
 }
 
 const BeerNameSection: React.FC<BeerNameSectionProps> = ({
   reviewInfo,
   ...props
 }) => {
+  const beerName = "";
   return (
     <Flex
       p="10px"
@@ -23,9 +24,9 @@ const BeerNameSection: React.FC<BeerNameSectionProps> = ({
         <Text textStyle="h2" textColor="black.100">
           맥주 이름을 골라주세요!
         </Text>
-        {reviewInfo.beerName && (
+        {beerName && (
           <Text textStyle="h2_bold" textColor="orange.200">
-            {reviewInfo.beerName}
+            {beerName}
           </Text>
         )}
       </VStack>

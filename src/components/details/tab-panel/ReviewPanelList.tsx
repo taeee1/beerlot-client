@@ -14,11 +14,11 @@ import { FeedFilter } from "@/components/feed/FeedFilter/FeedFilter";
 import { MOCK_FEED_FILTER_LIST } from "../../../../interface/static";
 import { ReviewSortEnum } from "../../../../interface/types";
 import { BeerInfoHStack } from "./BasicPanelList";
-import { useBeerReviewsQuery } from "@/../hooks/query/useReviewQuery";
 import FollowingTabPanelItem from "@/components/feed/TabPanelItem";
 import { ReviewResult } from "@/../types/review/review";
 import { roundToDecimal } from "@/../utils/number";
 import { UserReview } from "./UserReview";
+import { useBeerReviewsQuery } from "../../../../hooks/reviews/useBeer";
 
 interface ReviewPanelListProps {
   rate: number;
@@ -39,7 +39,7 @@ export const ReviewPanelList: React.FC<ReviewPanelListProps> = ({
     { beerId, sort: selectedTag },
     { enabled: false }
   );
-  const reviews = data?.contents;
+  const reviews = data;
 
   useEffect(() => {
     refetch();

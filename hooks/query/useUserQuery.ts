@@ -1,5 +1,9 @@
 import { Member, MemberReviewsRequest } from "@/../types/member/request";
 import {
+  AllBeersQueryParamsV2,
+  MemberTypeRequestUpdateV2,
+} from "@/api/review/typedef";
+import {
   fetchUserLikedReviews,
   getUserLikedBeersApi,
   getUserReviewsApi,
@@ -13,12 +17,12 @@ import {
   useQuery,
 } from "react-query";
 import { FailureResponse } from "types/api";
-import { BeersWithLanguage, UserUpdateRequestType } from "./useReviewQuery";
 
 export const getUserInfoQueryKey = () => ["getUserInfo"];
 export const putUserInfoQueryKey = () => ["putUserInfo"];
 export const userReviewsQueryKey = () => ["userReviews"];
 export const userBeersQueryKey = () => ["userBeers"];
+export const userLikedReviewsQueryKey = () => ["userLikedReviews"];
 
 export const useUserInfoQuery = (
   accessToken: string,
@@ -34,10 +38,10 @@ export const useUserInfoQuery = (
 
 export const useEditUserInfoMutation = (
   accessToken: string,
-  options?: MutationOptions<Member, FailureResponse, UserUpdateRequestType>
+  options?: MutationOptions<Member, FailureResponse, MemberTypeRequestUpdateV2>
 ) => {
   return useMutation({
-    mutationFn: (updatedInfo: UserUpdateRequestType) =>
+    mutationFn: (updatedInfo: MemberTypeRequestUpdateV2) =>
       updateUserInfoApi(accessToken, updatedInfo),
     ...options,
   });
@@ -57,7 +61,7 @@ export const useUserReviewsQuery = (
 
 export const useUserLikedBeersQuery = (
   accessToken: string,
-  queryParam?: BeersWithLanguage,
+  queryParam?: AllBeersQueryParamsV2,
   options?: UseQueryOptions<any, FailureResponse>
 ) => {
   return useQuery({
@@ -75,7 +79,7 @@ export const useUserLikedReviewsQuery = (
   options?: UseQueryOptions<number[], FailureResponse>
 ) => {
   return useQuery({
-    queryKey: ["userLikedReviews"],
+    queryKey: userLikedReviewsQueryKey(),
     queryFn: () => fetchUserLikedReviews(accessToken),
     enabled: !!accessToken,
     refetchOnMount: false,

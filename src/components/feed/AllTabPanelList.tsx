@@ -1,7 +1,3 @@
-import {
-  ContentType,
-  useAllReviewsQuery,
-} from "@/../hooks/query/useReviewQuery";
 import { useUserLikedReviewsQuery } from "@/../hooks/query/useUserQuery";
 import { Flex } from "@chakra-ui/react";
 import Cookies from "js-cookie";
@@ -10,6 +6,8 @@ import { MOCK_FEED_FILTER_LIST } from "../../../interface/static";
 import { ReviewSortEnum } from "../../../interface/types";
 import { FeedFilter } from "./FeedFilter/FeedFilter";
 import FollowingTabPanelItem from "./TabPanelItem";
+import { useAllReviewsQuery } from "../../../hooks/reviews/useReview";
+import { ReviewTypeV2 } from "@/api/review/typedef";
 
 export const AllTabPanelList = () => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
@@ -17,6 +15,7 @@ export const AllTabPanelList = () => {
   const [selectedTag, setSelectedTag] = useState<ReviewSortEnum>(
     MOCK_FEED_FILTER_LIST[0].tags[0]
   );
+
   const allReviewsQuery = useAllReviewsQuery({
     sort: selectedTag,
   });
@@ -28,8 +27,7 @@ export const AllTabPanelList = () => {
   return (
     <Flex flexDirection="column" gap={"10px"} pb={"64px"}>
       <FeedFilter selectedTag={selectedTag} onClickTag={handleSelectTag} />
-      {/* ALL_FEED_MOCK을 prop으로 받아서 AllTabPanelList랑 공유하기 */}
-      {allReviewsQuery?.data?.contents?.map((post: ContentType) => {
+      {allReviewsQuery?.data?.map((post: any) => {
         return (
           <FollowingTabPanelItem
             key={post.id}

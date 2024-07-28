@@ -1,4 +1,3 @@
-import { useDeleteReviewMutation } from "@/../hooks/query/useReviewQuery";
 import { useUserLikedReviewsQuery } from "@/../hooks/query/useUserQuery";
 import { MemberReviewResponse } from "@/../types/member/response";
 import { ReviewDeleteConfirmationDrawer } from "@/components/shared/ReviewModal/ReviewDeleteConfirmationDrawer";
@@ -7,6 +6,7 @@ import { Flex, useDisclosure } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import { useCallback, useState } from "react";
 import FollowingTabPanelItem from "../../feed/TabPanelItem";
+import { useReviewDeleteMutation } from "../../../../hooks/reviews/useReview";
 
 interface BeerReviewsProps {
   userReviews: MemberReviewResponse[];
@@ -32,7 +32,7 @@ const BeerReviews: React.FC<BeerReviewsProps> = ({
     [onOpen]
   );
 
-  const deleteReviewMutation = useDeleteReviewMutation(accessToken, {
+  const deleteReviewMutation = useReviewDeleteMutation(accessToken, {
     onSuccess: () => {
       onResetReviews();
     },

@@ -1,8 +1,6 @@
-export type AllKeyboardEvent = React.KeyboardEvent | KeyboardEvent;
+import { UpdateReviewRequestTypeV2 } from "@/api/review/typedef";
 
-// export interface CategoryFilterListType {
-//   [index: string]: string[];
-// }
+export type AllKeyboardEvent = React.KeyboardEvent | KeyboardEvent;
 
 export interface CategoryFilterListType {
   title: CategoryTitle;
@@ -21,13 +19,6 @@ export interface BeerFilterType {
   volume_min: number;
   volume_max: number;
 }
-
-// export enum CategoryTitle {
-//   CRITERIA = "정렬 기준",
-//   SORT = "맥주 종류",
-//   COUNTRY = "제조국",
-//   ALCHOLE = "도수",
-// }
 
 export enum CategoryTitle {
   SORT_CRITERIA = "정렬 기준",
@@ -85,16 +76,6 @@ export type ErrorResponse = {
   timestamp: string;
 };
 
-export interface ReviewInfoType {
-  beerName: string | null;
-  rate: number;
-  buy_from?: string[] | null;
-  content?: string | null;
-  image_url?: string[] | null;
-}
-
-export type UpdatedReviewInfo = Omit<ReviewInfoType, "beerName">;
-
 export enum ReviewSortEnum {
   RecentlyUpdated = "RECENTLY_UPDATED",
   MostLikes = "MOST_LIKES",
@@ -133,7 +114,7 @@ export enum OAUTH_PROVIDER {
 }
 
 export interface ReviewPostparamType {
-  content?: string;
+  content: string;
   rate: number;
   image_url?: string[];
   buy_from?: string[];

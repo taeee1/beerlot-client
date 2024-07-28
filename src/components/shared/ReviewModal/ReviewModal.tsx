@@ -5,17 +5,17 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { ReviewInfoType } from "../../../../interface/types";
 import { BeerReviewContent } from "./BeerReviewContent";
 import { BeerSearchContent } from "./BeerSearchContent";
 import { ReviewExitConfirmationDrawer } from "./ReviewExitConfirmationDrawer";
+import { CreateReviewRequestTypeV2 } from "@/api/review/typedef";
 
 interface ReviewModalProps {
   isModalOpen: ModalProps["isOpen"];
   onCloseModal: ModalProps["onClose"];
   onComplete: (beerId: number | null) => void;
-  onChangeReviewInfo: (data: ReviewInfoType) => void;
-  reviewInfo: ReviewInfoType;
+  onChangeReviewInfo: (data: CreateReviewRequestTypeV2) => void;
+  reviewInfo: CreateReviewRequestTypeV2;
 }
 
 export const ReviewModal: React.FC<ReviewModalProps> = ({
@@ -30,8 +30,8 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
     onOpen: onOpenConfirmDrawer,
     isOpen: isOpenConfirmDrawer,
   } = useDisclosure();
-
-  const isCompleted = !!reviewInfo.beerName && !!reviewInfo.rate;
+  const beerName = "";
+  const isCompleted = !!beerName && !!reviewInfo.rate;
   const [step, setStep] = useState(0);
   const [reviewInputValue, setReviewInputValue] = useState(
     reviewInfo.content ?? ""
@@ -65,11 +65,6 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
 
   useEffect(() => {
     return () => {
-      onChangeReviewInfo({
-        beerName: null,
-        rate: 0,
-        buy_from: null,
-      });
       setStep(0);
       onCloseModal();
       setReviewInputValue("");

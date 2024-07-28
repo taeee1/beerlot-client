@@ -1,5 +1,5 @@
-import { SignupRequestType } from "@/../hooks/query/useReviewQuery";
 import axios from "axios";
+import { SignupRequestType } from "../review/typedef";
 
 export const signupApi = async (
   queryParam: SignupRequestType,

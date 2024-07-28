@@ -1,5 +1,6 @@
 import { BeerSortType } from "../../types/common";
 
+// legacy
 export interface FailureResponse {
   response: {
     data: string;
@@ -7,6 +8,11 @@ export interface FailureResponse {
     statusText: string;
   };
   message: string;
+}
+
+export interface FailureResponseV2 {
+  message?: string;
+  status?: number;
 }
 
 export type BeerFilterRequestType = {
