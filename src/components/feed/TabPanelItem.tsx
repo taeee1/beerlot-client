@@ -140,7 +140,7 @@ export const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
               width={"100px"}
               height={"100px"}
               alt="beer photo"
-              src={`/image/${imageSrc}`}
+              src={imageSrc[0]}
             />
           )}
         </Box>

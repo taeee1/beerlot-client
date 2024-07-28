@@ -1,14 +1,16 @@
-import {Image, ImageProps} from "@chakra-ui/react";
+import { Image, ImageProps } from "@chakra-ui/react";
 import React from "react";
 
-const CommonBeerImage: React.FC<ImageProps> = ({...props}) => {
+const CommonBeerImage: React.FC<ImageProps> = ({ ...props }) => {
   return (
     <Image
-      fallbackSrc={"/images/beer-preview-default-image.jpg"}
-      {...props}
+      src={props.src ?? commonBeerImage}
+      fallbackSrc={commonBeerImage}
       alt={props?.alt ?? "beer image"}
+      {...props}
     />
   );
 };
 
-export {CommonBeerImage};
+export { CommonBeerImage };
+const commonBeerImage = "/images/beer-preview-default-image.jpg";
