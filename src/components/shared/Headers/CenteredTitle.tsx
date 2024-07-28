@@ -1,10 +1,9 @@
 import { Flex } from "@chakra-ui/react";
-import BeerlotTitle from "./BeerlotTitle";
+import { BeerlotTitle } from "./BeerlotTitle";
 
 export const CenteredTitle = ({ ...props }) => {
   return (
     <Flex
-      {...props}
       position="absolute"
       top="0px"
       right="0px"
@@ -16,6 +15,7 @@ export const CenteredTitle = ({ ...props }) => {
       dropShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
       bg="white"
       zIndex={1000}
+      {...props}
     >
       <BeerlotTitle />
     </Flex>

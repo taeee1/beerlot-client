@@ -1,8 +1,8 @@
-import {Flex} from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import React from "react";
 import BackButton from "../BackButton";
-import {AlertBellPath} from "../CustomIcons/customPath";
-import BeerlotTitle from "./BeerlotTitle";
+import { AlertBellPath } from "../CustomIcons/customPath";
+import { BeerlotTitle } from "./BeerlotTitle";
 
 export const LeftBackTItleRightBell = () => {
   return (

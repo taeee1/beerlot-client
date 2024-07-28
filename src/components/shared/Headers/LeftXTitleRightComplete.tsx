@@ -1,7 +1,7 @@
-import {Button, ButtonProps, Flex, Text, TextProps} from "@chakra-ui/react";
+import { Button, ButtonProps, Flex, Text } from "@chakra-ui/react";
 import React from "react";
 import CloseButton from "../CloseButton";
-import BeerlotTitle from "./BeerlotTitle";
+import { BeerlotTitle } from "./BeerlotTitle";
 
 interface LeftXTitleRightCompleteProps {
   title?: string;

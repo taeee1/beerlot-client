@@ -9,13 +9,13 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { CrossXBlack, WhiteCross } from "../../../../public/svg";
-import { CreateReviewRequestTypeV2 } from "@/api/review/typedef";
+import { CreateReviewRequestTypeV2 } from "../../../../typedef/review";
 
 interface BeerPurchaseSectionProps {
   reviewInfo: CreateReviewRequestTypeV2;
   handleChangePlace: (e: React.ChangeEvent<HTMLInputElement>) => void;
   clearInput: () => void;
-  handleClickPlaceTag: (place: string | null) => void;
+  handleClickPlaceTag: (place: string) => void;
   placeInputValue: string;
 }
 
@@ -118,7 +118,7 @@ export const BeerPurchaseSection: React.FC<BeerPurchaseSectionProps> = ({
             icon={<CrossXBlack />}
             _hover={{}}
             _active={{}}
-            onClick={() => handleClickPlaceTag(null)}
+            onClick={() => handleClickPlaceTag("")}
           />
         )}
       </HStack>

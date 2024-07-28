@@ -9,23 +9,23 @@ import React from "react";
 import { LeftBackRandom } from "../Headers/LeftBackRandom";
 
 interface BeerSearchContentProps extends ModalContentProps {
-  onClickBack: () => void;
+  onBack: () => void;
   onChangeBeerName: (name: string, id: number) => void;
 }
 
 export const BeerSearchContent: React.FC<BeerSearchContentProps> = ({
-  onClickBack,
+  onBack,
   onChangeBeerName,
 }) => {
   const handleClick = (name: string, id: number) => {
-    onClickBack();
+    onBack();
     onChangeBeerName(name, id);
   };
 
   return (
     <>
       <ModalHeader pt="46px">
-        <LeftBackRandom onClick={onClickBack} title="맥주 이름" />
+        <LeftBackRandom onClick={onBack} title="맥주 이름" />
       </ModalHeader>
       <ModalBody p="10px 20px" h="full">
         <VStack

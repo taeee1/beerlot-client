@@ -1,10 +1,3 @@
-import { createReviewApi, fetchBeerReviewsApi } from "@/api/review/beer";
-import {
-  BeerReviewQueryParamsV2,
-  CreateReviewRequestTypeV2,
-  CreateReviewResponseTypeV2,
-  ReviewTypeV2,
-} from "@/api/review/typedef";
 import {
   UseMutationOptions,
   UseQueryOptions,
@@ -12,6 +5,13 @@ import {
   useQuery,
 } from "react-query";
 import { FailureResponseV2 } from "types/api";
+import {
+  BeerReviewQueryParamsV2,
+  CreateReviewRequestTypeV2,
+  CreateReviewResponseTypeV2,
+  ReviewTypeV2,
+} from "../../typedef/review";
+import { createReviewApi, fetchBeerReviewsApi } from "@/api/review/beer";
 
 export const createReviewMutationKey = () => ["createReview"];
 
@@ -34,7 +34,9 @@ export const useCreateReviewMutation = (
     }: {
       beerId: number;
       data: CreateReviewRequestTypeV2;
-    }) => createReviewApi(beerId, data, accessToken),
+    }) => {
+      return createReviewApi(beerId, data, accessToken);
+    },
     ...options,
   });
 };

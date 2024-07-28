@@ -5,9 +5,9 @@ import { useState } from "react";
 import { MOCK_FEED_FILTER_LIST } from "../../../interface/static";
 import { ReviewSortEnum } from "../../../interface/types";
 import { FeedFilter } from "./FeedFilter/FeedFilter";
-import FollowingTabPanelItem from "./TabPanelItem";
 import { useAllReviewsQuery } from "../../../hooks/reviews/useReview";
-import { ReviewTypeV2 } from "@/api/review/typedef";
+import { FollowingTabPanelItem } from "./TabPanelItem";
+import { ReviewTypeV2 } from "../../../typedef/review";
 
 export const AllTabPanelList = () => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
@@ -15,7 +15,6 @@ export const AllTabPanelList = () => {
   const [selectedTag, setSelectedTag] = useState<ReviewSortEnum>(
     MOCK_FEED_FILTER_LIST[0].tags[0]
   );
-
   const allReviewsQuery = useAllReviewsQuery({
     sort: selectedTag,
   });
@@ -27,21 +26,20 @@ export const AllTabPanelList = () => {
   return (
     <Flex flexDirection="column" gap={"10px"} pb={"64px"}>
       <FeedFilter selectedTag={selectedTag} onClickTag={handleSelectTag} />
-      {allReviewsQuery?.data?.map((post: any) => {
+      {allReviewsQuery?.data?.map((review: ReviewTypeV2) => {
         return (
           <FollowingTabPanelItem
-            key={post.id}
-            isLiked={likedReviewsListQuery.data?.includes(post.id)}
-            reviewId={Number(post.id)}
-            postText={post.content}
-            nickname={post.member.username}
-            postingTime={post.updated_at}
-            beerName={post.beer.name}
-            rate={post.rate}
-            imageSrc={post.image_url}
-            thumbsUpNumber={post.like_count}
+            key={review.id}
+            isLiked={likedReviewsListQuery.data?.includes(review.id)}
+            reviewId={Number(review.id)}
+            content={review.content}
+            nickname={review.member.username}
+            reviewTime={review.updated_at}
+            beerName={review.beer.name}
+            rate={review.rate}
+            imageSrc={review.image_url}
+            likedCount={review.like_count}
             isEditable={false}
-            token={accessToken}
           />
         );
       })}

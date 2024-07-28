@@ -14,11 +14,12 @@ import { FeedFilter } from "@/components/feed/FeedFilter/FeedFilter";
 import { MOCK_FEED_FILTER_LIST } from "../../../../interface/static";
 import { ReviewSortEnum } from "../../../../interface/types";
 import { BeerInfoHStack } from "./BasicPanelList";
-import FollowingTabPanelItem from "@/components/feed/TabPanelItem";
 import { ReviewResult } from "@/../types/review/review";
 import { roundToDecimal } from "@/../utils/number";
 import { UserReview } from "./UserReview";
 import { useBeerReviewsQuery } from "../../../../hooks/reviews/useBeer";
+import { FollowingTabPanelItem } from "@/components/feed/TabPanelItem";
+import { ReviewTypeV2 } from "../../../../typedef/review";
 
 interface ReviewPanelListProps {
   rate: number;
@@ -120,7 +121,7 @@ const EmptyReviewsList = () => {
   );
 };
 interface ReviewsListProps {
-  reviews: ReviewResult[];
+  reviews: ReviewTypeV2[];
 }
 
 const ReviewsList: React.FC<ReviewsListProps> = ({ reviews }) => {
@@ -133,12 +134,12 @@ const ReviewsList: React.FC<ReviewsListProps> = ({ reviews }) => {
               key={review.id}
               reviewId={review.id}
               nickname={""}
-              postingTime={review.updated_at}
+              reviewTime={review.updated_at}
               beerName={review.beer?.name}
               rate={review.rate}
               imageSrc={review.image_url}
-              postText={review.content}
-              thumbsUpNumber={review.like_count}
+              content={review.content}
+              likedCount={review.like_count}
               isEditable={false}
             />
           </>

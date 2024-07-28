@@ -16,45 +16,44 @@ import { ThumbsUpButton } from "../shared/ThumbsUpButton";
 interface FollowingTabPanelItemProps {
   reviewId: number;
   nickname: string;
-  postingTime: string;
+  reviewTime: string;
   beerName?: string;
   rate: number;
-  postText: string;
-  thumbsUpNumber: number;
+  content: string;
+  likedCount: number;
   isLiked?: boolean;
   isEditable?: boolean;
   onEdit?: () => void;
   onDelete?: () => void;
-  imageSrc?: string;
-  maxPostLength?: number;
-  token?: string;
+  imageSrc?: string[];
+  maxContentLength?: number;
 }
 
-const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
+export const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
   reviewId,
   isLiked = false,
   nickname,
-  postingTime,
+  reviewTime,
   beerName,
   rate,
   imageSrc,
-  postText,
+  content,
   onDelete,
   onEdit,
-  thumbsUpNumber,
+  likedCount,
   isEditable = false,
-  maxPostLength = MAX_TEXT_LENGTH_OF_REVIEW,
-  token,
+  maxContentLength = MAX_TEXT_LENGTH_OF_REVIEW,
 }) => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const queryClient = useQueryClient();
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
+
   const handleToggleElipsis = () => {
     setIsExpanded(!isExpanded);
   };
 
-  const postEllipsisStatus = chooseTextDisplay(
-    postText.length > maxPostLength,
+  const contentEllipsisStatus = chooseTextDisplay(
+    content.length > maxContentLength,
     isExpanded
   );
 
@@ -76,7 +75,7 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
   const router = useRouter();
 
   const handleClickLike = () => {
-    if (!token) {
+    if (!accessToken) {
       router.push("/login");
       return;
     }
@@ -95,7 +94,7 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
             <Avatar w={"26px"} h={"26px"} />
             {nickname && <Text textStyle="h2_bold">{nickname}</Text>}
             <Text textStyle="h3" color="gray.300">
-              | {getLeftTime(postingTime)}
+              | {getLeftTime(reviewTime)}
             </Text>
           </Flex>
           {beerName && !isEditable && (
@@ -117,10 +116,10 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
           </Box>
           <Box display="inline" my={"2px"} flexDirection="row">
             <Text textStyle="h3" display="inline">
-              {postEllipsisStatus === "shorten"
-                ? postText.slice(0, 35)
-                : postText}
-              {postEllipsisStatus === "shorten" ? "..." : ""}
+              {contentEllipsisStatus === "shorten"
+                ? content.slice(0, 35)
+                : content}
+              {contentEllipsisStatus === "shorten" ? "..." : ""}
             </Text>
             <Text
               as={"button"}
@@ -128,7 +127,7 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
               onClick={handleToggleElipsis}
               textColor={"gray.200"}
               display={
-                postEllipsisStatus === "normal" ? "none" : "inline-block"
+                contentEllipsisStatus === "normal" ? "none" : "inline-block"
               }
             >
               {isExpanded ? "숨기기" : "더보기"}
@@ -164,7 +163,7 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
             />
           </Center>
           <ThumbsUpButton
-            thumbsUpNumber={thumbsUpNumber}
+            thumbsUpNumber={likedCount}
             isLiked={isLiked}
             onClick={handleClickLike}
           />
@@ -172,7 +171,7 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
       ) : (
         <Flex justifyContent="end" mt={2}>
           <ThumbsUpButton
-            thumbsUpNumber={thumbsUpNumber}
+            thumbsUpNumber={likedCount}
             onClick={handleClickLike}
             isLiked={isLiked}
           />
@@ -181,8 +180,6 @@ const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
     </Box>
   );
 };
-
-export default FollowingTabPanelItem;
 
 const MAX_TEXT_LENGTH_OF_REVIEW = 35;
 

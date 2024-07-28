@@ -1,7 +1,7 @@
-import {Box, Button, Flex, FlexProps, Text} from "@chakra-ui/react";
+import { Box, Button, Flex, FlexProps, Text } from "@chakra-ui/react";
 import React from "react";
 import BackButton from "../BackButton";
-import BeerlotTitle from "./BeerlotTitle";
+import { BeerlotTitle } from "./BeerlotTitle";
 
 interface LeftBackRandomProps extends FlexProps {
   title?: string;

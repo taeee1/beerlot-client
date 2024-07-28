@@ -2,7 +2,7 @@ import { IconButton } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { BeerlotLogoDefault } from "../../../../public/svg";
 
-const BeerlotTitle = () => {
+export const BeerlotTitle = () => {
   const router = useRouter();
   const handleClick = () => {
     router.push(`/`);
@@ -24,5 +24,3 @@ const BeerlotTitle = () => {
     />
   );
 };
-
-export default BeerlotTitle;

@@ -13,30 +13,31 @@ import BeerNameSection from "./BeerNameSection";
 import { BeerPurchaseSection } from "./BeerPurchaseSection";
 import { BeerRatingSection } from "./BeerRatingSection";
 import { BeerReviewTextSection } from "./BeerReviewTextSection";
+import { UploadedReviewImages } from "./UploadedReviewImages";
+import { CreateReviewRequestTypeV2 } from "../../../../typedef/review";
 
 interface BeerReviewContentProps extends ModalContentProps {
   onOpenDrawer: () => void;
-  reviewInfo: any;
+  reviewInfo: CreateReviewRequestTypeV2;
   onNext: () => void;
-  handleChangeRate: (rate: number) => void;
-  handleClickPlaceTag: (place: string | null) => void;
-  handleInputChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  reviewInputValue: string;
-  handleClickComplete: () => void;
+  beerName: string;
+  onInputChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  contentInput: string;
+  onComplete: () => void;
   isCompleted: boolean;
+  onChangeReviewInfo: (key: string, value: string | number | string[]) => void;
 }
 
 export const BeerReviewContent: React.FC<BeerReviewContentProps> = ({
   onOpenDrawer,
   reviewInfo,
   onNext,
-  handleChangeRate,
-  handleClickPlaceTag,
-  handleInputChange,
-  reviewInputValue,
-  handleClickComplete,
+  beerName,
+  onInputChange,
+  contentInput,
+  onComplete,
+  onChangeReviewInfo,
   isCompleted,
-  ...props
 }) => {
   const [placeInputValue, setPlaceInputValue] = useState("");
 
@@ -53,6 +54,18 @@ export const BeerReviewContent: React.FC<BeerReviewContentProps> = ({
     };
   }, []);
 
+  const handleRate = (rate: number) => {
+    onChangeReviewInfo("rate", rate);
+  };
+
+  const handleChangePlaceTag = (place: string) => {
+    onChangeReviewInfo("buy_from", place);
+  };
+
+  const handleImage = (imageUrl: string[]) => {
+    onChangeReviewInfo("image_url", imageUrl);
+  };
+
   return (
     <>
       <ModalHeader pt="46px">
@@ -65,33 +78,35 @@ export const BeerReviewContent: React.FC<BeerReviewContentProps> = ({
           alignItems={"flex-start"}
         >
           {/* beer name */}
-          <BeerNameSection reviewInfo={reviewInfo} onClick={onNext} />
+          <BeerNameSection beerName={beerName} onClick={onNext} />
 
           {/* rating */}
-          <BeerRatingSection
-            handleChangeRate={handleChangeRate}
-            rate={reviewInfo.rate}
-          />
+          <BeerRatingSection onRate={handleRate} rate={reviewInfo.rate} />
 
           {/* purchase */}
           <BeerPurchaseSection
             reviewInfo={reviewInfo}
             handleChangePlace={handleChangePlace}
             clearInput={clearInput}
-            handleClickPlaceTag={handleClickPlaceTag}
+            handleClickPlaceTag={handleChangePlaceTag}
             placeInputValue={placeInputValue}
           />
 
-          {/* review text and images */}
+          {/* review text  */}
           <BeerReviewTextSection
-            onChangeInput={handleInputChange}
-            input={reviewInputValue}
+            onChangeInput={onInputChange}
+            input={contentInput}
+          />
+
+          <UploadedReviewImages
+            setImageUrl={handleImage}
+            imageUrl={reviewInfo.image_url}
           />
         </VStack>
       </ModalBody>
       <ModalFooter px={0}>
         <Button
-          onClick={handleClickComplete}
+          onClick={onComplete}
           w="full"
           bg={isCompleted ? "blue.100" : "gray.200"}
           boxShadow={

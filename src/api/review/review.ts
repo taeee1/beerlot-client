@@ -1,6 +1,9 @@
 import axios from "axios";
 import { LANGUAGE_TYPE, ReviewSortEnum } from "../../../interface/types";
-import { AllBeersQueryParamsV2, UpdateReviewRequestTypeV2 } from "./typedef";
+import {
+  AllBeersQueryParamsV2,
+  UpdateReviewRequestTypeV2,
+} from "../../../typedef/review";
 
 export const deleteReviewApi = async (
   reviewId: number,

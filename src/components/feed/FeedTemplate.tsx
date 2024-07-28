@@ -1,16 +1,11 @@
-import {
-  Box,
-  Button,
-  ButtonProps,
-  Container,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, Container, useDisclosure } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import { EditPencil } from "../../../public/svg";
 import { CenteredTitle } from "../shared/Headers/CenteredTitle";
-import { ReviewModalWrapper } from "../shared/ReviewModal/ReviewModalWrapper";
+
 import { FeedTabList } from "./FeedTabList";
+import { ReviewModalTriggerButton } from "../shared/ReviewModal/ReviewModalWrapper/ReviewModalTriggerButton";
+import { ReviewModalWrapper } from "../shared/ReviewModal/ReviewModalWrapper/ReviewModalWrapper";
 
 export const FeedTemplate = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -35,27 +30,5 @@ export const FeedTemplate = () => {
         <ReviewModalWrapper isModalOpen={isOpen} onCloseModal={onClose} />
       </Container>
     </Box>
-  );
-};
-
-interface ReviewModalTriggerButtonProps extends ButtonProps {}
-
-const ReviewModalTriggerButton: React.FC<ReviewModalTriggerButtonProps> = ({
-  ...props
-}) => {
-  return (
-    <Button
-      w="70px"
-      h="70px"
-      pos="fixed"
-      borderRadius="full"
-      bg="orange.300"
-      bottom={100}
-      right={"10vw"}
-      _hover={{}}
-      {...props}
-    >
-      <EditPencil />
-    </Button>
   );
 };

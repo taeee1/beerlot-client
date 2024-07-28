@@ -4,11 +4,7 @@ import {
   getSingleReviewApi,
   updateReviewApi,
 } from "@/api/review/review";
-import {
-  AllBeersQueryParamsV2,
-  ReviewTypeV2,
-  UpdateReviewRequestTypeV2,
-} from "@/api/review/typedef";
+
 import {
   UseMutationOptions,
   UseQueryOptions,
@@ -16,8 +12,17 @@ import {
   useQuery,
 } from "react-query";
 import { FailureResponseV2 } from "types/api";
+import {
+  AllBeersQueryParamsV2,
+  ReviewTypeV2,
+  UpdateReviewRequestTypeV2,
+} from "../../typedef/review";
+import { ReviewSortEnum } from "../../interface/types";
 
-export const allReviewsQueryKey = () => ["allReviews"];
+export const allReviewsQueryKey = (sort?: ReviewSortEnum) => [
+  "allReviews",
+  sort,
+];
 export const singleReviewQueryKey = () => ["singleReview"];
 export const deleteReviewMutationKey = () => ["deleteReview"];
 export const updateReviewMutationKey = () => ["updateReview"];
@@ -72,7 +77,7 @@ export const useAllReviewsQuery = (
   options?: UseQueryOptions<ReviewTypeV2[], FailureResponseV2>
 ) => {
   return useQuery({
-    queryKey: allReviewsQueryKey(),
+    queryKey: allReviewsQueryKey(queryParam.sort),
     queryFn: () => fetchAllReviewsApi(queryParam),
     refetchOnMount: false,
     refetchOnWindowFocus: false,

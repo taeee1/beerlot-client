@@ -1,4 +1,4 @@
-import { ReviewModalWrapper } from "@/components/shared/ReviewModal/ReviewModalWrapper";
+import { ReviewModalWrapper } from "@/components/shared/ReviewModal/ReviewModalWrapper/ReviewModalWrapper";
 import { Button, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";

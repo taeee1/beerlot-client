@@ -1,7 +1,7 @@
-import {Box, Flex, Text, Textarea, VStack} from "@chakra-ui/react";
-import {ChangeEvent} from "react";
-import {ReviewStatic} from "../../../../interface/static";
-import {UploadedReviewImages} from "./UploadedReviewImages";
+import { Box, Flex, Text, Textarea, VStack } from "@chakra-ui/react";
+import { ChangeEvent } from "react";
+import { ReviewStatic } from "../../../../interface/static";
+import { UploadedReviewImages } from "./UploadedReviewImages";
 
 interface BeerReviewTextSectionProps {
   onChangeInput: (e: ChangeEvent<HTMLTextAreaElement>) => void;
@@ -53,7 +53,6 @@ export const BeerReviewTextSection: React.FC<BeerReviewTextSectionProps> = ({
           </Text>
         </Flex>
       </VStack>
-      <UploadedReviewImages />
     </VStack>
   );
 };

@@ -1,9 +1,5 @@
 import { Member, MemberReviewsRequest } from "@/../types/member/request";
 import {
-  AllBeersQueryParamsV2,
-  MemberTypeRequestUpdateV2,
-} from "@/api/review/typedef";
-import {
   fetchUserLikedReviews,
   getUserLikedBeersApi,
   getUserReviewsApi,
@@ -16,7 +12,11 @@ import {
   useMutation,
   useQuery,
 } from "react-query";
-import { FailureResponse } from "types/api";
+import { FailureResponse as FailureResponseV2 } from "types/api";
+import {
+  AllBeersQueryParamsV2,
+  MemberTypeRequestUpdateV2,
+} from "../../typedef/review";
 
 export const getUserInfoQueryKey = () => ["getUserInfo"];
 export const putUserInfoQueryKey = () => ["putUserInfo"];
@@ -26,7 +26,7 @@ export const userLikedReviewsQueryKey = () => ["userLikedReviews"];
 
 export const useUserInfoQuery = (
   accessToken: string,
-  options?: UseQueryOptions<Member, FailureResponse>
+  options?: UseQueryOptions<Member, FailureResponseV2>
 ) => {
   return useQuery({
     queryKey: getUserInfoQueryKey(),
@@ -38,7 +38,11 @@ export const useUserInfoQuery = (
 
 export const useEditUserInfoMutation = (
   accessToken: string,
-  options?: MutationOptions<Member, FailureResponse, MemberTypeRequestUpdateV2>
+  options?: MutationOptions<
+    Member,
+    FailureResponseV2,
+    MemberTypeRequestUpdateV2
+  >
 ) => {
   return useMutation({
     mutationFn: (updatedInfo: MemberTypeRequestUpdateV2) =>
@@ -50,7 +54,7 @@ export const useEditUserInfoMutation = (
 export const useUserReviewsQuery = (
   accessToken: string,
   queryParam?: MemberReviewsRequest,
-  options?: UseQueryOptions<any, FailureResponse>
+  options?: UseQueryOptions<any, FailureResponseV2>
 ) => {
   return useQuery({
     queryKey: userReviewsQueryKey(),
@@ -62,7 +66,7 @@ export const useUserReviewsQuery = (
 export const useUserLikedBeersQuery = (
   accessToken: string,
   queryParam?: AllBeersQueryParamsV2,
-  options?: UseQueryOptions<any, FailureResponse>
+  options?: UseQueryOptions<any, FailureResponseV2>
 ) => {
   return useQuery({
     queryKey: userBeersQueryKey(),
@@ -76,7 +80,7 @@ export const useUserLikedBeersQuery = (
 
 export const useUserLikedReviewsQuery = (
   accessToken: string,
-  options?: UseQueryOptions<number[], FailureResponse>
+  options?: UseQueryOptions<number[], FailureResponseV2>
 ) => {
   return useQuery({
     queryKey: userLikedReviewsQueryKey(),

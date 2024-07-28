@@ -1,7 +1,7 @@
 import { Box, Flex } from "@chakra-ui/react";
 import React from "react";
 import BackButton from "../BackButton";
-import BeerlotTitle from "./BeerlotTitle";
+import { BeerlotTitle } from "./BeerlotTitle";
 
 export const LeftBackTitle = ({ ...props }) => {
   return (

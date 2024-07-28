@@ -5,7 +5,7 @@ import { BeerSortEnum, OAUTH_PROVIDER } from "../../../interface/types";
 import {
   AllBeersQueryParamsV2,
   MemberTypeRequestUpdateV2,
-} from "../review/typedef";
+} from "../../../typedef/review";
 
 const redirectUrl = "https://beerlot.info";
 

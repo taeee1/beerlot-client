@@ -1,6 +1,9 @@
 import axios from "axios";
 import { ReviewSortEnum } from "../../../interface/types";
-import { BeerReviewQueryParamsV2, CreateReviewRequestTypeV2 } from "./typedef";
+import {
+  BeerReviewQueryParamsV2,
+  CreateReviewRequestTypeV2,
+} from "../../../typedef/review";
 
 export const createReviewApi = async (
   beerId: number,

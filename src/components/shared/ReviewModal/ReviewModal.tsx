@@ -5,22 +5,29 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { ChangeEvent, useEffect, useState } from "react";
+import {
+  BeerTypeV2,
+  CreateReviewRequestTypeV2,
+} from "../../../../typedef/review";
 import { BeerReviewContent } from "./BeerReviewContent";
 import { BeerSearchContent } from "./BeerSearchContent";
 import { ReviewExitConfirmationDrawer } from "./ReviewExitConfirmationDrawer";
-import { CreateReviewRequestTypeV2 } from "@/api/review/typedef";
 
 interface ReviewModalProps {
+  reviewInfo: CreateReviewRequestTypeV2;
   isModalOpen: ModalProps["isOpen"];
   onCloseModal: ModalProps["onClose"];
-  onComplete: (beerId: number | null) => void;
+  onComplete: (beerId: number) => void;
   onChangeReviewInfo: (data: CreateReviewRequestTypeV2) => void;
-  reviewInfo: CreateReviewRequestTypeV2;
+  setBeerInfo?: (data: BeerTypeV2) => void;
+  beerInfo?: BeerTypeV2;
 }
 
 export const ReviewModal: React.FC<ReviewModalProps> = ({
   isModalOpen,
   reviewInfo,
+  beerInfo,
+  setBeerInfo,
   onChangeReviewInfo,
   onCloseModal,
   onComplete,
@@ -30,46 +37,42 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
     onOpen: onOpenConfirmDrawer,
     isOpen: isOpenConfirmDrawer,
   } = useDisclosure();
-  const beerName = "";
-  const isCompleted = !!beerName && !!reviewInfo.rate;
+
+  const beerName = beerInfo?.name;
+  const beerId = beerInfo?.id;
+  const isCompleted = !!beerName && !!reviewInfo.rate && !!reviewInfo.content;
+
   const [step, setStep] = useState(0);
-  const [reviewInputValue, setReviewInputValue] = useState(
-    reviewInfo.content ?? ""
-  );
-  const [beerId, setBeerId] = useState<number | null>(null);
+
+  const [contentInput, setContentInput] = useState(reviewInfo.content ?? "");
 
   const handleComplete = () => {
-    onComplete(beerId);
-  };
-  const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setReviewInputValue(e.target.value);
-    const newBeerReview = { ...reviewInfo, content: e.target.value };
-    onChangeReviewInfo(newBeerReview);
+    if (beerId) onComplete(beerId);
   };
 
   const handleChangeBeerName = (name: string, id: number) => {
-    const newBeerReview = { ...reviewInfo, beerName: name };
-    onChangeReviewInfo(newBeerReview);
-    setBeerId(id);
+    setBeerInfo?.({ id, name });
   };
 
-  const handleChangeRate = (rate: number) => {
-    const newBeerReview = { ...reviewInfo, rate: rate };
-    onChangeReviewInfo(newBeerReview);
+  const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setContentInput(e.target.value);
+    handleChangeReviewInfo("content", e.target.value);
   };
 
-  const handleClickPlaceTag = (place: string | null) => {
-    const newBeerReview = { ...reviewInfo, place: place };
-    onChangeReviewInfo(newBeerReview);
+  const handleChangeReviewInfo = (
+    key: string,
+    value: string | number | string[]
+  ) => {
+    onChangeReviewInfo({ ...reviewInfo, [key]: value });
   };
 
   useEffect(() => {
     return () => {
       setStep(0);
       onCloseModal();
-      setReviewInputValue("");
+      setContentInput("");
     };
-  }, [onChangeReviewInfo, onCloseModal]);
+  }, [onCloseModal]);
 
   return (
     <>
@@ -80,18 +83,18 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
               onOpenDrawer={onOpenConfirmDrawer}
               reviewInfo={reviewInfo}
               onNext={() => setStep(1)}
-              handleChangeRate={handleChangeRate}
-              handleClickPlaceTag={handleClickPlaceTag}
-              handleInputChange={handleInputChange}
-              reviewInputValue={reviewInputValue}
-              handleClickComplete={handleComplete}
+              onInputChange={handleContentChange}
+              contentInput={contentInput}
+              onComplete={handleComplete}
+              onChangeReviewInfo={handleChangeReviewInfo}
+              beerName={beerName ?? ""}
               isCompleted={isCompleted}
             />
           )}
 
           {step === 1 && (
             <BeerSearchContent
-              onClickBack={() => {
+              onBack={() => {
                 setStep(step - 1);
               }}
               onChangeBeerName={handleChangeBeerName}

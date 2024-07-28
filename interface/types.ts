@@ -1,5 +1,3 @@
-import { UpdateReviewRequestTypeV2 } from "@/api/review/typedef";
-
 export type AllKeyboardEvent = React.KeyboardEvent | KeyboardEvent;
 
 export interface CategoryFilterListType {

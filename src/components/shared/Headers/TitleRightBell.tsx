@@ -1,7 +1,7 @@
-import {Box, Flex} from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import React from "react";
-import {AlertBellPath} from "../CustomIcons/customPath";
-import BeerlotTitle from "./BeerlotTitle";
+import { AlertBellPath } from "../CustomIcons/customPath";
+import { BeerlotTitle } from "./BeerlotTitle";
 
 export const TitleRightBellHeader = () => {
   return (

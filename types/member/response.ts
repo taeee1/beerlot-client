@@ -1,4 +1,4 @@
-import {POLICY_LABEL} from "../common";
+import { POLICY_LABEL } from "../common";
 
 export interface MemberResponse {
   id: number;
@@ -15,7 +15,7 @@ export interface UpdateMemberResponse {
 export interface MemberReviewResponse {
   id: number;
   content: string;
-  image_url: string;
+  image_url: string[];
   rate: number;
   like_count: number;
   updated_at: string;

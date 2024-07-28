@@ -10,15 +10,20 @@ import {
   Text,
 } from "@chakra-ui/react";
 import Cookies from "js-cookie";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useUploadMediaMutation } from "../../../../hooks/mutations/useUploadMediaMutation";
 import { ReviewStatic } from "../../../../interface/static";
 import { OrangeCamera } from "../../../../public/svg";
 
-export const UploadedReviewImages = () => {
+interface UploadedReviewImagesProps {
+  imageUrl: string[];
+  setImageUrl: (imageUrl: string[]) => void;
+}
+export const UploadedReviewImages: React.FC<UploadedReviewImagesProps> = ({
+  imageUrl,
+  setImageUrl,
+}) => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
-
-  const [imageUrl, setImageUrl] = useState<string[]>([]);
 
   const handleDelete = (index: number) => {
     const newImageUrl = imageUrl.filter((_, i) => i !== index);
