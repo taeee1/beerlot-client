@@ -27,6 +27,7 @@ export const useUserInfoQuery = (
   return useQuery({
     queryKey: getUserInfoQueryKey(),
     queryFn: () => getUsersInfoApi(accessToken),
+    enabled: !!accessToken,
     ...options,
   });
 };
