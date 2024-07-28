@@ -16,7 +16,11 @@ export const createReviewApi = async (
       Authorization: `Bearer ${accessToken}`,
     },
   };
-  const response = await axios.post(url, data, config);
+  const response = await axios.post(
+    url,
+    true ? { ...data, image_url: data.image_url[0] } : data,
+    config
+  );
 
   return response.data;
 };
