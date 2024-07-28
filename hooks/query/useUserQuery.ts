@@ -63,6 +63,7 @@ export const useUserLikedBeersQuery = (
   return useQuery({
     queryKey: userBeersQueryKey(),
     queryFn: () => getUserLikedBeersApi(accessToken, queryParam),
+    enabled: !!accessToken,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     ...options,
