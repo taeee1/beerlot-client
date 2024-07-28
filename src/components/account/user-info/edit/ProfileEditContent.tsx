@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import CommonValidationInput from "../../../shared/CommonValidationInput";
 import { ProfileUploadAvatar } from "./ProfileUploadAvatar";
-
+import { useToast } from "@chakra-ui/react";
 interface ProfileEditContentProps extends StackProps {
   existingImageURl: string;
   username: string;
@@ -22,6 +22,7 @@ export const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
 }) => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const router = useRouter();
+  const toast = useToast();
 
   const {
     usernameInput,
@@ -42,6 +43,13 @@ export const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
   const editUserInfoMutation = useEditUserInfoMutation(accessToken, {
     onSuccess: () => {
       router.push("/account");
+    },
+    onError: (error) => {
+      toast({
+        title: error.message,
+        status: "error",
+        isClosable: true,
+      });
     },
   });
 
