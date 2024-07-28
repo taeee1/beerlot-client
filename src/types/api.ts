@@ -6,6 +6,7 @@ export interface FailureResponse {
     status: number;
     statusText: string;
   };
+  message: string;
 }
 
 export type BeerFilterRequestType = {
