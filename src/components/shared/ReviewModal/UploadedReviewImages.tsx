@@ -1,4 +1,4 @@
-import {CloseIcon} from "@chakra-ui/icons";
+import { CloseIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
@@ -9,39 +9,46 @@ import {
   Input,
   Text,
 } from "@chakra-ui/react";
-import {useRef, useState} from "react";
-import {ReviewStatic} from "../../../../interface/static";
-import {OrangeCamera} from "../../../../public/svg";
+import Cookies from "js-cookie";
+import { useRef, useState } from "react";
+import { useUploadMediaMutation } from "../../../../hooks/mutations/useUploadMediaMutation";
+import { ReviewStatic } from "../../../../interface/static";
+import { OrangeCamera } from "../../../../public/svg";
 
 export const UploadedReviewImages = () => {
-  const [imgFile, setImgFile] = useState<string[]>([]);
-  const imgRef = useRef<HTMLInputElement>(null);
+  const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
 
-  const onClickDelete = (index: number) => {
-    const newImgFile = imgFile.filter((_, i) => i !== index);
-    setImgFile(newImgFile);
+  const [imageUrl, setImageUrl] = useState<string[]>([]);
+
+  const handleDelete = (index: number) => {
+    const newImageUrl = imageUrl.filter((_, i) => i !== index);
+    setImageUrl(newImageUrl);
   };
 
-  const handleChangeImage = () => {
-    if (imgFile.length >= ReviewStatic.numberOfMaxAttachedFile) return;
-    if (
-      !imgRef ||
-      !imgRef.current ||
-      !imgRef.current.files ||
-      imgRef.current.files.length === 0
-    )
-      return;
-    const file = imgRef.current.files[0];
+  const { mutate, isLoading } = useUploadMediaMutation({
+    onSuccess: (data: { urls: string[] }) => {
+      const newUrl = data.urls[0];
+      setImageUrl([...imageUrl, newUrl]);
+    },
+    onError: (error: any) => {
+      console.error("onError", error);
+    },
+  });
 
+  const imgRef = useRef<HTMLInputElement>(null);
+
+  const handleChangeImage = async () => {
+    if (!imgRef || !imgRef.current || !imgRef.current.files) return;
+    const file = imgRef.current.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    console.log("reader.result", reader.result);
-    reader.onloadend = () => {
-      if (typeof reader.result === "string") {
-        const newImgFile = [...imgFile, reader.result];
-        setImgFile(newImgFile);
-      }
-    };
+    const formData = new FormData();
+    formData.append("files", file);
+    mutate({
+      directory: "review",
+      formData,
+      accessToken,
+    });
   };
 
   return (
@@ -60,12 +67,13 @@ export const UploadedReviewImages = () => {
           aria-label="attach-photo"
           gap="10px"
           mt="0px"
-          disabled={imgFile.length >= ReviewStatic.numberOfMaxAttachedFile}
-          _notFirst={{marginInlineStart: "0px", marginTop: "0px"}}
+          isLoading={isLoading}
+          disabled={imageUrl.length >= ReviewStatic.numberOfMaxAttachedFile}
+          _notFirst={{ marginInlineStart: "0px", marginTop: "0px" }}
         >
           <OrangeCamera />
           <Text textStyle="h3" textColor="orange.200">
-            사진 첨부하기 ({imgFile.length}/
+            사진 첨부하기 ({imageUrl.length}/
             {ReviewStatic.numberOfMaxAttachedFile})
           </Text>
         </Button>
@@ -75,18 +83,18 @@ export const UploadedReviewImages = () => {
           id="attachFileInput"
           onChange={handleChangeImage}
           ref={imgRef}
-          disabled={imgFile.length >= ReviewStatic.numberOfMaxAttachedFile}
-          style={{display: "none"}}
+          disabled={imageUrl.length >= ReviewStatic.numberOfMaxAttachedFile}
+          style={{ display: "none" }}
         />
       </FormControl>
 
       <HStack
-        display={imgFile.length > 0 ? "flex" : "none"}
+        display={imageUrl.length > 0 ? "flex" : "none"}
         overflowX="scroll"
         w="full"
-        style={{marginTop: 0}}
+        style={{ marginTop: 0 }}
       >
-        {imgFile.map((fileSrc, index) => {
+        {imageUrl.map((fileSrc, index) => {
           return (
             <Box key={fileSrc} boxSize="80px" position="relative">
               <Image
@@ -105,7 +113,7 @@ export const UploadedReviewImages = () => {
                 position="absolute"
                 top={1}
                 right={1}
-                onClick={() => onClickDelete(index)}
+                onClick={() => handleDelete(index)}
               >
                 <CloseIcon color="white.100" w={"4px"} h={"4px"} />
               </Button>

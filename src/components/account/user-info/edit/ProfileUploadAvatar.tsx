@@ -15,6 +15,7 @@ export const ProfileUploadAvatar: React.FC<ProfileUploadAvatarProps> = ({
   setImageUrl,
 }) => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
+
   const { mutate, isLoading } = useUploadMediaMutation({
     onSuccess: (data: { urls: string[] }) => {
       const newUrl = data.urls[0];
