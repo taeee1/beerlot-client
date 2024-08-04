@@ -32,6 +32,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
   onCloseModal,
   onComplete,
 }) => {
+  const isBeerEditable = !!setBeerInfo;
   const {
     onClose: onCloseConfirmDrawer,
     onOpen: onOpenConfirmDrawer,
@@ -53,7 +54,14 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
   const handleChangeBeerName = (name: string, id: number) => {
     setBeerInfo?.({ id, name });
   };
-
+  const initReviewInfo = () => {
+    return {
+      content: "",
+      image_url: [],
+      buy_from: "",
+      rate: 0,
+    };
+  };
   const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setContentInput(e.target.value);
     handleChangeReviewInfo("content", e.target.value);
@@ -71,8 +79,9 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
       setStep(0);
       onCloseModal();
       setContentInput("");
+      initReviewInfo();
     };
-  }, [onCloseModal]);
+  }, [onChangeReviewInfo, onCloseModal]);
 
   return (
     <>
@@ -82,7 +91,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
             <BeerReviewContent
               onOpenDrawer={onOpenConfirmDrawer}
               reviewInfo={reviewInfo}
-              onNext={() => setStep(1)}
+              onNext={isBeerEditable ? () => setStep(1) : undefined}
               onInputChange={handleContentChange}
               contentInput={contentInput}
               onComplete={handleComplete}
@@ -107,8 +116,10 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
         isOpen={isOpenConfirmDrawer}
         onClose={onCloseConfirmDrawer}
         onClickLeftButton={() => {
+          console.log("initReviewInfo", initReviewInfo);
           onCloseConfirmDrawer();
           onCloseModal();
+          initReviewInfo();
         }}
         onClickRightButton={onCloseConfirmDrawer}
       />

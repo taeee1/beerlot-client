@@ -8,18 +8,17 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import { CreateReviewRequestTypeV2 } from "../../../../typedef/review";
 import { LeftCloseRandom } from "../Headers/LeftCloseRandom";
 import BeerNameSection from "./BeerNameSection";
 import { BeerPurchaseSection } from "./BeerPurchaseSection";
 import { BeerRatingSection } from "./BeerRatingSection";
 import { BeerReviewTextSection } from "./BeerReviewTextSection";
-import { UploadedReviewImages } from "./UploadedReviewImages";
-import { CreateReviewRequestTypeV2 } from "../../../../typedef/review";
 
 interface BeerReviewContentProps extends ModalContentProps {
   onOpenDrawer: () => void;
   reviewInfo: CreateReviewRequestTypeV2;
-  onNext: () => void;
+  onNext?: () => void;
   beerName: string;
   onInputChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   contentInput: string;
@@ -98,10 +97,12 @@ export const BeerReviewContent: React.FC<BeerReviewContentProps> = ({
             input={contentInput}
           />
 
-          <UploadedReviewImages
-            setImageUrl={handleImage}
-            imageUrl={reviewInfo.image_url}
-          />
+          {/* {reviewInfo.image_url.length > 0 && (
+            <UploadedReviewImages
+              setImageUrl={handleImage}
+              imageUrl={reviewInfo.image_url}
+            />
+          )} */}
         </VStack>
       </ModalBody>
       <ModalFooter px={0}>

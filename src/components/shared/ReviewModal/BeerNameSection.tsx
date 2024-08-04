@@ -10,14 +10,16 @@ const BeerNameSection: React.FC<BeerNameSectionProps> = ({
   beerName,
   ...props
 }) => {
+  const { onClick, ...restProps } = props;
   return (
     <Flex
       p="10px"
       justifyContent="space-between"
       alignItems="center"
       w="full"
-      cursor={"pointer"}
-      {...props}
+      cursor={(onClick && "pointer") || "auto"}
+      onClick={onClick}
+      {...restProps}
     >
       <VStack gap="10px" alignItems={"flex-start"}>
         <Text textStyle="h2" textColor="black.100">
@@ -30,12 +32,14 @@ const BeerNameSection: React.FC<BeerNameSectionProps> = ({
         )}
       </VStack>
 
-      <IconButton
-        aria-label="right-arrow"
-        icon={<RightArrow />}
-        bg={"initial"}
-        _hover={{}}
-      />
+      {onClick && (
+        <IconButton
+          aria-label="right-arrow"
+          icon={<RightArrow />}
+          bg={"initial"}
+          _hover={{}}
+        />
+      )}
     </Flex>
   );
 };

@@ -7,6 +7,7 @@ import { useCallback, useState } from "react";
 import { useReviewDeleteMutation } from "../../../../hooks/reviews/useReview";
 import { FollowingTabPanelItem } from "@/components/feed/TabPanelItem";
 import { ReviewModalWrapper } from "@/components/shared/ReviewModal/ReviewModalWrapper/ReviewModalWrapper";
+import { ExistingReviewModalWrapper } from "@/components/shared/ReviewModal/ReviewModalWrapper/ExistingReviewModalWrapper";
 
 interface BeerReviewsProps {
   userReviews: MemberReviewResponse[];
@@ -86,7 +87,7 @@ const BeerReviews: React.FC<BeerReviewsProps> = ({
         );
       })}
 
-      <ReviewModalWrapper
+      <ExistingReviewModalWrapper
         reviewId={selectedReviewId}
         isModalOpen={isOpen}
         onCloseModal={onClose}
