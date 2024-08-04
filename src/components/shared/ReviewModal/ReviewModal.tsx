@@ -45,8 +45,6 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
 
   const [step, setStep] = useState(0);
 
-  const [contentInput, setContentInput] = useState(reviewInfo.content ?? "");
-
   const handleComplete = () => {
     if (beerId) onComplete(beerId);
   };
@@ -63,7 +61,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
     };
   };
   const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setContentInput(e.target.value);
+    onChangeReviewInfo({ ...reviewInfo, content: e.target.value });
     handleChangeReviewInfo("content", e.target.value);
   };
 
@@ -78,7 +76,6 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
     return () => {
       setStep(0);
       onCloseModal();
-      setContentInput("");
       initReviewInfo();
     };
   }, [onChangeReviewInfo, onCloseModal]);
@@ -93,7 +90,6 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
               reviewInfo={reviewInfo}
               onNext={isBeerEditable ? () => setStep(1) : undefined}
               onInputChange={handleContentChange}
-              contentInput={contentInput}
               onComplete={handleComplete}
               onChangeReviewInfo={handleChangeReviewInfo}
               beerName={beerName ?? ""}

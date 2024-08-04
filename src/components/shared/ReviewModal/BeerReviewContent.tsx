@@ -21,7 +21,6 @@ interface BeerReviewContentProps extends ModalContentProps {
   onNext?: () => void;
   beerName: string;
   onInputChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  contentInput: string;
   onComplete: () => void;
   isCompleted: boolean;
   onChangeReviewInfo: (key: string, value: string | number | string[]) => void;
@@ -33,7 +32,6 @@ export const BeerReviewContent: React.FC<BeerReviewContentProps> = ({
   onNext,
   beerName,
   onInputChange,
-  contentInput,
   onComplete,
   onChangeReviewInfo,
   isCompleted,
@@ -94,7 +92,7 @@ export const BeerReviewContent: React.FC<BeerReviewContentProps> = ({
           {/* review text  */}
           <BeerReviewTextSection
             onChangeInput={onInputChange}
-            input={contentInput}
+            input={reviewInfo.content}
           />
 
           {/* {reviewInfo.image_url.length > 0 && (
