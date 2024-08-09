@@ -9,6 +9,7 @@ import React, { useState } from "react";
 import CommonValidationInput from "../../../shared/CommonValidationInput";
 import { ProfileUploadAvatar } from "./ProfileUploadAvatar";
 import { useToast } from "@chakra-ui/react";
+import {useErrorToast} from "@/hooks/shared/useErrorToast";
 interface ProfileEditContentProps extends StackProps {
   existingImageURl: string;
   username: string;
@@ -22,7 +23,7 @@ export const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
 }) => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const router = useRouter();
-  const toast = useToast();
+  const showErrorToast = useErrorToast();
 
   const {
     usernameInput,
@@ -45,32 +46,7 @@ export const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
       router.push("/account");
     },
     onError: (error) => {
-      let errorMessage;
-
-      if (error.response?.status === 400) {
-        errorMessage = "30일에 최대 2회만 닉네임을 변경할 수 있습니다.";
-      } else if (error.response?.status === 403) {
-        errorMessage = "권한이 없습니다. 새로고침 후 다시 시도해주세요.";
-      }
-      else if (error.response?.status === 500) {
-        errorMessage = "예상치 못한 에러가 발생했습니다.";
-      }
-      else {
-        errorMessage = error.message;
-      }
-console.log({error})
-      toast({
-        title: error.message,
-        status: "error",
-        isClosable: true,
-        duration: 5000,
-        position: "top",
-        render: () => (
-            <Box color="white" p={3} bg="red.500" borderRadius="md">
-              {error.message}
-            </Box>
-        ),
-      });
+      showErrorToast(error.response);
     },
   });
 
