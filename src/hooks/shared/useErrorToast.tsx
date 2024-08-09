@@ -30,7 +30,10 @@ export const useErrorToast = () => {
       status: "error",
       isClosable: true,
       duration: 5000,
-      position: "top",
+      position: "bottom",
+      containerStyle: {
+        marginBottom: "10vh",
+      },
       render: () => (
         <Box
           color="white"
