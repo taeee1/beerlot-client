@@ -8,22 +8,28 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import CommonValidationInput from "../../../shared/CommonValidationInput";
 import { ProfileUploadAvatar } from "./ProfileUploadAvatar";
-import { useToast } from "@chakra-ui/react";
 import {useErrorToast} from "@/hooks/shared/useErrorToast";
+import dayjs from "dayjs";
+
 interface ProfileEditContentProps extends StackProps {
   existingImageURl: string;
   username: string;
   statusMessage?: string;
+  usernameUpdatedAt?:string;
 }
 
 export const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
   existingImageURl,
   username,
   statusMessage,
+  usernameUpdatedAt,
 }) => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const router = useRouter();
   const showErrorToast = useErrorToast();
+  const nextChangeDate =usernameUpdatedAt
+      ? dayjs(usernameUpdatedAt).add(30, 'day').format('YYYY-MM-DD')
+      : null;
 
   const {
     usernameInput,
@@ -42,13 +48,14 @@ export const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
 
   // submit
   const editUserInfoMutation = useEditUserInfoMutation(accessToken, {
-    onSuccess: () => {
-      router.push("/account");
-    },
     onError: (error) => {
       showErrorToast(error.response, {
-        400: '닉네임은 30일에 한 번만 변경할 수 있어요 :('
+        400: nextChangeDate ? `${nextChangeDate} 이후로 변경할 수 있어요!` : '닉네임은 30일에 한 번만 변경할 수 있어요 :(',
+        // 400: '닉네임은 30일에 한 번만 변경할 수 있어요 :('
       });
+    },
+    onSuccess: () => {
+      router.push("/account");
     },
   });
 

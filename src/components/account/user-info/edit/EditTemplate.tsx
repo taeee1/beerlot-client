@@ -15,6 +15,7 @@ export const EditTemplate = () => {
     image_url,
     username,
     status_message: statusMessage,
+      username_updated_at,
   } = userQuery?.data ?? {};
 
   if (loading) return <BeerlotLoading />;
@@ -26,6 +27,7 @@ export const EditTemplate = () => {
           existingImageURl={image_url || "/images/default-profile.png"}
           statusMessage={statusMessage}
           username={username}
+          usernameUpdatedAt={username_updated_at}
         />
       )}
     </>
