@@ -13,7 +13,7 @@ export const useErrorToast = () => {
   const toast = useToast();
 
   const showErrorToast = (error: FailureResponseV2, customMessages?: CustomMessages) => {
-    let errorMessage;
+    let errorMessage :string  | undefined= "";
 
     if (customMessages && error?.status && customMessages[error?.status]) {
       errorMessage = customMessages[error.status];
