@@ -46,7 +46,9 @@ export const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
       router.push("/account");
     },
     onError: (error) => {
-      showErrorToast(error.response);
+      showErrorToast(error.response, {
+        400: '닉네임은 30일에 한 번만 변경할 수 있어요 :('
+      });
     },
   });
 
