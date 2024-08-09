@@ -2,10 +2,10 @@ import { useEditUserInfoMutation } from "@/../hooks/query/useUserQuery";
 import LeftXTitleRightComplete from "@/components/shared/Headers/LeftXTitleRightComplete";
 import { MAX_BIO_LENGTH, useBioHandler } from "@/hooks/bio/useBioHandler";
 import { useNicknameHandler } from "@/hooks/nickname/useNicknameHandler";
-import { StackProps, VStack } from "@chakra-ui/react";
+import {Box, StackProps, VStack} from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import React, { useState } from "react";
 import CommonValidationInput from "../../../shared/CommonValidationInput";
 import { ProfileUploadAvatar } from "./ProfileUploadAvatar";
 import { useToast } from "@chakra-ui/react";
@@ -45,10 +45,31 @@ export const ProfileEditContent: React.FC<ProfileEditContentProps> = ({
       router.push("/account");
     },
     onError: (error) => {
+      let errorMessage;
+
+      if (error.response?.status === 400) {
+        errorMessage = "30일에 최대 2회만 닉네임을 변경할 수 있습니다.";
+      } else if (error.response?.status === 403) {
+        errorMessage = "권한이 없습니다. 새로고침 후 다시 시도해주세요.";
+      }
+      else if (error.response?.status === 500) {
+        errorMessage = "예상치 못한 에러가 발생했습니다.";
+      }
+      else {
+        errorMessage = error.message;
+      }
+console.log({error})
       toast({
         title: error.message,
         status: "error",
         isClosable: true,
+        duration: 5000,
+        position: "top",
+        render: () => (
+            <Box color="white" p={3} bg="red.500" borderRadius="md">
+              {error.message}
+            </Box>
+        ),
       });
     },
   });
