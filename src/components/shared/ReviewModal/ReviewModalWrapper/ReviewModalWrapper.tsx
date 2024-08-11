@@ -49,7 +49,9 @@ export const ReviewModalWrapper: React.FC<ReviewModalWrapperProps> = ({
           onCloseModal();
         },
         onError: (error) => {
-          showErrorToast(error.response);
+          showErrorToast(error.response, {
+            409: '이미 리뷰를 작성하셨어요 :)',
+          });
         },
       }
     );
