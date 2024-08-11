@@ -4,7 +4,7 @@ import {
   useMutation,
   useQuery,
 } from "react-query";
-import { FailureResponseV2 } from "types/api";
+import { FailureResponse, FailureResponseV2 } from "types/api";
 import {
   BeerReviewQueryParamsV2,
   CreateReviewRequestTypeV2,
@@ -19,7 +19,7 @@ export const useCreateReviewMutation = (
   accessToken: string,
   options?: UseMutationOptions<
     CreateReviewResponseTypeV2,
-    FailureResponseV2,
+    FailureResponse,
     {
       beerId: number;
       data: CreateReviewRequestTypeV2;

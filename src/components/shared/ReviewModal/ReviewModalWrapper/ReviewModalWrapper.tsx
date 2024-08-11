@@ -10,6 +10,7 @@ import { ReviewModal } from "../ReviewModal";
 import { useAllReviewsQuery } from "../../../../../hooks/reviews/useReview";
 import { MOCK_FEED_FILTER_LIST } from "../../../../../interface/static";
 import { ReviewSortEnum } from "../../../../../interface/types";
+import { useErrorToast } from "@/hooks/shared/useErrorToast";
 
 interface ReviewModalWrapperProps {
   isModalOpen: ModalProps["isOpen"];
@@ -25,8 +26,7 @@ export const ReviewModalWrapper: React.FC<ReviewModalWrapperProps> = ({
   const allReviewsQuery = useAllReviewsQuery({
     sort: selectedTag,
   });
-
-
+  const showErrorToast = useErrorToast();
   const { mutate: createReview } = useCreateReviewMutation(accessToken);
   const [beerInfo, setBeerInfo] = useState<BeerTypeV2 | undefined>();
   const [reviewInfo, setReviewInfo] = useState<CreateReviewRequestTypeV2>({
@@ -47,6 +47,9 @@ export const ReviewModalWrapper: React.FC<ReviewModalWrapperProps> = ({
         onSuccess: () => {
           allReviewsQuery.refetch();    
           onCloseModal();
+        },
+        onError: (error) => {
+          showErrorToast(error.response);
         },
       }
     );
