@@ -55,6 +55,7 @@ export const ExistingReviewModalWrapper: React.FC<
       updateReview({ reviewId, newContent: reviewInfo }, {
         onSuccess: () => {
           userReviewQuery.refetch();
+          onCloseModal();
         }
       });
     }
