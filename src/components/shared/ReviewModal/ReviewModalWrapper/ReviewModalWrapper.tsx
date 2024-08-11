@@ -50,7 +50,7 @@ export const ReviewModalWrapper: React.FC<ReviewModalWrapperProps> = ({
         },
         onError: (error) => {
           showErrorToast(error.response, {
-            409: '이미 리뷰를 작성하셨어요 :)',
+            409: '이미 리뷰를 작성한 맥주입니다. 다른 맥주를 선택해주세요.',
           });
         },
       }
