@@ -11,6 +11,7 @@ import {
 } from "../../../../../typedef/review";
 import { BeerlotLoading } from "../../Loading";
 import { ReviewModal } from "../ReviewModal";
+import { useUserReviewsQuery } from "@/../hooks/query/useUserQuery";
 
 interface ExistingReviewModalWrapperProps {
   reviewId?: number | null;
@@ -23,7 +24,7 @@ export const ExistingReviewModalWrapper: React.FC<
 > = ({ reviewId, isModalOpen, onCloseModal }) => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const reviewQuery = useReviewQuery(reviewId);
-
+  const userReviewQuery = useUserReviewsQuery(accessToken);
   const { isLoading: _isLoading, isFetching, isRefetching } = reviewQuery;
   const isLoading = _isLoading || isFetching || isRefetching;
   const existingReviewData = reviewQuery.data;
@@ -51,9 +52,12 @@ export const ExistingReviewModalWrapper: React.FC<
 
   const handleComplete = (beerId: number) => {
     if (reviewId !== undefined && reviewId !== null) {
-      updateReview({ reviewId, newContent: reviewInfo });
+      updateReview({ reviewId, newContent: reviewInfo }, {
+        onSuccess: () => {
+          userReviewQuery.refetch();
+        }
+      });
     }
-    onCloseModal();
   };
 
   if (isLoading || !existingReviewData) {
