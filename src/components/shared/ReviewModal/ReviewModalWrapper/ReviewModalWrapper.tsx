@@ -7,6 +7,9 @@ import {
   CreateReviewRequestTypeV2,
 } from "../../../../../typedef/review";
 import { ReviewModal } from "../ReviewModal";
+import { useAllReviewsQuery } from "../../../../../hooks/reviews/useReview";
+import { MOCK_FEED_FILTER_LIST } from "../../../../../interface/static";
+import { ReviewSortEnum } from "../../../../../interface/types";
 
 interface ReviewModalWrapperProps {
   isModalOpen: ModalProps["isOpen"];
@@ -18,6 +21,11 @@ export const ReviewModalWrapper: React.FC<ReviewModalWrapperProps> = ({
   onCloseModal,
 }) => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
+  const selectedTag:ReviewSortEnum = MOCK_FEED_FILTER_LIST[0].tags[0]; // TODO: keep the previoud tag
+  const allReviewsQuery = useAllReviewsQuery({
+    sort: selectedTag,
+  });
+
 
   const { mutate: createReview } = useCreateReviewMutation(accessToken);
   const [beerInfo, setBeerInfo] = useState<BeerTypeV2 | undefined>();
@@ -30,12 +38,18 @@ export const ReviewModalWrapper: React.FC<ReviewModalWrapperProps> = ({
 
   const handleComplete = (beerId: number) => {
     if (beerId === null) return;
-    createReview({
-      beerId: beerId,
-      data: reviewInfo,
-    });
-
-    onCloseModal();
+    createReview(
+      {
+        beerId: beerId,
+        data: reviewInfo,
+      },
+      {
+        onSuccess: () => {
+          allReviewsQuery.refetch();    
+          onCloseModal();
+        },
+      }
+    );
   };
 
   return (
