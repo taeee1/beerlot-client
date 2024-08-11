@@ -1,5 +1,5 @@
 // src/hooks/shared/useErrorToast.tsx
-import { HStack, Icon, useToast } from "@chakra-ui/react";
+import {Button, CloseButton, HStack, Icon, useToast} from "@chakra-ui/react";
 import { Box, Text } from "@chakra-ui/react";
 import { FailureResponseV2 } from "../../types/api";
 import React from "react";
@@ -34,7 +34,7 @@ export const useErrorToast = () => {
       containerStyle: {
         marginBottom: "10vh",
       },
-      render: () => (
+      render: ({id}) => (
         <Box
           color="white"
           p={4}
@@ -43,9 +43,15 @@ export const useErrorToast = () => {
           boxShadow="lg"
           maxWidth="400px"
         >
-          <HStack>
-            <Icon as={WarningIcon} w={6} h={6} color="white" />
-            <Text fontSize="md">{errorMessage}</Text>
+          <HStack justifyContent="space-between">
+            <HStack>
+              <Icon as={WarningIcon} w={6} h={6} color="white" />
+              <Text fontSize="md">{errorMessage}</Text>
+            </HStack>
+            <CloseButton onClick={() => {
+              if(id) toast.close(id)
+            }} />
+          
           </HStack>
         </Box>
       ),
