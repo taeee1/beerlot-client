@@ -80,8 +80,7 @@ export const UploadedReviewImages: React.FC<UploadedReviewImagesProps> = ({
         >
           <OrangeCamera />
           <Text textStyle="h3" textColor="orange.200">
-            사진 첨부하기 ({imageUrl.length}/
-            {ReviewStatic.numberOfMaxAttachedFile})
+            사진 첨부하기 
           </Text>
         </Button>
         <Input

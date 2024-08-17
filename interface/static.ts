@@ -139,7 +139,7 @@ export interface beerItemType {
 }
 
 export enum ReviewStatic {
-  numberOfMaxAttachedFile = 5,
+  numberOfMaxAttachedFile = 1,
   ReviewInputMaxLength = 2000,
 }
 
