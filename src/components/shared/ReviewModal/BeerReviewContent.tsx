@@ -7,7 +7,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { CreateReviewRequestTypeV2 } from "../../../../typedef/review";
 import { LeftCloseRandom } from "../Headers/LeftCloseRandom";
 import BeerNameSection from "./BeerNameSection";
@@ -25,6 +25,8 @@ interface BeerReviewContentProps extends ModalContentProps {
   onComplete: () => void;
   isCompleted: boolean;
   onChangeReviewInfo: (key: string, value: string | number | string[]) => void;
+  placeInputValue: string;
+  handleChangePlace: (newPlace: string) => void;
 }
 
 export const BeerReviewContent: React.FC<BeerReviewContentProps> = ({
@@ -36,14 +38,11 @@ export const BeerReviewContent: React.FC<BeerReviewContentProps> = ({
   onComplete,
   onChangeReviewInfo,
   isCompleted,
+  placeInputValue,
+  handleChangePlace,
 }) => {
-  const [placeInputValue, setPlaceInputValue] = useState("");
-
-  const handleChangePlace = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setPlaceInputValue(event.target.value);
-
   const clearInput = () => {
-    setPlaceInputValue("");
+    handleChangePlace("");
   };
 
   useEffect(() => {

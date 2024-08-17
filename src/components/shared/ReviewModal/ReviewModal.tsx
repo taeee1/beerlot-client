@@ -5,15 +5,15 @@ import {
   ModalProps,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import {
   BeerTypeV2,
   CreateReviewRequestTypeV2,
 } from "../../../../typedef/review";
+import { BeerlotLoading } from "../Loading";
 import { BeerReviewContent } from "./BeerReviewContent";
 import { BeerSearchContent } from "./BeerSearchContent";
 import { ReviewExitConfirmationDrawer } from "./ReviewExitConfirmationDrawer";
-import { BeerlotLoading } from "../Loading";
 
 interface ReviewModalProps {
   reviewInfo?: CreateReviewRequestTypeV2;
@@ -42,13 +42,11 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
     isOpen: isOpenConfirmDrawer,
   } = useDisclosure(); 
 
-
  
   const beerName = beerInfo?.name;
   const beerId = beerInfo?.id;
   const isCompleted = !!beerName && !!reviewInfo?.rate && !!reviewInfo?.content;
 
- 
 
   const handleComplete = () => {
     if (beerId) onComplete(beerId);
@@ -57,8 +55,6 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
   const handleChangeBeerName = (name: string, id: number) => {
     setBeerInfo?.({ id, name });
   };
-
-  
 
   const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     if(!reviewInfo) return;
@@ -74,6 +70,12 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
     onChangeReviewInfo({ ...reviewInfo, [key]: value });
   };
 
+  const [placeInputValue, setPlaceInputValue] = useState("");
+
+  const handleChangePlace = (newPlace:string) =>{
+    setPlaceInputValue(newPlace);
+  }
+ 
 
   return (
     <>
@@ -94,6 +96,8 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
               onChangeReviewInfo={handleChangeReviewInfo}
               beerName={beerName ?? ""}
               isCompleted={isCompleted}
+              placeInputValue={placeInputValue}
+              handleChangePlace={handleChangePlace}
             />
           )}
 

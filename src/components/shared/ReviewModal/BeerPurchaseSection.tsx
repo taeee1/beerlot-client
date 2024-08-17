@@ -13,7 +13,7 @@ import { CreateReviewRequestTypeV2 } from "../../../../typedef/review";
 
 interface BeerPurchaseSectionProps {
   reviewInfo: CreateReviewRequestTypeV2;
-  handleChangePlace: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChangePlace: (newPlace:string) => void;
   clearInput: () => void;
   handleClickPlaceTag: (place: string) => void;
   placeInputValue: string;
@@ -60,7 +60,7 @@ export const BeerPurchaseSection: React.FC<BeerPurchaseSectionProps> = ({
               >
                 {/* styling slightly weird, width should be fixed */}
                 <Input
-                  onChange={handleChangePlace}
+                  onChange={(e)=>handleChangePlace(e.target.value)}
                   value={placeInputValue}
                   w="auto"
                   h="auto"
