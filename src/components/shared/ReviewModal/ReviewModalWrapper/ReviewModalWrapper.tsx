@@ -29,7 +29,7 @@ export const ReviewModalWrapper: React.FC<ReviewModalWrapperProps> = ({
   const showErrorToast = useErrorToast();
   const { mutate: createReview } = useCreateReviewMutation(accessToken);
   const [beerInfo, setBeerInfo] = useState<BeerTypeV2 | undefined>();
-  const [reviewInfo, setReviewInfo] = useState<CreateReviewRequestTypeV2>({
+  const [reviewInfo, setReviewInfo] = useState<CreateReviewRequestTypeV2 | undefined>({
     content: "",
     image_url: '',
     buy_from: "",
@@ -38,6 +38,7 @@ export const ReviewModalWrapper: React.FC<ReviewModalWrapperProps> = ({
 
   const handleComplete = (beerId: number) => {
     if (beerId === null) return;
+    if(!reviewInfo) return;
     createReview(
       {
         beerId: beerId,
