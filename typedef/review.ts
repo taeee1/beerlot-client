@@ -4,7 +4,7 @@ import { POLICY_LABEL } from "../types/common";
 export type ReviewTypeV2 = {
   id: number;
   content: string;
-  image_url: string[];
+  image_url: string;
   rate: number;
   buy_from: string;
 

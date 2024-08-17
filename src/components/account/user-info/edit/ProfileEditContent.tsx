@@ -2,14 +2,14 @@ import { useEditUserInfoMutation } from "@/../hooks/query/useUserQuery";
 import LeftXTitleRightComplete from "@/components/shared/Headers/LeftXTitleRightComplete";
 import { MAX_BIO_LENGTH, useBioHandler } from "@/hooks/bio/useBioHandler";
 import { useNicknameHandler } from "@/hooks/nickname/useNicknameHandler";
-import {Box, StackProps, VStack} from "@chakra-ui/react";
+import { useErrorToast } from "@/hooks/shared/useErrorToast";
+import { StackProps, VStack } from "@chakra-ui/react";
+import dayjs from "dayjs";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import CommonValidationInput from "../../../shared/CommonValidationInput";
 import { ProfileUploadAvatar } from "./ProfileUploadAvatar";
-import {useErrorToast} from "@/hooks/shared/useErrorToast";
-import dayjs from "dayjs";
 
 interface ProfileEditContentProps extends StackProps {
   existingImageURl: string;

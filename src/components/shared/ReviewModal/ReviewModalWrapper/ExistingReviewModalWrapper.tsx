@@ -31,7 +31,7 @@ export const ExistingReviewModalWrapper: React.FC<
   const [beerInfo, setBeerInfo] = useState<BeerTypeV2 | undefined>();
   const [reviewInfo, setReviewInfo] = useState<CreateReviewRequestTypeV2>({
     content: "",
-    image_url: [],
+    image_url: "",
     buy_from: "",
     rate: 0,
   });

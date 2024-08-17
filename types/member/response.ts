@@ -15,7 +15,7 @@ export interface UpdateMemberResponse {
 export interface MemberReviewResponse {
   id: number;
   content: string;
-  image_url: string[];
+  image_url: string;
   rate: number;
   like_count: number;
   updated_at: string;

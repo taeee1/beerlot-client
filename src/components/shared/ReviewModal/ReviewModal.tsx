@@ -55,7 +55,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
   const initReviewInfo = () => {
     return {
       content: "",
-      image_url: [],
+      image_url: "",
       buy_from: "",
       rate: 0,
     };

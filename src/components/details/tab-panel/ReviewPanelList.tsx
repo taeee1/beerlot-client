@@ -10,16 +10,15 @@ import {
 import { useEffect, useState } from "react";
 import { Rating } from "../../shared/Rating";
 
+import { roundToDecimal } from "@/../utils/number";
 import { FeedFilter } from "@/components/feed/FeedFilter/FeedFilter";
+import { FollowingTabPanelItem } from "@/components/feed/TabPanelItem";
+import { useBeerReviewsQuery } from "../../../../hooks/reviews/useBeer";
 import { MOCK_FEED_FILTER_LIST } from "../../../../interface/static";
 import { ReviewSortEnum } from "../../../../interface/types";
-import { BeerInfoHStack } from "./BasicPanelList";
-import { ReviewResult } from "@/../types/review/review";
-import { roundToDecimal } from "@/../utils/number";
-import { UserReview } from "./UserReview";
-import { useBeerReviewsQuery } from "../../../../hooks/reviews/useBeer";
-import { FollowingTabPanelItem } from "@/components/feed/TabPanelItem";
 import { ReviewTypeV2 } from "../../../../typedef/review";
+import { BeerInfoHStack } from "./BasicPanelList";
+import { UserReview } from "./UserReview";
 
 interface ReviewPanelListProps {
   rate: number;

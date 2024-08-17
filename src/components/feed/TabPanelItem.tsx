@@ -25,7 +25,7 @@ interface FollowingTabPanelItemProps {
   isEditable?: boolean;
   onEdit?: () => void;
   onDelete?: () => void;
-  imageSrc?: string[];
+  imageSrc?: string;
   maxContentLength?: number;
 }
 
@@ -140,7 +140,7 @@ export const FollowingTabPanelItem: React.FC<FollowingTabPanelItemProps> = ({
               width={"100px"}
               height={"100px"}
               alt="beer photo"
-              src={imageSrc as unknown as string}
+              src={imageSrc}
             />
           )}
         </Box>

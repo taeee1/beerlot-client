@@ -32,7 +32,7 @@ export interface BeerResultType {
   description: string;
   country: CountryType;
   volume: number;
-  image_url: string[];
+  image_url: string;
   category: CategoryType;
   tags: TagsType[];
   like_count: number;
@@ -114,6 +114,6 @@ export enum OAUTH_PROVIDER {
 export interface ReviewPostparamType {
   content: string;
   rate: number;
-  image_url?: string[];
+  image_url?: string;
   buy_from?: string[];
 }
