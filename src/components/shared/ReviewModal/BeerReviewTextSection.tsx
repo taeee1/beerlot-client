@@ -16,10 +16,7 @@ export const BeerReviewTextSection: React.FC<BeerReviewTextSectionProps> = ({
       <Box>
         <Text as="span" textStyle="h2" textColor="black.100">
           더 자세한 후기가 궁금해요!{" "}
-        </Text>
-        <Text as="span" textStyle="h2" textColor="gray.200">
-          (선택)
-        </Text>
+        </Text>  
       </Box>
       <VStack
         w="full"

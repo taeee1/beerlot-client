@@ -95,22 +95,23 @@ export const BeerReviewContent: React.FC<BeerReviewContentProps> = ({
             onChangeInput={onInputChange}
             input={reviewInfo.content}
           />
-
-<UploadedReviewImages
-              setImageUrl={handleImage}
-              imageUrl={reviewInfo.image_url}
-            />
+            
+          {/* uploaded images */}
+          <UploadedReviewImages
+            setImageUrl={handleImage}
+            imageUrl={reviewInfo.image_url}
+          />
         </VStack>
       </ModalBody>
       <ModalFooter px={0}>
         <Button
           onClick={onComplete}
           w="full"
-          bg={isCompleted ? "blue.100" : "gray.200"}
-          boxShadow={
-            isCompleted ? "0px 8px 16px rgba(0, 0, 0, 0.3)" : "initial"
-          }
+          bg={"blue.100"}
+          _hover={{}}
           borderRadius="10px"
+          isDisabled={!isCompleted}
+          _disabled={{ bg: "gray.200", cursor: "not-allowed" }}
         >
           <Text color="white.100" textStyle="h2">
             작성 완료
