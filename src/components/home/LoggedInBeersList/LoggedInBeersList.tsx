@@ -12,6 +12,8 @@ import { BeerlotLoading } from "@/components/shared/Loading";
 
 interface LoggedInBeersListProps {
   topBeersList?: BeerResponseType[];
+  topBeersLoading:boolean;
+  recommendedBeerListLoading:boolean;
   recommendedBeerList?: (SingelBeerFetchResponseType | undefined)[];
   userName?: string;
 }
@@ -19,6 +21,8 @@ const LoggedInBeersList: React.FC<LoggedInBeersListProps> = ({
   topBeersList,
   recommendedBeerList,
   userName,
+   recommendedBeerListLoading,
+   topBeersLoading
 }) => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const userBeersQuery = useUserLikedBeersQuery(accessToken);
@@ -47,6 +51,7 @@ const LoggedInBeersList: React.FC<LoggedInBeersListProps> = ({
       {topBeersList && (
         <TopBeersList
           beersList={topBeersList}
+          isLoading={topBeersLoading}
           likedBeersList={userBeersQuery?.data?.contents}
           onValidateLikedBeersList={handleValidateLikedBeersList}
         />
@@ -55,6 +60,7 @@ const LoggedInBeersList: React.FC<LoggedInBeersListProps> = ({
         <RecommendedBeersList
           username={userName}
           beersList={recommendedBeerList}
+          isLoading={recommendedBeerListLoading}
           likedBeersList={userBeersQuery?.data?.contents}
           onValidateLikedBeersList={handleValidateLikedBeersList}
         />

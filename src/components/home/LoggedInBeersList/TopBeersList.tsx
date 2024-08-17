@@ -6,7 +6,15 @@ import { BeerResponseType } from "@/../typedef/server/beer";
 import { generateBeerDetailUrl } from "@/../utils/url";
 import { CommonBeerImage } from "@/components/shared/CommonBeerImage/CommonBeerImage";
 import { LikeButton } from "@/components/shared/LikeButton";
-import { Box, Flex, HStack, Text } from "@chakra-ui/react";
+import {
+    Box,
+    Flex,
+    Text ,
+    HStack,
+    SimpleGrid,
+    Skeleton,
+    SkeletonText,
+} from "@chakra-ui/react";
 import {
   BeerCard,
   BeerCardBody,
@@ -25,12 +33,14 @@ interface TopBeersListProps {
   onValidateLikedBeersList: () => void;
   beersList: BeerResponseType[];
   likedBeersList: BeerResponseType[] | undefined;
+  isLoading?:boolean;
 }
 
 const TopBeersList: React.FC<TopBeersListProps> = ({
   onValidateLikedBeersList,
   beersList,
   likedBeersList,
+   isLoading,
 }) => {
   const router = useRouter();
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
@@ -75,68 +85,88 @@ const TopBeersList: React.FC<TopBeersListProps> = ({
     },
     [accessToken, dislikeBeerMutation, likeBeerMutation, likedBeerIds]
   );
+  const skeletonList = Array(5).fill("");
 
-  return (
-    <>
-      <Text textColor="black.100" textStyle={"h2_bold"}>
-        🔥 인기맥주 TOP10 🔥
-      </Text>
-      <HStack
-        overflowY={"auto"}
-        w="full"
-        gap={"12px"}
-        sx={{
-          "::-webkit-scrollbar": {
-            display: "none",
-          },
-        }}
-      >
-        {beersList &&
-          beersList.map((item) => {
-            return (
-              <BeerCard
-                key={item.id}
-                mt={1}
-                pos={"relative"}
-                onClick={() => handleClickCard(item?.id, item.name)}
-              >
-                <BeerCardBody position="relative">
-                  <Box position="relative">
-                    {item.image_url && (
-                      <CommonBeerImage
-                        src={item.image_url}
-                        alt={item.name}
-                        width="124px"
-                        height="128px"
-                        objectFit="cover"
-                      />
-                    )}
-                  </Box>
-                  <Box position="absolute" top={0} right={0}>
-                    <LikeButton
-                      isLiked={likedBeerIds?.includes(item.id) ?? false}
-                      onClick={(e) => handleClickLike(e, item?.id)}
-                      h={7}
-                      aria-label="like button"
-                    />
-                  </Box>
-                </BeerCardBody>
-                <BeerCardFooter>
-                  <BeerNameText>{item.name}</BeerNameText>
-                  <Flex>
-                    <BeerCountryText country={item.origin_country} />
-                    <BeerCategoryTag>
-                      <BeerCategoryTagLabel>
-                        {item.category?.name}
-                      </BeerCategoryTagLabel>
-                    </BeerCategoryTag>
-                  </Flex>
-                </BeerCardFooter>
-              </BeerCard>
-            );
-          })}
-      </HStack>
-    </>
+
+    return (
+      <>
+          <Text textColor="black.100" textStyle={"h2_bold"}>
+              🔥 인기맥주 TOP10 🔥
+          </Text>
+          <HStack
+              overflowY={"auto"}
+              w="full"
+              gap={"12px"}
+              sx={{
+                  "::-webkit-scrollbar": {
+                      display: "none",
+                  },
+              }}
+          >
+              {isLoading
+                  ? skeletonList.map((_, index) => (
+                      <BeerCard key={index} mt={1} pos={"relative"}>
+                          <BeerCardBody position="relative">
+                              <Box position="relative">
+                                  <Skeleton width="124px" height="128px" />
+                              </Box>
+                          </BeerCardBody>
+                          <BeerCardFooter>
+                              <SkeletonText noOfLines={1} skeletonHeight={"17px"} />
+                              <Skeleton mt={"2px"}>
+                                  <HStack>
+                                      <BeerCountryText country="" />
+                                      <BeerCategoryTag>
+                                          <BeerCategoryTagLabel />
+                                      </BeerCategoryTag>
+                                  </HStack>
+                              </Skeleton>
+                          </BeerCardFooter>
+                      </BeerCard>
+                  ))
+                  : beersList.map((item) => (
+                      <BeerCard
+                          key={item.id}
+                          mt={1}
+                          pos={"relative"}
+                          onClick={() => handleClickCard(item?.id, item.name)}
+                      >
+                          <BeerCardBody position="relative">
+                              <Box position="relative">
+                                  {item.image_url && (
+                                      <CommonBeerImage
+                                          src={item.image_url}
+                                          alt={item.name}
+                                          width="124px"
+                                          height="128px"
+                                          objectFit="cover"
+                                      />
+                                  )}
+                              </Box>
+                              <Box position="absolute" top={0} right={0}>
+                                  <LikeButton
+                                      isLiked={likedBeerIds?.includes(item.id) ?? false}
+                                      onClick={(e) => handleClickLike(e, item?.id)}
+                                      h={7}
+                                      aria-label="like button"
+                                  />
+                              </Box>
+                          </BeerCardBody>
+                          <BeerCardFooter>
+                              <BeerNameText>{item.name}</BeerNameText>
+                              <Flex>
+                                  <BeerCountryText country={item.origin_country} />
+                                  <BeerCategoryTag>
+                                      <BeerCategoryTagLabel>
+                                          {item.category?.name}
+                                      </BeerCategoryTagLabel>
+                                  </BeerCategoryTag>
+                              </Flex>
+                          </BeerCardFooter>
+                      </BeerCard>
+                  ))}
+          </HStack>
+      </>
   );
 };
 

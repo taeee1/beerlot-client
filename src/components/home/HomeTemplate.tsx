@@ -31,21 +31,25 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({ username }) => {
     recommendBeers?.id && recommendBeers.id.length > 0 ? recommendBeers.id : [];
 
   // Fetch data for each beer ID
-  const recommendedBeersData = useQueries(
-    recommendedBeersIdList.map((beerId) => ({
-      queryKey: singleBeerFetchKey(beerId),
-      queryFn: () =>
-        fetchSingleBeerInfoApi({
-          id: beerId,
-          language: LANGUAGE_TYPE.KR,
-        }),
-      refetchOnMount: false,
-      refetchOnWindowFocus: false,
-      enabled: !!beerId,
-    }))
-  ).map((query, index) => {
-    return { id: recommendedBeersIdList[index], ...query.data };
-  });
+    const recommendedBeersData = useQueries(
+        recommendedBeersIdList.map((beerId) => ({
+            queryKey: singleBeerFetchKey(beerId),
+            queryFn: () =>
+                fetchSingleBeerInfoApi({
+                    id: beerId,
+                    language: LANGUAGE_TYPE.KR,
+                }),
+            refetchOnMount: false,
+            refetchOnWindowFocus: false,
+            enabled: !!beerId,
+        }))
+    ).map((query, index) => {
+        return { id: recommendedBeersIdList[index], ...query.data, isLoading:query.isLoading };
+    });
+console.log("recommendedBeersData",recommendedBeersData)
+    const recommendedBeerListLoading = recommendedBeersData.some(
+        (query) => query.isLoading
+    );
 
   useEffect(() => {
     topBeersQuery.refetch();
@@ -67,7 +71,9 @@ const HomeTemplate: React.FC<HomeTemplateProps> = ({ username }) => {
             <LoggedInBeersList
               userName={username}
               topBeersList={topBeersQuery.data}
+              topBeersLoading={topBeersQuery.isLoading}
               recommendedBeerList={recommendedBeersData}
+              recommendedBeerListLoading={recommendedBeerListLoading}
             />
           ) : (
             <CommonBeersList

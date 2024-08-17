@@ -4,7 +4,7 @@ import {
 } from "@/../typedef/server/beer";
 import React, { useCallback, useEffect, useMemo } from "react";
 import { CommonBeerImage } from "@/components/shared/CommonBeerImage/CommonBeerImage";
-import { Box, HStack, Text } from "@chakra-ui/react";
+import {Box, HStack, Text, Flex, Skeleton, SkeletonText} from "@chakra-ui/react";
 import {
   BeerCard,
   BeerCardBody,
@@ -22,11 +22,13 @@ import {
   useBeerLikeMutation,
 } from "@/../hooks/query/useBeerLikeMutation";
 import { generateBeerDetailUrl } from "@/../utils/url";
+import {mockSession} from "next-auth/client/__tests__/helpers/mocks";
 
 interface RecommendedBeersListProps {
   beersList: (SingelBeerFetchResponseType | undefined)[];
   likedBeersList: BeerResponseType[] | undefined;
   username: string;
+  isLoading?:boolean;
   onValidateLikedBeersList: () => void;
 }
 
@@ -34,6 +36,7 @@ const RecommendedBeersList: React.FC<RecommendedBeersListProps> = ({
   onValidateLikedBeersList,
   beersList,
   likedBeersList,
+    isLoading,
   username,
 }) => {
   const router = useRouter();
@@ -84,73 +87,91 @@ const RecommendedBeersList: React.FC<RecommendedBeersListProps> = ({
     },
     [router]
   );
-  if (beersList.includes(undefined)) return null;
 
+  const skeletonList = Array(5).fill("");
   return (
-    <>
-      <Text textColor="black.100" textStyle={"h2_bold"} mt={8}>
-        🍻{" "}
-        <Text textColor="orange.200" textStyle={"h2_bold"} display="inline">
-          {username}
-        </Text>
-        님께 추천해요 🍻
-      </Text>
-      <HStack
-        overflowX={"auto"}
-        w="full"
-        gap={"12px"}
-        sx={{
-          "&::-webkit-scrollbar": { display: "none" }, // 크롬, 사파리, 오페라를 위한 설정
-          scrollbarWidth: "none", // 파이어폭스를 위한 설정
-          "-ms-overflow-style": "none", // IE와 엣지를 위한 설정
-        }}
-      >
-        {beersList &&
-          beersList.map((item) => {
-            return (
-              <BeerCard
-                key={item?.id}
-                mt={1}
-                borderColor={"orange.200"}
-                onClick={() => handleClickCard(item?.id, item?.name)}
-              >
-                <BeerCardBody position="relative">
-                  <Box position="relative">
-                    {item?.image_url && (
-                      <CommonBeerImage
-                        src={item?.image_url}
-                        alt={item?.name}
-                        width="124px"
-                        height="128px"
-                        objectFit="cover"
-                      />
-                    )}
-                  </Box>
-                  <Box position="absolute" top={0} right={0}>
-                    <LikeButton
-                      isLiked={checkIsLiked(item?.id)}
-                      onClick={(e) => handleClickLike(e, item?.id)}
-                      h={7}
-                      aria-label="like button"
-                    />
-                  </Box>
-                </BeerCardBody>
-                <BeerCardFooter>
-                  <BeerNameText>{item?.name}</BeerNameText>
-                  <HStack>
-                    <BeerCountryText country={item?.origin_country} />
-                    <BeerCategoryTag bg="orange.200">
-                      <BeerCategoryTagLabel>
-                        {item?.category?.name}
-                      </BeerCategoryTagLabel>
-                    </BeerCategoryTag>
-                  </HStack>
-                </BeerCardFooter>
-              </BeerCard>
-            );
-          })}
-      </HStack>
-    </>
+      <Box pt={4}>
+          <Text textColor="black.100" textStyle={"h2_bold"}>
+              {`🍻 `}
+              <Box as="span" color="orange.200">
+                  {username}
+              </Box>
+              {`님께 추천해요 🍻`}
+          </Text>
+          <HStack
+              overflowY={"auto"}
+              w="full"
+              gap={"12px"}
+              sx={{
+                  "::-webkit-scrollbar": {
+                      display: "none",
+                  },
+              }}
+          >
+              {isLoading
+                  ? skeletonList.map((_, index) => (
+                      <BeerCard key={index} mt={1} pos={"relative"}>
+                          <BeerCardBody position="relative">
+                              <Box position="relative">
+                                  <Skeleton width="124px" height="128px" />
+                              </Box>
+                          </BeerCardBody>
+                          <BeerCardFooter>
+                              <SkeletonText noOfLines={1} skeletonHeight={"17px"} />
+                              <Skeleton mt={"2px"}>
+                                  <HStack>
+                                      <BeerCountryText country="" />
+                                      <BeerCategoryTag>
+                                          <BeerCategoryTagLabel />
+                                      </BeerCategoryTag>
+                                  </HStack>
+                              </Skeleton>
+                          </BeerCardFooter>
+                      </BeerCard>
+                  ))
+                  : beersList.map((beer) => (
+                      <BeerCard
+                          key={beer?.id}
+                          mt={1}
+                          pos={"relative"}
+                          onClick={() => handleClickCard(beer?.id, beer?.name)}
+                      >
+                          <BeerCardBody position="relative">
+                              <Box position="relative">
+                                  {beer?.image_url && (
+                                      <CommonBeerImage
+                                          src={beer.image_url}
+                                          alt={beer.name}
+                                          width="124px"
+                                          height="128px"
+                                          objectFit="cover"
+                                      />
+                                  )}
+                              </Box>
+                              <Box position="absolute" top={0} right={0}>
+                                  <LikeButton
+                                      isLiked={likedBeerIds?.includes(beer?.id) ?? false}
+                                      onClick={(e) => handleClickLike(e, beer?.id)}
+                                      h={7}
+                                      aria-label="like button"
+                                  />
+                              </Box>
+                          </BeerCardBody>
+                          <BeerCardFooter>
+                              <BeerNameText>{beer?.name}</BeerNameText>
+                              <Flex>
+                                  <BeerCountryText country={beer?.origin_country} />
+                                  <BeerCategoryTag>
+                                      <BeerCategoryTagLabel>
+                                          {beer?.category?.name}
+                                      </BeerCategoryTagLabel>
+                                  </BeerCategoryTag>
+                              </Flex>
+                          </BeerCardFooter>
+                      </BeerCard>
+                  ))}
+          </HStack>
+      </Box>
   );
 };
 

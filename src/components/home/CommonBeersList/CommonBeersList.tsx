@@ -49,7 +49,6 @@ const CommonBeersList: React.FC<CommonBeersListProps> = ({
 
   useEffect(() => {
     ReactGA.send({ hitType: "pageview" });
-    console.log("page view logging");
   }, []);
 
   const handleClickCard = useCallback(
