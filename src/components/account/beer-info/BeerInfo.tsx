@@ -20,7 +20,7 @@ const BeerInfo = () => {
   const userReviews: MemberReviewResponse[] = userReviewQuery.data?.contents;
   
   if(userReviewQuery.isLoading){
-    return <Center h={'full'} border={'4px solid green'} bg={'yellow.100'}  minH={'60vh'}>
+    return <Center h={'full'} bg={'yellow.100'}  minH={'66vh'}>
     <BeerlotLoading />
   </Center>
   }
