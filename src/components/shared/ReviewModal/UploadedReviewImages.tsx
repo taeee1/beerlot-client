@@ -14,29 +14,31 @@ import { useRef } from "react";
 import { useUploadMediaMutation } from "../../../../hooks/mutations/useUploadMediaMutation";
 import { ReviewStatic } from "../../../../interface/static";
 import { OrangeCamera } from "../../../../public/svg";
+import { useErrorToast } from "@/hooks/shared/useErrorToast";
 
 interface UploadedReviewImagesProps {
-  imageUrl: string[];
-  setImageUrl: (imageUrl: string[]) => void;
+  imageUrl: string;
+  setImageUrl: (imageUrl: string) => void;
 }
 export const UploadedReviewImages: React.FC<UploadedReviewImagesProps> = ({
   imageUrl,
   setImageUrl,
 }) => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
-
-  const handleDelete = (index: number) => {
-    const newImageUrl = imageUrl.filter((_, i) => i !== index);
-    setImageUrl(newImageUrl);
+  const showErrorToast = useErrorToast();
+  const handleDelete = () => {
+    setImageUrl("");
   };
 
   const { mutate, isLoading } = useUploadMediaMutation({
-    onSuccess: (data: { urls: string[] }) => {
-      const newUrl = data.urls[0];
-      setImageUrl([...imageUrl, newUrl]);
+    onSuccess: (data: { urls: string }) => {
+      const newUrl = data.urls;
+      setImageUrl(newUrl);
     },
     onError: (error: any) => {
-      console.error("onError", error);
+      showErrorToast(error.response, {
+        409: '이미 리뷰를 작성한 맥주입니다. 다른 맥주를 선택해주세요.',
+      });
     },
   });
 
@@ -99,12 +101,10 @@ export const UploadedReviewImages: React.FC<UploadedReviewImagesProps> = ({
         w="full"
         style={{ marginTop: 0 }}
       >
-        {imageUrl.map((fileSrc, index) => {
-          return (
-            <Box key={fileSrc} boxSize="80px" position="relative">
+          <Box boxSize="80px" position="relative">
               <Image
                 borderRadius={10}
-                src={fileSrc}
+                src={imageUrl}
                 alt={"review pictures"}
                 w="full"
                 h="full"
@@ -118,13 +118,11 @@ export const UploadedReviewImages: React.FC<UploadedReviewImagesProps> = ({
                 position="absolute"
                 top={1}
                 right={1}
-                onClick={() => handleDelete(index)}
+                onClick={handleDelete}
               >
                 <CloseIcon color="white.100" w={"4px"} h={"4px"} />
               </Button>
             </Box>
-          );
-        })}
       </HStack>
     </>
   );

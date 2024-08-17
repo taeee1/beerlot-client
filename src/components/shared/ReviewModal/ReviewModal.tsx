@@ -112,7 +112,6 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
         isOpen={isOpenConfirmDrawer}
         onClose={onCloseConfirmDrawer}
         onClickLeftButton={() => {
-          console.log("initReviewInfo", initReviewInfo);
           onCloseConfirmDrawer();
           onCloseModal();
           initReviewInfo();

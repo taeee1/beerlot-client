@@ -14,6 +14,7 @@ import BeerNameSection from "./BeerNameSection";
 import { BeerPurchaseSection } from "./BeerPurchaseSection";
 import { BeerRatingSection } from "./BeerRatingSection";
 import { BeerReviewTextSection } from "./BeerReviewTextSection";
+import { UploadedReviewImages } from "./UploadedReviewImages";
 
 interface BeerReviewContentProps extends ModalContentProps {
   onOpenDrawer: () => void;
@@ -59,7 +60,7 @@ export const BeerReviewContent: React.FC<BeerReviewContentProps> = ({
     onChangeReviewInfo("buy_from", place);
   };
 
-  const handleImage = (imageUrl: string[]) => {
+  const handleImage = (imageUrl: string) => {
     onChangeReviewInfo("image_url", imageUrl);
   };
 
@@ -95,12 +96,10 @@ export const BeerReviewContent: React.FC<BeerReviewContentProps> = ({
             input={reviewInfo.content}
           />
 
-          {/* {reviewInfo.image_url.length > 0 && (
-            <UploadedReviewImages
+<UploadedReviewImages
               setImageUrl={handleImage}
               imageUrl={reviewInfo.image_url}
             />
-          )} */}
         </VStack>
       </ModalBody>
       <ModalFooter px={0}>
