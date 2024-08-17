@@ -21,6 +21,8 @@ interface ExistingReviewModalWrapperProps {
 export const ExistingReviewModalWrapper: React.FC<
   ExistingReviewModalWrapperProps
 > = ({ reviewId, isModalOpen, onCloseModal }) => {
+
+  
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const reviewQuery = useReviewQuery(reviewId);
 
@@ -28,7 +30,12 @@ export const ExistingReviewModalWrapper: React.FC<
   const existingReviewData = reviewQuery.data;
   const [beerInfo, setBeerInfo] = useState<BeerTypeV2 | undefined>();
   const [reviewInfo, setReviewInfo] = useState<CreateReviewRequestTypeV2 | undefined>();
-
+  
+  const handleCloseModal = () => {
+    onCloseModal();
+    setReviewInfo(undefined); 
+  }
+   
    useEffect(() => {
     if (existingReviewData) {
       setReviewInfo({
@@ -49,18 +56,16 @@ export const ExistingReviewModalWrapper: React.FC<
       updateReview({ reviewId, newContent: reviewInfo }, {
         onSuccess: () => {
           userReviewQuery.refetch();
-          onCloseModal();
+          handleCloseModal();
         }
       });
     }
   };
 
-
-  
   return (
     <ReviewModal
       isModalOpen={isModalOpen}
-      onCloseModal={onCloseModal}
+      onCloseModal={handleCloseModal}
       onComplete={handleComplete}
       onChangeReviewInfo={setReviewInfo}
       reviewInfo={reviewInfo}

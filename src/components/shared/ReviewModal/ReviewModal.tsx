@@ -20,7 +20,7 @@ interface ReviewModalProps {
   isModalOpen: ModalProps["isOpen"];
   onCloseModal: ModalProps["onClose"];
   onComplete: (beerId: number) => void;
-  onChangeReviewInfo: (data: CreateReviewRequestTypeV2) => void;
+  onChangeReviewInfo: (data?: CreateReviewRequestTypeV2) => void;
   setBeerInfo?: (data: BeerTypeV2) => void;
   beerInfo?: BeerTypeV2;
 }
@@ -41,14 +41,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
     onOpen: onOpenConfirmDrawer,
     isOpen: isOpenConfirmDrawer,
   } = useDisclosure(); 
- 
-  useEffect(() => {
-    return () => {
-      setStep(0);
-      onCloseModal();
-      initReviewInfo();
-    };
-  }, [onChangeReviewInfo, onCloseModal]);
+
 
  
   const beerName = beerInfo?.name;
@@ -64,14 +57,9 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
   const handleChangeBeerName = (name: string, id: number) => {
     setBeerInfo?.({ id, name });
   };
-  const initReviewInfo = () => {
-    return {
-      content: "",
-      image_url: "",
-      buy_from: "",
-      rate: 0,
-    };
-  };
+
+  
+
   const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     if(!reviewInfo) return;
     onChangeReviewInfo({ ...reviewInfo, content: e.target.value });
@@ -92,7 +80,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
       <Modal onClose={onCloseModal} size={"full"} isOpen={isModalOpen} >
         <ModalContent px="20px" h={'fit-content'} pb="40px" maxW="450px" bg="white">
           {!reviewInfo &&  
-          <Center h={'full'} >
+          <Center h={'100vh'} >
             <BeerlotLoading />
             </Center>
             }
@@ -126,7 +114,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
         onClickLeftButton={() => {
           onCloseConfirmDrawer();
           onCloseModal();
-          initReviewInfo();
+          onChangeReviewInfo()
         }}
         onClickRightButton={onCloseConfirmDrawer}
       />
