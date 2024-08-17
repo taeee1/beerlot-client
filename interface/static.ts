@@ -155,7 +155,7 @@ export const MOCK_BEERS_SUGGESTION = {
     id: 1,
     name_ko: "라거",
     name_en: "lagar",
-    description: "this is lagar",
+    description: "This is lagar",
     parent: {
       id: 2,
       name_ko: "밀맥주",

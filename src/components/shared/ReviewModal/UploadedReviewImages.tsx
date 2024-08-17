@@ -31,8 +31,8 @@ export const UploadedReviewImages: React.FC<UploadedReviewImagesProps> = ({
   };
 
   const { mutate, isLoading } = useUploadMediaMutation({
-    onSuccess: (data: { urls: string }) => {
-      const newUrl = data.urls;
+    onSuccess: (data: { urls: string[] }) => {
+      const newUrl = data.urls[0];
       setImageUrl(newUrl);
     },
     onError: (error: any) => {

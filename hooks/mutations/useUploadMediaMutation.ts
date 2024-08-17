@@ -7,7 +7,7 @@ import {
 import { FailureResponse } from "types/api";
 
 interface UploadMediaResponse {
-  urls: string;
+  urls: string[];
 }
 interface UploadMediaRequest {
   directory: "profile" | "beer" | "review";

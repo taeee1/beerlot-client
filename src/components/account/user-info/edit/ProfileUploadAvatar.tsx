@@ -1,9 +1,8 @@
+import { Skeleton, SkeletonCircle } from "@chakra-ui/react";
 import Cookies from "js-cookie";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useUploadMediaMutation } from "../../../../../hooks/mutations/useUploadMediaMutation";
 import ProfileAvatar from "../../../shared/ProfileAvatar";
-import { set } from "lodash";
-import { Skeleton, SkeletonCircle } from "@chakra-ui/react";
 
 interface ProfileUploadAvatarProps {
   imageUrl: string;
