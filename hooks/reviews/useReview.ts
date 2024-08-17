@@ -52,7 +52,7 @@ export const useReviewQuery = (
   options?: UseQueryOptions<ReviewTypeV2, FailureResponseV2>
 ) => {
   return useQuery({
-    queryKey: [reviewId],
+    queryKey: ['singleReview', reviewId],
     queryFn: () => getSingleReviewApi(reviewId),
     enabled: reviewId !== null && reviewId !== undefined,
     refetchOnMount: false,

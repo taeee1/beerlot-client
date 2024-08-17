@@ -1,4 +1,5 @@
-import { Center, Modal, ModalContent, ModalProps } from "@chakra-ui/react";
+import { useUserReviewsQuery } from "@/../hooks/query/useUserQuery";
+import { ModalProps } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import {
@@ -9,9 +10,7 @@ import {
   BeerTypeV2,
   CreateReviewRequestTypeV2,
 } from "../../../../../typedef/review";
-import { BeerlotLoading } from "../../Loading";
 import { ReviewModal } from "../ReviewModal";
-import { useUserReviewsQuery } from "@/../hooks/query/useUserQuery";
 
 interface ExistingReviewModalWrapperProps {
   reviewId?: number | null;
@@ -24,19 +23,13 @@ export const ExistingReviewModalWrapper: React.FC<
 > = ({ reviewId, isModalOpen, onCloseModal }) => {
   const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
   const reviewQuery = useReviewQuery(reviewId);
+
   const userReviewQuery = useUserReviewsQuery(accessToken);
-  const { isLoading: _isLoading, isFetching, isRefetching } = reviewQuery;
-  const isLoading = _isLoading || isFetching || isRefetching;
   const existingReviewData = reviewQuery.data;
   const [beerInfo, setBeerInfo] = useState<BeerTypeV2 | undefined>();
-  const [reviewInfo, setReviewInfo] = useState<CreateReviewRequestTypeV2>({
-    content: "",
-    image_url: "",
-    buy_from: "",
-    rate: 0,
-  });
+  const [reviewInfo, setReviewInfo] = useState<CreateReviewRequestTypeV2 | undefined>();
 
-  useEffect(() => {
+   useEffect(() => {
     if (existingReviewData) {
       setReviewInfo({
         rate: existingReviewData.rate ?? 0,
@@ -51,6 +44,7 @@ export const ExistingReviewModalWrapper: React.FC<
   const { mutate: updateReview } = useReviewUpdateMutation(accessToken);
 
   const handleComplete = (beerId: number) => {
+    if(!reviewInfo) return;
     if (reviewId !== undefined && reviewId !== null) {
       updateReview({ reviewId, newContent: reviewInfo }, {
         onSuccess: () => {
@@ -61,18 +55,8 @@ export const ExistingReviewModalWrapper: React.FC<
     }
   };
 
-  if (isLoading || !existingReviewData) {
-    <Modal onClose={onCloseModal} size={"full"} isOpen={isModalOpen}>
-      <ModalContent px="20px" pb="40px" maxW="450px" bg="white">
-        {isLoading && (
-          <Center flex={1}>
-            <BeerlotLoading />
-          </Center>
-        )}
-      </ModalContent>
-    </Modal>;
-  }
 
+  
   return (
     <ReviewModal
       isModalOpen={isModalOpen}

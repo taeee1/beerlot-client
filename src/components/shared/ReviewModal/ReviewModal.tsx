@@ -1,4 +1,5 @@
 import {
+  Center,
   Modal,
   ModalContent,
   ModalProps,
@@ -12,9 +13,10 @@ import {
 import { BeerReviewContent } from "./BeerReviewContent";
 import { BeerSearchContent } from "./BeerSearchContent";
 import { ReviewExitConfirmationDrawer } from "./ReviewExitConfirmationDrawer";
+import { BeerlotLoading } from "../Loading";
 
 interface ReviewModalProps {
-  reviewInfo: CreateReviewRequestTypeV2;
+  reviewInfo?: CreateReviewRequestTypeV2;
   isModalOpen: ModalProps["isOpen"];
   onCloseModal: ModalProps["onClose"];
   onComplete: (beerId: number) => void;
@@ -33,17 +35,27 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
   onComplete,
 }) => {
   const isBeerEditable = !!setBeerInfo;
+  const [step, setStep] = useState(0);
   const {
     onClose: onCloseConfirmDrawer,
     onOpen: onOpenConfirmDrawer,
     isOpen: isOpenConfirmDrawer,
-  } = useDisclosure();
+  } = useDisclosure(); 
+ 
+  useEffect(() => {
+    return () => {
+      setStep(0);
+      onCloseModal();
+      initReviewInfo();
+    };
+  }, [onChangeReviewInfo, onCloseModal]);
 
+ 
   const beerName = beerInfo?.name;
   const beerId = beerInfo?.id;
-  const isCompleted = !!beerName && !!reviewInfo.rate && !!reviewInfo.content;
+  const isCompleted = !!beerName && !!reviewInfo?.rate && !!reviewInfo?.content;
 
-  const [step, setStep] = useState(0);
+ 
 
   const handleComplete = () => {
     if (beerId) onComplete(beerId);
@@ -61,6 +73,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
     };
   };
   const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    if(!reviewInfo) return;
     onChangeReviewInfo({ ...reviewInfo, content: e.target.value });
     handleChangeReviewInfo("content", e.target.value);
   };
@@ -69,22 +82,21 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
     key: string,
     value: string | number | string[]
   ) => {
+    if(!reviewInfo) return;
     onChangeReviewInfo({ ...reviewInfo, [key]: value });
   };
 
-  useEffect(() => {
-    return () => {
-      setStep(0);
-      onCloseModal();
-      initReviewInfo();
-    };
-  }, [onChangeReviewInfo, onCloseModal]);
 
   return (
     <>
-      <Modal onClose={onCloseModal} size={"full"} isOpen={isModalOpen}>
-        <ModalContent px="20px" pb="40px" maxW="450px" bg="white">
-          {step === 0 && (
+      <Modal onClose={onCloseModal} size={"full"} isOpen={isModalOpen} >
+        <ModalContent px="20px" h={'fit-content'} pb="40px" maxW="450px" bg="white">
+          {!reviewInfo &&  
+          <Center h={'full'} >
+            <BeerlotLoading />
+            </Center>
+            }
+          {reviewInfo && step === 0 && (
             <BeerReviewContent
               onOpenDrawer={onOpenConfirmDrawer}
               reviewInfo={reviewInfo}
@@ -97,7 +109,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
             />
           )}
 
-          {step === 1 && (
+          {reviewInfo && step === 1 && (
             <BeerSearchContent
               onBack={() => {
                 setStep(step - 1);

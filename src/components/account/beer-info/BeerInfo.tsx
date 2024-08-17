@@ -37,9 +37,9 @@ const BeerInfo = () => {
       <TabPanels bg={'yellow.100'}  minH={'54vh'} >
         <TabPanel>
         <BeerReviews
-              userReviews={userReviews}
-              onResetReviews={userReviewQuery.refetch}
-            />
+          userReviews={userReviews}
+          onResetReviews={userReviewQuery.refetch}
+        />
    
         </TabPanel>
         <TabPanel>

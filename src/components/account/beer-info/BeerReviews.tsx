@@ -1,13 +1,12 @@
 import { useUserLikedReviewsQuery } from "@/../hooks/query/useUserQuery";
 import { MemberReviewResponse } from "@/../types/member/response";
+import { FollowingTabPanelItem } from "@/components/feed/TabPanelItem";
 import { ReviewDeleteConfirmationDrawer } from "@/components/shared/ReviewModal/ReviewDeleteConfirmationDrawer";
+import { ExistingReviewModalWrapper } from "@/components/shared/ReviewModal/ReviewModalWrapper/ExistingReviewModalWrapper";
 import { Flex, useDisclosure } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import { useCallback, useState } from "react";
 import { useReviewDeleteMutation } from "../../../../hooks/reviews/useReview";
-import { FollowingTabPanelItem } from "@/components/feed/TabPanelItem";
-import { ReviewModalWrapper } from "@/components/shared/ReviewModal/ReviewModalWrapper/ReviewModalWrapper";
-import { ExistingReviewModalWrapper } from "@/components/shared/ReviewModal/ReviewModalWrapper/ExistingReviewModalWrapper";
 
 interface BeerReviewsProps {
   userReviews: MemberReviewResponse[];
@@ -53,7 +52,6 @@ const BeerReviews: React.FC<BeerReviewsProps> = ({
       flexDirection="column"
       gap={"10px"}
       h="full"
-      className="beerReviewFlex"
     >
       {userReviews?.map((feed: MemberReviewResponse) => {
         return (

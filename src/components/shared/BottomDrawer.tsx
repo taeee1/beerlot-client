@@ -33,7 +33,7 @@ const BottomDrawer: React.FC<BottomDrawerProps> = ({
 }) => {
   return (
     <Drawer placement={"bottom"} onClose={onClose} isOpen={isOpen}>
-      <DrawerOverlay id={"taehee-drawer"} bg={"rgba(0, 0, 0, 0.3)"} />
+      <DrawerOverlay bg={"rgba(0, 0, 0, 0.07)"} />
       <DrawerContent
         pt={8}
         pb={10}
