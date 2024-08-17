@@ -132,7 +132,7 @@ const ReviewsList: React.FC<ReviewsListProps> = ({ reviews }) => {
             <FollowingTabPanelItem
               key={review.id}
               reviewId={review.id}
-              nickname={""}
+              nickname={review.member.username}
               reviewTime={review.updated_at}
               beerName={review.beer?.name}
               rate={review.rate}

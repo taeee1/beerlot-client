@@ -111,6 +111,7 @@ export const UploadedReviewImages: React.FC<UploadedReviewImagesProps> = ({
               <Button
                 w={"18px"}
                 h={"18px"}
+                minW={'initial'}
                 p={0}
                 bg="black.200"
                 borderRadius={"full"}

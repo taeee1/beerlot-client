@@ -21,7 +21,7 @@ export const FeedTemplate = () => {
   };
 
   return (
-    <Box w="full" h="100vh" bg="gray.100" overflowY={"auto"}>
+    <Box w="full" h="100vh" bg="gray.100">
       <Container p={0} bg="white" maxW="450px" h={"full"}>
         <CenteredTitle />
         <FeedTabList />
