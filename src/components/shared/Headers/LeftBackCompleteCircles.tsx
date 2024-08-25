@@ -1,15 +1,15 @@
 import {Box, Flex} from "@chakra-ui/react";
 import BackButton from "../BackButton";
 import {CompleteCircles} from "../CompleteCircles";
+import {StepEnum} from "@components/auth/sign-up/SignUpTemplate";
 
 interface LeftBackCompleteCirclesProps {
-  isFirstCircleDone: boolean;
-  isSecondCircleDone: boolean;
+ step : StepEnum,
 }
 
 export const LeftBackCompleteCircles: React.FC<
   LeftBackCompleteCirclesProps
-> = ({isFirstCircleDone, isSecondCircleDone, ...props}) => {
+> = ({step, ...props}) => {
   return (
     <Flex
       {...props}
@@ -25,8 +25,8 @@ export const LeftBackCompleteCircles: React.FC<
     >
       <BackButton />
       <CompleteCircles
-        isNicknameDone={isFirstCircleDone}
-        isBeersDone={isSecondCircleDone}
+        isFirstStep={true}
+        isSecondStep={step > 0}
       />
       <Box w="12px" />
     </Flex>

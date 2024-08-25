@@ -1,23 +1,29 @@
-import {Box} from "@chakra-ui/react";
-import {useRouter} from "next/router";
-import React from "react";
-import {LeftArrow} from "../../../public/svg";
+import { Button } from '@chakra-ui/react'
+import { ChevronLeftIcon } from '@chakra-ui/icons'
+import { useRouter } from 'next/router'
+import React from 'react'
 
 interface BackButtonProps {
-  onClick?: () => void;
+  onClick?: () => void
 }
 
-const BackButton: React.FC<BackButtonProps> = ({onClick}) => {
-  const router = useRouter();
+const BackButton: React.FC<BackButtonProps> = ({ onClick }) => {
+  const router = useRouter()
   const handleClick = () => {
-    router.back();
-  };
+    router.back()
+    onClick?.()
+  }
 
   return (
-    <Box onClick={onClick ? onClick : handleClick} cursor="pointer">
-      <LeftArrow />
-    </Box>
-  );
-};
+    <Button
+      onClick={handleClick}
+      leftIcon={<ChevronLeftIcon />}
+      w={'40px'}
+      fontSize={'20px'}
+      bg={'initial'}
+      _hover={{}}
+    />
+  )
+}
 
-export default BackButton;
+export default BackButton

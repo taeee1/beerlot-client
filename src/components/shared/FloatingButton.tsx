@@ -35,6 +35,7 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
       _disabled={{
         bg: bgColor,
         textColor: textColor,
+        cursor:'not-allowed',
       }}
       textColor={textColor}
       py={"10px"}
