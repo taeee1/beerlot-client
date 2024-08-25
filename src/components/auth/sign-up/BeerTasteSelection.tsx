@@ -1,30 +1,16 @@
-import {
-  Box,
-  HStack,
-  SimpleGrid,
-  StackProps,
-  Text,
-  VStack,
-} from '@chakra-ui/react'
+import { Flex, SimpleGrid, StackProps, Text, VStack } from '@chakra-ui/react'
 import Cookies from 'js-cookie'
 import React, { useEffect } from 'react'
 import { POLICY_LABEL } from '../../../../interface/server/types/Auth'
 
-import {
-  BeerCard,
-  BeerCardBody,
-  BeerCardFooter,
-  BeerCategoryTag,
-  BeerCategoryTagLabel,
-  BeerCountryText,
-  BeerNameText,
-} from '../../shared/Card/BeerCardItem'
-
 import { useSignupQuery } from '@/../hooks/query/useAuthQuery'
-import { CommonBeerImage } from '@/components/shared/CommonBeerImage/CommonBeerImage'
 import { useBeersQuery } from '../../../../hooks/query/useBeerQuery'
 import { BeerSortType } from '../../../../types/common'
 import FloatingButton from '../../shared/FloatingButton'
+import { UserNameSection } from '@components/auth/sign-up/UserNameSection'
+import { RecommendBeerCard } from '@components/auth/sign-up/RecommendBeerCard'
+
+const FAVORITE_BEER_MIN_COUNTER = 5
 
 interface BeerTasteSelectionProps extends StackProps {
   username?: string
@@ -40,7 +26,8 @@ const BeerTasteSelection: React.FC<BeerTasteSelectionProps> = ({
   username,
   ...props
 }) => {
-  const isFullfilled = selectedBeers && selectedBeers.length > 0
+  const isFullfilled =
+    selectedBeers && selectedBeers.length >= FAVORITE_BEER_MIN_COUNTER
 
   const signupInfo = {
     username: username,
@@ -73,93 +60,34 @@ const BeerTasteSelection: React.FC<BeerTasteSelectionProps> = ({
   }, [])
 
   return (
-    <VStack
-      mt='48px'
-      pb={'25px'}
-      alignItems='start'
+    <Flex
+      flexDir={'column'}
       w='full'
-      h='full'
+      overflowY='auto'
+      mt={'44px'}
+      px={5}
+      className='hide-scrollbar'
       {...props}
     >
-      <Box>
-        {username ? (
-          <>
-            <Text display='inline' textStyle={'h1'} textColor='orange.200'>
-              {username}
-            </Text>
-            <Text display='inline' textStyle={'h1'}>
-              님의 최애맥주
-            </Text>
-          </>
-        ) : (
-          <Text display='inline' textStyle={'h1'}>
-            최애맥주
-          </Text>
-        )}
-      </Box>
+      <UserNameSection username={username} />
 
-      <Text textColor='black.100' textStyle={'h1'} style={{ marginTop: 0 }}>
+      <Text textColor='black.100' textStyle={'h1'} pb={1}>
         5개 이상 골라주세요!
       </Text>
-      <Text fontSize='12px' textColor='gray.300' textStyle={'h4'}>
+      <Text fontSize='12px' textColor='gray.300' textStyle={'h4'} pb={6}>
         고른 맥주를 바탕으로 취향 분석 후, 맥주를 추천해드릴게요 :)
       </Text>
 
-      <SimpleGrid columns={3} spacingX='10px' spacingY='25px'>
-        {/* TODO: Connect api */}
+      <SimpleGrid columns={3} spacingX='10px' spacingY={6} pb={6}>
         {SearchBeerQuery.data?.contents?.map((item) => {
           const isSelected = item.id ? selectedBeers?.includes(item.id) : false
           return (
-            <BeerCard
+            <RecommendBeerCard
               key={item.id}
-              mt={1}
-              w='full'
-              borderColor={'orange.200'}
-              cursor='pointer'
               onClick={() => updateSelectedBeers(item.id)}
-              filter={
-                isSelected
-                  ? 'drop-shadow(0px 8px 16px rgba(0, 0, 0, 0.3))'
-                  : 'none'
-              }
-              bg={isSelected ? 'orange.200' : 'white.100'}
-            >
-              <BeerCardBody
-                w='full'
-                h='full'
-                position={'relative'}
-                border='orange.200'
-              >
-                <Box position='relative' borderRadius={6}>
-                  {item.image_url && (
-                    <CommonBeerImage
-                      src={item.image_url}
-                      alt={item.name}
-                      width='175px'
-                      height='175px'
-                      objectFit='cover'
-                      style={{ borderRadius: '6px' }}
-                    />
-                  )}
-                </Box>
-              </BeerCardBody>
-              <BeerCardFooter>
-                <BeerNameText>{item.name}</BeerNameText>
-                <HStack>
-                  <BeerCountryText
-                    borderRadius='full'
-                    country={item.origin_country}
-                  />
-                  <BeerCategoryTag bg={isSelected ? 'white.100' : 'orange.200'}>
-                    <BeerCategoryTagLabel
-                      textColor={isSelected ? 'orange.200' : 'white.100'}
-                    >
-                      {item.category?.name}
-                    </BeerCategoryTagLabel>
-                  </BeerCategoryTag>
-                </HStack>
-              </BeerCardFooter>
-            </BeerCard>
+              selected={isSelected}
+              item={item}
+            />
           )
         })}
       </SimpleGrid>
@@ -173,7 +101,7 @@ const BeerTasteSelection: React.FC<BeerTasteSelectionProps> = ({
         textColor={isFullfilled ? 'white.100' : 'black.100'}
         boxShadow={isFullfilled ? '0px 8px 16px rgba(0, 0, 0, 0.3)' : 'none'}
       />
-    </VStack>
+    </Flex>
   )
 }
 
