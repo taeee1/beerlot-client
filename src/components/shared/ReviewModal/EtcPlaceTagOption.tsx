@@ -15,10 +15,6 @@ export const EtcPlaceTagOption: React.FC<EtcPlaceTagOptionProps> = ({
   }, [setLocalPlaceInput])
 
   useEffect(() => {
-    console.log('localPlaceInput', localPlaceInput)
-  }, [localPlaceInput])
-
-  useEffect(() => {
     return () => {
       onClearPlace()
     }

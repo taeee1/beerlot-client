@@ -2,7 +2,6 @@ import { Box, HStack, IconButton, Tag, Text, VStack } from '@chakra-ui/react'
 import { CrossXBlack } from '../../../../public/svg'
 import { PlaceTagOptions } from '@components/shared/ReviewModal/PlaceTagOptions'
 import { EtcPlaceTagOption } from '@components/shared/ReviewModal/EtcPlaceTagOption'
-import { useEffect } from 'react'
 
 interface BeerPurchaseSectionProps {
   currentPlace: string
@@ -14,10 +13,6 @@ export const BeerPurchaseSection: React.FC<BeerPurchaseSectionProps> = ({
   handleChangePlaceTag,
 }) => {
   const isEtc = !designatedPurchasePlaces.includes(currentPlace)
-
-  useEffect(() => {
-    console.log('currentPlace', currentPlace)
-  }, [currentPlace])
 
   return (
     <VStack p='10px' gap='10px' w='full' alignItems={'flex-start'}>
