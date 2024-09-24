@@ -4,11 +4,13 @@ import { useCallback, useEffect, useState } from 'react'
 
 interface EtcPlaceTagOptionProps {
   handleChangePlace: (place: string) => void
+  currentPlace?: string
 }
 export const EtcPlaceTagOption: React.FC<EtcPlaceTagOptionProps> = ({
   handleChangePlace,
+  currentPlace,
 }) => {
-  const [localPlaceInput, setLocalPlaceInput] = useState('')
+  const [localPlaceInput, setLocalPlaceInput] = useState(currentPlace ?? '')
 
   const onClearPlace = useCallback(() => {
     setLocalPlaceInput('')

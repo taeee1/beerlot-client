@@ -40,7 +40,12 @@ export const BeerPurchaseSection: React.FC<BeerPurchaseSectionProps> = ({
               </Text>
             </Tag>
             {isEtc && (
-              <EtcPlaceTagOption handleChangePlace={handleChangePlaceTag} />
+              <EtcPlaceTagOption
+                currentPlace={
+                  currentPlace !== '기타' ? currentPlace : undefined
+                }
+                handleChangePlace={handleChangePlaceTag}
+              />
             )}
           </HStack>
         ) : (
