@@ -1,58 +1,54 @@
-import { useUserLikedReviewsQuery } from "@/../hooks/query/useUserQuery";
-import { MemberReviewResponse } from "@/../types/member/response";
-import { FollowingTabPanelItem } from "@/components/feed/TabPanelItem";
-import { ReviewDeleteConfirmationDrawer } from "@/components/shared/ReviewModal/ReviewDeleteConfirmationDrawer";
-import { ExistingReviewModalWrapper } from "@/components/shared/ReviewModal/ReviewModalWrapper/ExistingReviewModalWrapper";
-import { Flex, useDisclosure } from "@chakra-ui/react";
-import Cookies from "js-cookie";
-import { useCallback, useState } from "react";
-import { useReviewDeleteMutation } from "../../../../hooks/reviews/useReview";
+import { useUserLikedReviewsQuery } from '@/../hooks/query/useUserQuery'
+import { MemberReviewResponse } from '@/../types/member/response'
+import { FollowingTabPanelItem } from '@/components/feed/TabPanelItem'
+import { ReviewDeleteConfirmationDrawer } from '@/components/shared/ReviewModal/ReviewDeleteConfirmationDrawer'
+import { ExistingReviewModalWrapper } from '@/components/shared/ReviewModal/ReviewModalWrapper/ExistingReviewModalWrapper'
+import { Flex, useDisclosure } from '@chakra-ui/react'
+import Cookies from 'js-cookie'
+import { useCallback, useState } from 'react'
+import { useReviewDeleteMutation } from '../../../../hooks/reviews/useReview'
 
 interface BeerReviewsProps {
-  userReviews: MemberReviewResponse[];
-  onResetReviews: () => void;
+  userReviews: MemberReviewResponse[]
+  onResetReviews: () => void
 }
 
 const BeerReviews: React.FC<BeerReviewsProps> = ({
   userReviews,
   onResetReviews,
 }) => {
-  const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
-  const [selectedReviewId, setSelectedReviewId] = useState<number | null>(null);
+  const accessToken = Cookies.get('beerlot-oauth-auth-request') ?? ''
+  const [selectedReviewId, setSelectedReviewId] = useState<number | null>(null)
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const likedReviewsListQuery = useUserLikedReviewsQuery(accessToken);
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const likedReviewsListQuery = useUserLikedReviewsQuery(accessToken)
 
   const handleEdit = useCallback(
     (reviewId: number) => {
-      setSelectedReviewId(reviewId);
-      onOpen();
+      setSelectedReviewId(reviewId)
+      onOpen()
     },
     [onOpen]
-  );
+  )
 
   const deleteReviewMutation = useReviewDeleteMutation(accessToken, {
     onSuccess: () => {
-      onResetReviews();
+      onResetReviews()
     },
-  });
+  })
 
   const handleDelete = (reviewId: number) => {
-    deleteReviewMutation.mutate(reviewId);
-  };
+    deleteReviewMutation.mutate(reviewId)
+  }
 
   const {
     isOpen: isOpenDeleteConfirmation,
     onOpen: onOpenDeleteConfirmation,
     onClose: onCloseDeleteConfirmation,
-  } = useDisclosure();
+  } = useDisclosure()
 
   return (
-    <Flex
-      flexDirection="column"
-      gap={"10px"}
-      h="full"
-    >
+    <Flex flexDirection='column' gap={'10px'} h='full'>
       {userReviews?.map((feed: MemberReviewResponse) => {
         return (
           <>
@@ -74,15 +70,15 @@ const BeerReviews: React.FC<BeerReviewsProps> = ({
               isOpen={isOpenDeleteConfirmation}
               onClose={onCloseDeleteConfirmation}
               onClickLeftButton={() => {
-                onCloseDeleteConfirmation();
+                onCloseDeleteConfirmation()
               }}
               onClickRightButton={() => {
-                handleDelete(feed.id);
-                onCloseDeleteConfirmation();
+                handleDelete(feed.id)
+                onCloseDeleteConfirmation()
               }}
             />
           </>
-        );
+        )
       })}
 
       <ExistingReviewModalWrapper
@@ -91,7 +87,7 @@ const BeerReviews: React.FC<BeerReviewsProps> = ({
         onCloseModal={onClose}
       />
     </Flex>
-  );
-};
+  )
+}
 
-export default BeerReviews;
+export default BeerReviews

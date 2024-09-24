@@ -4,88 +4,85 @@ import {
   ModalContent,
   ModalProps,
   useDisclosure,
-} from "@chakra-ui/react";
-import React, { ChangeEvent, useState } from "react";
+} from '@chakra-ui/react'
+import React, { ChangeEvent, useState } from 'react'
 import {
   BeerTypeV2,
   CreateReviewRequestTypeV2,
-} from "../../../../typedef/review";
-import { BeerlotLoading } from "../Loading";
-import { BeerReviewContent } from "./BeerReviewContent";
-import { BeerSearchContent } from "./BeerSearchContent";
-import { ReviewExitConfirmationDrawer } from "./ReviewExitConfirmationDrawer";
+} from '../../../../typedef/review'
+import { BeerlotLoading } from '../Loading'
+import { BeerReviewContent } from './BeerReviewContent'
+import { BeerSearchContent } from './BeerSearchContent'
+import { ReviewExitConfirmationDrawer } from './ReviewExitConfirmationDrawer'
 
 interface ReviewModalProps {
-  reviewInfo?: CreateReviewRequestTypeV2;
-  isModalOpen: ModalProps["isOpen"];
-  onCloseModal: ModalProps["onClose"];
-  onComplete: (beerId: number) => void;
-  onChangeReviewInfo: (data?: CreateReviewRequestTypeV2) => void;
-  setBeerInfo?: (data: BeerTypeV2) => void;
-  beerInfo?: BeerTypeV2;
+  reviewInfo?: CreateReviewRequestTypeV2
+  isModalOpen: ModalProps['isOpen']
+  onCloseModal: ModalProps['onClose']
+  onComplete: (beerId: number) => void
+  onChangeReviewInfo: (data?: CreateReviewRequestTypeV2) => void
+  onUpdateBeerInfo?: (data: BeerTypeV2) => void
+  beerInfo?: BeerTypeV2
 }
 
 export const ReviewModal: React.FC<ReviewModalProps> = ({
   isModalOpen,
   reviewInfo,
   beerInfo,
-  setBeerInfo,
+  onUpdateBeerInfo,
   onChangeReviewInfo,
   onCloseModal,
   onComplete,
 }) => {
-  const isBeerEditable = !!setBeerInfo;
-  const [step, setStep] = useState(0);
+  const isBeerEditable = !!onUpdateBeerInfo
+  const [step, setStep] = useState(0)
   const {
     onClose: onCloseConfirmDrawer,
     onOpen: onOpenConfirmDrawer,
     isOpen: isOpenConfirmDrawer,
-  } = useDisclosure(); 
+  } = useDisclosure()
 
- 
-  const beerName = beerInfo?.name;
-  const beerId = beerInfo?.id;
-  const isCompleted = !!beerName && !!reviewInfo?.rate && !!reviewInfo?.content;
-
+  const beerName = beerInfo?.name
+  const beerId = beerInfo?.id
+  const isCompleted = !!beerName && !!reviewInfo?.rate && !!reviewInfo?.content
 
   const handleComplete = () => {
-    if (beerId) onComplete(beerId);
-  };
+    if (beerId) onComplete(beerId)
+  }
 
   const handleChangeBeerName = (name: string, id: number) => {
-    setBeerInfo?.({ id, name });
-  };
+    onUpdateBeerInfo?.({ id, name })
+  }
 
   const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    if(!reviewInfo) return;
-    onChangeReviewInfo({ ...reviewInfo, content: e.target.value });
-    handleChangeReviewInfo("content", e.target.value);
-  };
+    if (!reviewInfo) return
+    onChangeReviewInfo({ ...reviewInfo, content: e.target.value })
+    handleChangeReviewInfo('content', e.target.value)
+  }
 
   const handleChangeReviewInfo = (
     key: string,
     value: string | number | string[]
   ) => {
-    if(!reviewInfo) return;
-    onChangeReviewInfo({ ...reviewInfo, [key]: value });
-  };
-
-  const [placeInputValue, setPlaceInputValue] = useState("");
-
-  const handleChangePlace = (newPlace:string) =>{
-    setPlaceInputValue(newPlace);
+    if (!reviewInfo) return
+    onChangeReviewInfo({ ...reviewInfo, [key]: value })
   }
- 
 
   return (
     <>
-      <Modal onClose={onCloseModal} size={"full"} isOpen={isModalOpen} >
-        <ModalContent px="20px" h={'fit-content'} pb="40px" maxW="450px" bg="white">
-          {!reviewInfo &&  
-          <Center h={'100vh'} >
-            <BeerlotLoading />
+      <Modal onClose={onCloseModal} size={'full'} isOpen={isModalOpen}>
+        <ModalContent
+          px='20px'
+          h={'fit-content'}
+          pb='40px'
+          maxW='450px'
+          bg='white'
+        >
+          {!reviewInfo && (
+            <Center h={'100vh'}>
+              <BeerlotLoading />
             </Center>
-            }
+          )}
           {reviewInfo && step === 0 && (
             <BeerReviewContent
               onOpenDrawer={onOpenConfirmDrawer}
@@ -94,17 +91,15 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
               onInputChange={handleContentChange}
               onComplete={handleComplete}
               onChangeReviewInfo={handleChangeReviewInfo}
-              beerName={beerName ?? ""}
+              beerName={beerName ?? ''}
               isCompleted={isCompleted}
-              placeInputValue={placeInputValue}
-              handleChangePlace={handleChangePlace}
             />
           )}
 
           {reviewInfo && step === 1 && (
             <BeerSearchContent
               onBack={() => {
-                setStep(step - 1);
+                setStep(step - 1)
               }}
               onChangeBeerName={handleChangeBeerName}
             />
@@ -116,12 +111,12 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
         isOpen={isOpenConfirmDrawer}
         onClose={onCloseConfirmDrawer}
         onClickLeftButton={() => {
-          onCloseConfirmDrawer();
-          onCloseModal();
+          onCloseConfirmDrawer()
+          onCloseModal()
           onChangeReviewInfo()
         }}
         onClickRightButton={onCloseConfirmDrawer}
       />
     </>
-  );
-};
+  )
+}

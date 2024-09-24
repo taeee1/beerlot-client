@@ -66,7 +66,7 @@ export const ReviewModalWrapper: React.FC<ReviewModalWrapperProps> = ({
       onChangeReviewInfo={setReviewInfo}
       reviewInfo={reviewInfo}
       beerInfo={beerInfo}
-      setBeerInfo={setBeerInfo}
+      onUpdateBeerInfo={setBeerInfo}
     />
   );
 };
