@@ -68,12 +68,6 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
     onChangeReviewInfo({ ...reviewInfo, [key]: value })
   }
 
-  const [placeInputValue, setPlaceInputValue] = useState('')
-
-  const handleChangePlace = (newPlace: string) => {
-    setPlaceInputValue(newPlace)
-  }
-
   return (
     <>
       <Modal onClose={onCloseModal} size={'full'} isOpen={isModalOpen}>
@@ -99,8 +93,6 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
               onChangeReviewInfo={handleChangeReviewInfo}
               beerName={beerName ?? ''}
               isCompleted={isCompleted}
-              placeInputValue={placeInputValue}
-              handleChangePlace={handleChangePlace}
             />
           )}
 

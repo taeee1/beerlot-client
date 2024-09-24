@@ -7,7 +7,7 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react'
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { CreateReviewRequestTypeV2 } from '../../../../typedef/review'
 import { LeftCloseRandom } from '../Headers/LeftCloseRandom'
 import BeerNameSection from './BeerNameSection'
@@ -25,8 +25,6 @@ interface BeerReviewContentProps extends ModalContentProps {
   onComplete: () => void
   isCompleted: boolean
   onChangeReviewInfo: (key: string, value: string | number | string[]) => void
-  placeInputValue: string
-  handleChangePlace: (newPlace: string) => void
 }
 
 export const BeerReviewContent: React.FC<BeerReviewContentProps> = ({
@@ -38,19 +36,7 @@ export const BeerReviewContent: React.FC<BeerReviewContentProps> = ({
   onComplete,
   onChangeReviewInfo,
   isCompleted,
-  placeInputValue,
-  handleChangePlace,
 }) => {
-  const onClearPlace = useCallback(() => {
-    handleChangePlace('')
-  }, [])
-
-  useEffect(() => {
-    return () => {
-      onClearPlace()
-    }
-  }, [onClearPlace])
-
   const handleRate = (rate: number) => {
     onChangeReviewInfo('rate', rate)
   }
@@ -82,11 +68,8 @@ export const BeerReviewContent: React.FC<BeerReviewContentProps> = ({
 
           {/* purchase */}
           <BeerPurchaseSection
-            reviewInfo={reviewInfo}
-            handleChangePlace={handleChangePlace}
-            clearInput={onClearPlace}
-            handleClickPlaceTag={handleChangePlaceTag}
-            placeInputValue={placeInputValue}
+            currentPlace={reviewInfo.buy_from}
+            handleChangePlaceTag={handleChangePlaceTag}
           />
 
           {/* review text  */}
