@@ -1,20 +1,23 @@
 import {
   fetchBeersApi,
+  fetchMyReviewsApi,
   fetchRecommendedBeers,
   fetchSingleBeerInfoApi,
   fetchTopBeersApi,
-} from "api/beers/api";
-import { UseQueryOptions, useInfiniteQuery, useQuery } from "react-query";
-import { BeerFilterRequestType, FailureResponse } from "types/api";
-import { LANGUAGE_TYPE } from "../../interface/types";
+} from 'api/beers/api'
+import { UseQueryOptions, useInfiniteQuery, useQuery } from 'react-query'
+import { BeerFilterRequestType, FailureResponse } from 'types/api'
+import { LANGUAGE_TYPE } from '../../interface/types'
 import {
   BeersResponseType,
   RecommendedBeersResponse,
   SingelBeerFetchResponseType,
   TopBeersType,
-} from "../../typedef/server/beer";
+} from '../../typedef/server/beer'
+import { ReviewTypeV2 } from '../../typedef/review'
 
-export const topBeersQueryKey = () => ["topBeers"];
+export const topBeersQueryKey = () => ['topBeers']
+export const myReviewsQueryKey = (beerId: number) => [`myReviews`, beerId]
 
 export const useTopBeersQuery = (
   options?: UseQueryOptions<TopBeersType, FailureResponse>
@@ -26,26 +29,26 @@ export const useTopBeersQuery = (
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     ...options,
-  });
-};
+  })
+}
 
-export const beersQueryKey = () => ["beers"];
+export const beersQueryKey = () => ['beers']
 
 export const useBeersQuery = (
   queryParam: BeerFilterRequestType,
   options?: UseQueryOptions<BeersResponseType, FailureResponse>
 ) => {
   return useQuery({
-    queryKey: ["beers", queryParam.keyword],
+    queryKey: ['beers', queryParam.keyword],
     queryFn: () => fetchBeersApi(queryParam),
     enabled: false,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     ...options,
-  });
-};
+  })
+}
 
-export const recommendedBeersKey = () => ["recommendedBeers"];
+export const recommendedBeersKey = () => ['recommendedBeers']
 
 export const useRecommendedBeersQuery = (
   accessToken: string,
@@ -57,13 +60,13 @@ export const useRecommendedBeersQuery = (
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     ...options,
-  });
-};
+  })
+}
 
 export const singleBeerFetchKey = (beerId: number) => [
-  "singleBeerFetchKey",
+  'singleBeerFetchKey',
   beerId,
-];
+]
 
 export const useSingleBeerFetchQuery = (
   beerId: number,
@@ -81,5 +84,5 @@ export const useSingleBeerFetchQuery = (
     refetchOnWindowFocus: false,
     enabled: !!beerId,
     ...options,
-  });
-};
+  })
+}

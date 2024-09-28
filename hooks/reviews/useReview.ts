@@ -3,29 +3,31 @@ import {
   fetchAllReviewsApi,
   getSingleReviewApi,
   updateReviewApi,
-} from "@/api/review/review";
+} from '@/api/review/review'
 
 import {
   UseMutationOptions,
   UseQueryOptions,
   useMutation,
   useQuery,
-} from "react-query";
-import { FailureResponseV2 } from "types/api";
+} from 'react-query'
+import { FailureResponseV2 } from 'types/api'
 import {
   AllBeersQueryParamsV2,
   ReviewTypeV2,
   UpdateReviewRequestTypeV2,
-} from "../../typedef/review";
-import { ReviewSortEnum } from "../../interface/types";
+} from '../../typedef/review'
+import { ReviewSortEnum } from '../../interface/types'
+import { fetchMyReviewsApi } from '@/api/beers/api'
+import { myReviewsQueryKey } from '../query/useBeerQuery'
 
 export const allReviewsQueryKey = (sort?: ReviewSortEnum) => [
-  "allReviews",
+  'allReviews',
   sort,
-];
-export const singleReviewQueryKey = () => ["singleReview"];
-export const deleteReviewMutationKey = () => ["deleteReview"];
-export const updateReviewMutationKey = () => ["updateReview"];
+]
+export const singleReviewQueryKey = () => ['singleReview']
+export const deleteReviewMutationKey = () => ['deleteReview']
+export const updateReviewMutationKey = () => ['updateReview']
 
 export const useReviewUpdateMutation = (
   accessToken: string,
@@ -33,19 +35,19 @@ export const useReviewUpdateMutation = (
     ReviewTypeV2,
     FailureResponseV2,
     {
-      reviewId: number;
-      newContent: UpdateReviewRequestTypeV2;
+      reviewId: number
+      newContent: UpdateReviewRequestTypeV2
     }
   >
 ) => {
   return useMutation({
     mutationKey: updateReviewMutationKey(),
     mutationFn: ({ reviewId, newContent }) => {
-      return updateReviewApi(reviewId, accessToken, newContent);
+      return updateReviewApi(reviewId, accessToken, newContent)
     },
     ...options,
-  });
-};
+  })
+}
 
 export const useReviewQuery = (
   reviewId?: number | null,
@@ -58,8 +60,8 @@ export const useReviewQuery = (
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     ...options,
-  });
-};
+  })
+}
 
 export const useReviewDeleteMutation = (
   accessToken: string,
@@ -67,11 +69,11 @@ export const useReviewDeleteMutation = (
 ) => {
   return useMutation<void, FailureResponseV2, number>({
     mutationFn: (reviewId: number) => {
-      return deleteReviewApi(reviewId, accessToken);
+      return deleteReviewApi(reviewId, accessToken)
     },
     ...options,
-  });
-};
+  })
+}
 export const useAllReviewsQuery = (
   queryParam: AllBeersQueryParamsV2,
   options?: UseQueryOptions<ReviewTypeV2[], FailureResponseV2>
@@ -82,5 +84,20 @@ export const useAllReviewsQuery = (
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     ...options,
-  });
-};
+  })
+}
+
+export const useMyReviewsQuery = (
+  beerId: number,
+  accessToken: string,
+  options?: UseQueryOptions<ReviewTypeV2[], FailureResponseV2> // 배열로 설정
+) => {
+  return useQuery({
+    queryKey: myReviewsQueryKey(beerId),
+    queryFn: () => fetchMyReviewsApi(beerId, accessToken),
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    enabled: !!beerId && !!accessToken,
+    ...options,
+  })
+}
