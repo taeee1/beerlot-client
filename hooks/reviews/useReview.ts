@@ -10,6 +10,8 @@ import {
   UseQueryOptions,
   useMutation,
   useQuery,
+  useInfiniteQuery,
+  UseInfiniteQueryOptions,
 } from 'react-query'
 import { FailureResponseV2 } from 'types/api'
 import {
@@ -81,6 +83,23 @@ export const useAllReviewsQuery = (
   return useQuery({
     queryKey: allReviewsQueryKey(queryParam.sort),
     queryFn: () => fetchAllReviewsApi(queryParam),
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    ...options,
+  })
+}
+
+export const useAllReviewsInfiniteQuery = (
+  queryParam: AllBeersQueryParamsV2,
+  options?: UseInfiniteQueryOptions<ReviewTypeV2[], FailureResponseV2>
+) => {
+  return useInfiniteQuery({
+    queryKey: allReviewsQueryKey(queryParam.sort),
+    queryFn: ({ pageParam = 1 }) =>
+      fetchAllReviewsApi({ ...queryParam, page: pageParam }),
+    getNextPageParam: (lastPage, pages) => {
+      return lastPage.nextPage
+    },
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     ...options,
