@@ -109,7 +109,7 @@ export const useAllReviewsInfiniteQuery = (
 export const useMyReviewsQuery = (
   beerId: number,
   accessToken: string,
-  options?: UseQueryOptions<ReviewTypeV2[], FailureResponseV2> // 배열로 설정
+  options?: UseQueryOptions<ReviewTypeV2, FailureResponseV2> // 배열로 설정
 ) => {
   return useQuery({
     queryKey: myReviewsQueryKey(beerId),

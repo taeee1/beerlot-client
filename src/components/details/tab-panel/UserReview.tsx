@@ -1,62 +1,90 @@
-import { ReviewModalWrapper } from "@/components/shared/ReviewModal/ReviewModalWrapper/ReviewModalWrapper";
-import { Button, Flex, Text, useDisclosure } from "@chakra-ui/react";
-import Cookies from "js-cookie";
-import { useRouter } from "next/router";
+import { ReviewModalWrapper } from '@/components/shared/ReviewModal/ReviewModalWrapper/ReviewModalWrapper'
+import { Box, Button, Flex, Text, useDisclosure } from '@chakra-ui/react'
+import Cookies from 'js-cookie'
+import { useRouter } from 'next/router'
+import { useMyReviewsQuery } from '../../../../hooks/reviews/useReview'
+import { FollowingTabPanelItem } from '@components/feed/TabPanelItem'
 
-export const UserReview = () => {
-  const accessToken = Cookies.get("beerlot-oauth-auth-request");
-  const router = useRouter();
-  const userReview = null; // TODO: This should be replaced into real data from API
-  const { isOpen, onOpen, onClose } = useDisclosure();
+interface UserReviewProps {
+  beerId: number
+}
+export const UserReview: React.FC<UserReviewProps> = ({ beerId }) => {
+  const accessToken = Cookies.get('beerlot-oauth-auth-request') ?? ''
+  const router = useRouter()
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
   const handleButtonClick = () => {
     if (!accessToken) {
-      router.push("/login");
+      router.push('/login')
     } else {
-      onOpen();
+      onOpen()
     }
-  };
+  }
 
-  if (!accessToken || !userReview) {
-    return (
-      <>
-        <Text textStyle={"h2_bold"}>내가 쓴 리뷰</Text>
+  const {
+    data: review,
+    isLoading,
+    error,
+  } = useMyReviewsQuery(beerId, accessToken)
+  console.log('review', review)
+
+  return (
+    <>
+      <Text textStyle={'h2_bold'}>내가 쓴 리뷰</Text>
+      <ReviewModalWrapper isModalOpen={isOpen} onCloseModal={onClose} />
+
+      {review !== undefined ? (
+        <>
+          <Box w={'full'} p={0}>
+            <FollowingTabPanelItem
+              key={review.id}
+              reviewId={review.id}
+              nickname={review.member.username}
+              reviewTime={review.updated_at}
+              beerName={review.beer?.name}
+              rate={review.rate}
+              imageSrc={review.image_url}
+              content={review.content}
+              likedCount={review.like_count}
+              isEditable={false}
+            />
+          </Box>
+        </>
+      ) : (
         <Flex
-          w="full"
+          w='full'
           p={5}
-          bgColor="white"
-          borderRadius="lg"
-          justifyContent="center"
-          alignItems="center"
+          bgColor='white'
+          borderRadius='lg'
+          justifyContent='center'
+          alignItems='center'
           gap={4}
-          flexDir={"column"}
-          boxShadow="md"
+          flexDir={'column'}
+          boxShadow='md'
         >
           <Text
-            textAlign="center"
-            textStyle={"h3"}
-            color="#333333"
-            whiteSpace="pre-wrap"
+            textAlign='center'
+            textStyle={'h3'}
+            color='#333333'
+            whiteSpace='pre-wrap'
           >
-            이 맥주 드셔보셨다면, 어땠는지 기록해볼까요?{"\n"}짧게라도 좋아요 😆
+            이 맥주 드셔보셨다면, 어땠는지 기록해볼까요?{'\n'}짧게라도 좋아요 😆
           </Text>
           <Button
             px={8}
             py={2}
-            textStyle={"h3_bold"}
-            h={"fit-content"}
-            bgColor="#FF6B00"
-            borderRadius="full"
-            color="white"
+            textStyle={'h3_bold'}
+            h={'fit-content'}
+            bgColor='#FF6B00'
+            borderRadius='full'
+            color='white'
             onClick={handleButtonClick}
             _hover={{}}
           >
             리뷰 작성하기
           </Button>
         </Flex>
-        <ReviewModalWrapper isModalOpen={isOpen} onCloseModal={onClose} />
-      </>
-    );
-  }
-
-  return <div>UserReview: {userReview}</div>;
-};
+      )}
+    </>
+  )
+}
