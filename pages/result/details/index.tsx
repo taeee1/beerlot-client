@@ -1,8 +1,8 @@
-import React from "react";
-import {DetailTemplate} from "../../../src/components/details/DetailTemplate";
+import React from 'react'
+import { DetailTemplate } from '@components/details/DetailTemplate'
 
 const index = () => {
-  return <DetailTemplate />;
-};
+  return <DetailTemplate />
+}
 
-export default index;
+export default index
