@@ -9,8 +9,8 @@ export const useBeerLikeMutation = (
   return useMutation<void, FailureResponseV2, number>( // 제네릭 타입 추가
     (beerId: number) => likeBeerApi(beerId, accessToken),
     options
-  );
-};
+  )
+}
 
 export const useBeerDislikeMutation = (
   accessToken: string,

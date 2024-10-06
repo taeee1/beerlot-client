@@ -1,11 +1,11 @@
-import axios from "axios";
-import { SignupRequestType } from "../../../types/review";
+import axios from 'axios'
+import { SignupRequestType } from '../../../types/review'
 
 export const signupApi = async (
   queryParam: SignupRequestType,
   accessToken: string
 ) => {
-  const { username, status_message, image_url, agreed_policies } = queryParam;
+  const { username, status_message, image_url, agreed_policies } = queryParam
   const res = await axios.patch(
     `/api/v1/auth/signup`,
     {
@@ -18,6 +18,6 @@ export const signupApi = async (
         Authorization: `Bearer ${accessToken}`,
       },
     }
-  );
-  return res.data;
-};
+  )
+  return res.data
+}

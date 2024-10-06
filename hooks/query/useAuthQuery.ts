@@ -1,9 +1,9 @@
-import { signupApi } from "@/api/auth/api";
-import { UseQueryOptions, useQuery } from "react-query";
-import { DefaultResponse, FailureResponse } from "types/api";
-import { SignupRequestType } from "../../types/review";
+import { signupApi } from '@/api/auth/api'
+import { UseQueryOptions, useQuery } from 'react-query'
+import { DefaultResponse, FailureResponse } from 'types/api'
+import { SignupRequestType } from '../../types/review'
 
-export const signupQueryKey = () => ["signup"];
+export const signupQueryKey = () => ['signup']
 
 export const useSignupQuery = (
   queryParam: SignupRequestType,
@@ -17,5 +17,5 @@ export const useSignupQuery = (
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     ...options,
-  });
-};
+  })
+}

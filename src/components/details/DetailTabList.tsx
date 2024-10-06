@@ -6,20 +6,20 @@ import {
   TabPanels,
   Tabs,
   Text,
-} from "@chakra-ui/react";
-import React, { useState } from "react";
-import { BasicPanelList } from "./tab-panel/BasicPanelList";
-import { ReviewPanelList } from "./tab-panel/ReviewPanelList";
+} from '@chakra-ui/react'
+import React, { useState } from 'react'
+import { BasicPanelList } from './tab-panel/BasicPanelList'
+import { ReviewPanelList } from './tab-panel/ReviewPanelList'
 
 interface DetailTabListProps {
-  id: number;
-  city: string;
-  brewary: string;
-  calories: number;
-  suitableGlass: string;
-  desc: string;
-  buyFrom: string[];
-  rate: number;
+  id: number
+  city: string
+  brewary: string
+  calories: number
+  suitableGlass: string
+  desc: string
+  buyFrom: string[]
+  rate: number
 }
 
 export const DetailTabList: React.FC<DetailTabListProps> = ({
@@ -32,24 +32,24 @@ export const DetailTabList: React.FC<DetailTabListProps> = ({
   buyFrom,
   rate,
 }) => {
-  const [tabIndex, setTabIndex] = useState(0);
+  const [tabIndex, setTabIndex] = useState(0)
   const handleTabsChange = (index: number) => {
-    setTabIndex(index);
-  };
+    setTabIndex(index)
+  }
 
   return (
     <>
       <Tabs
-        colorScheme="orange"
-        w="full"
+        colorScheme='orange'
+        w='full'
         index={tabIndex}
         onChange={handleTabsChange}
       >
-        <TabList px={"18px"}>
-          <Tab flexGrow="1">
+        <TabList px={'18px'}>
+          <Tab flexGrow='1'>
             <Text>기본 정보</Text>
           </Tab>
-          <Tab flexGrow="1">
+          <Tab flexGrow='1'>
             <Text>리뷰</Text>
           </Tab>
         </TabList>
@@ -73,5 +73,5 @@ export const DetailTabList: React.FC<DetailTabListProps> = ({
         </TabPanels>
       </Tabs>
     </>
-  );
-};
+  )
+}

@@ -1,7 +1,7 @@
-import SearchBarTemplate from "../../src/components/search/SearchBarTemplate";
+import SearchBarTemplate from '../../src/components/search/SearchBarTemplate'
 
 const index = () => {
-  return <SearchBarTemplate />;
-};
+  return <SearchBarTemplate />
+}
 
-export default index;
+export default index

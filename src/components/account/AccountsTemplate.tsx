@@ -1,7 +1,7 @@
-import React from "react";
-import Profile from "./user-info/Profile";
-import Tools from "./Tools";
-import BeerInfo from "./beer-info/BeerInfo";
+import React from 'react'
+import Profile from './user-info/Profile'
+import Tools from './Tools'
+import BeerInfo from './beer-info/BeerInfo'
 
 const AccountsTemplate = () => {
   return (
@@ -10,7 +10,7 @@ const AccountsTemplate = () => {
       <Profile />
       <BeerInfo />
     </>
-  );
-};
+  )
+}
 
-export default AccountsTemplate;
+export default AccountsTemplate

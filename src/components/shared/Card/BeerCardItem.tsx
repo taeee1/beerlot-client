@@ -13,21 +13,21 @@ import {
   Text,
   TextProps,
   Image as ChakraImage,
-} from "@chakra-ui/react";
-import React from "react";
-import {BeerResponseType} from "../../../../types/beer";
-import {CommonBeerImage} from "../CommonBeerImage/CommonBeerImage";
-import {getFlagByCountryName} from "@/components/home/LoggedInBeersList/beer.service";
+} from '@chakra-ui/react'
+import React from 'react'
+import { BeerResponseType } from '../../../../types/beer'
+import { CommonBeerImage } from '../CommonBeerImage/CommonBeerImage'
+import { getFlagByCountryName } from '@/components/home/LoggedInBeersList/beer.service'
 interface BeerCardItemProps extends CardProps {
-  beerInfo: BeerResponseType;
-  children: React.ReactNode | React.ReactNode[];
+  beerInfo: BeerResponseType
+  children: React.ReactNode | React.ReactNode[]
 }
 
 export const BeerCardItem: React.FC<BeerCardItemProps> = ({
   beerInfo,
   ...props
 }) => {
-  const {name, origin_country, image_url, category} = beerInfo;
+  const { name, origin_country, image_url, category } = beerInfo
   return (
     <BeerCard {...props}>
       <BeerCardBody>
@@ -35,41 +35,41 @@ export const BeerCardItem: React.FC<BeerCardItemProps> = ({
       </BeerCardBody>
       <BeerCardFooter>
         <BeerNameText>{name}</BeerNameText>
-        <BeerCountryText country={origin_country} display="inline" />
+        <BeerCountryText country={origin_country} display='inline' />
         <BeerCategoryTag>
           <BeerCategoryTagLabel>{category?.name}</BeerCategoryTagLabel>
         </BeerCategoryTag>
       </BeerCardFooter>
     </BeerCard>
-  );
-};
+  )
+}
 
 // card
 interface BeerCardProps extends CardProps {
-  children: React.ReactNode | React.ReactNode[];
+  children: React.ReactNode | React.ReactNode[]
 }
 
-export const BeerCard: React.FC<BeerCardProps> = ({children, ...props}) => {
+export const BeerCard: React.FC<BeerCardProps> = ({ children, ...props }) => {
   return (
     <Card
-      borderRadius={"12px"}
-      border="1px solid"
-      borderColor={"orange.300"}
-      w="fit-content"
-      style={{marginInlineStart: 0}}
+      borderRadius={'12px'}
+      border='1px solid'
+      borderColor={'orange.300'}
+      w='fit-content'
+      style={{ marginInlineStart: 0 }}
       p={2}
-      cursor="pointer"
+      cursor='pointer'
       flexShrink={0}
       {...props}
     >
       {children}
     </Card>
-  );
-};
+  )
+}
 
 // header
 interface BeerCardHeaderProps extends CardHeaderProps {
-  children: React.ReactNode | React.ReactNode[];
+  children: React.ReactNode | React.ReactNode[]
 }
 
 export const BeerCardHeader: React.FC<BeerCardHeaderProps> = ({
@@ -80,12 +80,12 @@ export const BeerCardHeader: React.FC<BeerCardHeaderProps> = ({
     <CardHeader p={0} {...props}>
       {children}
     </CardHeader>
-  );
-};
+  )
+}
 
 // body
 interface BeerCardBodyProps extends CardBodyProps {
-  children: React.ReactNode | React.ReactNode[];
+  children: React.ReactNode | React.ReactNode[]
 }
 
 export const BeerCardBody: React.FC<BeerCardBodyProps> = ({
@@ -96,12 +96,12 @@ export const BeerCardBody: React.FC<BeerCardBodyProps> = ({
     <CardBody p={0} {...props}>
       {children}
     </CardBody>
-  );
-};
+  )
+}
 
 // footer
 interface BeerCardFooterProps extends CardFooterProps {
-  children: React.ReactNode | React.ReactNode[];
+  children: React.ReactNode | React.ReactNode[]
 }
 
 export const BeerCardFooter: React.FC<BeerCardFooterProps> = ({
@@ -109,15 +109,15 @@ export const BeerCardFooter: React.FC<BeerCardFooterProps> = ({
   ...props
 }) => {
   return (
-    <CardFooter mt={1.5} p={0} {...props} flexDir="column">
+    <CardFooter mt={1.5} p={0} {...props} flexDir='column'>
       {children}
     </CardFooter>
-  );
-};
+  )
+}
 
 // footer
 interface BeerNameTextProps extends TextProps {
-  children?: string;
+  children?: string
 }
 
 export const BeerNameText: React.FC<BeerNameTextProps> = ({
@@ -125,15 +125,15 @@ export const BeerNameText: React.FC<BeerNameTextProps> = ({
   ...props
 }) => {
   return (
-    <Text {...props} textStyle={"h4"} textColor="black.100">
+    <Text {...props} textStyle={'h4'} textColor='black.100'>
       {children}
     </Text>
-  );
-};
+  )
+}
 
 // footer
 interface BeerCountryTextProps extends TextProps {
-  country?: string;
+  country?: string
 }
 
 export const BeerCountryText: React.FC<BeerCountryTextProps> = ({
@@ -142,16 +142,16 @@ export const BeerCountryText: React.FC<BeerCountryTextProps> = ({
   ...props
 }) => {
   return (
-    <Text {...props} textStyle={"h4"} textColor="black.100">
-      {getFlagByCountryName(country ?? "")}
+    <Text {...props} textStyle={'h4'} textColor='black.100'>
+      {getFlagByCountryName(country ?? '')}
       {children}
     </Text>
-  );
-};
+  )
+}
 
 // tag
 interface BeerCategoryTagProps extends TextProps {
-  children: React.ReactNode | React.ReactNode[];
+  children: React.ReactNode | React.ReactNode[]
 }
 
 export const BeerCategoryTag: React.FC<BeerCategoryTagProps> = ({
@@ -161,25 +161,25 @@ export const BeerCategoryTag: React.FC<BeerCategoryTagProps> = ({
   return (
     <Tag
       borderRadius={20}
-      bg="orange.300"
-      display="flex"
-      alignItems={"center"}
-      justifyContent={"center"}
-      p={"0px 5px"}
-      textStyle={"h4"}
-      minH={"17px"}
-      lineHeight={"16px"}
+      bg='orange.300'
+      display='flex'
+      alignItems={'center'}
+      justifyContent={'center'}
+      p={'0px 5px'}
+      textStyle={'h4'}
+      minH={'17px'}
+      lineHeight={'16px'}
       ml={1.5}
       {...props}
     >
       {children}
     </Tag>
-  );
-};
+  )
+}
 
 // tag label
 interface BeerCategoryTagLabelProps extends TagLabelProps {
-  children?: string;
+  children?: string
 }
 
 export const BeerCategoryTagLabel: React.FC<BeerCategoryTagLabelProps> = ({
@@ -187,8 +187,8 @@ export const BeerCategoryTagLabel: React.FC<BeerCategoryTagLabelProps> = ({
   ...props
 }) => {
   return (
-    <TagLabel textStyle={"h4"} textColor="white.100" {...props}>
+    <TagLabel textStyle={'h4'} textColor='white.100' {...props}>
       {children}
     </TagLabel>
-  );
-};
+  )
+}

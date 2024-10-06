@@ -1,17 +1,17 @@
-import {HStack, StackProps, TextProps} from "@chakra-ui/react";
-import React from "react";
-import {CategoryFilterListType} from "../../../../interface/types";
-import FilterTag from "./FilterTag";
+import { HStack, StackProps, TextProps } from '@chakra-ui/react'
+import React from 'react'
+import { CategoryFilterListType } from '../../../../interface/types'
+import FilterTag from './FilterTag'
 
 interface FilterRowProps {
-  filterList: CategoryFilterListType;
+  filterList: CategoryFilterListType
 }
 
-const FilterRow: React.FC<FilterRowProps> = ({filterList}) => {
+const FilterRow: React.FC<FilterRowProps> = ({ filterList }) => {
   return (
-    <HStack w="full">
+    <HStack w='full'>
       <FilterTag tagText={filterList.title} />
-      <HStack gap={"15px"} overflowX={"scroll"}>
+      <HStack gap={'15px'} overflowX={'scroll'}>
         {/* {filterList.tagList.map((text) => {
           return (
             <Text
@@ -25,7 +25,7 @@ const FilterRow: React.FC<FilterRowProps> = ({filterList}) => {
         })} */}
       </HStack>
     </HStack>
-  );
-};
+  )
+}
 
-export default FilterRow;
+export default FilterRow

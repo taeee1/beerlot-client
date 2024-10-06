@@ -4,15 +4,15 @@ import {
   RangeSliderProps,
   RangeSliderThumb,
   RangeSliderTrack,
-} from "@chakra-ui/react";
-import React from "react";
+} from '@chakra-ui/react'
+import React from 'react'
 
 interface VolumeSliderProps extends RangeSliderProps {
-  min: number;
-  max: number;
-  value: number[];
-  onChange: (val: number[]) => void;
-  trackColor?: string;
+  min: number
+  max: number
+  value: number[]
+  onChange: (val: number[]) => void
+  trackColor?: string
 }
 
 export const VolumeSlider: React.FC<VolumeSliderProps> = ({
@@ -38,5 +38,5 @@ export const VolumeSlider: React.FC<VolumeSliderProps> = ({
       <RangeSliderThumb index={0} />
       <RangeSliderThumb index={1} />
     </RangeSlider>
-  );
-};
+  )
+}

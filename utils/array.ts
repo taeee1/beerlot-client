@@ -1,8 +1,8 @@
-import {CategoryFilterListType} from "../interface/types";
+import { CategoryFilterListType } from '../interface/types'
 
 export const checkSelected = (id: number, ids: number[]) => {
-  return ids.includes(id);
-};
+  return ids.includes(id)
+}
 
 export const checkIsSelectedCategoryTitle = (
   selectedFilters: CategoryFilterListType[],
@@ -10,7 +10,7 @@ export const checkIsSelectedCategoryTitle = (
 ) => {
   const selectedObj = selectedFilters.find(
     (filter) => filter.title === targetTitle
-  );
-  if (selectedObj === undefined) return false;
-  return selectedObj.tags.length > 0;
-};
+  )
+  if (selectedObj === undefined) return false
+  return selectedObj.tags.length > 0
+}

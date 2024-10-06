@@ -1,25 +1,25 @@
-import {HStack} from "@chakra-ui/react";
-import React from "react";
-import ProfileAvatar from "../../shared/ProfileAvatar";
+import { HStack } from '@chakra-ui/react'
+import React from 'react'
+import ProfileAvatar from '../../shared/ProfileAvatar'
 
 interface InfoContainerProps {
-  imageSrc: string;
+  imageSrc: string
 }
 
-const InfoContainer: React.FC<InfoContainerProps> = ({imageSrc}) => {
+const InfoContainer: React.FC<InfoContainerProps> = ({ imageSrc }) => {
   return (
     <HStack
-      w="100%"
-      align="stretch"
-      alignItems="center"
-      textStyle="h2"
-      justifyContent="space-between"
-      gap="30px"
+      w='100%'
+      align='stretch'
+      alignItems='center'
+      textStyle='h2'
+      justifyContent='space-between'
+      gap='30px'
     >
       <ProfileAvatar
-        alt="user profile photo"
-        src={imageSrc ?? ""}
-        boxSize="76px"
+        alt='user profile photo'
+        src={imageSrc ?? ''}
+        boxSize='76px'
       />
 
       {/* TODO: will be added in v2 */}
@@ -36,7 +36,7 @@ const InfoContainer: React.FC<InfoContainerProps> = ({imageSrc}) => {
         <Text>팔로잉</Text>
       </VStack> */}
     </HStack>
-  );
-};
+  )
+}
 
-export default InfoContainer;
+export default InfoContainer

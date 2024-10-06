@@ -1,19 +1,19 @@
-import { Box } from "@chakra-ui/react";
-import React from "react";
+import { Box } from '@chakra-ui/react'
+import React from 'react'
 import {
   CategoryFilterListType,
   CategoryTitle,
-} from "../../../../../interface/types";
-import { BeerSearchCategoriesForClosedFilter } from "./SearchFilterListCell";
-import { SearchFilterListExpanded } from "./SearchFilterListExpanded";
+} from '../../../../../interface/types'
+import { BeerSearchCategoriesForClosedFilter } from './SearchFilterListCell'
+import { SearchFilterListExpanded } from './SearchFilterListExpanded'
 
 interface SearchFilterListProps {
-  isFilterListOpen: boolean;
-  selectedFilters: CategoryFilterListType[];
-  onClickToggle: () => void;
-  onClickTag: (targetTitle: CategoryTitle, targetTag: string | number) => void;
-  beerVolume: number[];
-  onChangeBeerVolume: (value: number[]) => void;
+  isFilterListOpen: boolean
+  selectedFilters: CategoryFilterListType[]
+  onClickToggle: () => void
+  onClickTag: (targetTitle: CategoryTitle, targetTag: string | number) => void
+  beerVolume: number[]
+  onChangeBeerVolume: (value: number[]) => void
 }
 
 export const SearchFilterList: React.FC<SearchFilterListProps> = ({
@@ -43,5 +43,5 @@ export const SearchFilterList: React.FC<SearchFilterListProps> = ({
         />
       )}
     </Box>
-  );
-};
+  )
+}

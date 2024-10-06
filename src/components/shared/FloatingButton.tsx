@@ -1,14 +1,14 @@
-import {Button, ButtonProps, Text} from "@chakra-ui/react";
-import {useRouter} from "next/router";
-import React from "react";
+import { Button, ButtonProps, Text } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+import React from 'react'
 
 interface FloatingButtonProps extends ButtonProps {
-  disabled?: boolean;
-  text?: string;
-  bgColor?: string;
-  textColor?: string;
-  boxShadow?: string | undefined;
-  onClick: () => void;
+  disabled?: boolean
+  text?: string
+  bgColor?: string
+  textColor?: string
+  boxShadow?: string | undefined
+  onClick: () => void
 }
 
 const FloatingButton: React.FC<FloatingButtonProps> = ({
@@ -20,30 +20,30 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({
   onClick,
   ...props
 }) => {
-  const router = useRouter();
+  const router = useRouter()
   return (
     <Button
       onClick={onClick}
       isDisabled={disabled}
       boxShadow={boxShadow}
-      pos="absolute"
-      bottom="16px"
-      left="38px"
-      right="35px"
+      pos='absolute'
+      bottom='16px'
+      left='38px'
+      right='35px'
       bg={bgColor}
-      borderRadius="10px"
+      borderRadius='10px'
       _disabled={{
         bg: bgColor,
         textColor: textColor,
-        cursor:'not-allowed',
+        cursor: 'not-allowed',
       }}
       textColor={textColor}
-      py={"10px"}
+      py={'10px'}
       {...props}
     >
-      <Text textStyle="h3">{text}</Text>
+      <Text textStyle='h3'>{text}</Text>
     </Button>
-  );
-};
+  )
+}
 
-export default FloatingButton;
+export default FloatingButton

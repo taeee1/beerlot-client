@@ -1,6 +1,6 @@
-import { generateBeerDetailUrl } from "@/../utils/url";
-import { CommonBeerImage } from "@/components/shared/CommonBeerImage/CommonBeerImage";
-import { LikeButton } from "@/components/shared/LikeButton";
+import { generateBeerDetailUrl } from '@/../utils/url'
+import { CommonBeerImage } from '@/components/shared/CommonBeerImage/CommonBeerImage'
+import { LikeButton } from '@/components/shared/LikeButton'
 import {
   Box,
   HStack,
@@ -8,7 +8,7 @@ import {
   Skeleton,
   SkeletonText,
   Text,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react'
 import {
   BeerCard,
   BeerCardBody,
@@ -17,86 +17,86 @@ import {
   BeerCategoryTagLabel,
   BeerCountryText,
   BeerNameText,
-} from "@components/shared/Card/BeerCardItem";
-import { useRouter } from "next/router";
-import React, { useCallback, useEffect } from "react";
-import { BeerResponseType } from "../../../../types/beer";
-import ReactGA from "react-ga4";
+} from '@components/shared/Card/BeerCardItem'
+import { useRouter } from 'next/router'
+import React, { useCallback, useEffect } from 'react'
+import { BeerResponseType } from '../../../../types/beer'
+import ReactGA from 'react-ga4'
 interface CommonBeersListProps {
-  beersList?: BeerResponseType[];
-  loading: boolean;
+  beersList?: BeerResponseType[]
+  loading: boolean
 }
 
 const CommonBeersList: React.FC<CommonBeersListProps> = ({
   beersList,
   loading,
 }) => {
-  const router = useRouter();
+  const router = useRouter()
 
   const clickHeart = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    router.push("/login");
-    e.stopPropagation();
-  };
+    router.push('/login')
+    e.stopPropagation()
+  }
   // TODO: move to env
-  const REACT_APP_GA_TRACKING_ID = "G-TTNFK5BWQG";
+  const REACT_APP_GA_TRACKING_ID = 'G-TTNFK5BWQG'
 
-  const gaTrackingId = REACT_APP_GA_TRACKING_ID;
+  const gaTrackingId = REACT_APP_GA_TRACKING_ID
   ReactGA.initialize(gaTrackingId, {
     gtagOptions: {
       debug_mode: true,
     },
-  });
+  })
 
   useEffect(() => {
-    ReactGA.send({ hitType: "pageview" });
-  }, []);
+    ReactGA.send({ hitType: 'pageview' })
+  }, [])
 
   const handleClickCard = useCallback(
     (id?: number, name?: string) => {
-      if (!id || !name) return; //TODO: add toast
+      if (!id || !name) return //TODO: add toast
 
-      const url = generateBeerDetailUrl(id, name);
-      router.push(url);
+      const url = generateBeerDetailUrl(id, name)
+      router.push(url)
     },
     [router]
-  );
+  )
 
   const _beersList = loading
-    ? Array(MOCK_BEERS_SKELETON_NUMBER).fill("")
-    : beersList;
+    ? Array(MOCK_BEERS_SKELETON_NUMBER).fill('')
+    : beersList
 
   return (
     <>
-      <Text textColor="black.100" textStyle={"h2_bold"}>
+      <Text textColor='black.100' textStyle={'h2_bold'}>
         🔥 인기맥주 TOP10 🔥
       </Text>
-      <SimpleGrid columns={2} spacing={"16px"}>
+      <SimpleGrid columns={2} spacing={'16px'}>
         {_beersList?.map((item) => {
           return (
             <BeerCard
               key={item.id}
               mt={1}
-              w="full"
+              w='full'
               onClick={() => handleClickCard(item?.id, item.name)}
             >
               <Skeleton isLoaded={!loading}>
-                <BeerCardBody w="full" h="full" position={"relative"}>
-                  <Box position="relative">
+                <BeerCardBody w='full' h='full' position={'relative'}>
+                  <Box position='relative'>
                     <CommonBeerImage
                       src={item.image_url}
                       alt={item.name}
-                      width="175px"
-                      height="175px"
-                      objectFit="cover"
+                      width='175px'
+                      height='175px'
+                      objectFit='cover'
                     />
                   </Box>
                   {!loading && (
-                    <Box position="absolute" top={0} right={0}>
+                    <Box position='absolute' top={0} right={0}>
                       <LikeButton
                         isLiked={false}
                         onClick={clickHeart}
                         h={7}
-                        aria-label="like button"
+                        aria-label='like button'
                       />
                     </Box>
                   )}
@@ -106,13 +106,13 @@ const CommonBeersList: React.FC<CommonBeersListProps> = ({
               <BeerCardFooter>
                 <SkeletonText
                   noOfLines={1}
-                  skeletonHeight={"17px"}
+                  skeletonHeight={'17px'}
                   isLoaded={!loading}
                 >
                   <BeerNameText>{item.name}</BeerNameText>
                 </SkeletonText>
 
-                <Skeleton mt={"2px"} isLoaded={!loading}>
+                <Skeleton mt={'2px'} isLoaded={!loading}>
                   <HStack>
                     <BeerCountryText country={item.origin_country} />
                     <BeerCategoryTag>
@@ -124,13 +124,13 @@ const CommonBeersList: React.FC<CommonBeersListProps> = ({
                 </Skeleton>
               </BeerCardFooter>
             </BeerCard>
-          );
+          )
         })}
       </SimpleGrid>
     </>
-  );
-};
+  )
+}
 
-export { CommonBeersList };
+export { CommonBeersList }
 
-const MOCK_BEERS_SKELETON_NUMBER = 2;
+const MOCK_BEERS_SKELETON_NUMBER = 2

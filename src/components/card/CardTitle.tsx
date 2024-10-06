@@ -1,17 +1,17 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 import {
   CardType,
   POPULAR_BEER_TITLE,
   RECOMMENDED_BEER_TITLE_1,
   RECOMMENDED_BEER_TITLE_2,
-} from "../../../interface/static";
+} from '../../../interface/static'
 
 interface CardProps {
-  title: string;
+  title: string
 }
-const CardTitle: React.FC<CardProps> = ({title}) => {
+const CardTitle: React.FC<CardProps> = ({ title }) => {
   const cardType =
-    title === POPULAR_BEER_TITLE ? CardType.POPULAR : CardType.RECOMMEND;
+    title === POPULAR_BEER_TITLE ? CardType.POPULAR : CardType.RECOMMEND
 
   return (
     <>
@@ -25,28 +25,28 @@ const CardTitle: React.FC<CardProps> = ({title}) => {
         </TitleContainer>
       )}
     </>
-  );
-};
+  )
+}
 
-export default CardTitle;
+export default CardTitle
 
 export const PopularTitle = styled.p`
   margin-bottom: 10px;
 
-  font-family: "Roboto";
+  font-family: 'Roboto';
   font-weight: 700;
 
   color: rgba(0, 0, 0, 0.8);
-`;
+`
 
 export const TitleContainer = styled.div`
   display: flex;
-`;
+`
 export const RecommendTitle = styled.p`
   margin-bottom: 10px;
 
-  font-family: "Roboto";
+  font-family: 'Roboto';
   font-weight: 700;
 
   color: #fea801;
-`;
+`

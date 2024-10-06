@@ -1,50 +1,50 @@
-import {Box, Container, Text} from "@chakra-ui/react";
-import {useRouter} from "next/router";
+import { Box, Container, Text } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 import {
   Accordion,
   AccordionItem,
   AccordionButton,
   AccordionPanel,
   AccordionIcon,
-} from "@chakra-ui/react";
-import {LeftBackRandom} from "../../../src/components/shared/Headers/LeftBackRandom";
+} from '@chakra-ui/react'
+import { LeftBackRandom } from '../../../src/components/shared/Headers/LeftBackRandom'
 const Notice = () => {
-  const router = useRouter();
+  const router = useRouter()
   const handleClickBack = () => {
-    router.back();
-  };
+    router.back()
+  }
   return (
-    <Box w="full" h="full" bg="gray.100">
+    <Box w='full' h='full' bg='gray.100'>
       <Container
-        p={"0px"}
-        h="full"
-        w="full"
-        bg="white"
-        position="relative"
-        maxW="450px"
+        p={'0px'}
+        h='full'
+        w='full'
+        bg='white'
+        position='relative'
+        maxW='450px'
       >
         {/* title */}
         <LeftBackRandom
           onClick={handleClickBack}
-          title="공지사항"
-          borderBottom="none"
+          title='공지사항'
+          borderBottom='none'
         />
-        <Accordion allowToggle pt="52px">
-          {NoticeSettingSection.map(({title, date, content}) => (
+        <Accordion allowToggle pt='52px'>
+          {NoticeSettingSection.map(({ title, date, content }) => (
             <AccordionItem key={title}>
               <AccordionButton
-                py={"8px"}
-                px={"30px"}
-                justifyContent="space-between"
+                py={'8px'}
+                px={'30px'}
+                justifyContent='space-between'
               >
                 <Box>
-                  <Text textColor={"black.100"} textStyle="h3_bold">
+                  <Text textColor={'black.100'} textStyle='h3_bold'>
                     {title}
                   </Text>
                   <Text
-                    textAlign={"start"}
-                    textColor={"gray.300"}
-                    textStyle="h4"
+                    textAlign={'start'}
+                    textColor={'gray.300'}
+                    textStyle='h4'
                   >
                     {date}
                   </Text>
@@ -52,11 +52,11 @@ const Notice = () => {
                 <AccordionIcon />
               </AccordionButton>
               <AccordionPanel
-                p={"12px 30px 30px"}
-                borderTop="1px solid"
-                borderTopColor={"gray.200"}
+                p={'12px 30px 30px'}
+                borderTop='1px solid'
+                borderTopColor={'gray.200'}
               >
-                <Text textColor={"gray.300"} textStyle="h4">
+                <Text textColor={'gray.300'} textStyle='h4'>
                   {content}
                 </Text>
               </AccordionPanel>
@@ -65,20 +65,20 @@ const Notice = () => {
         </Accordion>
       </Container>
     </Box>
-  );
-};
+  )
+}
 
-export default Notice;
+export default Notice
 
 export const NoticeSettingSection = [
   {
-    title: "비어랏 v 0.5 출시!",
-    date: "2022.10.01",
-    content: "드디어 비어랏 0.5을 출시하게 되었습니다.",
+    title: '비어랏 v 0.5 출시!',
+    date: '2022.10.01',
+    content: '드디어 비어랏 0.5을 출시하게 되었습니다.',
   },
   {
-    title: "비어랏 v 1.0 출시!",
-    date: "2022.11.01",
-    content: "드디어 비어랏 1.0을 출시하게 되었습니다.",
+    title: '비어랏 v 1.0 출시!',
+    date: '2022.11.01',
+    content: '드디어 비어랏 1.0을 출시하게 되었습니다.',
   },
-];
+]

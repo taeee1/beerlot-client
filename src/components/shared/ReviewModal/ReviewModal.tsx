@@ -6,10 +6,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import React, { ChangeEvent, useState } from 'react'
-import {
-  BeerTypeV2,
-  CreateReviewRequestTypeV2,
-} from '../../../../types/review'
+import { BeerTypeV2, CreateReviewRequestTypeV2 } from '../../../../types/review'
 import { BeerlotLoading } from '../Loading'
 import { BeerReviewContent } from './BeerReviewContent'
 import { BeerSearchContent } from './BeerSearchContent'

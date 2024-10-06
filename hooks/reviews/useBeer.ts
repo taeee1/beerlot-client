@@ -3,17 +3,17 @@ import {
   UseQueryOptions,
   useMutation,
   useQuery,
-} from "react-query";
-import { FailureResponse, FailureResponseV2 } from "types/api";
+} from 'react-query'
+import { FailureResponse, FailureResponseV2 } from 'types/api'
 import {
   BeerReviewQueryParamsV2,
   CreateReviewRequestTypeV2,
   CreateReviewResponseTypeV2,
   ReviewTypeV2,
-} from "../../types/review";
-import { createReviewApi, fetchBeerReviewsApi } from "@/api/review/beer";
+} from '../../types/review'
+import { createReviewApi, fetchBeerReviewsApi } from '@/api/review/beer'
 
-export const createReviewMutationKey = () => ["createReview"];
+export const createReviewMutationKey = () => ['createReview']
 
 export const useCreateReviewMutation = (
   accessToken: string,
@@ -21,8 +21,8 @@ export const useCreateReviewMutation = (
     CreateReviewResponseTypeV2,
     FailureResponse,
     {
-      beerId: number;
-      data: CreateReviewRequestTypeV2;
+      beerId: number
+      data: CreateReviewRequestTypeV2
     }
   >
 ) => {
@@ -32,16 +32,16 @@ export const useCreateReviewMutation = (
       beerId,
       data,
     }: {
-      beerId: number;
-      data: CreateReviewRequestTypeV2;
+      beerId: number
+      data: CreateReviewRequestTypeV2
     }) => {
-      return createReviewApi(beerId, data, accessToken);
+      return createReviewApi(beerId, data, accessToken)
     },
     ...options,
-  });
-};
+  })
+}
 
-export const beerReviewsQueryKey = (beerId: number) => ["beerReviews", beerId];
+export const beerReviewsQueryKey = (beerId: number) => ['beerReviews', beerId]
 
 export const useBeerReviewsQuery = (
   queryParams: BeerReviewQueryParamsV2,
@@ -53,5 +53,5 @@ export const useBeerReviewsQuery = (
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     ...options,
-  });
-};
+  })
+}
