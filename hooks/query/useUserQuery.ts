@@ -27,7 +27,6 @@ import {
 import { BeerType } from '../../types/server/beer/response'
 
 export const getUserInfoQueryKey = () => ['getUserInfo']
-export const userBeersQueryKey = () => ['userBeers']
 export const userLikedReviewsQueryKey = () => ['userLikedReviews']
 
 export const useUserInfoQuery = (

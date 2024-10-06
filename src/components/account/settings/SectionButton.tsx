@@ -26,6 +26,7 @@ export const SectionButton: React.FC<SectionButtonProps> = ({
   return (
     <HStack
       w='full'
+      h={'fit-content'}
       py='8px'
       pl='30px'
       pr='20px'

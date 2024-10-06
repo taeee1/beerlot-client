@@ -29,10 +29,7 @@ export const LeftBackRandom: React.FC<LeftBackRandomProps> = ({
       borderBottomColor='gray.200'
       {...props}
     >
-      <Button onClick={onClick} p='0px !important' bg='trans'>
-        <BackButton onClick={onClick} />
-      </Button>
-
+      <BackButton onClick={onClick} />
       {title ? <Text textStyle='h2_bold'>{title}</Text> : <BeerlotTitle />}
       <Box w='40px' />
     </Flex>
