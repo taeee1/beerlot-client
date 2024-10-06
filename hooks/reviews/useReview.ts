@@ -14,21 +14,13 @@ import {
   UseInfiniteQueryOptions,
 } from 'react-query'
 import { FailureResponseV2 } from 'types/api'
-import {
-  AllBeersQueryParamsV2,
-  ReviewTypeV2,
-  UpdateReviewRequestTypeV2,
-} from '../../typedef/review'
-import { ReviewSortEnum } from '../../interface/types'
+import { ReviewTypeV2, UpdateReviewRequestTypeV2 } from '../../types/review'
 import { fetchMyReviewsApi } from '@/api/beers/api'
 import { myReviewsQueryKey } from '../query/useBeerQuery'
+import { ReviewType } from '../../types/server/review/response'
+import { ReviewPaginatedRequest } from '../../types/server/pagination/request'
+import { PaginatedResponseType } from '../../types/server/pagination/response'
 
-export const allReviewsQueryKey = (sort?: ReviewSortEnum) => [
-  'allReviews',
-  sort,
-]
-export const singleReviewQueryKey = () => ['singleReview']
-export const deleteReviewMutationKey = () => ['deleteReview']
 export const updateReviewMutationKey = () => ['updateReview']
 
 export const useReviewUpdateMutation = (
@@ -76,25 +68,21 @@ export const useReviewDeleteMutation = (
     ...options,
   })
 }
-export const useAllReviewsQuery = (
-  queryParam: AllBeersQueryParamsV2,
-  options?: UseQueryOptions<ReviewTypeV2[], FailureResponseV2>
-) => {
-  return useQuery({
-    queryKey: allReviewsQueryKey(queryParam.sort),
-    queryFn: () => fetchAllReviewsApi(queryParam),
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    ...options,
-  })
-}
 
 export const useAllReviewsInfiniteQuery = (
-  queryParam: AllBeersQueryParamsV2,
-  options?: UseInfiniteQueryOptions<ReviewTypeV2[], FailureResponseV2>
+  queryParam: ReviewPaginatedRequest,
+  options?: UseInfiniteQueryOptions<
+    PaginatedResponseType<ReviewType>,
+    FailureResponseV2,
+    PaginatedResponseType<ReviewType>
+  >
 ) => {
-  return useInfiniteQuery({
-    queryKey: allReviewsQueryKey(queryParam.sort),
+  return useInfiniteQuery<
+    PaginatedResponseType<ReviewType>,
+    FailureResponseV2,
+    PaginatedResponseType<ReviewType>
+  >({
+    queryKey: ['allReviews', queryParam],
     queryFn: ({ pageParam = 1 }) =>
       fetchAllReviewsApi({ ...queryParam, page: pageParam }),
     getNextPageParam: (lastPage, pages) => {
@@ -109,8 +97,7 @@ export const useAllReviewsInfiniteQuery = (
 export const useMyReviewsQuery = (
   beerId: number,
   accessToken: string,
-  options?: UseQueryOptions<ReviewTypeV2, FailureResponseV2> // 배열로 설정
-
+  options?: UseQueryOptions<ReviewType, FailureResponseV2>
 ) => {
   return useQuery({
     queryKey: myReviewsQueryKey(beerId),

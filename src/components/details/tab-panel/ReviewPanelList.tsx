@@ -9,16 +9,15 @@ import {
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { Rating } from '../../shared/Rating'
-
 import { roundToDecimal } from '@/../utils/number'
 import { FeedFilter } from '@/components/feed/FeedFilter/FeedFilter'
 import { FollowingTabPanelItem } from '@/components/feed/TabPanelItem'
 import { useBeerReviewsQuery } from '../../../../hooks/reviews/useBeer'
 import { MOCK_FEED_FILTER_LIST } from '../../../../interface/static'
-import { ReviewSortEnum } from '../../../../interface/types'
-import { ReviewTypeV2 } from '../../../../typedef/review'
+import { ReviewTypeV2 } from '../../../../types/review'
 import { BeerInfoHStack } from './BasicPanelList'
 import { UserReview } from './UserReview'
+import { ReviewSortType } from '../../../../types/common'
 
 interface ReviewPanelListProps {
   rate: number
@@ -31,7 +30,7 @@ export const ReviewPanelList: React.FC<ReviewPanelListProps> = ({
   rate,
   buyFrom,
 }) => {
-  const [selectedTag, setSelectedTag] = useState<ReviewSortEnum>(
+  const [selectedTag, setSelectedTag] = useState<ReviewSortType>(
     MOCK_FEED_FILTER_LIST[0].tags[0]
   )
 
@@ -45,7 +44,7 @@ export const ReviewPanelList: React.FC<ReviewPanelListProps> = ({
     refetch()
   }, [selectedTag, refetch])
 
-  const handleSelectTag = (tag: ReviewSortEnum) => {
+  const handleSelectTag = (tag: ReviewSortType) => {
     setSelectedTag(tag)
   }
 

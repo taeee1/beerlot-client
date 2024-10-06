@@ -1,12 +1,13 @@
 import { MOCK_FEED_FILTER_LIST } from '@/../interface/static'
-import { ReviewFilterSort, ReviewSortEnum } from '@/../interface/types'
+import { ReviewFilterSort } from '@/../interface/types'
 import { RightChevron } from '@/components/shared/CustomIcons/customIcons'
 import FilterTag from '@/components/shared/Filters/FilterTag'
 import { HStack, Icon, StackProps, Text } from '@chakra-ui/react'
+import { ReviewSortType } from '../../../../types/common'
 
 interface FeedFilterProps extends StackProps {
-  selectedTag: ReviewSortEnum
-  onClickTag: (tag: ReviewSortEnum) => void
+  selectedTag: ReviewSortType
+  onClickTag: (tag: ReviewSortType) => void
 }
 
 export const FeedFilter: React.FC<FeedFilterProps> = ({
@@ -28,7 +29,7 @@ export const FeedFilter: React.FC<FeedFilterProps> = ({
               overflowX={'scroll'}
               className={'hide-scrollbar '}
             >
-              {tags.map((tag: ReviewSortEnum) => {
+              {tags.map((tag: ReviewSortType) => {
                 const isSelectedTag = selectedTag === tag
                 return (
                   <Text

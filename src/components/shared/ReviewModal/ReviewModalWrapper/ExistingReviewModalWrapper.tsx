@@ -9,7 +9,7 @@ import {
 import {
   BeerTypeV2,
   CreateReviewRequestTypeV2,
-} from '../../../../../typedef/review'
+} from '../../../../../types/review'
 import { ReviewModal } from '../ReviewModal'
 
 interface ExistingReviewModalWrapperProps {

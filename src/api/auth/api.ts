@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SignupRequestType } from "../../../typedef/review";
+import { SignupRequestType } from "../../../types/review";
 
 export const signupApi = async (
   queryParam: SignupRequestType,

@@ -20,7 +20,7 @@ import {
 } from "@components/shared/Card/BeerCardItem";
 import { useRouter } from "next/router";
 import React, { useCallback, useEffect } from "react";
-import { BeerResponseType } from "../../../../typedef/server/beer";
+import { BeerResponseType } from "../../../../types/beer";
 import ReactGA from "react-ga4";
 interface CommonBeersListProps {
   beersList?: BeerResponseType[];

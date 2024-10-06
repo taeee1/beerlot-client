@@ -1,7 +1,7 @@
 import {
   BeerResponseType,
   SingelBeerFetchResponseType,
-} from '@/../typedef/server/beer'
+} from '../../../../types/beer'
 import React, { useCallback, useEffect, useMemo } from 'react'
 import { CommonBeerImage } from '@/components/shared/CommonBeerImage/CommonBeerImage'
 import {
@@ -29,11 +29,10 @@ import {
   useBeerLikeMutation,
 } from '@/../hooks/query/useBeerLikeMutation'
 import { generateBeerDetailUrl } from '@/../utils/url'
-import { mockSession } from 'next-auth/client/__tests__/helpers/mocks'
 
 interface RecommendedBeersListProps {
   beersList: (SingelBeerFetchResponseType | undefined)[]
-  likedBeersList: BeerResponseType[] | undefined
+  likedBeersIdList: (number | undefined)[]
   username: string
   isLoading?: boolean
   onValidateLikedBeersList: () => void
@@ -42,24 +41,20 @@ interface RecommendedBeersListProps {
 const RecommendedBeersList: React.FC<RecommendedBeersListProps> = ({
   onValidateLikedBeersList,
   beersList,
-  likedBeersList,
+  likedBeersIdList,
   isLoading,
   username,
 }) => {
   const router = useRouter()
   const accessToken = Cookies.get('beerlot-oauth-auth-request') ?? ''
-  const likedBeerIds = useMemo(
-    () => likedBeersList?.map((item) => item?.id),
-    [likedBeersList]
-  )
 
-  const likeBeerMutation = useBeerLikeMutation({
+  const likeBeerMutation = useBeerLikeMutation(accessToken, {
     onSuccess: () => {
       onValidateLikedBeersList()
     },
   })
 
-  const dislikeBeerMutation = useBeerDislikeMutation({
+  const dislikeBeerMutation = useBeerDislikeMutation(accessToken, {
     onSuccess: () => {
       onValidateLikedBeersList()
     },
@@ -70,21 +65,16 @@ const RecommendedBeersList: React.FC<RecommendedBeersListProps> = ({
       e.stopPropagation()
       if (id === undefined) return
 
-      const isLiked = likedBeerIds?.includes(id)
+      const isLiked = likedBeersIdList?.includes(id)
 
       if (!isLiked) {
-        likeBeerMutation.mutate({ beerId: id, accessToken })
+        likeBeerMutation.mutate(id)
       } else {
-        dislikeBeerMutation.mutate({ beerId: id, accessToken })
+        dislikeBeerMutation.mutate(id)
       }
     },
-    [accessToken, dislikeBeerMutation, likeBeerMutation, likedBeerIds]
+    [accessToken, dislikeBeerMutation, likeBeerMutation, likedBeersIdList]
   )
-
-  const checkIsLiked = (id?: number) => {
-    if (id === undefined) return false
-    return likedBeerIds?.includes(id) ?? false
-  }
 
   const handleClickCard = useCallback(
     (id?: number, name?: string) => {
@@ -153,7 +143,7 @@ const RecommendedBeersList: React.FC<RecommendedBeersListProps> = ({
                   </Box>
                   <Box position='absolute' top={0} right={0}>
                     <LikeButton
-                      isLiked={likedBeerIds?.includes(beer?.id) ?? false}
+                      isLiked={likedBeersIdList?.includes(beer?.id) ?? false}
                       onClick={(e) => handleClickLike(e, beer?.id)}
                       h={7}
                       aria-label='like button'

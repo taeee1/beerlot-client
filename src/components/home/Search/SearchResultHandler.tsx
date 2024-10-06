@@ -1,7 +1,7 @@
 import EmptySearchResult from "@/components/search/EmptySearchResult";
 import { Box, Center, Text } from "@chakra-ui/react";
 import React from "react";
-import { BeerResponseType } from "../../../../typedef/server/beer";
+import { BeerResponseType } from "../../../../types/beer";
 import { SearchPromptBox } from "./SearchPromptBox";
 import { BeerlotLoading } from "@/components/shared/Loading";
 

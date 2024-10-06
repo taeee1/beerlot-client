@@ -1,7 +1,7 @@
 import { signupApi } from "@/api/auth/api";
 import { UseQueryOptions, useQuery } from "react-query";
 import { DefaultResponse, FailureResponse } from "types/api";
-import { SignupRequestType } from "../../typedef/review";
+import { SignupRequestType } from "../../types/review";
 
 export const signupQueryKey = () => ["signup"];
 

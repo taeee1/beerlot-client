@@ -9,7 +9,7 @@ import React, { ChangeEvent, useState } from 'react'
 import {
   BeerTypeV2,
   CreateReviewRequestTypeV2,
-} from '../../../../typedef/review'
+} from '../../../../types/review'
 import { BeerlotLoading } from '../Loading'
 import { BeerReviewContent } from './BeerReviewContent'
 import { BeerSearchContent } from './BeerSearchContent'

@@ -1,9 +1,6 @@
-import { dislikeReviewApi, likeReviewApi } from "@/api/review/like";
-import { UseMutationOptions, useMutation } from "react-query";
-import { FailureResponseV2 } from "types/api";
-
-export const reviewLikeKey = () => ["reviewLike"];
-export const reviewDislikeKey = () => ["reviewDisike"];
+import { dislikeReviewApi, likeReviewApi } from '@/api/review/like'
+import { UseMutationOptions, useMutation } from 'react-query'
+import { FailureResponseV2 } from 'types/api'
 
 export const useReviewLikeMutation = (
   reviewId: number,
@@ -13,8 +10,8 @@ export const useReviewLikeMutation = (
   return useMutation({
     mutationFn: () => likeReviewApi(reviewId, accessToken),
     ...options,
-  });
-};
+  })
+}
 
 export const useReviewDislikeMutation = (
   reviewId: number,
@@ -24,5 +21,5 @@ export const useReviewDislikeMutation = (
   return useMutation({
     mutationFn: () => dislikeReviewApi(reviewId, accessToken),
     ...options,
-  });
-};
+  })
+}

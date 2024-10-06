@@ -10,11 +10,11 @@ import { BeerFilterRequestType, FailureResponse } from 'types/api'
 import { LANGUAGE_TYPE } from '../../interface/types'
 import {
   BeersResponseType,
-  RecommendedBeersResponse,
   SingelBeerFetchResponseType,
   TopBeersType,
-} from '../../typedef/server/beer'
-import { ReviewTypeV2 } from '../../typedef/review'
+} from '../../types/beer'
+import { ReviewTypeV2 } from '../../types/review'
+import { RecommendedBeersResponse } from '../../types/server/beer/response'
 
 export const topBeersQueryKey = () => ['topBeers']
 export const myReviewsQueryKey = (beerId: number) => [`myReviews`, beerId]

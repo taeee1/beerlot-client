@@ -10,7 +10,7 @@ import {
   CreateReviewRequestTypeV2,
   CreateReviewResponseTypeV2,
   ReviewTypeV2,
-} from "../../typedef/review";
+} from "../../types/review";
 import { createReviewApi, fetchBeerReviewsApi } from "@/api/review/beer";
 
 export const createReviewMutationKey = () => ["createReview"];

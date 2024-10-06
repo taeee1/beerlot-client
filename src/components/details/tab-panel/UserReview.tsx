@@ -26,7 +26,6 @@ export const UserReview: React.FC<UserReviewProps> = ({ beerId }) => {
     isLoading,
     error,
   } = useMyReviewsQuery(beerId, accessToken)
-  console.log('review', review)
 
   return (
     <>
@@ -38,14 +37,14 @@ export const UserReview: React.FC<UserReviewProps> = ({ beerId }) => {
           <Box w={'full'} p={0}>
             <FollowingTabPanelItem
               key={review.id}
-              reviewId={review.id}
-              nickname={review.member.username}
-              reviewTime={review.updated_at}
-              beerName={review.beer?.name}
-              rate={review.rate}
+              reviewId={review.id ?? 0}
+              nickname={review.member?.username ?? ''}
+              reviewTime={review.updated_at ?? ''}
+              beerName={review.beer?.name ?? ''}
+              rate={review.rate ?? 0}
               imageSrc={review.image_url}
-              content={review.content}
-              likedCount={review.like_count}
+              content={review.content ?? ''}
+              likedCount={review.like_count ?? 0}
               isEditable={false}
             />
           </Box>

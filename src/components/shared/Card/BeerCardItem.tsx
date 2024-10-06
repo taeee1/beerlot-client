@@ -15,7 +15,7 @@ import {
   Image as ChakraImage,
 } from "@chakra-ui/react";
 import React from "react";
-import {BeerResponseType} from "../../../../typedef/server/beer";
+import {BeerResponseType} from "../../../../types/beer";
 import {CommonBeerImage} from "../CommonBeerImage/CommonBeerImage";
 import {getFlagByCountryName} from "@/components/home/LoggedInBeersList/beer.service";
 interface BeerCardItemProps extends CardProps {

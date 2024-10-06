@@ -1,9 +1,8 @@
 import axios from 'axios'
-import { LANGUAGE_TYPE, ReviewSortEnum } from '../../../interface/types'
-import {
-  AllBeersQueryParamsV2,
-  UpdateReviewRequestTypeV2,
-} from '../../../typedef/review'
+import { LANGUAGE_TYPE } from '../../../interface/types'
+import { UpdateReviewRequestTypeV2 } from '../../../types/review'
+import { ReviewPaginatedRequest } from '../../../types/server/pagination/request'
+import { ReviewSortType } from '../../../types/common'
 
 export const deleteReviewApi = async (
   reviewId: number,
@@ -19,11 +18,13 @@ export const deleteReviewApi = async (
   return res.data
 }
 
-export const fetchAllReviewsApi = async (queryParam: AllBeersQueryParamsV2) => {
+export const fetchAllReviewsApi = async (
+  queryParam: ReviewPaginatedRequest
+) => {
   const {
     page = 1,
     size = 10,
-    sort = ReviewSortEnum.RecentlyUpdated,
+    sort = ReviewSortType.RECENTLY_UPDATED,
   } = queryParam
   const language: LANGUAGE_TYPE = LANGUAGE_TYPE.KR
   const res = await axios.get(`/api/v1/reviews`, {

@@ -8,7 +8,7 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import React, { useCallback, useEffect, useState } from 'react'
-import { CreateReviewRequestTypeV2 } from '../../../../typedef/review'
+import { CreateReviewRequestTypeV2 } from '../../../../types/review'
 import { LeftCloseRandom } from '../Headers/LeftCloseRandom'
 import BeerNameSection from './BeerNameSection'
 import { BeerPurchaseSection } from './BeerPurchaseSection'

@@ -1,6 +1,6 @@
 import { Flex, FlexProps, IconButton, Text, VStack } from "@chakra-ui/react";
 import { RightArrow } from "../CustomIcons/customIcons";
-import { CreateReviewRequestTypeV2 } from "../../../../typedef/review";
+import { CreateReviewRequestTypeV2 } from "../../../../types/review";
 
 interface BeerNameSectionProps extends FlexProps {
   beerName: string;

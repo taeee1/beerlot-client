@@ -10,7 +10,7 @@ import {
 import { Box, HStack } from '@chakra-ui/react'
 import { CommonBeerImage } from '@components/shared/CommonBeerImage/CommonBeerImage'
 import React from 'react'
-import { BeerType } from '../../../../typedef/server/beer'
+import { BeerType } from '../../../../types/beer'
 
 export const RecommendBeerCard = ({
   item,

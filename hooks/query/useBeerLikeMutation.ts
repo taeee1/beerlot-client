@@ -1,51 +1,26 @@
-import { dislikeBeerApi, likeBeerApi } from "@/api/beers/api";
-import { FailureResponse } from "@/types/api";
-import { UseMutationOptions, useMutation } from "react-query";
+import { dislikeBeerApi, likeBeerApi } from '@/api/beers/api'
+import { FailureResponseV2 } from '@/types/api'
+import { useMutation, UseMutationOptions } from 'react-query'
 
 export const useBeerLikeMutation = (
-  options?: UseMutationOptions<
-    any,
-    FailureResponse,
-    { beerId: number; accessToken: string }
-  >
+  accessToken: string,
+  options?: UseMutationOptions<void, FailureResponseV2, number> // number 타입을 추가
 ) => {
-  const mutationFn = async ({
-    beerId,
-    accessToken,
-  }: {
-    beerId: number;
-    accessToken: string;
-  }) => {
-    const res = await likeBeerApi(beerId, accessToken);
-    return res;
-  };
-  return useMutation<
-    any,
-    FailureResponse,
-    { beerId: number; accessToken: string }
-  >(mutationFn, options);
+  return useMutation<void, FailureResponseV2, number>( // 제네릭 타입 추가
+    (beerId: number) => likeBeerApi(beerId, accessToken),
+    options
+  );
 };
 
 export const useBeerDislikeMutation = (
-  options?: UseMutationOptions<
-    any,
-    FailureResponse,
-    { beerId: number; accessToken: string }
-  >
+  accessToken: string,
+  options?: UseMutationOptions<void, FailureResponseV2, number>
 ) => {
-  const mutationFn = async ({
-    beerId,
-    accessToken,
-  }: {
-    beerId: number;
-    accessToken: string;
-  }) => {
-    const res = await dislikeBeerApi(beerId, accessToken);
-    return res;
-  };
-  return useMutation<
-    any,
-    FailureResponse,
-    { beerId: number; accessToken: string }
-  >(mutationFn, options);
-};
+  return useMutation({
+    mutationFn: (beerId: number) => dislikeBeerApi(beerId, accessToken),
+    ...options,
+  })
+}
+// shift + command + 화살표 (함수 통째로 이동)
+
+// shift + option + 화살표 (한 줄 이동)

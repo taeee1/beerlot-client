@@ -1,39 +1,45 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react'
 import {
   BeerResponseType,
   SingelBeerFetchResponseType,
-} from "../../../../typedef/server/beer";
-import RecommendedBeersList from "./RecommendedBeersList";
-import TopBeersList from "./TopBeersList";
-import Cookies from "js-cookie";
-import { useUserLikedBeersQuery } from "@/../hooks/query/useUserQuery";
-import { Center } from "@chakra-ui/react";
-import { BeerlotLoading } from "@/components/shared/Loading";
+} from '../../../../types/beer'
+import RecommendedBeersList from './RecommendedBeersList'
+import TopBeersList from './TopBeersList'
+import Cookies from 'js-cookie'
+import { useUserLikedBeersQuery } from '@/../hooks/query/useUserQuery'
+import { Center } from '@chakra-ui/react'
+import { BeerlotLoading } from '@/components/shared/Loading'
 
 interface LoggedInBeersListProps {
-  topBeersList?: BeerResponseType[];
-  topBeersLoading:boolean;
-  recommendedBeerListLoading:boolean;
-  recommendedBeerList?: (SingelBeerFetchResponseType | undefined)[];
-  userName?: string;
+  topBeersList?: BeerResponseType[]
+  topBeersLoading: boolean
+  recommendedBeerListLoading: boolean
+  recommendedBeerList?: (SingelBeerFetchResponseType | undefined)[]
+  userName?: string
 }
 const LoggedInBeersList: React.FC<LoggedInBeersListProps> = ({
   topBeersList,
   recommendedBeerList,
   userName,
-   recommendedBeerListLoading,
-   topBeersLoading
+  recommendedBeerListLoading,
+  topBeersLoading,
 }) => {
-  const accessToken = Cookies.get("beerlot-oauth-auth-request") ?? "";
-  const userBeersQuery = useUserLikedBeersQuery(accessToken);
+  const accessToken = Cookies.get('beerlot-oauth-auth-request') ?? ''
+  const userBeersQuery = useUserLikedBeersQuery(accessToken)
+  const likedBeerIds =
+    userBeersQuery.data?.pages.flatMap((page) =>
+      page.contents
+        ?.map((beer) => beer.id)
+        .filter((id): id is number => id !== undefined)
+    ) ?? []
 
   useEffect(() => {
-    userBeersQuery.refetch();
-  }, []);
+    userBeersQuery.refetch()
+  }, [])
 
   const handleValidateLikedBeersList = () => {
-    userBeersQuery.refetch();
-  };
+    userBeersQuery.refetch()
+  }
 
   if (
     userBeersQuery.isLoading ||
@@ -41,10 +47,10 @@ const LoggedInBeersList: React.FC<LoggedInBeersListProps> = ({
     recommendedBeerList === undefined
   )
     return (
-      <Center w={"full"} py={"40%"}>
+      <Center w={'full'} py={'40%'}>
         <BeerlotLoading />
       </Center>
-    );
+    )
 
   return (
     <>
@@ -52,7 +58,7 @@ const LoggedInBeersList: React.FC<LoggedInBeersListProps> = ({
         <TopBeersList
           beersList={topBeersList}
           isLoading={topBeersLoading}
-          likedBeersList={userBeersQuery?.data?.contents}
+          likedBeersIdList={likedBeerIds}
           onValidateLikedBeersList={handleValidateLikedBeersList}
         />
       )}
@@ -61,12 +67,12 @@ const LoggedInBeersList: React.FC<LoggedInBeersListProps> = ({
           username={userName}
           beersList={recommendedBeerList}
           isLoading={recommendedBeerListLoading}
-          likedBeersList={userBeersQuery?.data?.contents}
+          likedBeersIdList={likedBeerIds}
           onValidateLikedBeersList={handleValidateLikedBeersList}
         />
       )}
     </>
-  );
-};
+  )
+}
 
-export { LoggedInBeersList };
+export { LoggedInBeersList }

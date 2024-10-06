@@ -1,29 +1,29 @@
-import axios from "axios";
-import { ReviewSortEnum } from "../../../interface/types";
+import axios from 'axios'
 import {
   BeerReviewQueryParamsV2,
   CreateReviewRequestTypeV2,
-} from "../../../typedef/review";
+} from '../../../types/review'
+import { ReviewSortType } from '../../../types/common'
 
 export const createReviewApi = async (
   beerId: number,
   data: CreateReviewRequestTypeV2,
   accessToken: string
 ) => {
-  const url = `/api/v1/beers/${beerId}/reviews`;
+  const url = `/api/v1/beers/${beerId}/reviews`
   const config = {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
-  };
+  }
   const response = await axios.post(
     url,
     true ? { ...data, image_url: data.image_url[0] } : data,
     config
-  );
+  )
 
-  return response.data;
-};
+  return response.data
+}
 
 export const fetchBeerReviewsApi = async (
   queryParams: BeerReviewQueryParamsV2
@@ -32,8 +32,8 @@ export const fetchBeerReviewsApi = async (
     beerId,
     page = 1,
     size = 10,
-    sort = ReviewSortEnum.RecentlyUpdated,
-  } = queryParams;
+    sort = ReviewSortType.RECENTLY_UPDATED,
+  } = queryParams
 
   const res = await axios.get(`/api/v1/beers/${beerId}/reviews`, {
     params: {
@@ -41,7 +41,7 @@ export const fetchBeerReviewsApi = async (
       size,
       sort,
     },
-  });
+  })
 
-  return res.data.contents;
-};
+  return res.data.contents
+}
