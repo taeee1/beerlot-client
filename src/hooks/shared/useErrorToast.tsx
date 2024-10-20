@@ -25,7 +25,7 @@ export const useErrorToast = () => {
     } else if (error?.status === 500) {
       errorMessage = '예상치 못한 에러가 발생했습니다.'
     } else {
-      errorMessage = error.message
+      errorMessage = error.message ?? '새로고침 후 다시 시도해주세요.'
     }
 
     toast({
